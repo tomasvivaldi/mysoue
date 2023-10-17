@@ -43,7 +43,7 @@ const ImageSlider = () => {
             layout="fill"
             objectFit="cover"
             objectPosition={
-              index === 0 ? "top" : index === 1 ? "top center" : "top"
+              index === 0 ? "50% 25%" : index === 1 ? "40% 25%" : "60% 25%"
             }
           />
         </div>

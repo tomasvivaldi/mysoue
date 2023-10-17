@@ -76,12 +76,12 @@ module.exports = {
         },
         zoomAndPan2: {
           "0%": { transform: "scale(1.3) translateX(0) translateY(0)" },
-          "50%": { transform: "scale(1.4) translateX(-10%) translateY(-10%)" },
+          "50%": { transform: "scale(1.4) translateX(-10%) translateY(10%)" },
           "100%": { transform: "scale(1.3) translateX(0) translateY(0)" },
         },
         zoomAndPan3: {
           "0%": { transform: "scale(1.3) translateX(0) translateY(0)" },
-          "50%": { transform: "scale(1.2) translateX(10%) translateY(-10%)" },
+          "50%": { transform: "scale(1.4) translateX(10%) translateY(10%)" },
           "100%": { transform: "scale(1.3) translateX(0) translateY(0)" },
         },
       },
