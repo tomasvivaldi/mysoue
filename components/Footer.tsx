@@ -8,35 +8,37 @@ const Footer = () => {
         className="max-w-7xl mx-auto flex flex-col sm:flex-row 
       justify-around w-full sm:justify-between items-center gap-8 sm:gap-12"
       >
-        {/* Federation Membership Info */}
-        <div className=" flex items-center flex-col gap-4 max-w-[150px] text-center">
-          <Image
-            src="/logo.png"
-            alt="Logo of Aikido Federation Germany"
-            width={256}
-            height={256}
-            className="w-[100px] rounded-full mx-auto"
-          />
-          <p className="text-xs sm:text-sm">
-            Aikido-Dojo Jiyukan Karlsruhe e.V.
-          </p>
-        </div>
-        <div className="ml-44 self-center flex items-center flex-col gap-4 max-w-[250px] text-center">
-          <Image
-            src="/aikido-federation.webp" // Adjust the path to your image
-            alt="Logo of Aikido Federation Germany"
-            width={368}
-            height={143}
-            className="w-[200px] rounded-lg mx-auto"
-          />
-          <p className="text-xs">
-            Das Dojo ist Mitglied in der Aikido Föderation Deutschland.
-          </p>
+        <div className="flex flex-row w-fit ">
+          {/* Federation Membership Info */}
+          <div className=" flex items-center flex-col gap-4 max-w-[150px] text-center">
+            <Image
+              src="/logo.png"
+              alt="Logo of Aikido Federation Germany"
+              width={256}
+              height={256}
+              className="h-[60px] sm:h-[80px] rounded-full mx-auto"
+            />
+            <p className="text-xs sm:text-sm">
+              Aikido-Dojo Jiyukan Karlsruhe e.V.
+            </p>
+          </div>
+          <div className="lg:ml-44 self-center flex items-center flex-col gap-4 max-w-[250px] text-center">
+            <Image
+              src="/aikido-federation.webp" // Adjust the path to your image
+              alt="Logo of Aikido Federation Germany"
+              width={368}
+              height={143}
+              className="h-[60px] sm:h-[80px] rounded-lg mx-auto"
+            />
+            <p className="text-xs sm:text-sm">
+              Das Dojo ist Mitglied in der Aikido Föderation Deutschland.
+            </p>
+          </div>
         </div>
         <div className="flex flex-row gap-8 ">
           {/* Additional footer content, e.g. links, contact details */}
           <div className="">
-            <h4 className="font-bold mb-2">Quick Links</h4>
+            <h4 className="font-bold mb-2">Quick&nbsp;Links</h4>
             <ul className="text-xs sm:text-sm space-y-2">
               <li>
                 <a href="/" className="hover:underline">
