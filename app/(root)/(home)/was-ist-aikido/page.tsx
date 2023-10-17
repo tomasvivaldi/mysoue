@@ -21,10 +21,10 @@ const WhatIsAikido = () => {
         <title>Was ist Aikido? - Details</title>
       </Head>
       <div className="flex flex-col">
-        <div className="h-[40%] min-h-[40vh] flex x-paddings">
-          <div className="absolute top-0 left-0 w-full h-[40%] -z-10">
+        <div className="h-[60%] min-h-[60vh] sm:h-[40%] sm:min-h-[40vh] flex x-paddings">
+          <div className="absolute top-0 left-0 w-full h-[60%] sm:h-[40%] -z-10">
             <Image
-              src="/hero1.webp"
+              src="/was-ist-aikido.webp"
               alt="Was ist Aikido"
               layout="fill"
               objectFit="cover"
@@ -108,7 +108,7 @@ const WhatIsAikido = () => {
         </section>
 
         {/* Quotes Section */}
-        <section className="my-8 p-8 rounded-lg shadow-lg gradient_blue-purple text-slate-100 mx-8">
+        <section className="my-8 mx-2 sm:mx-8 p-4 sm:p-8 rounded-lg shadow-lg gradient_blue-purple text-slate-100 ">
           <h2 className="heading2 mb-4">Zitate</h2>
           {quotes.map((quote, index) => (
             <blockquote
