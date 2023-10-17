@@ -42,7 +42,9 @@ const ImageSlider = () => {
             alt={`Slide ${index}`}
             layout="fill"
             objectFit="cover"
-            objectPosition="top"
+            objectPosition={
+              index === 0 ? "right" : index === 1 ? "top center" : "right"
+            }
           />
         </div>
       ))}
