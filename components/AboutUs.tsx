@@ -8,10 +8,11 @@ const AboutUs = () => {
         {/* Image Section */}
         <div className="relative rounded-lg h-[350px] sm:h-[500px] w-[80%] lg:w-[40%] max-w-[80%] mx-auto  mb-8 lg:mb-0">
           <Image
-            src="/hero1.webp"
+            src="/aboutus.webp"
             alt="about us image"
             layout="fill"
             objectFit="cover"
+            objectPosition="75% 75%"
             className=" rounded-lg "
           />
         </div>
