@@ -48,21 +48,21 @@ const ExternalLinks = () => {
         {links.map((link, idx) => (
           <div
             key={idx}
-            className="space-y-0 shadow p-2 sm:space-y-4 sm:p-4 border border-slate-200 rounded-lg"
+            className="space-y-0 shadow group md:hover:shadow-lg p-2 sm:space-y-4 sm:p-4 border border-slate-200 rounded-lg"
           >
             <img
               src={link.image}
               alt={link.title}
               width={200}
               height={300}
-              className="rounded-lg hidden sm:block"
+              className="rounded-lg hidden "
             />
             <h3 className="font-semibold">
               <a
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sky-600 hover:underline hover:text-sky-700"
+                className="text-sky-600 hover:underline hover:text-sky-700 group-hover:underline"
               >
                 {link.title}
               </a>
