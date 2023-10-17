@@ -54,12 +54,14 @@ const AboutUs = () => {
         <div className=" mx-8 mt-32">
           <h3 className="heading2 mb-4">Wo Sie uns finden</h3>
 
-          <p className="paragraph-regular  text-gray-700 mb-4">
+          <p className="paragraph-regular  text-gray-700 mb-1">
             Sie finden unseren Übungsraum in Karlsruhe in der Steinstr. 23 im
             Gewerbehof in einem der Hintergebäude. Der Eingang befindet sich im
             Hof auf der rechten Seite, hinter dem Fahrradladen. Im 2. OG geht es
-            nach links in den Gang. Für Ortskundige: Das Dojo ist zwei
-            Stockwerke über dem Café Palaver.
+            nach links in den Gang. <br />
+          </p>
+          <p className="paragraph-regular  text-gray-700 mb-4">
+            Für Ortskundige: Das Dojo ist zwei Stockwerke über dem Café Palaver.
           </p>
 
           <h3 className="heading3 mb-4 mt-8">Kontakt</h3>
