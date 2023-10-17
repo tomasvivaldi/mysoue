@@ -44,15 +44,15 @@ const ExternalLinks = () => {
       <h2 className="mb-4 heading2">Wo bekomme ich weitere Infos?</h2>
       {/* <p className="paragraph-regular mb-6"></p> */}
 
-      <section className="grid md:grid-cols-3 gap-4">
+      <section className="grid md:grid-cols-3 gap-2 sm:gap-4">
         {links.map((link, idx) => (
-          <div key={idx} className="space-y-4 p-4">
+          <div key={idx} className="space-y-2 p-2 sm:space-y-4 sm:p-4">
             <img
               src={link.image}
               alt={link.title}
               width={200}
               height={300}
-              className="rounded-lg"
+              className="rounded-lg hidden sm:block"
             />
             <h3 className="font-semibold">
               <a
