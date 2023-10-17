@@ -12,7 +12,7 @@ const AikidoPreview = () => {
         Angriffskraft zu begegnen.
       </p>
       <a
-        href="/what-is-aikido"
+        href="/was-ist-aikido"
         className="body-medium text-slate-200 self-end
       hover:underline hover:text-slate-100"
       >
