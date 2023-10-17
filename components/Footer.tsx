@@ -5,8 +5,8 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 text-white py-6 px-4 flex flex-col x-paddings">
       <div
-        className="max-w-7xl mx-auto flex flex-col sm:flex-row 
-      justify-around w-full sm:justify-between items-center gap-8 sm:gap-12"
+        className="max-w-7xl mx-auto flex flex-col md:flex-row 
+      justify-around w-full md:justify-between items-center gap-8 md:gap-12"
       >
         <div className="flex flex-row w-fit ">
           {/* Federation Membership Info */}
@@ -16,21 +16,21 @@ const Footer = () => {
               alt="Logo of Aikido Federation Germany"
               width={256}
               height={256}
-              className="h-[60px] sm:h-[80px] rounded-full mx-auto"
+              className="w-[80px] md:w-[100px] rounded-full mx-auto"
             />
-            <p className="text-xs sm:text-sm">
+            <p className="text-xs md:text-sm">
               Aikido-Dojo Jiyukan Karlsruhe e.V.
             </p>
           </div>
-          <div className="lg:ml-44 self-center flex items-center flex-col gap-4 max-w-[250px] text-center">
+          <div className="lg:ml-80 self-center flex items-center flex-col gap-4 max-w-[250px] text-center">
             <Image
               src="/aikido-federation.webp" // Adjust the path to your image
               alt="Logo of Aikido Federation Germany"
               width={368}
               height={143}
-              className="h-[60px] sm:h-[80px] rounded-lg mx-auto"
+              className="w-[200px] rounded-lg mx-auto"
             />
-            <p className="text-xs sm:text-sm">
+            <p className="text-xs md:text-sm">
               Das Dojo ist Mitglied in der Aikido Föderation Deutschland.
             </p>
           </div>
