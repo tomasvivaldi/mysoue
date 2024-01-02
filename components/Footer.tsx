@@ -1,83 +1,247 @@
 // components/Footer.js
 import Image from "next/image"; // You might need to adjust the import path depending on your file structure.
+import { JSX, SVGProps } from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-6 px-4 flex flex-col x-paddings">
-      <div
-        className="max-w-7xl mx-auto flex flex-col md:flex-row 
-      justify-around w-full md:justify-between items-center gap-8 md:gap-12"
-      >
-        <div className="flex flex-row w-fit ">
-          {/* Federation Membership Info */}
-          <div className=" flex items-center flex-col gap-4 max-w-[150px] text-center">
-            <Image
-              src="/logo.png"
-              alt="Logo of Aikido Federation Germany"
-              width={256}
-              height={256}
-              className="w-[80px] md:w-[100px] rounded-full mx-auto"
-            />
-            <p className="text-xs md:text-sm">
-              Aikido-Dojo Jiyukan Karlsruhe e.V.
-            </p>
-          </div>
-          <div className="lg:ml-80 self-center flex items-center flex-col gap-4 max-w-[250px] text-center">
-            <Image
-              src="/aikido-federation.webp" // Adjust the path to your image
-              alt="Logo of Aikido Federation Germany"
-              width={368}
-              height={143}
-              className="w-[200px] rounded-lg mx-auto"
-            />
-            <p className="text-xs md:text-sm">
-              Das Dojo ist Mitglied in der Aikido Föderation Deutschland.
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-row gap-8 ">
-          {/* Additional footer content, e.g. links, contact details */}
-          <div className="">
-            <h4 className="font-bold mb-2">Quick&nbsp;Links</h4>
-            <ul className="text-xs sm:text-sm space-y-2">
+    <footer className="bg-slate-100 py-8 x-paddings">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h5 className="text-base sm:text-lg font-semibold mb-6">
+              Our Lists
+            </h5>
+            <ul className="space-y-4">
               <li>
-                <a href="/" className="hover:underline">
-                  Home
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Diam orci
                 </a>
               </li>
               <li>
-                <a href="/#aboutus" className="hover:underline">
-                  Über uns
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Mi feugiat
                 </a>
               </li>
               <li>
-                <a href="/was-ist-aikido" className="hover:underline">
-                  Was ist Aikido
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Netus fermentum
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Suspendisse viverra
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Id dolor
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Erat mattis
                 </a>
               </li>
             </ul>
           </div>
-          {/* Address */}
-          <div className="text-sm flex flex-col sm:items-start px-auto mx-auto">
-            <h4 className="font-bold text-base mb-2">Unsere Adresse</h4>
-            <div className="flex flex-col gap-1 justify-between text-xs sm:text-sm ">
-              <p>Aikido-Dojo Jiyukan Karlsruhe e.V.</p>
-              <p>Straßenname 123</p>
-              <p>76131 Karlsruhe</p>
+          <div>
+            <h5 className="text-base sm:text-lg font-semibold mb-6">
+              About Us
+            </h5>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Nibh
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Egestas
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Dictum
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 className="text-base sm:text-lg font-semibold mb-6">Blog</h5>
+            <ul className="space-y-4">
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Id maecenas
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Id orci
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Magna ultricies
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Quis risus
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="bg-blue-100 p-6 rounded-lg">
+            <h5 className="text-base sm:text-lg font-semibold mb-6">
+              Subscribe
+            </h5>
+            <div className="flex flex-col space-y-4 w-full">
+              <div className="flex flex-row  relative">
+                <input
+                  className="border p-2  rounded-lg rounded-bl-lg w-full"
+                  placeholder="Email address"
+                  type="email"
+                />
+                <button className=" absolute inset-y-0 right-0 border-t border-r border-b border-gray-200 bg-blue-600 hover:bg-blue-700 text-white w-12 rounded-tr-lg rounded-br-lg">{`>`}</button>
+              </div>
+              <p className="text-sm sm:text-sm text-gray-600">
+                Stay updated with our latest news and offers! Subscribe to our
+                newsletter now and never miss out. Your insights await. Join us!
+              </p>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Federation Membership Info */}
-
-      {/* Copyright Information */}
-      <div className="text-center text-sm mt-2 text-slate-400">
-        © {new Date().getFullYear()} Aikido-Dojo Jiyukan Karlsruhe e.V. Alle
-        Rechte vorbehalten.
+        <div className="border-t border-gray-200 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <span className="text-2xl font-light">MYSOUE</span>
+            <div className="flex mt-4 md:mt-0 space-x-6">
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                Terms
+              </a>
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                Privacy
+              </a>
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                Cookies
+              </a>
+            </div>
+            <div className="flex mt-4 md:mt-0 space-x-4">
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                <LinkedinIcon className="h-6 w-6" />
+              </a>
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                <FacebookIcon className="h-6 w-6" />
+              </a>
+              <a className="text-gray-600 hover:text-gray-900" href="#">
+                <TwitterIcon className="h-6 w-6" />
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </footer>
   );
 };
 
+function FacebookIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </svg>
+  );
+}
+
+function LinkedinIcon(
+  props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>
+) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
+function TwitterIcon(props: JSX.IntrinsicAttributes & SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+    </svg>
+  );
+}
 export default Footer;

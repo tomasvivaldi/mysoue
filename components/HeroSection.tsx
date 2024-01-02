@@ -1,32 +1,52 @@
 import React from "react";
 import Image from "next/image";
-import ImageSlider from "./ImageSlider";
+import HeroCard from "./HeroCard";
+import GhostButtonBlack from "./GhostButtonBlack";
 
 const HeroSection = () => {
   return (
-    <div className="relative h-screen ">
-      {/* Image Slider */}
-      <ImageSlider />
-
-      {/* Gray Overlay */}
-      <div className="absolute inset-0 bg-gray-800 opacity-50" />
-
-      {/* Overlay Content */}
-      <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center p-4">
-        <div className="text-center">
-          <h1 className="text-white mb-4 heading1">Jiyukan Karlsruhe</h1>
-          <p className="text-slate-200 mb-6 paragraph-regular">
-            " Eine Reise durch Aikido ist eine Fahrt in die gelassene
-            Meisterschaft des eigenen Geistes. "
-          </p>
-          {/* <div className="space-x-4">
-            <button className="bg-white text-gray-800 px-6 py-2 rounded-md hover:bg-opacity-90 transition">
-              Button 1
-            </button>
-            <button className="bg-transparent border-2 border-white text-white px-6 py-2 rounded-md hover:bg-white hover:text-gray-800 transition">
-              Button 2
-            </button>
-          </div> */}
+    <div key="1" className=" p-8 x-paddings2">
+      <div className="flex flex-col lg:flex-row lg:space-x-8  ">
+        <div className="w-full">
+          <img
+            alt="Gift with ribbon"
+            className="mb-4 rounded-lg object-cover w-full h-64"
+            height="300"
+            src="/bg1.jpg"
+            style={{
+              aspectRatio: "520/300",
+              objectFit: "cover",
+            }}
+            width="520"
+          />
+          <div className="flex md:flex-row flex-col gap-8">
+            <div className=" w-full md:w-[40%] flex flex-col  justify-center">
+              <p className="text-gray-700 text-lg mb-4">
+                At mysoue, we reimagine the gift-giving experience, turning
+                special occasions into unforgettable moments. Going beyond
+                conventional wish lists, we serve as a hub that synchronizes
+                your wishlist dreams by transforming the thoughtfulness of your
+                lovers into carefully curated gifts.
+              </p>
+              <div className="mx-auto ">
+                <GhostButtonBlack text="Create Your List" />
+              </div>
+            </div>
+            <div className="w-full md:w-[60%] gap-4 flex flex-row justify-between overflow-x-scroll sm:overflow-x-auto">
+              <HeroCard
+                title="Christmas"
+                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+              />
+              <HeroCard
+                title="Christmas"
+                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+              />
+              <HeroCard
+                title="Christmas"
+                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
