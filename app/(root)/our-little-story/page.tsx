@@ -39,15 +39,11 @@ const UeberMich = () => {
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3 variants={fadeIn} className="heading3 mb-2">
-                Beruflicher Werdegang
-              </motion.h3>
-              <motion.p variants={fadeIn} className="body-regular">
-                Mein Name ist Heike Wendelin. Seit 1989 arbeite ich als
-                Physiotherapeutin. Ich absolvierte meine erste Shiatsu- und
-                Akupressur-Ausbildung an den Thalamus-Schulen zwischen 1991 und
-                1993.
-              </motion.p>
+              <motion.h3
+                variants={fadeIn}
+                className="heading3 mb-2"
+              ></motion.h3>
+              <motion.p variants={fadeIn} className="body-regular"></motion.p>
             </motion.div>
 
             {/* Shiatsu Therapy Education */}
@@ -58,14 +54,11 @@ const UeberMich = () => {
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3 variants={fadeIn} className="heading3 mb-2">
-                Shiatsu Therapie-Ausbildung
-              </motion.h3>
-              <motion.p variants={fadeIn} className="body-regular">
-                Die Ganzheitliche Shiatsu Therapie-Ausbildung legte ich von 1998
-                bis 2000 am DFZ in Mainz ab. Nach meiner Zeit als
-                Lehrassistentin begann ich dort auch selbst Kurse zu leiten.
-              </motion.p>
+              <motion.h3
+                variants={fadeIn}
+                className="heading3 mb-2"
+              ></motion.h3>
+              <motion.p variants={fadeIn} className="body-regular"></motion.p>
             </motion.div>
 
             {/* Teaching and Courses */}
@@ -76,15 +69,11 @@ const UeberMich = () => {
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3 variants={fadeIn} className="heading3 mb-2">
-                Lehrtätigkeit
-              </motion.h3>
-              <motion.p variants={fadeIn} className="body-regular">
-                Seit 2002 leite ich im Karlsruher Jiyukan-Dojo Partnerkurse und
-                weiterbildende Themenkurse rund um das Thema Shiatsu. Diese
-                Kurse sind auch für Physiotherapeuten, Heilpraktiker und andere
-                therapeutische Berufsgruppen geeignet.
-              </motion.p>
+              <motion.h3
+                variants={fadeIn}
+                className="heading3 mb-2"
+              ></motion.h3>
+              <motion.p variants={fadeIn} className="body-regular"></motion.p>
             </motion.div>
 
             {/* KenShō Shiatsu Institute */}
@@ -95,14 +84,11 @@ const UeberMich = () => {
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3 variants={fadeIn} className="heading3 mb-2">
-                KenShō • Shiatsu Institut Karlsruhe
-              </motion.h3>
-              <motion.p variants={fadeIn} className="body-regular">
-                Im Jahr 2010 gründete ich gemeinsam mit den Instituten in
-                Mannheim und Herne das KenShō • Shiatsu Institut Karlsruhe. Wir
-                bieten Shiatsu-Ausbildung als berufliche Weiterbildung an.
-              </motion.p>
+              <motion.h3
+                variants={fadeIn}
+                className="heading3 mb-2"
+              ></motion.h3>
+              <motion.p variants={fadeIn} className="body-regular"></motion.p>
             </motion.div>
           </div>
         </div>
