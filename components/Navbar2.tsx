@@ -73,11 +73,11 @@ const Navbar = () => {
         <ul className="flex-center gap-x-3 max-md:hidden md:gap-x-10">
           <li className="body-text !font-bold">
             <a
-              className="text-slate-100 !font-bold "
+              className="text-slate-100 !font-light text-xl hover:text-slate-200 "
               rel="noopener noreferrer"
               href="/"
             >
-              Home
+              MYSOUE
             </a>
           </li>
           {menuItems.map((item, index) => (
@@ -112,23 +112,16 @@ const Navbar = () => {
                     Home
                   </a>
                 </li>
-                <li className="body-text !font-semibold text-gray-200 hover:underline">
-                  <a
-                    className="font-semibold block py-2 px-5 hover:bg-gray-600"
-                    href="/#aboutus"
-                  >
-                    Über Uns
-                  </a>
-                </li>
-                <li className="body-text !font-semibold text-gray-200">
-                  <a
-                    className="font-semibold block py-2 px-5 hover:bg-gray-600"
-                    href="/was-ist-aikido"
-                  >
-                    Was Ist Aikido
-                  </a>
-                </li>
-
+                {menuItems.map((item, index) => (
+                  <li key={index} className="body-text !font-bold">
+                    <a
+                      className="text-slate-100 !font-bold block py-2 px-5 hover:bg-gray-600"
+                      href={item.url}
+                    >
+                      {item.text}
+                    </a>
+                  </li>
+                ))}
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   className="absolute top-0.5 left-[60%] p-2 rounded-md hover:bg-gray-600 focus:outline-none"
@@ -148,8 +141,6 @@ const Navbar = () => {
                     />
                   </svg>
                 </button>
-
-                {/* ... add more links as required ... */}
               </ul>
             </div>
           </div>
