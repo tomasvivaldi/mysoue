@@ -8,7 +8,7 @@ interface TopBannerProps {
 const TopBanner: React.FC<TopBannerProps> = ({ title }) => {
   // Accepting title as a prop
   return (
-    <div className="relative top-0 h-[60vh] sm:h-[30vh] mb-[60vh] sm:mb-[30vh] pt-20">
+    <div className="relative top-0 h-[60vh] sm:h-[30vh] mb-[10vh] pt-20">
       {/* Background Image */}
       <div className="absolute inset-0 h-[60vh] sm:h-[50vh]">
         <Image

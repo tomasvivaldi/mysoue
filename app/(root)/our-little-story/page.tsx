@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import TopBanner from "@/components/TopBanner";
 import Head from "next/head";
 import Image from "next/image";
+import TeamSection from "@/components/TeamSection";
+import Banner2 from "@/components/Banner2";
 
 const UeberMich = () => {
   const fadeIn = {
@@ -17,7 +19,6 @@ const UeberMich = () => {
         <title>Our Little Story</title>
       </Head>
       <TopBanner title="Our Little Story" />
-      {/* Introduction Section */}
       <div className="  flex flex-col p-4 x-paddings ">
         <div className="flex flex-col gap-4 justify-center items-center w-full ">
           <motion.h2
@@ -31,67 +32,89 @@ const UeberMich = () => {
           </motion.h2>
 
           <div className="flex flex-col gap-32 my-24 w-full x-paddings">
-            {/* Brief Overview */}
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-center "
+              className="mb-6 max-w-3xl self-center flex flex-row justify-center gap-8"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3
-                variants={fadeIn}
-                className="heading3 mb-2"
-              ></motion.h3>
-              <motion.p variants={fadeIn} className="body-regular"></motion.p>
+              <Image
+                src="/our-little-story-1.png"
+                alt="our-little-story-1"
+                width={1556}
+                height={1724}
+                objectPosition="center"
+                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+              />
+              <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
+                <h3 className="heading3 mb-2">Our DNA</h3>
+                <p className="body-regular">
+                  The very essence of our concept is the result of an alliance
+                  between different cultures. We draw our inspiration not only
+                  from our own experience, but also from our mixed cultural
+                  heritage between South America and Europe.
+                </p>
+              </motion.div>
             </motion.div>
 
-            {/* Shiatsu Therapy Education */}
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-end"
+              className="mb-6 max-w-3xl self-center flex flex-row justify-center gap-8"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3
-                variants={fadeIn}
-                className="heading3 mb-2"
-              ></motion.h3>
-              <motion.p variants={fadeIn} className="body-regular"></motion.p>
+              <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
+                <h3 className="heading3 mb-2">Our “soué”</h3>
+                <p className="body-regular">
+                  In French, “souhait” means wish. And that is all we are
+                  about;"We're all about making your wishes come true,
+                  eliminating worries, and creating space for meaningful moments
+                  and cherished memories with your loved ones. That's our
+                  mission – turning desires into delightful memories!"
+                </p>
+              </motion.div>
+              <Image
+                src="/our-little-story-2.png"
+                alt="our-little-story-1"
+                width={1556}
+                height={1724}
+                objectPosition="center"
+                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+              />
             </motion.div>
-
-            {/* Teaching and Courses */}
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-start"
+              className="mb-6 max-w-3xl self-center flex flex-col sm:flex-row justify-center md:gap-8"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
             >
-              <motion.h3
-                variants={fadeIn}
-                className="heading3 mb-2"
-              ></motion.h3>
-              <motion.p variants={fadeIn} className="body-regular"></motion.p>
-            </motion.div>
-
-            {/* KenShō Shiatsu Institute */}
-            <motion.div
-              variants={fadeIn}
-              className="mb-6 max-w-3xl self-end"
-              initial="initial"
-              whileInView="whileInView"
-              viewport={{ once: true }}
-            >
-              <motion.h3
-                variants={fadeIn}
-                className="heading3 mb-2"
-              ></motion.h3>
-              <motion.p variants={fadeIn} className="body-regular"></motion.p>
+              <Image
+                src="/our-little-story-3.png"
+                alt="our-little-story-1"
+                width={1556}
+                height={1724}
+                objectPosition="center"
+                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+              />
+              <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
+                <h3 className="heading3 mb-2">Our values</h3>
+                <p className="body-regular">
+                  our values are rooted in a desire to bring together and
+                  cherish our loved ones. What could be more wonderful than
+                  celebrating a moment in life without the hassle of individual
+                  wishes, desires and budgets? All you have to think about is
+                  celebrating, with no logistical constraints when it comes to
+                  gifts.
+                </p>
+              </motion.div>
             </motion.div>
           </div>
         </div>
+        <Banner2 />
+        <TeamSection />
       </div>
     </>
   );
