@@ -14,7 +14,7 @@ const GhostButtonBlack: React.FC<GhostButtonBlackProps> = ({
 }) => {
   return (
     <button
-      className="inline-flex items-center justify-center text-sm ring-offset-background 
+      className="inline-flex items-center justify-center text-lg ring-offset-background 
       transition-colors disabled:pointer-events-none disabled:opacity-50
        hover:bg-gray-100 active:bg-gray-200 h-10 bg-transparent text-black border-black border-2 b rounded-full px-6 py-2 font-medium"
       onClick={onClick}

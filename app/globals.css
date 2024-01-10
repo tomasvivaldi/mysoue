@@ -54,7 +54,7 @@
   }
 
   .body-regular {
-    @apply sm:text-[12px] text-[16px] font-normal leading-[26px];
+    @apply sm:text-[16px] text-[12px] font-normal leading-[26px];
   }
 
   .body-semibold {

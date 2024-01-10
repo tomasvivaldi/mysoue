@@ -58,8 +58,9 @@ export default function Component() {
               />
             </svg>
           </button>
-          <h1 className="text-2xl font-light hidden sm:block">MYSOUE</h1>
-
+          <a href="/">
+            <h1 className="text-2xl font-light hidden sm:block">MYSOUE</h1>
+          </a>
           {isMenuOpen && (
             <div className="fixed inset-0 z-50 flex items-left justify-start">
               {/* Backdrop */}

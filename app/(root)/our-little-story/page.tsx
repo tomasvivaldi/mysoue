@@ -20,7 +20,7 @@ const UeberMich = () => {
       </Head>
       <TopBanner title="Our Little Story" />
       <div className="  flex flex-col p-4 x-paddings ">
-        <div className="flex flex-col gap-4 justify-center items-center w-full ">
+        <div className="flex flex-col gap-4 justify-center items-center w-full mb-20 ">
           <motion.h2
             variants={fadeIn}
             className="heading2 mb-4"
@@ -31,7 +31,7 @@ const UeberMich = () => {
             A Little more About us
           </motion.h2>
 
-          <div className="flex flex-col gap-32 my-24 w-full x-paddings">
+          <div className="flex flex-col gap-12 my-10 w-full x-paddings ">
             <motion.div
               variants={fadeIn}
               className="mb-6 max-w-3xl self-center flex flex-row justify-center gap-8"

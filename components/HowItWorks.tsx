@@ -33,7 +33,7 @@ const HowItWorks = () => {
 
   return (
     <div className="flex flex-col h-fit w-full lg:paddings2 paddings">
-      <h1 className="heading1 self-center py-6 sm:py-16">How Does It Work?</h1>
+      <h1 className="heading1 self-center py-6 sm:py-16">How does it work?</h1>
       <div className="flex flex-row h-fit w-full justify-center">
         <div className="relative items-center justify-center md:px-10 py-4 w-1/2 hidden md:flex">
           {[1, 2, 3].map((num) => (
@@ -66,7 +66,7 @@ const HowItWorks = () => {
           ))}
         </div>
         <div className="flex flex-col space-y-6 w-full md:w-1/2  sm:x-paddings md:px-0">
-          <h2 className="heading2">Start Your Wishlist Journey</h2>
+          <h2 className="heading2">Start your wishlist journey with us</h2>
           <p className="text-xs md:text-sm lg:text-lg">
             {highlightedImage > 0 && texts[highlightedImage - 1]}
           </p>

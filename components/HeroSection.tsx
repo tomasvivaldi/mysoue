@@ -8,6 +8,9 @@ const HeroSection = () => {
     <div key="1" className=" p-8 x-paddings2">
       <div className="flex flex-col lg:flex-row lg:space-x-8  ">
         <div className="w-full">
+          <h1 className="font-semibold heading2 text-center mb-2 -mt-6">
+            We are all about gift
+          </h1>
           <img
             alt="Gift with ribbon"
             className="mb-4 rounded-lg object-cover w-full h-64"
@@ -19,7 +22,7 @@ const HeroSection = () => {
             }}
             width="520"
           />
-          <div className="flex md:flex-row flex-col gap-8">
+          <div className="flex md:flex-row flex-col gap-8 mt-8">
             <div className=" w-full md:w-[40%] flex flex-col  justify-center">
               <p className="text-gray-700 text-lg mb-4">
                 At mysoue, we reimagine the gift-giving experience, turning

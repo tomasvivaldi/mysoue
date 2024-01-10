@@ -30,7 +30,7 @@ module.exports = {
         inter: ["Inter", "sans-serif"],
       },
       colors: {
-        primary: "#2190FF",
+        primary: "#a67b6a",
         black: {
           DEFAULT: "#000",
           100: "#0D1117",
@@ -95,5 +95,6 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+
+  plugins: [require("@tailwindcss/forms"), require("tailwindcss-animate")],
 };
