@@ -9,7 +9,7 @@ const CenterContent: React.FC = () => {
       <div className="w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center heading2 text-gray-900 ">
-            Your Wishlist, Your Way
+            Your wishlist, your way
           </h2>
           <p className="pt-2 text-center text-base font-light text-gray-600 mt-4 min-w-xl max-w-2xl mx-auto">
             MYSOUE Is More Than Just A Platform; It's A Community Where

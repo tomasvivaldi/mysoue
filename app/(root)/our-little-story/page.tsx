@@ -16,9 +16,9 @@ const UeberMich = () => {
   return (
     <>
       <Head>
-        <title>Our Little Story</title>
+        <title>Our little story</title>
       </Head>
-      <TopBanner title="Our Little Story" />
+      <TopBanner title="Our little story" />
       <div className="  flex flex-col p-4 x-paddings ">
         <div className="flex flex-col gap-4 justify-center items-center w-full mb-20 ">
           <motion.h2
@@ -28,7 +28,7 @@ const UeberMich = () => {
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            A Little more About us
+            A little more About us
           </motion.h2>
 
           <div className="flex flex-col gap-12 my-10 w-full x-paddings ">

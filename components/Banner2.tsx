@@ -9,7 +9,7 @@ const Banner2 = () => {
         layout="fill"
         objectFit="cover"
         objectPosition="center"
-        alt="Our Mission And Vision"
+        alt="Our mission and vision"
         priority
       />
       {/* Overlay */}
@@ -21,7 +21,7 @@ const Banner2 = () => {
           className="heading2 mb-4"
           style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
         >
-          Our Mission And Vision
+          Our mission and vision
         </h2>
         <p className="text-lg">
           Our Mission Is To Help Everyone Create And Share Wishlists In The

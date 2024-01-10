@@ -18,9 +18,7 @@ const ContentRight = () => {
         />
       </div>
       <div className="max-w-xl space-y-6">
-        <h1 className="text-4xl font-bold">
-          Step Into A World Of Endless Possibilities
-        </h1>
+        <h1 className="heading2">Step into a world of endless possibilities</h1>
         <ul className="list-disc space-y-4 pl-5 text-lg">
           <li>
             Occasions Tailored Just For You: From Baby Showers To Retirement

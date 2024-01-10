@@ -24,7 +24,7 @@ const TeamSection = () => {
         viewport={{ once: true }}
         className="text-center heading1 mb-12"
       >
-        Meet The Team
+        Meet the team
       </motion.h2>
       <motion.div
         className="flex flex-col sm:flex-row justify-center items-center gap-8 md:gap-16"

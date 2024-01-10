@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h5 className="text-base sm:text-lg font-semibold mb-6">
-              Our Lists
+              Our lists
             </h5>
             <ul className="space-y-4">
               <li>
@@ -64,7 +64,7 @@ const Footer = () => {
           </div>
           <div>
             <h5 className="text-base sm:text-lg font-semibold mb-6">
-              About Us
+              About us
             </h5>
             <ul className="space-y-4">
               <li>

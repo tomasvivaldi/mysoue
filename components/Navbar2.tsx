@@ -23,10 +23,10 @@ export default function Component() {
   }, []);
 
   const menuItems = [
-    { text: "Our Little Story", href: "/our-little-story" },
+    { text: "Our little story", href: "/our-little-story" },
     // { text: 'How It Works', href: '/how-it-works' },
-    { text: "Create a List", href: "/create-a-list" },
-    { text: "Our Lists", href: "/our-lists" },
+    { text: "Create a list", href: "/create-a-list" },
+    { text: "Our lists", href: "/our-lists" },
     // Additional menu items...
   ];
 
@@ -123,7 +123,7 @@ export default function Component() {
             className="text-sm font-medium  hover:underline"
             href="/our-little-story"
           >
-            Our Little Story
+            Our little story
           </Link>
           {/* <Link
           className="text-sm font-medium  hover:underline"
@@ -135,13 +135,13 @@ export default function Component() {
             className="text-sm font-medium  hover:underline"
             href="/create-a-list"
           >
-            Create a List
+            Create a list
           </Link>
           <Link
             className="text-sm font-medium  hover:underline"
             href="/our-lists"
           >
-            Our Lists
+            Our lists
           </Link>
         </div>
         <div className="flex items-center space-x-4 ">

@@ -48,7 +48,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   return (
     <div className="flex flex-col items-center py-6 mb-20 paddings">
       <h2 className="heading2 my-8 md:my-20 text-center">
-        What Our Clients Say
+        What our clients say
       </h2>
       <div className=" flex flex-row items-center justify-center ">
         <button onClick={prevTestimonial} className="z-10">
