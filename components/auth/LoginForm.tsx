@@ -1,8 +1,7 @@
 "use client";
-import toast, { Toaster } from "react-hot-toast";
-
-import { Github, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
+// import toast, { Toaster } from "react-hot-toast";
+// import { Github, Mail } from "lucide-react";
+// import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { SocialButton } from "../buttons/SocialButton";
@@ -11,20 +10,20 @@ import { Label } from "../form/Label";
 import { FormElement } from "../form/FormElement";
 import Image from "next/image";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+// import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-import { supabase } from "@/lib/supabase";
-import { isValidEmail } from "@/lib/utils";
-import { useNavigation } from "@/hooks/useNavigation";
+// import { supabase } from "@/lib/supabase";
+// import { isValidEmail } from "@/lib/utils";
+// import { useNavigation } from "@/hooks/useNavigation";
 
 const LoginForm = () => {
-  const router = useRouter(); // Assuming this returns { router } correctly
+  // const router = useRouter(); // Assuming this returns { router } correctly
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(undefined);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(undefined);
 
   const handleChange = (e: { target: { name: any; value: any } }) => {
     const { name, value } = e.target;

@@ -1,15 +1,15 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation"; // Assuming this is correct for your project setup
+// import { useRouter } from "next/navigation"; // Assuming this is correct for your project setup
 import { SignUpForm } from "@/components/auth/SignUpForm";
 import Head from "next/head";
-import { supabase } from "@/lib/supabase";
-import toast, { Toaster } from "react-hot-toast";
+// import { supabase } from "@/lib/supabase";
+// import toast, { Toaster } from "react-hot-toast";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter(); // Ensure this is the correct way you're using useRouter in your project
+  // const router = useRouter(); // Ensure this is the correct way you're using useRouter in your project
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -45,7 +45,7 @@ const SignUp = () => {
 
   return (
     <div className="relative text-gray-900 dark:text-slate-200 antialiased">
-      <Toaster position="top-center" />
+      {/* <Toaster position="top-center" /> */}
       <Head>
         <title>Sign Up</title>
       </Head>
