@@ -1,3 +1,4 @@
+import { supabase } from "@/lib/supabase";
 import Banner from "@/components/Banner";
 import FAQSection from "@/components/FAQ";
 import HeroSection from "@/components/HeroSection";
@@ -38,7 +39,30 @@ const HomePage = () => {
       rating: 5,
     },
   ];
+  // const setNewUser = async () => {
+  //   // Example user data, replace values as needed
+  //   const userData = {
+  //     email: "user@example.com",
+  //     password_hash: "hashed_password",
+  //     username: "newuser",
+  //     // Optionally include other fields as needed
+  //     profile_picture_url: null, // or provide a URL
+  //     created_at: new Date().toISOString(),
+  //     updated_at: new Date().toISOString(),
+  //     oauth_provider: null, // or specify the provider
+  //   };
 
+  //   const { data, error } = await supabase
+  //     .from("users")
+  //     .insert([userData])
+  //     .single();
+
+  //   console.log("*****");
+  //   if (data) console.log("Insert successful:", data);
+  //   if (error) console.log("Insert failed:", error);
+  // };
+
+  // setNewUser();
   return (
     <>
       <HeroSection />
