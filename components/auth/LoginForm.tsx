@@ -34,82 +34,82 @@ const LoginForm = () => {
     }));
   };
 
-  const login = async (e: { preventDefault: () => void }) => {
-    e.preventDefault(); // Prevent the form from causing a page reload
-    setLoading(true);
-    setError(undefined);
+  // const login = async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault(); // Prevent the form from causing a page reload
+  //   setLoading(true);
+  //   setError(undefined);
 
-    const { email, password } = loginData; // Use updated state values
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+  //   const { email, password } = loginData; // Use updated state values
+  //   try {
+  //     const { data, error } = await supabase.auth.signInWithPassword({
+  //       email,
+  //       password,
+  //     });
 
-      if (error) {
-        console.log("Insert failed:", error);
-      } else {
-        console.log("Insert successful:", data);
-        // Redirect user or perform additional actions
-        router.push("/dashboard");
-      }
-    } catch (error) {
-      console.error("Unexpected error during signUp:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (error) {
+  //       console.log("Insert failed:", error);
+  //     } else {
+  //       console.log("Insert successful:", data);
+  //       // Redirect user or perform additional actions
+  //       router.push("/dashboard");
+  //     }
+  //   } catch (error) {
+  //     console.error("Unexpected error during signUp:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  const handleGoogleSignIn = async () => {
-    if (loading) return; // Prevent multiple clicks
-    setLoading(true);
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-      });
+  // const handleGoogleSignIn = async () => {
+  //   if (loading) return; // Prevent multiple clicks
+  //   setLoading(true);
+  //   try {
+  //     const { error } = await supabase.auth.signInWithOAuth({
+  //       provider: "google",
+  //     });
 
-      if (error) throw error;
+  //     if (error) throw error;
 
-      toast.success("Google sign-in successful");
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-      // setError(error.message);
-      toast.error("Google sign-in failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     toast.success("Google sign-in successful");
+  //     router.push("/dashboard");
+  //   } catch (error) {
+  //     console.error("Error signing in with Google:", error);
+  //     // setError(error.message);
+  //     toast.error("Google sign-in failed");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
-  useEffect(() => {
-    // Check if there's a current session or user
-    const checkSession = async () => {
-      const { data: sessionData, error: sessionError } =
-        await supabase.auth.getSession();
+  // useEffect(() => {
+  //   // Check if there's a current session or user
+  //   const checkSession = async () => {
+  //     const { data: sessionData, error: sessionError } =
+  //       await supabase.auth.getSession();
 
-      if (sessionError) {
-        console.error("Error getting session:", sessionError);
-        return;
-      }
+  //     if (sessionError) {
+  //       console.error("Error getting session:", sessionError);
+  //       return;
+  //     }
 
-      if (sessionData.session) {
-        router.push("/dashboard");
-      } else {
-        const { data: userData, error: userError } =
-          await supabase.auth.getUser();
-        if (userError) {
-          console.error("Error getting user:", userError);
-          return;
-        }
+  //     if (sessionData.session) {
+  //       router.push("/dashboard");
+  //     } else {
+  //       const { data: userData, error: userError } =
+  //         await supabase.auth.getUser();
+  //       if (userError) {
+  //         console.error("Error getting user:", userError);
+  //         return;
+  //       }
 
-        if (userData.user) {
-          router.push("/dashboard");
-        }
-      }
-    };
+  //       if (userData.user) {
+  //         router.push("/dashboard");
+  //       }
+  //     }
+  //   };
 
-    checkSession();
-  }, [router]);
+  //   checkSession();
+  // }, [router]);
 
   return (
     <div className=" flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
@@ -165,7 +165,11 @@ const LoginForm = () => {
         )} */}
 
                 <div className="mt-3">
-                  <Button2 type="submit" full onClick={login}>
+                  <Button2
+                    type="submit"
+                    full
+                    // onClick={login}
+                  >
                     Log in
                   </Button2>
                 </div>
@@ -211,7 +215,7 @@ const LoginForm = () => {
                       />
                     </svg>
                   }
-                  onClick={handleGoogleSignIn}
+                  // onClick={handleGoogleSignIn}
                 >
                   Sign in with Google
                 </SocialButton>

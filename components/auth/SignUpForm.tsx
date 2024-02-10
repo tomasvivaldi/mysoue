@@ -138,7 +138,7 @@ interface SignUpFormProps {
   setEmail: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
-  handleSignUp: (e: React.FormEvent) => Promise<void>;
+  // handleSignUp: (e: React.FormEvent) => Promise<void>;
   loading: boolean;
 }
 import React from "react";
@@ -152,7 +152,7 @@ const SignUpForm = ({
   setEmail,
   password,
   setPassword,
-  handleSignUp,
+  // handleSignUp,
   loading,
 }: SignUpFormProps) => {
   return (
@@ -176,7 +176,10 @@ const SignUpForm = ({
           <h1 className="text-xl font-semibold mt-4">Create Your Account</h1>
           <p className="mt-2">Sign up with your email address and password.</p>
 
-          <form className="grid gap-y-2 mb-4" onSubmit={handleSignUp}>
+          <form
+            className="grid gap-y-2 mb-4"
+            // onSubmit={handleSignUp}
+          >
             <Label htmlFor="email">Email Address</Label>
             <FormElement>
               <input

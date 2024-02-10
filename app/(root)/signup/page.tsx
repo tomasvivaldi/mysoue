@@ -14,34 +14,34 @@ const SignUp = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const signUp = async (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (loading) return; // Prevent multiple submissions
-    setLoading(true);
-    const loadingToast = toast.loading("Signing up...");
+  // const signUp = async (e: { preventDefault: () => void }) => {
+  //   e.preventDefault();
+  //   if (loading) return; // Prevent multiple submissions
+  //   setLoading(true);
+  //   const loadingToast = toast.loading("Signing up...");
 
-    try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
+  //   try {
+  //     const { data, error: signUpError } = await supabase.auth.signUp({
+  //       email,
+  //       password,
+  //     });
 
-      if (signUpError) {
-        setError(signUpError.message);
-        toast.error(signUpError.message, { id: loadingToast });
-      } else {
-        toast.success("Signed up successfully!", { id: loadingToast });
-        // Redirect user or perform additional actions
-        router.push("/dashboard"); // Adjust according to your routing setup
-      }
-    } catch (error) {
-      console.error("Unexpected error during signUp:", error);
-      setError("An unexpected error occurred.");
-      toast.error("An unexpected error occurred.", { id: loadingToast });
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (signUpError) {
+  //       setError(signUpError.message);
+  //       toast.error(signUpError.message, { id: loadingToast });
+  //     } else {
+  //       toast.success("Signed up successfully!", { id: loadingToast });
+  //       // Redirect user or perform additional actions
+  //       router.push("/dashboard"); // Adjust according to your routing setup
+  //     }
+  //   } catch (error) {
+  //     console.error("Unexpected error during signUp:", error);
+  //     setError("An unexpected error occurred.");
+  //     toast.error("An unexpected error occurred.", { id: loadingToast });
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="relative text-gray-900 dark:text-slate-200 antialiased">
@@ -55,7 +55,7 @@ const SignUp = () => {
           setEmail={setEmail}
           password={password}
           setPassword={setPassword}
-          handleSignUp={signUp}
+          // handleSignUp={signUp}
           loading={loading} // Pass loading state to disable the form's submit button
         />
       </div>
