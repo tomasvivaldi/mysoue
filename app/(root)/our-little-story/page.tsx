@@ -6,6 +6,7 @@ import Head from "next/head";
 import Image from "next/image";
 import TeamSection from "@/components/TeamSection";
 import Banner2 from "@/components/Banner2";
+import TopBanner2 from "@/components/TopBanner2";
 
 const UeberMich = () => {
   const fadeIn = {
@@ -18,7 +19,11 @@ const UeberMich = () => {
       <Head>
         <title>Our little story</title>
       </Head>
-      <TopBanner title="Our little story" />
+      <TopBanner2
+        title="Our little story"
+        description="We are a dedicated team with a mission to make wishlists accessible to everyone"
+        bgImage="/bg1.jpg"
+      />
       <div className="  flex flex-col p-4 x-paddings ">
         <div className="flex flex-col gap-4 justify-center items-center w-full mb-20 ">
           <motion.h2

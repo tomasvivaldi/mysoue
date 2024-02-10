@@ -22,7 +22,7 @@ const CreateAList = () => {
       <div className="relative w-[85%] mx-auto x-paddings my-12">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <img
+          <Image
             alt="Gift with ribbon"
             className="mb-4 rounded-lg object-cover w-full h-full"
             height="300"

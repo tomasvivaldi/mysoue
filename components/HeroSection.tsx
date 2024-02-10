@@ -11,7 +11,7 @@ const HeroSection = () => {
           <h1 className="font-semibold heading2 text-center mb-2 -mt-6">
             We are all about gift
           </h1>
-          <img
+          <Image
             alt="Gift with ribbon"
             className="mb-4 rounded-lg object-cover w-full h-64"
             height="300"
