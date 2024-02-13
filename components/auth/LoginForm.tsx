@@ -88,12 +88,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 )}
 
                 <div className="mt-3">
-                  <Button2
-                    type="submit"
-                    full
-                    // onClick={login}
-                  >
-                    Log in
+                  <Button2 type="submit" full disabled={loading}>
+                    {loading ? "Processing..." : "Log In"}
                   </Button2>
                 </div>
               </form>

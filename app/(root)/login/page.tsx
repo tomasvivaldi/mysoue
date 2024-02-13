@@ -115,7 +115,6 @@ const Login = () => {
     email: string,
     password: string
   ): Promise<void> => {
-    setLoading(true);
     setLoginFailed(false);
     const response = await signIn("credentials", {
       email,
@@ -124,6 +123,17 @@ const Login = () => {
     });
     if (response?.error) {
       setLoginFailed(true);
+    }
+  };
+
+  const modifiedHandleEmailLogin = async (email: string, password: string) => {
+    setLoading(true); // Start loading
+    try {
+      await handleEmailLogin(email, password); // Your existing login logic
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false); // End loading
     }
   };
 
@@ -172,8 +182,10 @@ const Login = () => {
       <div className="text-gray-900 dark:text-slate-100 antialiased">
         <LoginForm
           handleLogin={handleLogin}
-          handleEmailLogin={handleEmailLogin}
+          handleEmailLogin={modifiedHandleEmailLogin}
           loginFailed={loginFailed}
+          loading={loading}
+          setLoading={setLoading}
         />
       </div>
     </>
