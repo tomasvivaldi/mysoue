@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 import { JSX, SVGProps, useState } from "react";
+import { signOut } from "next-auth/react";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -21,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
     <>
       <nav
-        className={`fixed top-0 w-full z-0 bg-[#A67B5B] text-white px-4 py-2 transition-shadow duration-300 ${
+        className={`fixed top-0 w-full z-40 bg-[#A67B5B] text-white px-4 py-2 transition-shadow duration-300 ${
           isSidebarOpen ? "shadow-none" : "shadow-md"
         }`}
       >
@@ -50,10 +51,13 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
               </svg>
             </button>
             <a href="/">
-              <h1 className="text-2xl font-light hidden sm:block">MYSOUE</h1>
+              <h1 className="text-xl sm:text-2xl font-light block">MYSOUE</h1>
             </a>
             {isSidebarOpen && (
-              <div className="fixed md:my-12 inset-0 -z-50 flex items-left justify-start">
+              <div
+                className="fixed md:my-12 left-0 inset-y-0 -z-50 flex items-left justify-start
+              w-full md:w-1/4 lg:w-1/6 "
+              >
                 {/* Backdrop */}
                 <div
                   onClick={() => setIsSidebarOpen(false)}
@@ -62,57 +66,72 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
 
                 {/* Modal content */}
                 <div
-                  className="bg-[#A67B5B] w-3/4 md:w-1/4 lg:w-1/6 
-                  overflow-y-auto z-50"
+                  className="bg-[#A67B5B]
+                  overflow-y-auto z-50 flex flex-col justify-between h-screen"
                 >
-                  <ul className="flex flex-col">
+                  <ul className="flex flex-col h-screen pt-12 md:pt-0">
                     {menuItems.map((item, index) => (
                       <li
                         key={index}
                         className="body-text !font-bold border-l border-r border-[#A67B5B]"
                       >
                         <a
-                          className="text-white font-medium block py-2 px-5 hover:bg-white hover:text-[#A67B5B]"
+                          className="text-white font-medium block py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B]
+                           whitespace-nowrap"
                           href={item.href}
                         >
                           {item.text}
                         </a>
                       </li>
                     ))}
-                    {/* {menuItems.map((item, index) => (
-                      <li key={index} className="body-text !font-bold">
-                        <a
-                          className={`text-white font-medium block py-2 px-5 hover:bg-slate-100/20 ${
-                            router.pathname === item.href
-                              ? "bg-slate-300 text-[#A67B5B]"
-                              : ""
-                          }`}
-                          href={item.href}
-                        >
-                          {item.text}
-                        </a>
-                      </li>
-                    ))} */}
-                    <button
-                      onClick={() => setIsSidebarOpen(false)}
-                      className="absolute top-0.5 left-[60%] p-2 rounded-md hover:bg-slate-100 focus:outline-none md:hidden"
+                  </ul>
+                  <div className="flex flex-col">
+                    <Link
+                      className="md:hidden flex flex-row
+                    justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B] cursor-pointer"
+                      href="/"
                     >
+                      <p className="text-sm font-medium group-hover:underline ">
+                        Back to website
+                      </p>
+                      {/* <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
+                        stroke="currentColor"
+                        className="w-5 h-5 mb-1"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                        />
+                      </svg> */}
+                    </Link>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B] cursor-pointer"
+                    >
+                      <p className="text-sm font-medium group-hover:underline ">
+                        Sign Out
+                      </p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth="1.5"
-                        stroke="black"
-                        className="w-6 h-6"
+                        stroke="currentColor"
+                        className="w-5 h-5 mb-1"
                       >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
-                          d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+                          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                         />
                       </svg>
                     </button>
-                  </ul>
+                  </div>
                 </div>
               </div>
             )}
@@ -127,24 +146,25 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
         <Link className="text-sm font-medium " href="#">
           Search
         </Link> */}
-
-            <Link className="text-sm font-medium  hover:underline" href="/">
-              Back to website
-            </Link>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-5 h-5 mb-1"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-              />
-            </svg>
+            <div className="hidden md:flex md:flex-row gap-2 items-center">
+              <Link className="text-sm font-medium hover:underline " href="/">
+                Back to website
+              </Link>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="w-5 h-5 mb-1"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </nav>

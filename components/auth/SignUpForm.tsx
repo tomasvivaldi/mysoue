@@ -3,143 +3,22 @@
 // import { FormElement } from '@/form/FormElement';
 // import { Label } from '@/form/Label';
 // import { FullCenterSection } from '@/layout/FullCenterSection';
-// import { useState } from 'react';
-
-// interface SignUpFormProps {
-//   handleSignUp: (username: string, email: string, password: string) => Promise<void>;
-//   errorMessage: string | null;
-// }
-
-// const SignUpForm: React.FC<SignUpFormProps> = ({ handleSignUp, errorMessage })=> {
-//   const [_password, setPassword] = useState("");
-//   const [hasUpperCase, setHasUpperCase] = useState(false);
-//   const [hasLowerCase, setHasLowerCase] = useState(false);
-//   const [hasNumber, setHasNumber] = useState(false);
-//   const [hasSpecialChar, setHasSpecialChar] = useState(false);
-//   const [hasMinLength, setHasMinLength] = useState(false);
-//   const [passwordFailed, setPasswordFailed] = useState(false); // New state
-
-//   const isValidPassword = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && hasMinLength;
-
-//   const handlePasswordChange = (event: { target: { value: any; }; }) => {
-//     const newPassword = event.target.value;
-//     setPassword(newPassword);
-//     setHasUpperCase(/[A-Z]/.test(newPassword));
-//     setHasLowerCase(/[a-z]/.test(newPassword));
-//     setHasNumber(/[0-9]/.test(newPassword));
-//     setHasSpecialChar(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(newPassword));
-//     setHasMinLength(newPassword.length >= 8);
-//     setPasswordFailed(false);  // Reset passwordFailed whenever the user types something
-//   }
-
-//   const handleSubmit = (event: { preventDefault: () => void; target: any; }) => {
-//     event.preventDefault();
-//     const target = event.target as typeof event.target & {
-//       username: { value: string };
-//       email: { value: string };
-//       password: { value: string };
-//     };
-
-//     if (!isValidPassword) {
-//       setPasswordFailed(true);
-//       return;
-//     }
-
-//     handleSignUp(target.username.value, target.email.value, target.password.value);
-//   }
-
-//   return(
-//   <FullCenterSection
-//     title="Create your account"
-//     description="Sign up with your email address and password."
-//   >
-//     {/* {errorMessage && <div className="text-red-500">{errorMessage}</div>} */}
-//     <form className="grid gap-y-2" onSubmit={handleSubmit}>
-//       <Label htmlFor="username">Username</Label>
-//       <FormElement>
-//         <input
-//         id="username"
-//         type="text"
-//         required
-//         className='dark:bg-slate-800'
-//         />
-//       </FormElement>
-//       <Label htmlFor="email">Email</Label>
-//       <FormElement>
-//         <input
-//         id="email"
-//         type="email"
-//         required
-//         className={`dark:bg-slate-800 ${errorMessage ? ' ring-red-500 ring-2' : ''}`}
-//         />
-//       </FormElement>
-//       {errorMessage && <p className="text-red-500">Email already in use</p>}
-
-//       <Label htmlFor="password">Password</Label>
-//       <FormElement>
-//         <input
-//           id="password"
-//           type="password"
-//           required
-//           className={`dark:bg-slate-800 ${passwordFailed ? ' ring-red-500 ring-2' : ''}`}
-//           onChange={handlePasswordChange}
-//         />
-//       </FormElement>
-
-//       {passwordFailed && <p className="text-red-500">Password does not meet the requirements</p>}
-
-//       <FormElement>
-//   <div className="-mt-1 ml-1">
-//     <div className={hasMinLength ? "text-green-500 text-sm" : "text-gray-500 text-sm"}>
-//       {hasMinLength ? null : null}
-//       Your password must be at least 8 characters.
-//     </div>
-//     <div className={hasUpperCase ? "text-green-500 text-sm" : "text-gray-500 text-sm"}>
-//       {hasUpperCase ? null : null}
-//       Your password must contain at least 1 upper case character.
-//     </div>
-//     <div className={hasLowerCase ? "text-green-500 text-sm" : "text-gray-500 text-sm"}>
-//       {hasLowerCase ? null : null}
-//       Your password must contain at least 1 lower case character.
-//     </div>
-//     <div className={hasNumber ? "text-green-500 text-sm" : "text-gray-500 text-sm"}>
-//       {hasNumber ? null : null}
-//       Your password must contain at least 1 number.
-//     </div>
-//     <div className={hasSpecialChar ? "text-green-500 text-sm" : "text-gray-500 text-sm"}>
-//       {hasSpecialChar ? null : null}
-//       Your password must contain at least 1 special character.
-//     </div>
-//   </div>
-// </FormElement>
-
-//       <div className="mt-3">
-//         <button type="submit" className="w-full">
-//           <Button full>Sign up</Button>
-//         </button>
-//       </div>
-//     </form>
-
-//     <div className="mt-5 text-center text-xs">
-//       Already have an account?{' '}
-//         <a href="/login" className="text-primary-500 hover:text-primary-600">
-//           Log in now
-//         </a>
-//       .
-//     </div>
-//   </FullCenterSection>
-// );
-// };
-
-// export { SignUpForm };
+import { useState } from "react";
 
 interface SignUpFormProps {
   email: string;
   setEmail: (email: string) => void;
+  username: string;
+  setUsername: (email: string) => void;
   password: string;
   setPassword: (password: string) => void;
-  // handleSignUp: (e: React.FormEvent) => Promise<void>;
+  handleSignUp: (
+    username: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
   loading: boolean;
+  errorMessage: string | null;
 }
 import React from "react";
 import Image from "next/image";
@@ -150,11 +29,57 @@ import { FormElement } from "../form/FormElement";
 const SignUpForm = ({
   email,
   setEmail,
+  username,
+  setUsername,
   password,
   setPassword,
-  // handleSignUp,
+  handleSignUp,
   loading,
+  errorMessage,
 }: SignUpFormProps) => {
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasLowerCase, setHasLowerCase] = useState(false);
+  const [hasNumber, setHasNumber] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [hasMinLength, setHasMinLength] = useState(false);
+  const [passwordFailed, setPasswordFailed] = useState(false); // New state
+
+  const isValidPassword =
+    hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && hasMinLength;
+
+  const handlePasswordChange = (event: { target: { value: any } }) => {
+    const newPassword = event.target.value;
+    setPassword(newPassword);
+    setHasUpperCase(/[A-Z]/.test(newPassword));
+    setHasLowerCase(/[a-z]/.test(newPassword));
+    setHasNumber(/[0-9]/.test(newPassword));
+    setHasSpecialChar(
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(newPassword)
+    );
+    setHasMinLength(newPassword.length >= 8);
+    setPasswordFailed(false); // Reset passwordFailed whenever the user types something
+  };
+
+  const handleSubmit = (event: { preventDefault: () => void; target: any }) => {
+    event.preventDefault();
+    const target = event.target as typeof event.target & {
+      username: { value: string };
+      email: { value: string };
+      password: { value: string };
+    };
+
+    if (!isValidPassword) {
+      setPasswordFailed(true);
+      return;
+    }
+
+    handleSignUp(
+      target.username.value,
+      target.email.value,
+      target.password.value
+    );
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
       <div className="w-full max-w-md text-center text-white">
@@ -176,19 +101,32 @@ const SignUpForm = ({
           <h1 className="text-xl font-semibold mt-4">Create Your Account</h1>
           <p className="mt-2">Sign up with your email address and password.</p>
 
-          <form
-            className="grid gap-y-2 mb-4"
-            // onSubmit={handleSignUp}
-          >
+          <form className="grid gap-y-2 mb-4" onSubmit={handleSubmit}>
             <Label htmlFor="email">Email Address</Label>
             <FormElement>
               <input
                 id="email"
                 type="email"
                 required
-                className="w-full bg-transparent ring-white ring-1 rounded-md"
+                className={`w-full bg-transparent ring-white ring-1 rounded-md p-2 ${
+                  errorMessage ? " ring-red-500 ring-2" : ""
+                }`}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormElement>
+
+            <Label htmlFor="username">Username</Label>
+            <FormElement>
+              <input
+                id="username"
+                type="username"
+                required
+                className={`w-full bg-transparent ring-white ring-1 rounded-md p-2 
+                  
+                  `}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </FormElement>
 
@@ -198,10 +136,64 @@ const SignUpForm = ({
                 id="password"
                 type="password"
                 required
-                className="w-full bg-transparent ring-white ring-1 rounded-md"
+                className={`w-full bg-transparent ring-white ring-1 rounded-md p-2 mb-3 ${
+                  passwordFailed ? " ring-red-500 ring-2" : ""
+                }`}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={handlePasswordChange}
               />
+              <div className="-mt-1 ml-1 font-semibold">
+                <div
+                  className={
+                    hasMinLength
+                      ? "text-green-400 text-sm "
+                      : "text-gray-100 text-sm"
+                  }
+                >
+                  {hasMinLength ? null : null}
+                  Your password must be at least 8 characters.
+                </div>
+                <div
+                  className={
+                    hasUpperCase
+                      ? "text-green-400 text-sm"
+                      : "text-gray-100 text-sm"
+                  }
+                >
+                  {hasUpperCase ? null : null}
+                  Your password must contain at least 1 upper case character.
+                </div>
+                <div
+                  className={
+                    hasLowerCase
+                      ? "text-green-400 text-sm"
+                      : "text-gray-100 text-sm"
+                  }
+                >
+                  {hasLowerCase ? null : null}
+                  Your password must contain at least 1 lower case character.
+                </div>
+                <div
+                  className={
+                    hasNumber
+                      ? "text-green-400 text-sm"
+                      : "text-gray-100 text-sm"
+                  }
+                >
+                  {hasNumber ? null : null}
+                  Your password must contain at least 1 number.
+                </div>
+                <div
+                  className={
+                    hasSpecialChar
+                      ? "text-green-400 text-sm"
+                      : "text-gray-100 text-sm"
+                  }
+                >
+                  {hasSpecialChar ? null : null}
+                  Your password must contain at least 1 special character.
+                </div>
+              </div>
             </FormElement>
 
             <div className="mt-3">

@@ -46,7 +46,7 @@ const HomePage = () => {
       <OurLists />
 
       {/* Responsive ; Need Final Copy */}
-      <Banner />
+      {/* <Banner /> */}
 
       {/* Responsive ; Need Final Copy */}
       <TestimonialCarousel testimonials={testimonials} />

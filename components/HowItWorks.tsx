@@ -26,9 +26,9 @@ const HowItWorks = () => {
   };
 
   const texts = [
-    "Start: Embark on an exciting journey with Thailand's pioneer in online wishlists – it's completely free!",
-    "Sharing: Easily share your wishlist with friends and family for any joyous occasion.",
-    "Unwrap: Enjoy unwrapping gifts that truly match your desires and preferences.",
+    "Embark on an exciting journey with Thailand's pioneer in online wishlists – it's completely free!",
+    "Easily share your wishlist with friends and family for any joyous occasion.",
+    "Enjoy unwrapping gifts that truly match your desires and preferences.",
   ];
 
   return (
@@ -67,28 +67,52 @@ const HowItWorks = () => {
         </div>
         <div className="flex flex-col space-y-6 w-full md:w-1/2  sm:x-paddings md:px-0">
           <h2 className="heading2">Start your wishlist journey with us</h2>
-          <p className="text-xs md:text-sm lg:text-lg">
-            {highlightedImage > 0 && texts[highlightedImage - 1]}
-          </p>
+
           <div className="flex space-x-4">
-            <button onClick={() => highlightImage(1)} className="z-30">
+            <button
+              onClick={() => highlightImage(1)}
+              className={`z-30 ${
+                highlightedImage === 1
+                  ? " underline-offset-4 underline decoration-amber-700"
+                  : " hover:underline hover:underline-offset-4 hover:decoration-amber-600 hover:font-medium"
+              }`}
+            >
               Start
             </button>
-            <button onClick={() => highlightImage(2)} className="z-30">
+            <button
+              onClick={() => highlightImage(2)}
+              className={`z-30 ${
+                highlightedImage === 2
+                  ? " underline-offset-4 underline decoration-amber-700"
+                  : " hover:underline hover:underline-offset-4 hover:decoration-amber-600 hover:font-medium"
+              }`}
+            >
               Sharing
             </button>
-            <button onClick={() => highlightImage(3)} className="z-30">
+            <button
+              onClick={() => highlightImage(3)}
+              className={`z-30 ${
+                highlightedImage === 3
+                  ? " underline-offset-4 underline decoration-amber-700"
+                  : " hover:underline hover:underline-offset-4 hover:decoration-amber-600 hover:font-medium"
+              }`}
+            >
               Unwrap
             </button>
           </div>
+
+          <p className="text-xs md:text-sm lg:text-lg">
+            {highlightedImage > 0 && texts[highlightedImage - 1]}
+          </p>
+
           <blockquote className="p-4 border-l-4 border-gray-300">
             <p className="italic">
-              “Intuitive and easy to make shareable lists for the holidays.”
+              “Intuitive and easy way to make shareable lists for any occasion!”
             </p>
             <footer className="mt-1 text-sm font-medium">
-              Daniel Zakowski
+              Luiza Torrezani
             </footer>
-            <footer className="text-sm">CEO @ Ready, Set, Food!</footer>
+            <footer className="text-sm">Co-founder of Mysoue</footer>
           </blockquote>
         </div>
       </div>

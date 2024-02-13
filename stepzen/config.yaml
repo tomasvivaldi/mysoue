@@ -1,0 +1,4 @@
+configurationset:
+  - configuration:
+      name: stepzen_config
+      uri: postgresql://aws-0-ap-southeast-1.pooler.supabase.com/postgres?user=postgres.xacnmieuwiwdgjbmynza&password=Str81Mns99Fla%40%23

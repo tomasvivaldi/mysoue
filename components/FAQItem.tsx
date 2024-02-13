@@ -30,8 +30,13 @@ const FAQItem: FunctionComponent<FAQItemProps> = ({ question, answer }) => {
 
   const toggleOpen = () => setIsOpen(!isOpen);
 
+  // Split the answer string into paragraphs wherever a line break occurs
+  const answerParagraphs = answer
+    .split(/\\n|\n/)
+    .filter((paragraph) => paragraph.trim());
+
   return (
-    <div className=" border-b ">
+    <div className="border-b h-fit">
       <button
         onClick={toggleOpen}
         className="flex justify-between items-center w-full text-left"
@@ -45,13 +50,17 @@ const FAQItem: FunctionComponent<FAQItemProps> = ({ question, answer }) => {
           }`}
         />
       </button>
-      <p
-        className={`mt-2 text-base text-gray-500 transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0 h-0"
-        }`}
+      <div
+        className={`transition-max-height duration-300 ease-in-out  ${
+          isOpen ? "max-h-96" : "max-h-0"
+        } overflow-hidden`}
       >
-        {answer}
-      </p>
+        {answerParagraphs.map((paragraph, index) => (
+          <p className="p-2" key={index}>
+            {paragraph}
+          </p>
+        ))}
+      </div>
     </div>
   );
 };

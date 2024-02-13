@@ -69,8 +69,8 @@ const createNewWishlist = () => {
               <p className="mb-8">
                 Provide all the details for the gift list you'd like to create.
                 This ensures your loved ones have the information they need.
-                Whether someone wants to create a surprise list and share it
-                with friends or offer it to you, everything is possible here.
+                {/* Whether someone wants to create a surprise list and share it
+                with friends or offer it to you, everything is possible here. */}
               </p>
 
               <GhostButtonBlack text="Create Your List" onClick={goNextStep} />

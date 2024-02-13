@@ -19,7 +19,7 @@ const SocialButton = ({
     className="inline-flex items-center justify-center w-full rounded-full border-2 border-white bg-transparent py-2 px-5 text-white hover:border-primary-400 hover:bg-white/10 transition-colors duration-300"
     onClick={onClick} // Use the onClick prop
   >
-    {icon}
+    <div className="w-6 h-6">{icon}</div>
     <span className="ml-2 text-lg font-semibold">{children}</span>
   </button>
 );

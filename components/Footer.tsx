@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <h5 className="text-base sm:text-lg font-semibold mb-6">
-              Our lists
+              Customer service
             </h5>
             <ul className="space-y-4">
               <li>
@@ -17,7 +17,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Diam orci
+                  Contact us
                 </a>
               </li>
               <li>
@@ -25,7 +25,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Mi feugiat
+                  FAQ
                 </a>
               </li>
               <li>
@@ -33,7 +33,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Netus fermentum
+                  Add a review
                 </a>
               </li>
               <li>
@@ -41,7 +41,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Suspendisse viverra
+                  Information
                 </a>
               </li>
               <li>
@@ -49,7 +49,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Id dolor
+                  About us
                 </a>
               </li>
               <li>
@@ -57,22 +57,20 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Erat mattis
+                  Career
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h5 className="text-base sm:text-lg font-semibold mb-6">
-              About us
-            </h5>
+            <h5 className="text-base sm:text-lg font-semibold mb-6">Social</h5>
             <ul className="space-y-4">
               <li>
                 <a
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Nibh
+                  Instagram
                 </a>
               </li>
               <li>
@@ -80,7 +78,7 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Egestas
+                  Facebook
                 </a>
               </li>
               <li>
@@ -88,7 +86,15 @@ const Footer = () => {
                   className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
                   href="#"
                 >
-                  Dictum
+                  Pinterest
+                </a>
+              </li>
+              <li>
+                <a
+                  className="text-sm sm:text-base text-gray-600 hover:text-gray-900"
+                  href="#"
+                >
+                  Tiktok
                 </a>
               </li>
             </ul>

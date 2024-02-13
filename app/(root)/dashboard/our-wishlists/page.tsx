@@ -54,7 +54,7 @@ const Login = () => {
           </button>
         </div>
 
-        <div className="flex flex-row flex-wrap gap-8">
+        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
           {wishlists.map((wishlist) => (
             <Card
               key={wishlist.id}

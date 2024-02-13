@@ -19,13 +19,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         setIsSidebarOpen={setIsSidebarOpen}
       />
       <div
-        className={`flex flex-1 mt-12 z-0 ${
-          isSidebarOpen ? "ml-[250px]" : "ml-0"
+        className={`flex flex-1 mt-12 z-0 pb-36 md:pb-12 ${
+          isSidebarOpen ? "md:ml-[250px]" : "md:ml-0"
         } transition-margin duration-300`}
       >
         {children}
       </div>
-      <div className="z-50">
+      <div className="z-30 md:z-40">
         <Footer />
       </div>
     </div>
