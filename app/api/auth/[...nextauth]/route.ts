@@ -17,6 +17,7 @@ const client = new ApolloClient({
 });
 
 const authOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   debug: true,
   session: { maxAge: 30 * 24 * 60 * 60, updateAge: 24 * 60 * 60 },
   providers: [
