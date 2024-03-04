@@ -29,7 +29,7 @@ type Wishlist_items {
   quantity: Int!
   updated_at: DateTime!
   wishlist_id: ID!
-  wishlist_item_id: ID!
+  id: ID!
 }
 
 type Wishlists {
@@ -42,7 +42,7 @@ type Wishlists {
   type: String
   updated_at: DateTime
   user_id: ID!
-  wishlist_id: ID!
+  id: ID!
 }
 
 """
@@ -51,6 +51,13 @@ Feel free to modify them or aggregate more.
 """
 type Query {
   " Queries for type 'Products' "
+  productsById(id: ID!): [Products]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "products"
+      configuration: "stepzen_config"
+    )
   productsList: [Products]
     @dbquery(
       type: "postgresql"
@@ -106,6 +113,13 @@ type Query {
       configuration: "stepzen_config"
     )
   " Queries for type 'Wishlist_items' "
+  wishlistItemsById(id: ID!): [Wishlist_items]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "wishlist_items"
+      configuration: "stepzen_config"
+    )
   wishlist_itemsList: [Wishlist_items]
     @dbquery(
       type: "postgresql"
@@ -118,11 +132,18 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "added_at", "additional_description", "product_id", "quantity", "updated_at", "wishlist_id", "wishlist_item_id" FROM "wishlist_items" LIMIT $1 OFFSET $2
+      SELECT "added_at", "additional_description", "product_id", "quantity", "updated_at", "wishlist_id", "id" FROM "wishlist_items" LIMIT $1 OFFSET $2
       """
       configuration: "stepzen_config"
     )
   " Queries for type 'Wishlists' "
+  wishlistsById(id: ID!): [Wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "wishlists"
+      configuration: "stepzen_config"
+    )
   wishlistsList: [Wishlists]
     @dbquery(
       type: "postgresql"
@@ -135,7 +156,7 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "address", "created_at", "description", "due_date", "require_address", "title", "type", "updated_at", "user_id", "wishlist_id" FROM "wishlists" LIMIT $1 OFFSET $2
+      SELECT "address", "created_at", "description", "due_date", "require_address", "title", "type", "updated_at", "user_id", "id" FROM "wishlists" LIMIT $1 OFFSET $2
       """
       configuration: "stepzen_config"
     )
@@ -224,7 +245,7 @@ type Mutation {
     wishlist_id: ID!
     additional_description: String!
     product_id: ID!
-    wishlist_item_id: ID!
+    id: ID!
     updated_at: DateTime!
     added_at: DateTime!
   ): Wishlist_items
@@ -252,7 +273,7 @@ type Mutation {
     )
   " Mutations for type 'Wishlists' "
   deleteWishlists(
-    wishlist_id: ID!
+    id: ID!
     user_id: ID!
     created_at: DateTime!
     updated_at: DateTime!

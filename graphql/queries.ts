@@ -72,7 +72,7 @@ export const GET_USERS_BY_ID = gql`
         type
         updated_at
         user_id
-        wishlist_id
+        id
         Wishlist_items {
           added_at
           additional_description
@@ -80,9 +80,47 @@ export const GET_USERS_BY_ID = gql`
           quantity
           updated_at
           wishlist_id
-          wishlist_item_id
+          id
         }
       }
+    }
+  }
+`;
+
+export const GET_PRODUCT_BY_ID = gql`
+  query GetProductById($id: ID!) {
+    productById(id: $id) {
+      id
+      name
+      description
+      price
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const GET_WISHLIST_BY_ID = gql`
+  query GetWishlistById($id: ID!) {
+    wishlistById(id: $id) {
+      id
+      user_id
+      name
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const GET_WISHLIST_ITEM_BY_ID = gql`
+  query GetWishlistItemById($id: ID!) {
+    wishlistItemById(id: $id) {
+      id
+      wishlist_id
+      product_id
+      quantity
+      created_at
+      updated_at
     }
   }
 `;

@@ -1,19 +1,46 @@
 import React, { useState } from "react";
 import GhostButtonBlack from "./GhostButtonBlack";
 
-type FormStepTwoProps = {
-  onNext: () => void; // Function to proceed to the next step
-};
+interface ListOption {
+  value: string;
+  label: string;
+}
 
-const FormStepTwo: React.FC<FormStepTwoProps> = ({ onNext }) => {
-  const [listType, setListType] = useState("");
-  const [listName, setListName] = useState("");
-  const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [provideAddress, setProvideAddress] = useState(false);
+interface FormStepTwoProps {
+  onNext: () => void;
+  listOptions: ListOption[];
+  listType: string;
+  setListType: React.Dispatch<React.SetStateAction<string>>;
+  listName: string;
+  setListName: React.Dispatch<React.SetStateAction<string>>;
+  description: string;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  dueDate: string;
+  setDueDate: React.Dispatch<React.SetStateAction<string>>;
+  provideAddress: boolean;
+  setProvideAddress: React.Dispatch<React.SetStateAction<boolean>>;
+  address: string;
+  setAddress: React.Dispatch<React.SetStateAction<string>>;
+}
 
+const FormStepTwo: React.FC<FormStepTwoProps> = ({
+  onNext,
+  listOptions,
+  listType,
+  setListType,
+  listName,
+  setListName,
+  description,
+  setDescription,
+  dueDate,
+  setDueDate,
+  provideAddress,
+  setProvideAddress,
+  address,
+  setAddress,
+}) => {
   return (
-    <div className="flex flex-col gap-4 rounded-md border-gray-200 px-12 py-6  shadow-xl">
+    <div className="flex flex-col gap-4 rounded-md border-gray-200 px-4 md:px-12 py-6  shadow-xl">
       <h2 className="text-2xl font-semibold text-left">Create Your Wishlist</h2>
       <p className="text-left ">Fill in the details to create a new wishlist</p>
 
@@ -25,8 +52,11 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({ onNext }) => {
             value={listType}
             onChange={(e) => setListType(e.target.value)}
           >
-            <option value="">Select a type</option>
-            {/* Map your options here */}
+            {listOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -81,6 +111,18 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({ onNext }) => {
           </div>
         </div>
       </div>
+      {provideAddress && (
+        <div className="col-span-1">
+          <label className="block -mt-2 mb-2 text-left">Address</label>
+          <input
+            type="text"
+            className="w-full p-2 border rounded"
+            placeholder="Enter your address"
+            value={address} // Make sure you have a state for this
+            onChange={(e) => setAddress(e.target.value)} // And a method to update it
+          />
+        </div>
+      )}
 
       <div className=" col-span-1 ">
         <label className="block mb-2 text-left">Description</label>

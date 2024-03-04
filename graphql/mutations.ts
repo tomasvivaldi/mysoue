@@ -30,6 +30,91 @@ export const ADD_USERS = gql`
   }
 `;
 
+export const ADD_WISHLIST = gql`
+  mutation AddWishlists(
+    $user_id: ID!
+    $title: String!
+    $type: String
+    $description: String
+    $due_date: DateTime
+    $require_address: Boolean
+    $address: String
+    $created_at: DateTime!
+    $updated_at: DateTime
+  ) {
+    insertWishlists(
+      user_id: $user_id
+      title: $title
+      type: $type
+      description: $description
+      due_date: $due_date
+      require_address: $require_address
+      address: $address
+      created_at: $created_at
+      updated_at: $updated_at
+    ) {
+      id
+      user_id
+      title
+      type
+      description
+      due_date
+      require_address
+      address
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const ADD_WISHLIST_ITEM = gql`
+  mutation AddWishlistItem(
+    $wishlist_id: ID!
+    $product_id: ID!
+    $quantity: Int!
+    $created_at: DateTime
+  ) {
+    insertWishlistItem(
+      wishlist_id: $wishlist_id
+      product_id: $product_id
+      quantity: $quantity
+      created_at: $created_at
+    ) {
+      id
+      wishlist_id
+      product_id
+      quantity
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const ADD_PRODUCT = gql`
+  mutation AddProduct(
+    $name: String!
+    $description: String
+    $price: Float!
+    $created_at: DateTime
+    $updated_at: DateTime
+  ) {
+    insertProduct(
+      name: $name
+      description: $description
+      price: $price
+      created_at: $created_at
+      updated_at: $updated_at
+    ) {
+      id
+      name
+      description
+      price
+      created_at
+      updated_at
+    }
+  }
+`;
+
 export const ADD_CAREER_WORK_INFO = gql`
   mutation AddCareerWorkInfo(
     $username: String!

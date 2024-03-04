@@ -9,6 +9,7 @@ type StepData = {
   description: string;
   dueDate: string;
   provideAddress: boolean;
+  address?: string | undefined;
 };
 
 type ReviewStepProps = {
@@ -24,25 +25,34 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center p-4 h-full w-full">
-      <div className="rounded-md border-gray-200 bg-white px-12 py-6 w-[50%] mx-auto shadow-xl text-center">
+      <div className="rounded-md border-gray-200 bg-white px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl text-center">
         <h2 className="text-2xl font-semibold mb-4">Review Your Wishlist</h2>
-        <div className="text-left mb-8">
+        <div className="text-left my-8 flex-col flex gap-2">
           <p>
             <strong>Type of List:</strong> {formData.listType}
           </p>
+
           <p>
             <strong>Name of the List:</strong> {formData.listName}
           </p>
+
           <p>
             <strong>Description:</strong> {formData.description}
           </p>
+
           <p>
             <strong>Due Date:</strong> {formData.dueDate}
           </p>
+
           <p>
             <strong>Provide Address:</strong>{" "}
             {formData.provideAddress ? "Yes" : "No"}
           </p>
+          {formData.provideAddress && formData.address && (
+            <p>
+              <strong>Address:</strong> {formData.address}
+            </p>
+          )}
         </div>
         <button
           className=" text-black font-medium py-2 px-4 rounded mb-4"
