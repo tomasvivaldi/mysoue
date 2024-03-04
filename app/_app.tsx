@@ -9,6 +9,7 @@ import client from "../apollo-client";
 // import { LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import Script from "next/script";
+import UserLayout from "@/components/UserLayout";
 
 const MyApp = ({
   Component,
@@ -32,8 +33,9 @@ const MyApp = ({
               gtag('config', 'G-K50BW4JH06');
           `}
       </Script> */}
-
-      <Component {...pageProps} />
+      <UserLayout>
+        <Component {...pageProps} />
+      </UserLayout>
       {/* </LocalizationProvider> */}
       {/* </ThemeProvider> */}
     </SessionProvider>
