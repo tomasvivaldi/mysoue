@@ -5,6 +5,25 @@ import HowItWorks from "@/components/HowItWorks";
 import OurLists from "@/components/OurLists";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
 
+import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
+import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
+
+const redLogos = [
+  {
+    imageUrl: "/xmas.jpg",
+    altText: "A descriptive text for image 1",
+  },
+  {
+    imageUrl: "/xmas.jpg",
+    altText: "A descriptive text for image 2",
+  },
+  {
+    imageUrl: "/xmas.jpg",
+    altText: "A descriptive text for image 3",
+  },
+  // Add more images as needed
+];
+
 const HomePage = () => {
   const testimonials = [
     {
@@ -42,6 +61,58 @@ const HomePage = () => {
   return (
     <>
       <HeroSection />
+      <RedLogosBanner items={redLogos} direction="left" speed="normal" />
+      <SmallTextBanner
+        items={[
+          "Occasions",
+          "Lifestyles",
+          "Wishes",
+          "Ages",
+          "Occasions",
+          "Lifestyles",
+          "Wishes",
+          "Ages",
+        ]} // Array length for repetition
+        extraWord="Creativity"
+        genericText="FOR ALL"
+        textColor="#FFFFFF"
+        bgColor=""
+        direction="left"
+        speed="normal"
+        className="bg-red-700 my-4 text-xs tracking-[0.2em] font-light"
+      />
+      <SmallTextBanner
+        items={[
+          "WE GOT IT",
+          "WE GOT IT",
+          "WE GOT IT",
+          "WE GOT IT",
+          "WE GOT IT",
+        ]} // Array length for repetition
+        extraWord="Creativity"
+        genericText="you want it"
+        textColor="#b91c1c"
+        bgColor=""
+        direction="left"
+        speed="normal"
+        className="border border-b-red-700 border-t-red-700 my-4 py-4 text-4xl tracking-[0.2em] font-inter"
+      />
+      <SmallTextBanner
+        items={[
+          "Gifting world",
+          "Gifting world",
+          "Gifting world",
+          "Gifting world",
+          "Gifting world",
+        ]} // Array length for repetition
+        extraWord="Creativity"
+        genericText="welcome to the"
+        textColor="#000"
+        bgColor=""
+        direction="left"
+        speed="normal"
+        className="border border-b-black border-t-black my-4 py-4 text-4xl tracking-[0.2em] font-inter"
+      />
       <HowItWorks />
       <OurLists />
 

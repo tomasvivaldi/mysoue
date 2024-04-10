@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface CardProps {
   img: string;
@@ -7,18 +8,22 @@ interface CardProps {
   type: string;
   date: string;
   postpreview: string;
+  id: string;
 }
 
 const Card: React.FC<CardProps> = ({
+  id,
   img,
   activity,
   type,
   date,
   postpreview,
 }) => {
+  console.log("id", id);
   return (
-    <a
-      href=""
+    <Link
+      href={`/dashboard/my-wishlists/${id}`}
+      passHref
       className="relative w-[250px] group rounded-lg
                  transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
     >
@@ -75,7 +80,7 @@ const Card: React.FC<CardProps> = ({
           </div>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 

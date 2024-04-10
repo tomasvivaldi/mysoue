@@ -1,7 +1,113 @@
+"use client";
 import Card from "@/components/Card";
 import Head from "next/head";
+import { getSession, useSession } from "next-auth/react";
+import { use, useEffect, useState } from "react";
 
-const Login = () => {
+import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
+import React from "react";
+import { User } from "next-auth";
+import client from "@/apollo-client";
+
+interface WishlistItem {
+  added_at: string;
+  additional_description?: string;
+  product_id: string;
+  quantity: number;
+  updated_at: string;
+  wishlist_id: string;
+  id: string;
+}
+
+interface Wishlist {
+  address?: string;
+  created_at: string;
+  description?: string;
+  due_date?: string;
+  require_address: boolean;
+  title: string;
+  type: string;
+  updated_at: string;
+  user_id: string;
+  id: string;
+  Wishlist_items: WishlistItem[];
+}
+
+interface UserById {
+  created_at: string;
+  email: string;
+  id: string;
+  oauth_provider: string;
+  password_hash: string;
+  profile_picture_url: string;
+  updated_at: string;
+  username: string;
+  wishlists: Wishlist[];
+}
+
+interface MyWishlistsProps {
+  userData: UserById | null; // Assuming UserById is your user data type
+}
+
+interface UserWithProvider extends User {
+  provider?: string;
+}
+
+export default function MyWishlists() {
+  const [userData, setUserData] = useState<UserById | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { data: session } = useSession();
+  const user = session?.user as UserWithProvider;
+  console.log("session", session);
+  console.log("session?.user?.email", user?.email);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const userEmail = user?.email;
+
+        if (userEmail) {
+          const emailResponse = await client.query({
+            query: GET_USERS_BY_EMAIL,
+            variables: { email: userEmail },
+          });
+          const userId = emailResponse.data.usersByEmail?.[0]?.id;
+          console.log("userId", userId);
+
+          if (userId) {
+            const idResponse = await client.query({
+              query: GET_USERS_BY_ID,
+              variables: { id: userId },
+            });
+            // Adjust this part to match the actual response structure
+            const userDataById = idResponse.data.userDataById;
+            if (userDataById) {
+              setUserData(userDataById);
+              console.log("userData set to: ", userDataById);
+            } else {
+              console.error("User data not found for ID:", userId);
+            }
+          }
+        } else {
+          console.log("No user email found, skipping data fetch.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [user?.email]);
+
+  if (loading) {
+    // Optional: Render a loading indicator
+    return <div>Loading...</div>;
+  }
+
   const wishlists = [
     {
       id: 1,
@@ -30,16 +136,28 @@ const Login = () => {
         </div>
 
         <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
-          {wishlists.map((wishlist) => (
-            <Card
-              key={wishlist.id}
-              img={wishlist.imageUrl}
-              activity={wishlist.title}
-              type={" list type"}
-              date={" list date"}
-              postpreview={wishlist.description}
-            />
-          ))}
+          {userData?.wishlists.map((wishlist) => {
+            // Only attempt to create a Date object if wishlist.due_date is defined
+            const readableDate = wishlist.due_date
+              ? new Date(wishlist.due_date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : "none";
+            console.log("wishlist", wishlist);
+            return (
+              <Card
+                key={wishlist?.id}
+                id={wishlist?.id}
+                img="/xmas.jpg"
+                activity={wishlist.title}
+                type={wishlist.type}
+                date={readableDate} // Use the formatted date or "none"
+                postpreview={wishlist?.description!}
+              />
+            );
+          })}
         </div>
 
         <div className="flex justify-center mt-6">
@@ -62,6 +180,4 @@ const Login = () => {
       </div>
     </>
   );
-};
-
-export default Login;
+}

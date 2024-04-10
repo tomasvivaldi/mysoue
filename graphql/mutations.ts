@@ -122,7 +122,7 @@ export const ADD_CAREER_WORK_INFO = gql`
     $notes: String!
     $action_plan: String!
     $goals: JSON
-    $recorded_at: DateTime!
+    $updated_at: DateTime!
     $user_ref: Int!
   ) {
     insertCareer_work(
@@ -131,7 +131,7 @@ export const ADD_CAREER_WORK_INFO = gql`
       notes: $notes
       action_plan: $action_plan
       goals: $goals
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       username
@@ -206,7 +206,7 @@ export const ADD_ADVICE = gql`
     $spirituality_advice3: String!
     $spirituality_advice4: String!
     $spirituality_advice5: String!
-    $recorded_at: DateTime!
+    $updated_at: DateTime!
     $user_ref: Int!
   ) {
     insertCareer_work_feedback(
@@ -218,7 +218,7 @@ export const ADD_ADVICE = gql`
       advice4: $career_work_advice4
       advice5: $career_work_advice5
       goals: $goals
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -228,7 +228,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertCommunity_feedback(
@@ -239,7 +239,7 @@ export const ADD_ADVICE = gql`
       advice3: $community_advice3
       advice4: $community_advice4
       advice5: $community_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -249,7 +249,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertEnvironment_feedback(
@@ -260,7 +260,7 @@ export const ADD_ADVICE = gql`
       advice3: $environment_advice3
       advice4: $environment_advice4
       advice5: $environment_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -270,7 +270,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertFamily_friends_feedback(
@@ -281,7 +281,7 @@ export const ADD_ADVICE = gql`
       advice3: $family_friends_advice3
       advice4: $family_friends_advice4
       advice5: $family_friends_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -291,7 +291,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertFun_relaxation_feedback(
@@ -302,7 +302,7 @@ export const ADD_ADVICE = gql`
       advice3: $fun_relaxation_advice3
       advice4: $fun_relaxation_advice4
       advice5: $fun_relaxation_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -312,7 +312,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertGrowth_learning_feedback(
@@ -323,7 +323,7 @@ export const ADD_ADVICE = gql`
       advice3: $growth_learning_advice3
       advice4: $growth_learning_advice4
       advice5: $growth_learning_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -333,7 +333,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertHealth_fitness_feedback(
@@ -344,7 +344,7 @@ export const ADD_ADVICE = gql`
       advice3: $health_fitness_advice3
       advice4: $health_fitness_advice4
       advice5: $health_fitness_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -354,7 +354,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertMoney_finances_feedback(
@@ -365,7 +365,7 @@ export const ADD_ADVICE = gql`
       advice3: $money_finances_advice3
       advice4: $money_finances_advice4
       advice5: $money_finances_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -375,7 +375,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertPartner_love_feedback(
@@ -386,7 +386,7 @@ export const ADD_ADVICE = gql`
       advice3: $partner_love_advice3
       advice4: $partner_love_advice4
       advice5: $partner_love_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -396,7 +396,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
     insertSpirituality_feedback(
@@ -407,7 +407,7 @@ export const ADD_ADVICE = gql`
       advice3: $spirituality_advice3
       advice4: $spirituality_advice4
       advice5: $spirituality_advice5
-      recorded_at: $recorded_at
+      updated_at: $updated_at
       user_ref: $user_ref
     ) {
       # Same as db table
@@ -417,7 +417,7 @@ export const ADD_ADVICE = gql`
       advice3
       advice4
       advice5
-      recorded_at
+      updated_at
       user_ref
     }
   }
@@ -428,19 +428,19 @@ export const ADD_USER_PREFERENCES = gql`
     $use_case: String!
     $reminder_date: String!
     $user_ref: Int!
-    $recorded_at: DateTime
+    $updated_at: DateTime
   ) {
     insertUserPreferences(
       use_case: $use_case
       reminder_date: $reminder_date
       user_ref: $user_ref
-      recorded_at: $recorded_at
+      updated_at: $updated_at
     ) {
       id
       use_case
       reminder_date
       user_ref
-      recorded_at
+      updated_at
     }
   }
 `;

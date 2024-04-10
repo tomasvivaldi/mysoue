@@ -58,7 +58,7 @@ const SignUp = () => {
     // Ensure we have the latest user data before proceeding
     // await refetchUserByEmail(email);
 
-    const recorded_at = new Date().toISOString();
+    const updated_at = new Date().toISOString();
     const provider = "local";
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword = bcrypt.hashSync(password, salt);

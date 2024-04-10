@@ -1,74 +1,124 @@
-import Head from "next/head";
+"use client";
+import React, { useEffect, useState } from "react";
+import { fetchUserData } from "@/hooks/fetchUserData"; // Adjust the import to your actual data-fetching function
+import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
+import client from "@/apollo-client";
+import { useSession } from "next-auth/react";
+import { User } from "next-auth";
 
-const Login = () => {
-  const wishlists = [
-    {
-      id: 1,
-      title: "Christmas",
-      description: "Short List Descriptions",
-      imageUrl: "path_to_christmas_image.jpg",
-    },
-    {
-      id: 2,
-      title: "Baby Shower",
-      description: "Short List Descriptions",
-      imageUrl: "path_to_baby_shower_image.jpg",
-    },
-    // ... more wishlists
-  ];
-  return (
-    <>
-      <Head>
-        <title>Dashboard</title>
-      </Head>
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-regular">My Wishlists</h1>
-          <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
-            Create New Wishlist
-          </button>
-        </div>
+interface ChildComponentProps {
+  userData: UserById | null;
+}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {wishlists.map((wishlist) => (
-            <div
-              key={wishlist.id}
-              className="bg-white rounded shadow p-4 flex flex-col items-center"
-            >
-              <img
-                src={wishlist.imageUrl}
-                alt={wishlist.title}
-                className="w-full h-32 object-cover rounded"
-              />
-              <h2 className="mt-2 font-semibold">{wishlist.title}</h2>
-              <p>{wishlist.description}</p>
-              <button className="mt-auto bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 transition duration-300">
-                View List
-              </button>
-            </div>
-          ))}
-        </div>
+interface DashboardProps {
+  children: React.ReactNode;
+}
 
-        <div className="flex justify-center mt-6">
-          {/* Pagination would go here */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Previous
-          </button>
-          {/* Map over page numbers and render page buttons */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            1
-          </button>
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            2
-          </button>
-          {/* ... */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Next
-          </button>
-        </div>
-      </div>
-    </>
-  );
+interface WishlistItem {
+  added_at: string;
+  additional_description?: string;
+  product_id: string;
+  quantity: number;
+  updated_at: string;
+  wishlist_id: string;
+  id: string;
+}
+
+interface Wishlist {
+  address?: string;
+  created_at: string;
+  description?: string;
+  due_date?: string;
+  require_address: boolean;
+  title: string;
+  type: string;
+  updated_at: string;
+  user_id: string;
+  id: string;
+  Wishlist_items: WishlistItem[];
+}
+
+interface UserById {
+  created_at: string;
+  email: string;
+  id: string;
+  oauth_provider: string;
+  password_hash: string;
+  profile_picture_url: string;
+  updated_at: string;
+  username: string;
+  wishlists: Wishlist[];
+}
+
+// The response structure for the GET_USERS_BY_ID query
+interface UsersByIdResponse {
+  usersById: UserById[];
+}
+interface UserWithProvider extends User {
+  provider?: string;
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ children }) => {
+  const [userData, setUserData] = useState<UserById | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const { data: session } = useSession();
+  const user = session?.user as UserWithProvider;
+  console.log("session", session);
+  console.log("session?.user?.email", user?.email);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const userEmail = user?.email;
+
+        if (userEmail) {
+          const emailResponse = await client.query({
+            query: GET_USERS_BY_EMAIL,
+            variables: { email: userEmail },
+          });
+          const userId = emailResponse.data.usersByEmail?.[0]?.id;
+          console.log("userId", userId);
+
+          if (userId) {
+            const idResponse = await client.query({
+              query: GET_USERS_BY_ID,
+              variables: { id: userId },
+            });
+            // Adjust this part to match the actual response structure
+            const userDataById = idResponse.data.userDataById;
+            if (userDataById) {
+              setUserData(userDataById);
+              console.log("userData set to: ", userDataById);
+            } else {
+              console.error("User data not found for ID:", userId);
+            }
+          }
+        } else {
+          console.log("No user email found, skipping data fetch.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [user?.email]);
+
+  if (loading) {
+    // Optional: Render a loading indicator
+    return <div>Loading...</div>;
+  }
+
+  return React.Children.map(children, (child) => {
+    if (React.isValidElement<ChildComponentProps>(child)) {
+      return React.cloneElement(child, { userData });
+    }
+    return child;
+  });
 };
 
-export default Login;
+export default Dashboard;
