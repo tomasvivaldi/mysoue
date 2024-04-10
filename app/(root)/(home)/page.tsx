@@ -61,7 +61,7 @@ const HomePage = () => {
   return (
     <>
       <HeroSection />
-      <RedLogosBanner items={redLogos} direction="left" speed="normal" />
+      {/* <RedLogosBanner items={redLogos} direction="left" speed="normal" />
       <SmallTextBanner
         items={[
           "Occasions",
@@ -112,7 +112,7 @@ const HomePage = () => {
         direction="left"
         speed="normal"
         className="border border-b-black border-t-black my-4 py-4 text-4xl tracking-[0.2em] font-inter"
-      />
+      /> */}
       <HowItWorks />
       <OurLists />
 
