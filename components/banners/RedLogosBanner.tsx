@@ -68,6 +68,7 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
           key={1}
         >
           <Image
+            quality={75}
             height={115.9}
             width={195.1}
             src="/Symbol/Logo-Mysoue-Symbol_2.png"
@@ -80,6 +81,7 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
           key={2}
         >
           <Image
+            quality={75}
             height={140.5}
             width={230.9}
             src="/Vertical/Logo-Mysoue-Vertical_2.png"
@@ -92,6 +94,7 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
           key={3}
         >
           <Image
+            quality={75}
             height={140.1}
             width={442.1}
             src="/Stamp/Logo-Mysoue-Stamp_2.png"
@@ -104,6 +107,7 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
           key={4}
         >
           <Image
+            quality={75}
             height={127.6}
             width={500.0}
             src="/Horizontal/Logo-Mysoue-Horizontal_2.png"
