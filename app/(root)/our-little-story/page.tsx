@@ -39,7 +39,7 @@ const UeberMich = () => {
           <div className="flex flex-col gap-12 my-10 w-full x-paddings ">
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-center flex flex-row justify-center gap-8"
+              className="mb-6 max-w-3xl self-center flex flex-col sm:flex-row justify-center gap-8"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
@@ -65,7 +65,7 @@ const UeberMich = () => {
 
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-center flex flex-row justify-center gap-8"
+              className="mb-6 max-w-3xl self-center flex flex-col sm:flex-row justify-center gap-8"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}
