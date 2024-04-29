@@ -46,8 +46,8 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
   };
 
   return (
-    <div className="flex flex-col items-center py-6 mb-20 paddings">
-      <h2 className="heading2 my-8 md:my-20 text-center">
+    <div className="flex flex-col items-center paddings my-20">
+      <h2 className="heading2  md:mb-12 text-center font-simplemichael">
         What our clients say
       </h2>
       <div className=" flex flex-row items-center justify-center ">
@@ -75,7 +75,7 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="flex-shrink-0 mx-[25px] flex justify-center lg:first:ml-0 lg:last:mr-0"
+                className=" flex-shrink-0 mx-[25px] flex justify-center lg:first:ml-0 lg:last:mr-0"
               >
                 <TestimonialCard {...testimonial} />
               </div>

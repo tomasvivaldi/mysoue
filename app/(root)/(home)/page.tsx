@@ -1,5 +1,8 @@
+import AllAboutGifts from "@/components/AllAboutGifts";
 import Banner from "@/components/Banner";
 import FAQSection from "@/components/FAQ";
+import FolderNotch from "@/components/FolderNotch";
+import Hero2 from "@/components/Hero2";
 import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import OurLists from "@/components/OurLists";
@@ -7,22 +10,6 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
-
-const redLogos = [
-  {
-    imageUrl: "/xmas.jpg",
-    altText: "A descriptive text for image 1",
-  },
-  {
-    imageUrl: "/xmas.jpg",
-    altText: "A descriptive text for image 2",
-  },
-  {
-    imageUrl: "/xmas.jpg",
-    altText: "A descriptive text for image 3",
-  },
-  // Add more images as needed
-];
 
 const HomePage = () => {
   const testimonials = [
@@ -60,9 +47,12 @@ const HomePage = () => {
 
   return (
     <>
-      <HeroSection />
-      {/* <RedLogosBanner items={redLogos} direction="left" speed="normal" />
-      <SmallTextBanner
+      <Hero2 />
+      <FolderNotch>
+        <AllAboutGifts />
+      </FolderNotch>
+
+      {/* <SmallTextBanner
         items={[
           "Occasions",
           "Lifestyles",
@@ -81,6 +71,7 @@ const HomePage = () => {
         speed="normal"
         className="bg-red-700 my-4 text-xs tracking-[0.2em] font-light"
       />
+      
       <SmallTextBanner
         items={[
           "WE GOT IT",
@@ -112,7 +103,7 @@ const HomePage = () => {
         direction="left"
         speed="normal"
         className="border border-b-black border-t-black my-4 py-4 text-4xl tracking-[0.2em] font-inter"
-      /> */}
+      /> 
       <HowItWorks />
       <OurLists />
 
@@ -121,8 +112,10 @@ const HomePage = () => {
 
       {/* Responsive ; Need Final Copy */}
       <TestimonialCarousel testimonials={testimonials} />
-
+      <Banner />
       <FAQSection />
+      <RedLogosBanner direction="left" speed="slow" />
+      <div className="w-full mb-[100px]" />
     </>
   );
 };

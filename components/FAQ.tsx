@@ -54,13 +54,15 @@ const FAQSection = () => {
   const rightColumnFAQs = faqs.slice(midPoint);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 mt-20">
       <div className="text-center">
-        <h2 className="text-gray-900 heading2">Any questions?</h2>
+        <h2 className="text-gray-900 heading2 font-simplemichael">
+          Any questions?
+        </h2>
         {/* Additional content */}
       </div>
       <div className="mt-12 flex flex-wrap justify-between">
-        <div className="w-full md:w-1/2 pr-4">
+        <div className="w-full md:w-1/2 md:pr-4">
           {" "}
           {/* Adjust padding as needed */}
           {leftColumnFAQs.map((faq, index) => (
@@ -73,7 +75,7 @@ const FAQSection = () => {
             </div>
           ))}
         </div>
-        <div className="w-full md:w-1/2 pl-4">
+        <div className="w-full md:w-1/2 md:pl-4">
           {" "}
           {/* Adjust padding as needed */}
           {rightColumnFAQs.map((faq, index) => (

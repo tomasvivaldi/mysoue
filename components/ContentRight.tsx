@@ -1,36 +1,39 @@
 import Link from "next/link";
 import React from "react";
+import Image from "next/image";
 
-const ContentRight = () => {
+const ContentLeft = () => {
   return (
-    <div key="1" className="flex justify-between x-paddings2 my-12">
-      <div className="flex items-center justify-center w-1/2">
-        <img
-          alt="Placeholder"
-          className="w-96 h-96"
-          height="600"
-          src="/placeholder.svg"
-          style={{
-            aspectRatio: "600/600",
-            objectFit: "cover",
-          }}
-          width="600"
+    <div
+      key="1"
+      className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-0"
+    >
+      <div className="flex items-center justify-center w-full md:w-1/2">
+        <Image
+          src="/create2.png" // Change this src to match your actual image source if different
+          alt="Create 2"
+          width={1556}
+          height={1724}
+          objectPosition="center"
+          className="rounded-lg mx-auto md:my-auto w-full max-h- grow-0 shrink-0"
         />
       </div>
       <div className="max-w-xl space-y-6">
-        <h1 className="heading2">Step into a world of endless possibilities</h1>
-        <ul className="list-disc space-y-4 pl-5 text-lg">
-          <li>
+        <h1 className="heading2 font-simplemichael">
+          Step into a world of endless possibilities
+        </h1>
+        <ul className="list-disc space-y-4 pl-5 text-lg  ">
+          <li className="font-nunito">
             Occasions Tailored Just For You: From Baby Showers To Retirement
             Parties, Select The Event And Start Crafting A Wishlist That
             Captures The Essence Of Your Celebration.
           </li>
-          <li>
+          <li className="font-nunito">
             Seamless Sharing With Loved Ones: Once Your List Is Ready, Share It
             Effortlessly With Friends And Family. Say Goodbye To Unwanted Or
             Duplicate Gifts!
           </li>
-          <li>
+          <li className="font-nunito">
             Inspiration At Your Fingertips: Need Ideas? Browse Through Our
             Curated Categories For Inspiration Across A Wide Range Of Interests
             And Hobbies.
@@ -40,7 +43,7 @@ const ContentRight = () => {
           className="inline-flex items-center space-x-1 text-lg font-medium text-blue-600 hover:text-blue-500"
           href="#"
         >
-          <span>Go to Login</span>
+          <span className="font-nunito">Go to Login</span>
           <ChevronRightIcon className="w-5 h-5" />
         </Link>
       </div>
@@ -48,7 +51,7 @@ const ContentRight = () => {
   );
 };
 
-export default ContentRight;
+export default ContentLeft;
 
 function ChevronRightIcon(
   props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>

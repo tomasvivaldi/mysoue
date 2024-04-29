@@ -28,7 +28,7 @@ const UeberMich = () => {
         <div className="flex flex-col gap-4 justify-center items-center w-full mb-20 ">
           <motion.h2
             variants={fadeIn}
-            className="heading2 mb-4"
+            className="heading2 mb-4 font-simplemichael"
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
@@ -45,7 +45,7 @@ const UeberMich = () => {
               viewport={{ once: true }}
             >
               <Image
-                src="/our-little-story-1.png"
+                src="/story1.jpeg"
                 alt="our-little-story-1"
                 width={1556}
                 height={1724}
@@ -53,8 +53,8 @@ const UeberMich = () => {
                 className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
               />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2">Our DNA</h3>
-                <p className="body-regular">
+                <h3 className="heading3 mb-2 font-simplemichael">Our DNA</h3>
+                <p className="body-regular font-nunito">
                   The very essence of our concept is the result of an alliance
                   between different cultures. We draw our inspiration not only
                   from our own experience, but also from our mixed cultural
@@ -71,8 +71,8 @@ const UeberMich = () => {
               viewport={{ once: true }}
             >
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2">Our “soué”</h3>
-                <p className="body-regular">
+                <h3 className="heading3 mb-2 font-simplemichael">Our “soué”</h3>
+                <p className="body-regular font-nunito">
                   In French, “souhait” means wish. And that is all we are
                   about;"We're all about making your wishes come true,
                   eliminating worries, and creating space for meaningful moments
@@ -81,7 +81,7 @@ const UeberMich = () => {
                 </p>
               </motion.div>
               <Image
-                src="/our-little-story-2.png"
+                src="/story2.png"
                 alt="our-little-story-1"
                 width={1556}
                 height={1724}
@@ -97,7 +97,7 @@ const UeberMich = () => {
               viewport={{ once: true }}
             >
               <Image
-                src="/our-little-story-3.png"
+                src="/story3.png"
                 alt="our-little-story-1"
                 width={1556}
                 height={1724}
@@ -105,8 +105,8 @@ const UeberMich = () => {
                 className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
               />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2">Our values</h3>
-                <p className="body-regular">
+                <h3 className="heading3 mb-2 font-simplemichael">Our values</h3>
+                <p className="body-regular font-nunito">
                   our values are rooted in a desire to bring together and
                   cherish our loved ones. What could be more wonderful than
                   celebrating a moment in life without the hassle of individual

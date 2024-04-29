@@ -18,12 +18,12 @@ const Banner2 = () => {
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4">
         <h2
-          className="heading2 mb-4"
+          className="heading2 mb-4 font-simplemichael"
           style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)" }}
         >
           Our mission and vision
         </h2>
-        <p className="text-lg">
+        <p className="text-lg font-nunito">
           Our Mission Is To Help Everyone Create And Share Wishlists In The
           Simplest Way Possible. We Envision A World Where Every Desire, Every
           Wish, Is Just A Click Away.

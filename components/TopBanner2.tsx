@@ -35,8 +35,10 @@ const TopBanner2: React.FC<TopBanner2Props> = ({
 
       {/* Text Content */}
       <div className="relative z-20 flex flex-col items-start justify-center h-full text-left px-4">
-        <h1 className="heading1 text-white mb-4 max-w-md">{title}</h1>
-        <p className="text-white max-w-md">{description}</p>
+        <h1 className="heading1 text-white mb-4 max-w-md font-simplemichael">
+          {title}
+        </h1>
+        <p className="text-white max-w-md font-nunito">{description}</p>
       </div>
     </div>
   );

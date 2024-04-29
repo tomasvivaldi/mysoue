@@ -18,7 +18,7 @@ const RootLayout: React.FC<RootLayoutProps> = ({ children, session }) => {
     <ApolloWrapper>
       <AuthProvider session={session}>
         <html lang="en">
-          <body className="min-h-screen bg-white font-poppins ">
+          <body className="min-h-screen bg-[#fbf9f4] font-poppins ">
             {children}
           </body>
         </html>

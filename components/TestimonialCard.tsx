@@ -35,16 +35,16 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
       </div>
 
       {/* Testimonial Text */}
-      <p className="text-sm text-gray-600 text-center mb-4 break-words w-full">{`"${text}"`}</p>
+      <p className="text-sm text-gray-600 text-center mb-4 break-words w-full font-nunito">{`"${text}"`}</p>
 
       {/* Author Details */}
       <div className="flex flex-col items-center">
-        <img
+        {/* <img
           className="h-12 w-12 rounded-full mb-2"
           src={avatarUrl}
           alt={author}
-        />
-        <p className="text-gray-800 text-sm">{author}</p>
+        /> */}
+        <p className="text-gray-800 text-sm font-nunito">{author}</p>
       </div>
     </div>
   );

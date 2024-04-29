@@ -10,7 +10,7 @@ export default function Component() {
   useEffect(() => {
     const handleScroll = () => {
       const offset = window.scrollY;
-      setIsScrolled(offset > 0); // Set scrolled state based on scroll position
+      setIsScrolled(offset > 50); // Set scrolled state based on scroll position
     };
 
     // Add event listener when the component mounts
@@ -32,8 +32,8 @@ export default function Component() {
 
   return (
     <nav
-      className={`z-50 sticky top-0 x-paddings flex items-center justify-between my-3 py-3 md:py-4 bg-white transition-shadow duration-300 ${
-        isScrolled ? "shadow-md" : ""
+      className={`z-50 sticky top-0 x-paddings flex items-center justify-between py-2 md:py-4  transition-all duration-500 ${
+        isScrolled ? "shadow-md bg-[#fbf9f4]" : "bg-transparent"
       }`}
     >
       <div className={`flex items-center  ${isMenuOpen ? "" : "space-x-8"}`}>
@@ -70,11 +70,11 @@ export default function Component() {
             ></div>
 
             {/* Modal content */}
-            <div className="bg-white border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
+            <div className="bg-[#fbf9f4] border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
               <ul className="flex flex-col py-4 space-y-4">
                 <li className="body-text !font-bold">
                   <a
-                    className="text-black font-medium block py-2 px-5 hover:bg-slate-100"
+                    className="font-nunito text-black font-medium block py-2 px-5 hover:bg-slate-100"
                     href="/"
                   >
                     Home
@@ -83,7 +83,7 @@ export default function Component() {
                 {menuItems.map((item, index) => (
                   <li key={index} className="body-text !font-bold">
                     <a
-                      className="text-black font-medium block py-2 px-5 hover:bg-slate-100"
+                      className="font-nunito text-black font-medium block py-2 px-5 hover:bg-slate-100"
                       href={item.href}
                     >
                       {item.text}
@@ -122,7 +122,7 @@ export default function Component() {
         <Link className="flex flex-col group" href="/our-little-story">
           <span className="pt-2 border-t-2 border-black h-1 w-[80%] group-hover:w-full transition-all duration-500" />
           <div
-            className="pl-4 text-base font-light hover:text-gray-700 group-hover:underline
+            className="font-nunito pl-4 text-base font-light hover:text-gray-700 group-hover:underline
           "
           >
             Our little story
@@ -136,13 +136,13 @@ export default function Component() {
         </Link> */}
         <Link className="flex flex-col group" href="/create-a-list">
           <span className="pt-2 border-t-2 border-black h-1 w-[80%] group-hover:w-full transition-all duration-500" />
-          <div className="pl-4 text-base font-light hover:text-gray-700 group-hover:underline">
+          <div className="font-nunito pl-4 text-base font-light hover:text-gray-700 group-hover:underline">
             Create a list
           </div>
         </Link>
         <Link className="flex flex-col group" href="/our-lists">
           <span className="pt-2 border-t-2 border-black h-1 w-[80%] group-hover:w-full transition-all duration-500" />
-          <div className="pl-4 text-base font-light hover:text-gray-700 group-hover:underline">
+          <div className="font-nunito pl-4 text-base font-light hover:text-gray-700 group-hover:underline">
             Our lists
           </div>
         </Link>
@@ -154,7 +154,7 @@ export default function Component() {
         </Link> */}
         <UserIcon className="h-5 w-5" />
         <Link
-          className="text-sm font-medium hover:text-gray-700 hover:underline"
+          className="font-nunito text-sm font-medium hover:text-gray-700 hover:underline"
           href="/login"
         >
           Login

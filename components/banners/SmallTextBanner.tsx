@@ -83,13 +83,8 @@ export const SmallTextBanner = ({
         <span className="mx-2 my-auto">•</span>
         {items.map((item, idx) => (
           <li className="w-auto max-w-full relative flex-shrink-0 " key={idx}>
-            <span>{genericText} </span>
-            <span
-              className="font-bold text-sm"
-              style={{ fontFamily: "YourFontHere" }}
-            >
-              {item}
-            </span>
+            <span className=" font-simplemichael">{genericText} </span>
+            <span className=" font-simplemichael font-semibold ">{item}</span>
             {idx < items.length - 1 && <span className="mx-2">•</span>}
           </li>
         ))}

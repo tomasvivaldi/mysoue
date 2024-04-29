@@ -255,3 +255,79 @@
   background-size: cover;
   background-position: center;
 }
+
+/* Bluewind Font */
+@font-face {
+  font-family: "Bluewind";
+  src: url("/fonts/Bluewind/Bluewind.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Nunito Font Faces */
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Add more @font-face rules for other Nunito weights/styles as needed */
+
+/* Simple Michael Font */
+@font-face {
+  font-family: "Simple Michael";
+  src: url("/fonts/Simple Michael/Simple Michael.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Simple Michael";
+  src: url("/fonts/Simple Michael/Simple Michael Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(
+      -96%
+    ); /* Move the items by 100% of the container's width to the left */
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(
+      -96%
+    ); /* Start by moving the items by 100% of the container's width to the left */
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -38,15 +38,15 @@ const HeroSection = () => {
             <div className="w-full md:w-[60%] gap-4 flex flex-row justify-between overflow-x-scroll sm:overflow-x-auto">
               <HeroCard
                 title="Christmas"
-                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+                imagePath="/xmas.jpg" // Replace with the actual path to your image
               />
               <HeroCard
                 title="Christmas"
-                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+                imagePath="/xmas.jpg" // Replace with the actual path to your image
               />
               <HeroCard
                 title="Christmas"
-                imagePath="/path/to/your/christmas-image.png" // Replace with the actual path to your image
+                imagePath="/xmas.jpg" // Replace with the actual path to your image
               />
             </div>
           </div>

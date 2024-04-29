@@ -15,7 +15,7 @@ type IButton2Props = {
 
 const Button2 = ({ type = "button", onClick, ...props }: IButton2Props) => {
   const btnClass = className(
-    "inline-block rounded-full text-center border transition-colors duration-300 hover:border-primary-400 hover:bg-white/10", // Added transition classes for smooth color changes.
+    "inline-block rounded-full text-center border transition-colors duration-300 hover:border-primary-400 hover:bg-[#fbf9f4]/10", // Added transition classes for smooth color changes.
     {
       "text-lg font-semibold py-2 px-4": !props.xl,
       "font-extrabold text-xl py-4 px-6": props.xl,
@@ -25,7 +25,7 @@ const Button2 = ({ type = "button", onClick, ...props }: IButton2Props) => {
       "text-white bg-transparent border-white ":
         !props.secondary && !props.disabled,
       // Adjusted for light transparent bg with white text, hover effect for feedback
-      "bg-white/10 text-white border-gray-200 dark:border-white ":
+      "bg-[#fbf9f4]/10 text-white border-gray-200 dark:border-white ":
         props.secondary && !props.disabled,
       "w-full": props.full,
       "bg-gray-300/50 text-gray-500 cursor-not-allowed": props.disabled, // Adjusted for disabled state with semi-transparent bg

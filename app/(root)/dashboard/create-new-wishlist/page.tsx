@@ -127,7 +127,7 @@ const createNewWishlist = () => {
         return (
           <div className="flex flex-col items-center justify-center p-4 h-full">
             <div
-              className="text-center my-auto flex flex-col gap-4 rounded-md border-gray-200 bg-white
+              className="text-center my-auto flex flex-col gap-4 rounded-md border-gray-200 bg-[#fbf9f4]
               px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl
 "
             >

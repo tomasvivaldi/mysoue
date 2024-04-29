@@ -41,7 +41,7 @@ const FAQItem: FunctionComponent<FAQItemProps> = ({ question, answer }) => {
         onClick={toggleOpen}
         className="flex justify-between items-center w-full text-left"
       >
-        <h3 className="text-lg leading-6 font-medium text-gray-900">
+        <h3 className="text-lg leading-6 font-medium text-gray-900 font-nunito">
           {question}
         </h3>
         <ChevronDownIcon
@@ -56,7 +56,7 @@ const FAQItem: FunctionComponent<FAQItemProps> = ({ question, answer }) => {
         } overflow-hidden`}
       >
         {answerParagraphs.map((paragraph, index) => (
-          <p className="p-2" key={index}>
+          <p className="p-2 font-nunito" key={index}>
             {paragraph}
           </p>
         ))}

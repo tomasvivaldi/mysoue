@@ -22,7 +22,7 @@ const TeamSection = () => {
         variants={fadeIn}
         whileInView="whileInView"
         viewport={{ once: true }}
-        className="text-center heading1 mb-12"
+        className="text-center heading1 mb-12 font-simplemichael"
       >
         Meet the team
       </motion.h2>
@@ -38,7 +38,7 @@ const TeamSection = () => {
           whileInView="whileInView"
           viewport={{ once: true }}
         >
-          <h3 className="heading2">Team Member</h3>
+          <h3 className="heading1 font-bluewind ">Team Member</h3>
           <Image
             src="/our-little-story-1.png"
             alt="our-little-story-1"
@@ -48,7 +48,7 @@ const TeamSection = () => {
             className="rounded-lg w-44 my-3"
           />
 
-          <p className="text-gray-600">
+          <p className="text-gray-600 font-nunito">
             A tristique facilisi gravida at felis. Sed ornare arcu, tortor
             hendrerit etiam vulputate libero tellus. Etiam nu
           </p>
@@ -59,7 +59,7 @@ const TeamSection = () => {
           viewport={{ once: true }}
           whileInView="whileInView"
         >
-          <h3 className="heading2">Team Member</h3>
+          <h3 className="heading1 font-bluewind">Team Member</h3>
           <Image
             src="/our-little-story-1.png"
             alt="our-little-story-1"
@@ -69,7 +69,7 @@ const TeamSection = () => {
             className="rounded-lg w-44 my-3"
           />
 
-          <p className="text-gray-600">
+          <p className="text-gray-600 font-nunito">
             A tristique facilisi gravida at felis. Sed ornare arcu, tortor
             hendrerit etiam vulputate libero tellus. Etiam nu
           </p>

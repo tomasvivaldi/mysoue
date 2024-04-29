@@ -5,13 +5,13 @@ import GhostButtonBlack from "./GhostButtonBlack";
 
 const CenterContent: React.FC = () => {
   return (
-    <div className="flex flex-col items-center justify-center mt-10 mb-28 bg-white py-12 px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col items-center justify-center mt-10 mb-28 bg-[#fbf9f4] py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center heading2 text-gray-900 ">
+          <h2 className="mt-6 text-center heading2 text-gray-900 font-simplemichael">
             Your wishlist, your way
           </h2>
-          <p className="pt-2 text-center text-base font-light text-gray-600 mt-4 min-w-xl max-w-2xl mx-auto">
+          <p className="pt-2 text-center text-base font-light text-gray-600 mt-4 min-w-xl max-w-2xl mx-auto font-nunito">
             MYSOUE Is More Than Just A Platform; It's A Community Where
             Preferences Are Respected, And Choices Are Celebrated. Creating A
             Wishlist With Us Is Not Just Convenient But Also A Delightful
@@ -19,7 +19,7 @@ const CenterContent: React.FC = () => {
           </p>
         </div>
         <div className="w-fit mx-auto">
-          <GhostButtonBlack text={"Create An Account"} />
+          <GhostButtonBlack text={"Create An Account"} href="/login" />
         </div>
       </div>
     </div>

@@ -76,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                         className="body-text !font-bold border-l border-r border-[#A67B5B]"
                       >
                         <a
-                          className="text-white font-medium block py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B]
+                          className="text-white font-medium block py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B]
                            whitespace-nowrap"
                           href={item.href}
                         >
@@ -88,7 +88,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   <div className="flex flex-col">
                     <Link
                       className="md:hidden flex flex-row
-                    justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B] cursor-pointer"
+                    justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
                       href="/"
                     >
                       <p className="text-sm font-medium group-hover:underline ">
@@ -111,7 +111,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     </Link>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
-                      className="flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-white hover:text-[#A67B5B] cursor-pointer"
+                      className="flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
                     >
                       <p className="text-sm font-medium group-hover:underline ">
                         Sign Out

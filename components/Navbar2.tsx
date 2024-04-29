@@ -70,7 +70,7 @@ export default function Component() {
               ></div>
 
               {/* Modal content */}
-              <div className="bg-white border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
+              <div className="bg-[#fbf9f4] border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
                 <ul className="flex flex-col py-4 space-y-4">
                   <li className="body-text !font-bold">
                     <a

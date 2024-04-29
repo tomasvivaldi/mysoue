@@ -33,8 +33,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        inter: ["Inter", "sans-serif"],
+        bluewind: ['"Bluewind"', "sans-serif"],
+        nunito: ['"Nunito"', "sans-serif"],
+        simplemichael: ['"Simple Michael"', "serif"],
       },
       colors: {
         primary: "#a67b6a",

@@ -32,7 +32,7 @@ export default function Component() {
 
   return (
     <nav
-      className={`px-4 flex items-center justify-between border-b py-3 md:py-6 bg-white transition-shadow duration-300 ${
+      className={`px-4 flex items-center justify-between border-b py-3 md:py-6 bg-[#fbf9f4] transition-shadow duration-300 ${
         isScrolled ? "shadow-md" : ""
       }`}
     >
@@ -70,7 +70,7 @@ export default function Component() {
             ></div>
 
             {/* Modal content */}
-            <div className="bg-white border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
+            <div className="bg-[#fbf9f4] border-2 border-white w-3/4 h-screen overflow-y-auto z-10">
               <ul className="flex flex-col py-4 space-y-4">
                 <li className="body-text !font-bold">
                   <a

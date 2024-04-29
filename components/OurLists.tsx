@@ -2,16 +2,18 @@ import React, { SVGProps } from "react";
 
 const OurLists = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 paddings my-20">
-      <h2 className="heading1 text-center">Get inspiration for your gifts</h2>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 paddings mt-20">
+      <h2 className="heading1 text-center font-simplemichael">
+        Get inspiration for your gifts
+      </h2>
 
       <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 x-paddings">
-        <div className="w-full bg-white rounded-lg overflow-hidden">
+        <div className="w-full bg-[#fbf9f4] rounded-lg overflow-hidden">
           <img
             alt="Christmas"
             className="w-full h-48 object-cover"
             height="240"
-            src="/placeholder.svg"
+            src="/xmas.jpg"
             style={{
               aspectRatio: "350/240",
               objectFit: "cover",
@@ -19,19 +21,21 @@ const OurLists = () => {
             width="350"
           />
           <div>
-            <h3 className="text-lg font-semibold">Christmas</h3>
-            <p className="text-sm text-gray-600 mt-2">
+            <h3 className="text-lg font-semibold font-simplemichael">
+              Christmas
+            </h3>
+            <p className="text-sm text-gray-600 mt-2 font-nunito">
               A tristique facilisi gravida at felis. Sed ornare arcu, tortor
               hendrerit etiam vulputate libero tellus. Etiam nu
             </p>
           </div>
         </div>
-        <div className="w-full bg-white rounded-lg overflow-hidden">
+        <div className="w-full bg-[#fbf9f4] rounded-lg overflow-hidden">
           <img
             alt="Birthdays"
             className="w-full h-48 object-cover"
             height="240"
-            src="/placeholder.svg"
+            src="/bday.jpg"
             style={{
               aspectRatio: "350/240",
               objectFit: "cover",
@@ -39,19 +43,21 @@ const OurLists = () => {
             width="350"
           />
           <div>
-            <h3 className="text-lg font-semibold">Birthdays</h3>
-            <p className="text-sm text-gray-600 mt-2">
+            <h3 className="text-lg font-semibold font-simplemichael">
+              Birthdays
+            </h3>
+            <p className="text-sm text-gray-600 mt-2 font-nunito">
               A tristique facilisi gravida at felis. Sed ornare arcu, tortor
               hendrerit etiam vulputate libero tellus. Etiam nu
             </p>
           </div>
         </div>
-        <div className="w-full bg-white rounded-lg overflow-hidden">
+        <div className="w-full bg-[#fbf9f4] rounded-lg overflow-hidden">
           <img
             alt="Baby Showers"
             className="w-full h-48 object-cover"
             height="240"
-            src="/placeholder.svg"
+            src="/baby.jpg"
             style={{
               aspectRatio: "350/240",
               objectFit: "cover",
@@ -59,8 +65,10 @@ const OurLists = () => {
             width="350"
           />
           <div>
-            <h3 className="text-lg font-semibold">Baby Showers</h3>
-            <p className="text-sm text-gray-600 mt-2">
+            <h3 className="text-lg font-semibold font-simplemichael">
+              Baby Showers
+            </h3>
+            <p className="text-sm text-gray-600 mt-2 font-nunito">
               A tristique facilisi gravida at felis. Sed ornare arcu, tortor
               hendrerit etiam vulputate libero tellus. Etiam nu
             </p>

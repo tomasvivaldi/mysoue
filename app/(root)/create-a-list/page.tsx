@@ -40,10 +40,10 @@ const CreateAList = () => {
 
         {/* Text Content */}
         <div className="relative z-20 flex flex-col items-start justify-center h-fit text-left p-4 my-12">
-          <h1 className="heading1 text-white mb-4 max-w-sm">
+          <h1 className="heading1 text-white mb-4 max-w-sm font-simplemichael">
             Create your wishlist now!
           </h1>
-          <p className="text-white max-w-md">
+          <p className="text-white max-w-md font-nunito">
             Provide all the details for the gift list you'd like to create. This
             ensures your loved ones have the information they need. Whether
             someone wants to create a surprise list and share it with friends or
