@@ -114,7 +114,7 @@ const HomePage = () => {
       <TestimonialCarousel testimonials={testimonials} />
       <Banner />
       <FAQSection />
-      <RedLogosBanner direction="left" speed="slow" />
+      <RedLogosBanner speed="fast" />
       <div className="w-full mb-[100px]" />
     </>
   );

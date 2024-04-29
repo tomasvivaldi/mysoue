@@ -24,13 +24,13 @@ const AllAboutGifts = () => {
         speed="slow"
         className="border border-b-[#B72228] border-t-[#B72228] mt-36 my-12 py-4 text-4xl tracking-[0.2em] font-inter"
       />
-      <div className="w-full flex flex-col lg:flex-row justify-around p-8 x-paddings">
+      <div className="w-full flex flex-col lg:flex-row justify-around sm:p-8 x-paddings">
         {/* <h1 className="font-semibold heading2 text-center mb-2 -mt-6">
             We are all about gift
           </h1> */}
         <Image
           alt="Gift with ribbon"
-          className="mb-10 lg:mb-4 rounded-lg object-cover mx-auto  w-[80%] lg:w-[45%] h-[600px]"
+          className="mb-10 lg:mb-4 rounded-lg object-cover mx-auto w-[95%] sm:w-[80%] lg:w-[45%] h-[600px]"
           height="300"
           src="/gift1.webp"
           style={{

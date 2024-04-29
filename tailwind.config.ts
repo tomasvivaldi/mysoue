@@ -92,10 +92,10 @@ module.exports = {
           "50%": { transform: "scale(1.4) translateX(10%) translateY(10%)" },
           "100%": { transform: "scale(1.3) translateX(0) translateY(0)" },
         },
+
         scroll: {
-          to: {
-            transform: "translate(calc(-50% - 0.5rem))",
-          },
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" }, // Assumes you duplicate items
         },
       },
       animation: {
