@@ -166,6 +166,20 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
             className=" w-full object-cover rounded-lg my-auto"
           />
         </li>
+
+        <li
+          className="w-[200px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[300px] my-auto"
+          key={4}
+        >
+          <Image
+            quality={75}
+            height={127.6}
+            width={500.0}
+            src="/Horizontal/Logo-Mysoue-Horizontal_2.png"
+            alt={`Logo-Mysoue-Horizontal_2`}
+            className=" w-full object-cover rounded-lg my-auto"
+          />
+        </li>
       </ul>
     </div>
   );
