@@ -21,7 +21,7 @@ const Hero2 = () => {
           className="w-[350px] py-8 ml-auto"
           width={4422}
           height={1401}
-          src="/stamp/Logo-Mysoue-Stamp_4.png"
+          src="/Stamp/Logo-Mysoue-Stamp_4.png"
         />
       </div>
     </div>
