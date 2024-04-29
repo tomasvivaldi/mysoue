@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { fetchUserData } from "@/hooks/fetchUserData"; // Adjust the import to your actual data-fetching function
 import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
 import client from "@/apollo-client";
@@ -10,9 +10,11 @@ interface ChildComponentProps {
   userData: UserById | null;
 }
 
-interface DashboardProps {
-  children: React.ReactNode;
-}
+// interface RootDashboardProps {
+//   children:
+//     | ReactElement<ChildComponentProps>[]
+//     | ReactElement<ChildComponentProps>;
+// }
 
 interface WishlistItem {
   added_at: string;
@@ -58,7 +60,7 @@ interface UserWithProvider extends User {
   provider?: string;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ children }) => {
+const Dashboard: React.FC<any> = ({ children }) => {
   const [userData, setUserData] = useState<UserById | null>(null);
   const [loading, setLoading] = useState(false);
 

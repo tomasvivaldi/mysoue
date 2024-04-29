@@ -44,6 +44,7 @@ const Login = () => {
               type={" list type"}
               date={" list date"}
               postpreview={wishlist.description}
+              id={`${wishlist.id}`}
             />
           ))}
         </div>
