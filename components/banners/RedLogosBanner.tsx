@@ -62,7 +62,19 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
           start && "animate-scroll"
         }`}
       >
-        {" "}
+        <li
+          className="w-[200px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[300px] my-auto"
+          key={4}
+        >
+          <Image
+            quality={75}
+            height={127.6}
+            width={500.0}
+            src="/Horizontal/Logo-Mysoue-Horizontal_2.png"
+            alt={`Logo-Mysoue-Horizontal_2`}
+            className=" w-full object-cover rounded-lg my-auto"
+          />
+        </li>
         <li
           className="w-[150px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[200px] my-auto"
           key={1}
@@ -112,6 +124,45 @@ export const RedLogosBanner = ({ direction = "left", speed = "fast" }) => {
             width={500.0}
             src="/Horizontal/Logo-Mysoue-Horizontal_2.png"
             alt={`Logo-Mysoue-Horizontal_2`}
+            className=" w-full object-cover rounded-lg my-auto"
+          />
+        </li>
+        <li
+          className="w-[150px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[200px] my-auto"
+          key={1}
+        >
+          <Image
+            quality={75}
+            height={115.9}
+            width={195.1}
+            src="/Symbol/Logo-Mysoue-Symbol_2.png"
+            alt={`Logo-Mysoue-Symbol_2`}
+            className=" w-full object-cover rounded-lg my-auto"
+          />
+        </li>
+        <li
+          className="w-[150px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[200px] my-auto"
+          key={2}
+        >
+          <Image
+            quality={75}
+            height={140.5}
+            width={230.9}
+            src="/Vertical/Logo-Mysoue-Vertical_2.png"
+            alt={`Logo-Mysoue-Vertical_2`}
+            className=" w-full object-cover rounded-lg my-auto"
+          />
+        </li>
+        <li
+          className="w-[300px] max-w-full relative rounded-2xl flex-shrink-0 px-8 py-6 md:w-[400px] my-auto"
+          key={3}
+        >
+          <Image
+            quality={75}
+            height={140.1}
+            width={442.1}
+            src="/Stamp/Logo-Mysoue-Stamp_2.png"
+            alt={`Logo-Mysoue-Stamp_2`}
             className=" w-full object-cover rounded-lg my-auto"
           />
         </li>
