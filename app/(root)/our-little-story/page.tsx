@@ -71,14 +71,6 @@ const UeberMich = () => {
               viewport={{ once: true }}
             >
               {" "}
-              <Image
-                src="/story2.png"
-                alt="our-little-story-1"
-                width={1556}
-                height={1724}
-                objectPosition="center"
-                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
-              />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
                 <h3 className="heading3 mb-2 font-simplemichael">Our “soué”</h3>
                 <p className="body-regular font-nunito">
@@ -89,6 +81,14 @@ const UeberMich = () => {
                   mission – turning desires into delightful memories!"
                 </p>
               </motion.div>
+              <Image
+                src="/story2.png"
+                alt="our-little-story-1"
+                width={1556}
+                height={1724}
+                objectPosition="center"
+                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+              />
             </motion.div>
             <motion.div
               variants={fadeIn}
