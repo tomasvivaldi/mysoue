@@ -21,7 +21,7 @@ const Banner = () => {
           </div>
         </div>
         <div className=" lg:absolute max-w-[500px] lg:min-w-[1000px] ">
-          <Image
+          {/* <Image
             height={1159}
             width={1951}
             src="/Symbol/Logo-Mysoue-Symbol_4.png"
@@ -29,7 +29,7 @@ const Banner = () => {
             layout="responsive"
             objectFit="contain"
             className="lg:absolute w-full lg:w-[1000px] -right-[50vw] -top-[150px] "
-          />
+          /> */}
         </div>
       </div>
     </div>
