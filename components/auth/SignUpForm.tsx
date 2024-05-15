@@ -25,6 +25,7 @@ import Image from "next/image";
 import { Button2 } from "../buttons/Button2";
 import { Label } from "../form/Label";
 import { FormElement } from "../form/FormElement";
+import { useTranslations } from "next-intl";
 
 const SignUpForm = ({
   email,
@@ -37,6 +38,8 @@ const SignUpForm = ({
   loading,
   errorMessage,
 }: SignUpFormProps) => {
+  const t = useTranslations("SignUpForm");
+
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasLowerCase, setHasLowerCase] = useState(false);
   const [hasNumber, setHasNumber] = useState(false);
@@ -91,18 +94,18 @@ const SignUpForm = ({
               layout="fill"
               objectFit="cover"
               quality={100}
-              alt="Background"
+              alt={t("backgroundAlt")}
               className="rounded-2xl"
             />
           </div>
 
           <span className="heading2">MYSOUE</span>
 
-          <h1 className="text-xl font-semibold mt-4">Create Your Account</h1>
-          <p className="mt-2">Sign up with your email address and password.</p>
+          <h1 className="text-xl font-semibold mt-4">{t("heading")}</h1>
+          <p className="mt-2">{t("subheading")}</p>
 
           <form className="grid gap-y-2 mb-4" onSubmit={handleSubmit}>
-            <Label htmlFor="email">Email Address</Label>
+            <Label htmlFor="email">{t("emailLabel")}</Label>
             <FormElement>
               <input
                 id="email"
@@ -116,7 +119,7 @@ const SignUpForm = ({
               />
             </FormElement>
 
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor="username">{t("usernameLabel")}</Label>
             <FormElement>
               <input
                 id="username"
@@ -130,7 +133,7 @@ const SignUpForm = ({
               />
             </FormElement>
 
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor="password">{t("passwordLabel")}</Label>
             <FormElement>
               <input
                 id="password"
@@ -151,7 +154,7 @@ const SignUpForm = ({
                   }
                 >
                   {hasMinLength ? null : null}
-                  Your password must be at least 8 characters.
+                  {t("minLength")}
                 </div>
                 <div
                   className={
@@ -161,7 +164,7 @@ const SignUpForm = ({
                   }
                 >
                   {hasUpperCase ? null : null}
-                  Your password must contain at least 1 upper case character.
+                  {t("upperCase")}
                 </div>
                 <div
                   className={
@@ -171,7 +174,7 @@ const SignUpForm = ({
                   }
                 >
                   {hasLowerCase ? null : null}
-                  Your password must contain at least 1 lower case character.
+                  {t("lowerCase")}
                 </div>
                 <div
                   className={
@@ -181,7 +184,7 @@ const SignUpForm = ({
                   }
                 >
                   {hasNumber ? null : null}
-                  Your password must contain at least 1 number.
+                  {t("number")}
                 </div>
                 <div
                   className={
@@ -191,14 +194,14 @@ const SignUpForm = ({
                   }
                 >
                   {hasSpecialChar ? null : null}
-                  Your password must contain at least 1 special character.
+                  {t("specialChar")}
                 </div>
               </div>
             </FormElement>
 
             <div className="mt-3">
               <Button2 type="submit" full disabled={loading}>
-                {loading ? "Processing..." : "Sign Up"}
+                {loading ? t("processing") : t("signUp")}
               </Button2>
             </div>
           </form>
@@ -208,12 +211,12 @@ const SignUpForm = ({
             <div className="w-full h-[1px] bg-slate-200 mt-1" />
           </div>
           <div className="mt-5 text-center text-xs">
-            Already have an account?{" "}
+            {t("footerText")}{" "}
             <a
               href="/login"
               className="text-primary-500 font-semibold hover:text-primary-600 hover:underline"
             >
-              Log In instead.
+              {t("logInLinkText")}
             </a>
             .
           </div>

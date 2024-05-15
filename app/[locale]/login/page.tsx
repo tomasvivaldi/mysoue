@@ -179,7 +179,7 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="text-gray-900 dark:text-slate-100 antialiased">
+      <div className="text-gray-900 dark:text-[#FFF8E9] antialiased">
         <LoginForm
           handleLogin={handleLogin}
           handleEmailLogin={modifiedHandleEmailLogin}

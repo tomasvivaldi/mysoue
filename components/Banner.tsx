@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import GhostButton from "./GhostButtonWhite";
+import { useTranslations } from "next-intl";
 
 const Banner = () => {
+  const t = useTranslations("Banner");
   return (
     <div className="sticky flex flex-col inner-width paddings py-8 mb-8 text-white gap-8 x-paddings2">
       <div
@@ -11,13 +13,14 @@ const Banner = () => {
       >
         <div className="w-full flex flex-col lg:flex-row justify-between p-6 xl:p-12 gap-8 lg:gap-0 items-center">
           <h2 className="text-2xl md:text-3xl max-w-lg font-nunito text-left">
-            ENJOY THE HAPPINESS OF{" "}
-            <span className=" font-simplemichael text-3xl md:text-4xl ">
-              convenience
+            {t("bannerTitle")}
+            <br />
+            <span className="font-simplemichael text-3xl md:text-4xl">
+              {t("bannerHighlight")}
             </span>
           </h2>
           <div className="z-50">
-            <GhostButton text="Create Your List" href="/login" />
+            <GhostButton text={t("bannerButton")} href="/login" />
           </div>
         </div>
         <div className=" lg:absolute max-w-[500px] lg:min-w-[1000px] ">

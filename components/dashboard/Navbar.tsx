@@ -31,7 +31,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             {/* Hamburger button for mobile */}
             <button
               className={`mr-4 p-0.5 active:bg-slate-200/20  rounded-lg ${
-                isSidebarOpen ? "bg-slate-100/20 " : "text-white"
+                isSidebarOpen ? "bg-[#FFF8E9]/20 " : "text-white"
               }`}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             >

@@ -47,13 +47,13 @@ const Card: React.FC<CardProps> = ({
           >
             <h3
               className="text-center  font-normal pt-3 px-1 
-                           transition-all duration-500 ease-in-out"
+                           transition-all duration-500 ease-in-out font-nunito"
             >
               {activity}
             </h3>
             <div
               className="opacity-0 -my-2 group-hover:my-1 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0 
-              text-left font-extralight text-xs m-4 transition-all duration-500 ease-in-out"
+              text-left font-extralight text-xs m-4 transition-all duration-500 ease-in-out font-nunito"
             >
               <p>{postpreview}</p>
             </div>
@@ -67,14 +67,14 @@ const Card: React.FC<CardProps> = ({
                   className="min-h-[12px] min-w-[12px] max-h-[12px] max-w-[12px] mt-1 mx-2"
                   src="/images/card01.png"
                 />
-                <h4 className="mt-[2px]">{type}</h4>
+                <h4 className="mt-[2px] font-nunito text-[13px]">{type}</h4>
               </div>
               <div className="flex mx-4 mb-4 flex-row">
                 <img
                   className="min-h-[12px] min-w-[12px] max-h-[12px] max-w-[12px] mt-1 mx-2"
                   src="/images/card02.png"
                 />
-                <h4 className="mt-[2px]">{date}</h4>
+                <h4 className="mt-[2px] font-nunito text-[13px]">{date}</h4>
               </div>
             </div>
           </div>

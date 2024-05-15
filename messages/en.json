@@ -1,0 +1,213 @@
+{
+  "Navbar": {
+    "title": "MYSOUE",
+    "home": "Home",
+    "ourStory": "Our Little Story",
+    "createList": "Create a List",
+    "ourLists": "Our Lists",
+    "login": "Login"
+  },
+  "Footer": {
+    "sloganPart1": "WE MAKE",
+    "sloganPart2": "gifting simple.",
+    "contentHeading": "Content",
+    "home": "Home",
+    "ourStory": "Our story",
+    "createList": "Create a list",
+    "login": "Login",
+    "logoAlt": "Symbol"
+  },
+  "Hero": {
+    "heroImageAlt": "Gifting made authentic",
+    "gifting": "GIFTING",
+    "madeAuthentic": "made authentic",
+    "logoAlt": "Gifting made authentic"
+  },
+  "AllAboutGifts": {
+    "bannerText": "WE GOT IT",
+    "extraWord": "Creativity",
+    "genericText": "you want it",
+    "imageAlt": "Gift with ribbon",
+    "headline": "We are all about gifts - You want it? We got it.",
+    "description1": "At MYSOUE, we reimagine the gift-giving experience. Celebrate special occasions and share with your loved ones the items you dream of.",
+    "description2": "For every occasion, we transform your wishes into curated lists.",
+    "description3": "Select, combine, create.",
+    "secondBanner": "Occasions",
+    "secondExtraWord": "Creativity",
+    "secondGenericText": "FOR ALL"
+  },
+  "Testimonials": {
+    "title": "What our clients say",
+    "t1": {
+      "id": "t1",
+      "text": "The responsiveness and level of service we received were beyond my expectations. Not only did they meet our unique needs, but they also made sure we were satisfied every step of the way.",
+      "author": "Courtney Henry",
+      "avatarUrl": "/avatars/courtney-henry.png",
+      "rating": "5"
+    },
+    "t2": {
+      "id": "t2",
+      "text": "I was really impressed with the innovative solutions provided. Their team was incredibly helpful, turning our ideas into a reality that exceeded our expectations.",
+      "author": "Darrell Steward",
+      "avatarUrl": "/avatars/darrell-steward.png",
+      "rating": "4"
+    },
+    "t3": {
+      "id": "t3",
+      "text": "Absolutely fantastic! The customer service is excellent, and the product quality is top-notch. I would definitely recommend their services to anyone looking to enhance their business.",
+      "author": "Theresa Webb",
+      "avatarUrl": "/avatars/theresa-webb.png",
+      "rating": "5"
+    },
+    "t4": {
+      "id": "t4",
+      "text": "Their attention to detail and passion for what they do is visible in every interaction. They went above and beyond to ensure the final product was perfect.",
+      "author": "Cody Fisher",
+      "avatarUrl": "/avatars/cody-fisher.png",
+      "rating": "4"
+    },
+    "t5": {
+      "id": "t5",
+      "text": "Their team delivered exceptional quality and was adaptable to our needs. The project was completed on time and exceeded our quality standards.",
+      "author": "Esther Howard",
+      "avatarUrl": "/avatars/esther-howard.png",
+      "rating": "5"
+    }
+  },
+  "Banner": {
+    "bannerTitle": "ENJOY THE HAPPINESS OF",
+    "bannerHighlight": "convenience",
+    "bannerButton": "Create Your List"
+  },
+  "faq": {
+    "title": "Any questions?",
+    "q1": {
+      "id": "q1",
+      "question": "Is it 100% free to settle a wishlist?",
+      "answer": "Yes, the service is offered 100% free of charge in its entirety, with no hidden fees, both for list authors and for people who offer a gift. There are no limits on functionality or time."
+    },
+    "q2": {
+      "id": "q2",
+      "question": "How long can I access my list?",
+      "answer": "As long as you like. That is, until you delete it."
+    },
+    "q3": {
+      "id": "q3",
+      "question": "Will you take care of delivery?",
+      "answer": "No. Mysoue is a space where the author of a list can express gift wishes in complete freedom. We are not an online sales site, so we don't handle the sale or delivery of gifts, nor the choice of stores, and we don't accept any payment. The gift list and the choice of links are entirely the responsibility of the author of the list. You can therefore contact the store indicated by the author of the list for the gift you have reserved. If no store is indicated, or if the product is no longer available, you can purchase the gift in another store of your choice."
+    },
+    "q4": {
+      "id": "q4",
+      "question": "Do I need to create an account to offer a gift?",
+      "answer": "No, you can offer a gift by entering only your name and, optionally, your e-mail address. No account needs to be created to offer a gift or make a free donation."
+    },
+    "q5": {
+      "id": "q5",
+      "question": "Will I be notified when a gift is reserved on my list?",
+      "answer": "If you have provided your email address, an email will be sent automatically each time a gift is reserved. If you have not received an e-mail from us, please add info@mysoue.com to your e-mail contacts to prevent our e-mails from ending up in your spam folder."
+    },
+    "q6": {
+      "id": "q6",
+      "question": "Can I modify my wishlist after sharing it?",
+      "answer": "Of course you can modify it at any moment!"
+    },
+    "q7": {
+      "id": "q7",
+      "question": "Is my delivery address visible to everyone?",
+      "answer": "No. You can decide whether or not to add your address and make it visible. If your address is shared, it will only be displayed when a visitor has made a reservation."
+    },
+    "q8": {
+      "id": "q8",
+      "question": "I don't live in Thailand. Can I still give a gift?",
+      "answer": "Yes, Mysoue can be used from any country."
+    },
+    "q9": {
+      "id": "q9",
+      "question": "Can I create a wishlist for someone else?",
+      "answer": "Of course! Should you wanna create a surprise list for a friend for a surprise event everything is possible here."
+    }
+  },
+  "ourStory": {
+    "pageTitle": "Our little story",
+    "bannerTitle": "Our little story",
+    "bannerDescription": "We are a dedicated team with a mission to make wishlists accessible to everyone",
+    "subtitle": "A little more About us",
+    "dnaHeading": "Our DNA",
+    "dnaText": "The very essence of our concept is the result of an alliance between different cultures. We draw our inspiration not only from our own experience but also from our mixed cultural heritage between South America and Europe.",
+    "soueHeading": "Our “soué”",
+    "soueText": "In French, “souhait” means wish. And that is all we are about; 'We're all about making your wishes come true, eliminating worries, and creating space for meaningful moments and cherished memories with your loved ones. That's our mission – turning desires into delightful memories!'",
+    "valuesHeading": "Our values",
+    "valuesText": "Our values are rooted in a desire to bring together and cherish our loved ones. What could be more wonderful than celebrating a moment in life without the hassle of individual wishes, desires, and budgets? All you have to think about is celebrating, with no logistical constraints when it comes to gifts."
+  },
+  "CreateAList": {
+    "pageTitle": "Create Your Wishlist",
+    "bgImageAlt": "Gift with ribbon",
+    "mainHeading": "Create your wishlist now!",
+    "mainContent": "Provide all the details for the gift list you'd like to create. This ensures your loved ones have the information they need. Whether someone wants to create a surprise list and share it with friends or offer it to you, everything is possible here."
+  },
+  "ContentLeft": {
+    "heading": "Step into a world of endless possibilities",
+    "point1": "Occasions Tailored Just For You: From Baby Showers To Retirement Parties, Select The Event And Start Crafting A Wishlist That Captures The Essence Of Your Celebration.",
+    "point2": "Seamless Sharing With Loved Ones: Once Your List Is Ready, Share It Effortlessly With Friends And Family. Say Goodbye To Unwanted Or Duplicate Gifts!",
+    "point3": "Inspiration At Your Fingertips: Need Ideas? Browse Through Our Curated Categories For Inspiration Across A Wide Range Of Interests And Hobbies.",
+    "loginLink": "Go to Login",
+    "imageAlt": "Create your list visual"
+  },
+  "ContentRight": {
+    "heading": "Step into a world of endless possibilities",
+    "point1": "Occasions Tailored Just For You: From Baby Showers To Retirement Parties, Select The Event And Start Crafting A Wishlist That Captures The Essence Of Your Celebration.",
+    "point2": "Seamless Sharing With Loved Ones: Once Your List Is Ready, Share It Effortlessly With Friends And Family. Say Goodbye To Unwanted Or Duplicate Gifts!",
+    "point3": "Inspiration At Your Fingertips: Need Ideas? Browse Through Our Curated Categories For Inspiration Across A Wide Range Of Interests And Hobbies.",
+    "loginLink": "Go to Login",
+    "imageAlt": "Create your list visual"
+  },
+  "CenterContent": {
+    "heading": "Your wishlist, your way",
+    "description": "MYSOUE Is More Than Just A Platform; It's A Community Where Preferences Are Respected, And Choices Are Celebrated. Creating A Wishlist With Us Is Not Just Convenient But Also A Delightful Experience, Ensuring That Every Gift You Receive Is A Wish Granted.",
+    "buttonText": "Create An Account"
+  },
+  "Banner2": {
+    "imageAlt": "Our mission and vision",
+    "heading": "Our mission and vision",
+    "description": "Our Mission Is To Help Everyone Create And Share Wishlists In The Simplest Way Possible. We Envision A World Where Every Desire, Every Wish, Is Just A Click Away."
+  },
+  "TeamSection": {
+    "heading": "Meet the team",
+    "teamMember1": "Team Member",
+    "memberDescription1": "A tristique facilisi gravida at felis. Sed ornare arcu, tortor hendrerit etiam vulputate libero tellus. Etiam nu",
+    "imageAlt1": "Team member image",
+    "teamMember2": "Team Member",
+    "memberDescription2": "A tristique facilisi gravida at felis. Sed ornare arcu, tortor hendrerit etiam vulputate libero tellus. Etiam nu",
+    "imageAlt2": "Team member image"
+  },
+  "LoginForm": {
+    "signInHeading": "Sign in to your account",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "loginFailedMessage": "- Invalid email or password -",
+    "processing": "Processing...",
+    "logIn": "Log In",
+    "or": "or",
+    "signInWithGoogle": "Sign in with Google",
+    "noAccount": "Don't have an account?",
+    "signUpNow": "Sign up now",
+    "backgroundAlt": "Background"
+  },
+  "SignUpForm": {
+    "backgroundAlt": "Background",
+    "heading": "Create Your Account",
+    "subheading": "Sign up with your email address and password.",
+    "emailLabel": "Email Address",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "processing": "Processing...",
+    "signUp": "Sign Up",
+    "minLength": "Your password must be at least 8 characters.",
+    "upperCase": "Your password must contain at least 1 upper case character.",
+    "lowerCase": "Your password must contain at least 1 lower case character.",
+    "number": "Your password must contain at least 1 number.",
+    "specialChar": "Your password must contain at least 1 special character.",
+    "footerText": "Already have an account?",
+    "logInLinkText": "Log In instead."
+  }
+}

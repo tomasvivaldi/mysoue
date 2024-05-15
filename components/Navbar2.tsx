@@ -74,7 +74,7 @@ export default function Component() {
                 <ul className="flex flex-col py-4 space-y-4">
                   <li className="body-text !font-bold">
                     <a
-                      className="text-black font-medium block py-2 px-5 hover:bg-slate-100"
+                      className="text-black font-medium block py-2 px-5 hover:bg-[#FFF8E9]"
                       href="/"
                     >
                       Home
@@ -83,7 +83,7 @@ export default function Component() {
                   {menuItems.map((item, index) => (
                     <li key={index} className="body-text !font-bold">
                       <a
-                        className="text-black font-medium block py-2 px-5 hover:bg-slate-100"
+                        className="text-black font-medium block py-2 px-5 hover:bg-[#FFF8E9]"
                         href={item.href}
                       >
                         {item.text}
@@ -92,7 +92,7 @@ export default function Component() {
                   ))}
                   <button
                     onClick={() => setIsMenuOpen(false)}
-                    className="absolute top-0.5 left-[60%] p-2 rounded-md hover:bg-slate-100 focus:outline-none"
+                    className="absolute top-0.5 left-[60%] p-2 rounded-md hover:bg-[#FFF8E9] focus:outline-none"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

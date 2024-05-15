@@ -1,27 +1,67 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import TestimonialCard from "./TestimonialCard";
+import { useTranslations } from "next-intl";
 
-type Testimonial = {
+interface Testimonial {
+  id: string;
   text: string;
   author: string;
   avatarUrl: string;
   rating: number;
-};
+}
 
-type TestimonialCarouselProps = {
+interface TestimonialsData {
+  title: string;
   testimonials: Testimonial[];
-};
+}
 
-const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
-  testimonials,
-}) => {
+const TestimonialCarousel: React.FC = ({}) => {
+  const t = useTranslations("Testimonials");
+
+  const testimonials = [
+    {
+      id: t("t1.id"),
+      text: t("t1.text"),
+      author: t("t1.author"),
+      avatarUrl: t("t1.avatarUrl"),
+      rating: Number(t("t1.rating")),
+    },
+    {
+      id: t("t2.id"),
+      text: t("t2.text"),
+      author: t("t2.author"),
+      avatarUrl: t("t2.avatarUrl"),
+      rating: Number(t("t2.rating")),
+    },
+    {
+      id: t("t3.id"),
+      text: t("t3.text"),
+      author: t("t3.author"),
+      avatarUrl: t("t3.avatarUrl"),
+      rating: Number(t("t3.rating")),
+    },
+    {
+      id: t("t4.id"),
+      text: t("t4.text"),
+      author: t("t4.author"),
+      avatarUrl: t("t4.avatarUrl"),
+      rating: Number(t("t4.rating")),
+    },
+    {
+      id: t("t5.id"),
+      text: t("t5.text"),
+      author: t("t5.author"),
+      avatarUrl: t("t5.avatarUrl"),
+      rating: Number(t("t5.rating")),
+    },
+  ];
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [cardWidth, setCardWidth] = useState(400); // Default width of each card in pixels
   const [cardWidthAndMargins, setCardWidthAndMargins] = useState(
     cardWidth + 50
-  ); // Initial value
-
+  );
   useEffect(() => {
     const updateCardWidth = () => {
       const newCardWidth = window.innerWidth < 640 ? 200 : 400;
@@ -45,10 +85,14 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
     );
   };
 
+  if (!testimonials) {
+    return <div>Loading testimonials...</div>; // or handle the loading state appropriately
+  }
+
   return (
     <div className="flex flex-col items-center paddings my-20">
       <h2 className="heading2  md:mb-12 text-center font-simplemichael">
-        What our clients say
+        {t("title")}
       </h2>
       <div className=" flex flex-row items-center justify-center ">
         <button onClick={prevTestimonial} className="z-10">
@@ -72,9 +116,9 @@ const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
               transform: `translateX(-${currentIndex * cardWidthAndMargins}px)`,
             }}
           >
-            {testimonials.map((testimonial, index) => (
+            {testimonials.map((testimonial) => (
               <div
-                key={index}
+                key={testimonial.id}
                 className=" flex-shrink-0 mx-[25px] flex justify-center lg:first:ml-0 lg:last:mr-0"
               >
                 <TestimonialCard {...testimonial} />

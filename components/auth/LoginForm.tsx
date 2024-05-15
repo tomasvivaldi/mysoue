@@ -5,6 +5,7 @@ import { Button2 } from "../buttons/Button2";
 import { Label } from "../form/Label";
 import { FormElement } from "../form/FormElement";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface LoginFormProps {
   handleLogin: (provider: string) => Promise<void>;
@@ -21,6 +22,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
   loading,
   setLoading,
 }) => {
+  const t = useTranslations("LoginForm");
+
   return (
     <div className=" flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
       <div className=" w-full max-w-md text-center text-white">
@@ -39,9 +42,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
           <span className="heading2">MYSOUE</span>
 
-          <h1 className="text-xl font-semibold mt-4">
-            Sign in to your account
-          </h1>
+          <h1 className="text-xl font-semibold mt-4">{t("signInHeading")}</h1>
 
           <div className="mt-1">
             <div className="text-left">
@@ -59,7 +60,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   );
                 }}
               >
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("emailLabel")}</Label>
                 <FormElement>
                   <input
                     id="email"
@@ -70,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   />
                 </FormElement>
 
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("passwordLabel")}</Label>
                 <FormElement>
                   <input
                     id="password"
@@ -83,19 +84,19 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
                 {loginFailed && (
                   <p className="text-red-500 text-shadow font-semibold">
-                    - Invalid email or password -
+                    {t("loginFailedMessage")}
                   </p>
                 )}
 
                 <div className="mt-3">
                   <Button2 type="submit" full disabled={loading}>
-                    {loading ? "Processing..." : "Log In"}
+                    {loading ? t("processing") : t("logIn")}
                   </Button2>
                 </div>
               </form>
               <div className="flex flex-row justify-center items-center gap-2">
                 <div className="w-full h-[1px] bg-slate-200 mt-1" />
-                <p>or</p>
+                <p>{t("or")}</p>
                 <div className="w-full h-[1px] bg-slate-200 mt-1" />
               </div>
               <div className="mt-5 space-y-4">
@@ -136,7 +137,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   }
                   onClick={() => handleLogin("google")}
                 >
-                  Sign in with Google
+                  {t("signInWithGoogle")}
                 </SocialButton>
                 {/* <button
                   className="w-full"
@@ -181,12 +182,12 @@ const LoginForm: React.FC<LoginFormProps> = ({
                   </SocialButton>
                 </button> */}
                 <div className="mt-5 text-center text-xs">
-                  Don't have an account?{" "}
+                  {t("noAccount")}{" "}
                   <a
                     href="/signup"
                     className="text-primary-500 font-semibold hover:text-primary-600 hover:underline"
                   >
-                    Sign up now
+                    {t("signUpNow")}
                   </a>
                   .
                 </div>

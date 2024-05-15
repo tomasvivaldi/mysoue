@@ -1,46 +1,35 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 const ContentLeft = () => {
+  const t = useTranslations("ContentLeft");
+
   return (
     <div
       key="1"
       className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-0"
     >
       <div className="max-w-xl space-y-6">
-        <h1 className="heading2 font-simplemichael">
-          Step into a world of endless possibilities
-        </h1>
-        <ul className="list-disc space-y-4 pl-5 text-lg  ">
-          <li className="font-nunito">
-            Occasions Tailored Just For You: From Baby Showers To Retirement
-            Parties, Select The Event And Start Crafting A Wishlist That
-            Captures The Essence Of Your Celebration.
-          </li>
-          <li className="font-nunito">
-            Seamless Sharing With Loved Ones: Once Your List Is Ready, Share It
-            Effortlessly With Friends And Family. Say Goodbye To Unwanted Or
-            Duplicate Gifts!
-          </li>
-          <li className="font-nunito">
-            Inspiration At Your Fingertips: Need Ideas? Browse Through Our
-            Curated Categories For Inspiration Across A Wide Range Of Interests
-            And Hobbies.
-          </li>
+        <h1 className="heading2 font-simplemichael">{t("heading")}</h1>
+        <ul className="list-disc space-y-4 pl-5 text-lg">
+          <li className="font-nunito">{t("point1")}</li>
+          <li className="font-nunito">{t("point2")}</li>
+          <li className="font-nunito">{t("point3")}</li>
         </ul>
         <Link
           className="inline-flex items-center space-x-1 text-lg font-medium text-blue-600 hover:text-blue-500"
-          href="#"
+          href="/login"
         >
-          <span className="font-nunito">Go to Login</span>
+          <span className="font-nunito">{t("loginLink")}</span>
           <ChevronRightIcon className="w-5 h-5" />
         </Link>
       </div>
       <div className="flex items-center justify-center w-full md:w-1/2">
         <Image
           src="/create1.png"
-          alt="create 1"
+          alt={t("imageAlt")}
           width={1556}
           height={1724}
           objectPosition="center"

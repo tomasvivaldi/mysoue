@@ -1,25 +1,23 @@
-// components/CenterContent.tsx
-
 import React from "react";
 import GhostButtonBlack from "./GhostButtonBlack";
+import { useTranslations } from "next-intl";
 
 const CenterContent: React.FC = () => {
+  const t = useTranslations("CenterContent");
+
   return (
     <div className="flex flex-col items-center justify-center mt-10 mb-28 bg-[#fbf9f4] py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center heading2 text-gray-900 font-simplemichael">
-            Your wishlist, your way
+            {t("heading")}
           </h2>
           <p className="pt-2 text-center text-base font-light text-gray-600 mt-4 min-w-xl max-w-2xl mx-auto font-nunito">
-            MYSOUE Is More Than Just A Platform; It's A Community Where
-            Preferences Are Respected, And Choices Are Celebrated. Creating A
-            Wishlist With Us Is Not Just Convenient But Also A Delightful
-            Experience, Ensuring That Every Gift You Receive Is A Wish Granted.
+            {t("description")}
           </p>
         </div>
         <div className="w-fit mx-auto">
-          <GhostButtonBlack text={"Create An Account"} href="/login" />
+          <GhostButtonBlack text={t("buttonText")} href="/login" />
         </div>
       </div>
     </div>

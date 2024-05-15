@@ -3,12 +3,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import Head from "next/head";
 import Image from "next/image";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import ContentLeft from "@/components/ContentLeft";
 import ContentRight from "@/components/ContentRight";
 import CenterContent from "@/components/CenterContent";
 
 const CreateAList = () => {
+  const t = useTranslations("CreateAList");
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0, transition: { duration: 1 } },
@@ -17,13 +18,13 @@ const CreateAList = () => {
   return (
     <>
       <Head>
-        <title>Our little story</title>
+        <title>{t("pageTitle")}</title>
       </Head>
       <div className="relative w-[85%] mx-auto x-paddings my-12">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
-            alt="Gift with ribbon"
+            alt={t("bgImageAlt")}
             className="mb-4 rounded-lg object-cover w-full h-full"
             height="300"
             src="/bg1.jpg"
@@ -41,14 +42,9 @@ const CreateAList = () => {
         {/* Text Content */}
         <div className="relative z-20 flex flex-col items-start justify-center h-fit text-left p-4 my-12">
           <h1 className="heading1 text-white mb-4 max-w-sm font-simplemichael">
-            Create your wishlist now!
+            {t("mainHeading")}
           </h1>
-          <p className="text-white max-w-md font-nunito">
-            Provide all the details for the gift list you'd like to create. This
-            ensures your loved ones have the information they need. Whether
-            someone wants to create a surprise list and share it with friends or
-            offer it to you, everything is possible here.
-          </p>
+          <p className="text-white max-w-md font-nunito">{t("mainContent")}</p>
         </div>
       </div>
       <ContentLeft />

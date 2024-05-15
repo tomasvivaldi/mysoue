@@ -7,8 +7,11 @@ import Image from "next/image";
 import TeamSection from "@/components/TeamSection";
 import Banner2 from "@/components/Banner2";
 import TopBanner2 from "@/components/TopBanner2";
+import { useTranslations } from "next-intl";
 
-const UeberMich = () => {
+const OurLittleStory = () => {
+  const t = useTranslations("ourStory");
+
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0, transition: { duration: 1 } },
@@ -17,11 +20,11 @@ const UeberMich = () => {
   return (
     <>
       <Head>
-        <title>Our little story</title>
+        <title>{t("pageTitle")}</title>
       </Head>
       <TopBanner2
-        title="Our little story"
-        description="We are a dedicated team with a mission to make wishlists accessible to everyone"
+        title={t("bannerTitle")}
+        description={t("bannerDescription")}
         bgImage="/bg1.jpg"
       />
       <div className="  flex flex-col p-4 x-paddings ">
@@ -33,7 +36,7 @@ const UeberMich = () => {
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            A little more About us
+            {t("subtitle")}
           </motion.h2>
 
           <div className="flex flex-col gap-12 my-10 w-full x-paddings ">
@@ -53,13 +56,10 @@ const UeberMich = () => {
                 className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
               />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2 font-simplemichael">Our DNA</h3>
-                <p className="body-regular font-nunito">
-                  The very essence of our concept is the result of an alliance
-                  between different cultures. We draw our inspiration not only
-                  from our own experience, but also from our mixed cultural
-                  heritage between South America and Europe.
-                </p>
+                <h3 className="heading3 mb-2 font-simplemichael">
+                  {t("dnaHeading")}
+                </h3>
+                <p className="body-regular font-nunito">{t("dnaText")}</p>
               </motion.div>
             </motion.div>
 
@@ -72,14 +72,10 @@ const UeberMich = () => {
             >
               {" "}
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2 font-simplemichael">Our “soué”</h3>
-                <p className="body-regular font-nunito">
-                  In French, “souhait” means wish. And that is all we are
-                  about;"We're all about making your wishes come true,
-                  eliminating worries, and creating space for meaningful moments
-                  and cherished memories with your loved ones. That's our
-                  mission – turning desires into delightful memories!"
-                </p>
+                <h3 className="heading3 mb-2 font-simplemichael">
+                  {t("soueHeading")}
+                </h3>
+                <p className="body-regular font-nunito">{t("soueText")}</p>
               </motion.div>
               <Image
                 src="/story2.png"
@@ -106,15 +102,10 @@ const UeberMich = () => {
                 className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
               />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
-                <h3 className="heading3 mb-2 font-simplemichael">Our values</h3>
-                <p className="body-regular font-nunito">
-                  our values are rooted in a desire to bring together and
-                  cherish our loved ones. What could be more wonderful than
-                  celebrating a moment in life without the hassle of individual
-                  wishes, desires and budgets? All you have to think about is
-                  celebrating, with no logistical constraints when it comes to
-                  gifts.
-                </p>
+                <h3 className="heading3 mb-2 font-simplemichael">
+                  {t("valuesHeading")}
+                </h3>
+                <p className="body-regular font-nunito">{t("valuesText")}</p>
               </motion.div>
             </motion.div>
           </div>
@@ -126,4 +117,4 @@ const UeberMich = () => {
   );
 };
 
-export default UeberMich;
+export default OurLittleStory;
