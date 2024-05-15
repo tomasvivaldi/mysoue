@@ -1,23 +1,16 @@
 import React from "react";
-
 import Footer2 from "@/components/Footer2";
 import Navbar3 from "@/components/Navbar3";
-import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-
-// const layout = ({ children }: { children: React.ReactNode }) => {
 
 interface LayoutProps {
   children: React.ReactNode;
+  // If you plan to use session later, you can uncomment it and type it appropriately.
   // session: any;
-  locale: string;
 }
 
-const layout: React.FC<LayoutProps> = async ({
-  children,
-  // session,
-}) => {
-  const locale = getLocale();
+const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const locale = getLocale(); // Ensure this is synchronous or handled before rendering.
 
   return (
     <div className="flex flex-col bg-[#fbf9f4] font-nunito">
@@ -28,4 +21,4 @@ const layout: React.FC<LayoutProps> = async ({
   );
 };
 
-export default layout;
+export default Layout;

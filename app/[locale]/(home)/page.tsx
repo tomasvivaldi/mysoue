@@ -111,7 +111,7 @@ const HomePage = () => {
       {/* <Banner /> */}
 
       {/* Responsive ; Need Final Copy */}
-      <TestimonialCarousel testimonials={testimonials} />
+      <TestimonialCarousel />
       <Banner />
       <FAQSection />
       <RedLogosBanner speed="fast" />
