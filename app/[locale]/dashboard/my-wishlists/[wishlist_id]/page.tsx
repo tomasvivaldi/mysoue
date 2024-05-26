@@ -7,6 +7,7 @@ import ProductCard from "@/components/ProductCard";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import { Button2 } from "@/components/buttons/Button2";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
+import { useTranslations } from "next-intl";
 import { useParams, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -49,6 +50,7 @@ interface Wishlist {
 }
 
 const WishlistDetails: React.FC = () => {
+  const t = useTranslations("Dashboard-MyWishlists-WishlistPage");
   const params = useParams();
   const id = params.wishlist_id;
   console.log("id", id);
@@ -109,7 +111,9 @@ const WishlistDetails: React.FC = () => {
       </div>
       <div>
         <p>{wishlistDetails.description} </p>
-        <p className="text-sm">due date: {readableDueDate}</p>
+        <p className="text-sm">
+          {t("dueDate")} {readableDueDate}
+        </p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4">
         {wishlistDetails.wishlist_items.map((item: WishlistItem) => {

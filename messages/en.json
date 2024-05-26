@@ -209,5 +209,75 @@
     "specialChar": "Your password must contain at least 1 special character.",
     "footerText": "Already have an account?",
     "logInLinkText": "Log In instead."
+  },
+  "Dashboard-Navbar": {
+    "myWishlists": "My wishlists",
+    "createNewWishlist": "Create new wishlist",
+    "sharedWishlists": "Shared wishlists",
+    "ourLists": "Our lists",
+    "backToWebsite": "Back to website",
+    "signOut": "Sign Out"
+  },
+  "Dashboard-MyWishlists": {
+    "pageTitle": "Dashboard",
+    "title": "My Wishlists",
+    "createNewWishlistButton": "Create New Wishlist"
+  },
+  "Dashboard-MyWishlists-WishlistPage": {
+    "dueDate": "due date:"
+  },
+  "Dashboard-MyWishlists-ProductPage": {
+    "additionalDetails": "Additional details",
+    "productNotFound.": "Product not found.",
+    "addDetailsButton": "Add Details",
+    "viewOnWebsiteButton": "View on Website",
+    "deleteFromListButton": "Delete from list"
+  },
+  "Dashboard-OurWishlists": {
+    "pageTitle": "Dashboard",
+    "ourWishlists": "Our Wishlists",
+    "createNewWishlist": "Create New Wishlist"
+  },
+  "Dashboard-SharedWishlists": {
+    "pageTitle": "Dashboard",
+    "sharedWishlists": "Shared Wishlists",
+    "createNewWishlist": "Create New Wishlist"
+  },
+  "Dashboard-CreateNewWishlist": {
+    "pageTitle": "Create New Wishlist",
+    "stepOneTitle": "CREATE YOUR WISH LIST NOW!",
+    "stepOneDescription": "Provide all the details for the gift list you'd like to create. This ensures your loved ones have the information they need.",
+    "stepOneButton": "Create Your List",
+    "additionalDetails": "Additional details",
+    "productNotFound": "Product not found.",
+    "previousButton": "Previous",
+    "nextButton": "Next"
+  },
+  "Dashboard-CreateNewWishlist-FormStepTwo": {
+    "title": "Create Your Wishlist",
+    "description": "Fill in the details to create a new wishlist",
+    "typeOfListLabel": "Type of List",
+    "dueDateLabel": "Due Date",
+    "listNameLabel": "Name of the List",
+    "provideAddressLabel": "Would you like to provide a delivery address?",
+    "addressYesLabel": "Yes",
+    "addressNoLabel": "No",
+    "addressPlaceholder": "Enter your address",
+    "listDescriptionLabel": "Description",
+    "listDescriptionPlaceholder": "Enter list description",
+    "nextStepButton": "Next Step"
+  },
+  "Dashboard-CreateNewWishlist-ReviewStep": {
+    "title": "Review Your Wishlist",
+    "typeOfListLabel": "Type of List:",
+    "nameOfListLabel": "Name of the List:",
+    "descriptionLabel": "Description:",
+    "dueDateLabel": "Due Date:",
+    "provideAddressLabel": "Provide Address:",
+    "yes": "Yes",
+    "no": "No",
+    "addressLabel": "Address:",
+    "backButton": "Back",
+    "submitButton": "Submit Wishlist"
   }
 }

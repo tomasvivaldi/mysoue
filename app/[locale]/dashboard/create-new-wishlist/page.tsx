@@ -7,6 +7,8 @@ import ReviewStep from "@/components/ReviewStep";
 import ConfirmationStep from "@/components/ConfirmationStep";
 import { useMutation, gql } from "@apollo/client";
 import { ADD_WISHLIST } from "@/graphql/mutations"; // Adjust the import path to where your mutations are defined
+import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 // Define the type for each step's data if needed
 type StepData = {
@@ -24,6 +26,7 @@ interface ListOption {
 }
 
 const createNewWishlist = () => {
+  const t = useTranslations("Dashboard-CreateNewWishlist");
   const listOptions: ListOption[] = [
     { value: "", label: "Select a type" },
     { value: "baby-shower", label: "Baby shower wishlist" },
@@ -128,20 +131,15 @@ const createNewWishlist = () => {
           <div className="flex flex-col items-center justify-center p-4 h-full">
             <div
               className="text-center my-auto flex flex-col gap-4 rounded-md border-gray-200 bg-[#fbf9f4]
-              px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl
-"
+              px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl"
             >
-              <h2 className="text-4xl font-medium mb-4">
-                CREATE YOUR WISH LIST NOW!
-              </h2>
-              <p className="mb-8">
-                Provide all the details for the gift list you'd like to create.
-                This ensures your loved ones have the information they need.
-                {/* Whether someone wants to create a surprise list and share it
-                with friends or offer it to you, everything is possible here. */}
-              </p>
+              <h2 className="text-4xl font-medium mb-4">{t("stepOneTitle")}</h2>
+              <p className="mb-8">{t("stepOneDescription")}</p>
 
-              <GhostButtonBlack text="Create Your List" onClick={goNextStep} />
+              <GhostButtonBlack
+                text={t("stepOneButton")}
+                onClick={goNextStep}
+              />
             </div>
           </div>
         );
@@ -179,11 +177,18 @@ const createNewWishlist = () => {
       case 4:
         return <ConfirmationStep />;
       default:
-        return <div>Review and Submit Form</div>; // Final step or submission message
+        return <div>Review and Submit Form</div>;
     }
   };
 
-  return <div className="w-full">{renderStep()}</div>;
+  return (
+    <>
+      <Head>
+        <title>{t("pageTitle")}</title>
+      </Head>
+      <div className="w-full">{renderStep()}</div>
+    </>
+  );
 };
 
 export default createNewWishlist;

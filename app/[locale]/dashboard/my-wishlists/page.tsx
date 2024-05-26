@@ -8,6 +8,7 @@ import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
 import React from "react";
 import { User } from "next-auth";
 import client from "@/apollo-client";
+import { useTranslations } from "next-intl";
 
 interface WishlistItem {
   added_at: string;
@@ -54,6 +55,7 @@ interface UserWithProvider extends User {
 }
 
 export default function MyWishlists() {
+  const t = useTranslations("Dashboard-MyWishlists");
   const [userData, setUserData] = useState<UserById | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -125,16 +127,16 @@ export default function MyWishlists() {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>{t("pageTitle")}</title>
       </Head>
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-regular font-simplemichael">
-            My Wishlists
+            {t("title")}
           </h1>
           <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
             <a href="/dashboard/create-new-wishlist" className=" font-nunito">
-              Create New Wishlist
+              {t("createNewWishlistButton")}
             </a>
           </button>
         </div>
@@ -154,7 +156,7 @@ export default function MyWishlists() {
               <Card
                 key={wishlist?.id}
                 id={wishlist?.id}
-                img="/xmas.jpg"
+                img="/xmas.jpg" // fix this to dinamically match image to list type
                 activity={wishlist.title}
                 type={wishlist.type}
                 date={readableDate} // Use the formatted date or "none"

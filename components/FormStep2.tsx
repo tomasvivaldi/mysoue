@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GhostButtonBlack from "./GhostButtonBlack";
+import { useTranslations } from "next-intl";
 
 interface ListOption {
   value: string;
@@ -39,14 +40,15 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
   address,
   setAddress,
 }) => {
+  const t = useTranslations("Dashboard-CreateNewWishlist-FormStepTwo");
   return (
-    <div className="flex flex-col gap-4 rounded-md border-gray-200 px-4 md:px-12 py-6  shadow-xl">
-      <h2 className="text-2xl font-semibold text-left">Create Your Wishlist</h2>
-      <p className="text-left ">Fill in the details to create a new wishlist</p>
+    <div className="flex flex-col gap-4 rounded-md border-gray-200 px-4 md:px-12 py-6 shadow-xl">
+      <h2 className="text-2xl font-semibold text-left">{t("title")}</h2>
+      <p className="text-left ">{t("description")}</p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label className="block mb-2 text-left">Type of List</label>
+          <label className="block mb-2 text-left">{t("typeOfListLabel")}</label>
           <select
             className="w-full p-2 border rounded"
             value={listType}
@@ -61,7 +63,7 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
         </div>
 
         <div>
-          <label className="block mb-2 text-left">Due Date</label>
+          <label className="block mb-2 text-left">{t("dueDateLabel")}</label>
           <input
             type="date"
             className="w-full p-2 border rounded"
@@ -71,11 +73,11 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
         </div>
 
         <div>
-          <label className="block mb-2 text-left">Name of the List</label>
+          <label className="block mb-2 text-left">{t("listNameLabel")}</label>
           <input
             type="text"
             className="w-full p-2 border rounded"
-            placeholder="Enter list name"
+            placeholder={t("listNameLabel")}
             value={listName}
             onChange={(e) => setListName(e.target.value)}
           />
@@ -83,7 +85,7 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
 
         <div className="flex flex-col items-start">
           <label className="block text-left mr-4 mb-4">
-            Would you like to provide a delivery address?
+            {t("provideAddressLabel")}
           </label>
           <div className="flex items-center">
             <label className="inline-flex items-center mr-6">
@@ -95,7 +97,7 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
                 onChange={() => setProvideAddress(true)}
                 checked={provideAddress === true}
               />
-              <span className="ml-2">Yes</span>
+              <span className="ml-2">{t("addressYesLabel")}</span>
             </label>
             <label className="inline-flex items-center">
               <input
@@ -106,35 +108,39 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
                 onChange={() => setProvideAddress(false)}
                 checked={provideAddress === false}
               />
-              <span className="ml-2">No</span>
+              <span className="ml-2">{t("addressNoLabel")}</span>
             </label>
           </div>
         </div>
       </div>
       {provideAddress && (
         <div className="col-span-1">
-          <label className="block -mt-2 mb-2 text-left">Address</label>
+          <label className="block -mt-2 mb-2 text-left">
+            {t("addressLabel")}
+          </label>
           <input
             type="text"
             className="w-full p-2 border rounded"
-            placeholder="Enter your address"
-            value={address} // Make sure you have a state for this
-            onChange={(e) => setAddress(e.target.value)} // And a method to update it
+            placeholder={t("addressPlaceholder")}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
         </div>
       )}
 
-      <div className=" col-span-1 ">
-        <label className="block mb-2 text-left">Description</label>
+      <div className="col-span-1">
+        <label className="block mb-2 text-left">
+          {t("listDescriptionLabel")}
+        </label>
         <textarea
           className="w-full p-2 border rounded"
-          placeholder="Enter list description"
+          placeholder={t("listDescriptionPlaceholder")}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
 
-      <GhostButtonBlack text=" Next Step" onClick={onNext} />
+      <GhostButtonBlack text={t("nextStepButton")} onClick={onNext} />
     </div>
   );
 };

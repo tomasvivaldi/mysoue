@@ -1,7 +1,9 @@
 import Card from "@/components/Card";
+import { useTranslations } from "next-intl";
 import Head from "next/head";
 
 const Login = () => {
+  const t = useTranslations("Dashboard-SharedWishlists");
   const wishlists = [
     {
       id: 1,
@@ -25,13 +27,15 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Dashboard</title>
+        <title>{t("pageTitle")}</title>
       </Head>
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-regular">Shared Wishlists</h1>
+          <h1 className="text-3xl font-regular">{t("sharedWishlists")}</h1>
           <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
-            <a href="/dashboard/create-new-wishlist">Create New Wishlist</a>
+            <a href="/dashboard/create-new-wishlist">
+              {t("createNewWishlist")}
+            </a>
           </button>
         </div>
 
@@ -41,8 +45,8 @@ const Login = () => {
               key={wishlist.id}
               img={wishlist.imageUrl}
               activity={wishlist.title}
-              type={" list type"}
-              date={" list date"}
+              type={"list type"}
+              date={"list date"}
               postpreview={wishlist.description}
               id={`${wishlist.id}`}
             />

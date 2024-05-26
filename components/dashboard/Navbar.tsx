@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-
 import { JSX, SVGProps, useState } from "react";
 import { signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import LocaleSwitcher from "../LocaleSwitcher";
 
 interface NavbarProps {
   isSidebarOpen: boolean;
@@ -10,13 +11,13 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const t = useTranslations("Dashboard-Navbar");
+
   const menuItems = [
-    { text: "My wishlists", href: "/dashboard/my-wishlists" },
-    // { text: 'How It Works', href: '/how-it-works' },
-    { text: "Create new wishlist", href: "/dashboard/create-new-wishlist" },
-    { text: "Shared wishlists", href: "/dashboard/shared-wishlists" },
-    { text: "Our lists", href: "/dashboard/our-wishlists" },
-    // Additional menu items...
+    { text: t("myWishlists"), href: "/dashboard/my-wishlists" },
+    { text: t("createNewWishlist"), href: "/dashboard/create-new-wishlist" },
+    { text: t("sharedWishlists"), href: "/dashboard/shared-wishlists" },
+    { text: t("ourLists"), href: "/dashboard/our-wishlists" },
   ];
 
   return (
@@ -26,11 +27,11 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
           isSidebarOpen ? "shadow-none" : "shadow-md"
         }`}
       >
-        <div className=" flex flex-row items-center justify-between ">
-          <div className={`flex items-center  ${isSidebarOpen ? "" : ""}`}>
+        <div className="flex flex-row items-center justify-between">
+          <div className={`flex items-center ${isSidebarOpen ? "" : ""}`}>
             {/* Hamburger button for mobile */}
             <button
-              className={`mr-4 p-0.5 active:bg-slate-200/20  rounded-lg ${
+              className={`mr-4 p-0.5 active:bg-slate-200/20 rounded-lg ${
                 isSidebarOpen ? "bg-[#FFF8E9]/20 " : "text-white"
               }`}
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -56,7 +57,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             {isSidebarOpen && (
               <div
                 className="fixed md:my-12 left-0 inset-y-0 -z-50 flex items-left justify-start
-              w-full md:w-1/4 lg:w-1/6 "
+              w-full md:w-1/4 lg:w-1/6"
               >
                 {/* Backdrop */}
                 <div
@@ -65,10 +66,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                 ></div>
 
                 {/* Modal content */}
-                <div
-                  className="bg-[#A67B5B]
-                  overflow-y-auto z-50 flex flex-col justify-between h-screen"
-                >
+                <div className="bg-[#A67B5B] overflow-y-auto z-50 flex flex-col justify-between h-screen">
                   <ul className="flex flex-col h-screen pt-12 md:pt-0">
                     {menuItems.map((item, index) => (
                       <li
@@ -86,35 +84,23 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                     ))}
                   </ul>
                   <div className="flex flex-col">
+                    <div className="md:hidden mb-3 md:mb-28  py-2 pl-5 pr-12 ">
+                      <LocaleSwitcher />
+                    </div>
                     <Link
-                      className="md:hidden flex flex-row
-                    justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
+                      className="md:hidden flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
                       href="/"
                     >
-                      <p className="text-sm font-medium group-hover:underline ">
-                        Back to website
+                      <p className="text-sm font-medium group-hover:underline">
+                        {t("backToWebsite")}
                       </p>
-                      {/* <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="w-5 h-5 mb-1"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
-                        />
-                      </svg> */}
                     </Link>
                     <button
                       onClick={() => signOut({ callbackUrl: "/" })}
-                      className="flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium  py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
+                      className="flex flex-row justify-between group mb-3 md:mb-28 text-white font-medium py-2 pl-5 pr-12 hover:bg-[#fbf9f4] hover:text-[#A67B5B] cursor-pointer"
                     >
-                      <p className="text-sm font-medium group-hover:underline ">
-                        Sign Out
+                      <p className="text-sm font-medium group-hover:underline">
+                        {t("signOut")}
                       </p>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -137,18 +123,14 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
             )}
           </div>
           <div
-            className={`flex items-center space-x-8 justify-center  ${
+            className={`flex items-center space-x-8 justify-center ${
               isSidebarOpen ? "block" : "hidden"
             } md:block`}
           ></div>
-          <div className="flex items-center space-x-4 ">
-            {/* <SearchIcon className="h-5 w-5" />
-        <Link className="text-sm font-medium " href="#">
-          Search
-        </Link> */}
+          <div className="flex items-center space-x-4">
             <div className="hidden md:flex md:flex-row gap-2 items-center">
-              <Link className="text-sm font-medium hover:underline " href="/">
-                Back to website
+              <Link className="text-sm font-medium hover:underline" href="/">
+                {t("backToWebsite")}
               </Link>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,6 +146,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
                   d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
                 />
               </svg>
+              <LocaleSwitcher />
             </div>
           </div>
         </div>

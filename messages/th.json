@@ -210,5 +210,75 @@
     "specialChar": "รหัสผ่านของคุณต้องมีอักขระพิเศษอย่างน้อย 1 ตัว",
     "footerText": "มีบัญชีอยู่แล้ว?",
     "logInLinkText": "เข้าสู่ระบบ"
+  },
+  "Dashboard-Navbar": {
+    "myWishlists": "รายการสิ่งที่ต้องการของฉัน",
+    "createNewWishlist": "สร้างรายการสิ่งที่ต้องการใหม่",
+    "sharedWishlists": "รายการสิ่งที่ต้องการที่แชร์",
+    "ourLists": "รายการของเรา",
+    "backToWebsite": "กลับไปที่เว็บไซต์",
+    "signOut": "ออกจากระบบ"
+  },
+  "Dashboard-MyWishlists": {
+    "pageTitle": "แผงควบคุม",
+    "title": "รายการสิ่งที่ต้องการของฉัน",
+    "createNewWishlistButton": "สร้างรายการสิ่งที่ต้องการใหม่"
+  },
+  "Dashboard-MyWishlists-WishlistPage": {
+    "dueDate": "วันครบกำหนด:"
+  },
+  "Dashboard-MyWishlists-ProductPage": {
+    "additionalDetails": "รายละเอียดเพิ่มเติม",
+    "productNotFound": "ไม่พบสินค้า",
+    "addDetailsButton": "เพิ่มรายละเอียด",
+    "viewOnWebsiteButton": "ดูบนเว็บไซต์",
+    "deleteFromListButton": "ลบจากรายการ"
+  },
+  "Dashboard-OurWishlists": {
+    "pageTitle": "แดชบอร์ด",
+    "ourWishlists": "รายการสิ่งที่ปรารถนาของเรา",
+    "createNewWishlist": "สร้างรายการสิ่งที่ปรารถนาใหม่"
+  },
+  "Dashboard-SharedWishlists": {
+    "pageTitle": "แดชบอร์ด",
+    "sharedWishlists": "รายการสิ่งที่ปรารถนาที่แชร์",
+    "createNewWishlist": "สร้างรายการสิ่งที่ปรารถนาใหม่"
+  },
+  "Dashboard-CreateNewWishlist": {
+    "pageTitle": "สร้างรายการสิ่งที่ปรารถนาใหม่",
+    "stepOneTitle": "สร้างรายการสิ่งที่ปรารถนาของคุณตอนนี้!",
+    "stepOneDescription": "ระบุรายละเอียดทั้งหมดสำหรับรายการของขวัญที่คุณต้องการสร้าง เพื่อให้คนที่คุณรักมีข้อมูลที่จำเป็น",
+    "stepOneButton": "สร้างรายการของคุณ",
+    "additionalDetails": "รายละเอียดเพิ่มเติม",
+    "productNotFound": "ไม่พบผลิตภัณฑ์",
+    "previousButton": "ก่อนหน้า",
+    "nextButton": "ถัดไป"
+  },
+  "Dashboard-CreateNewWishlist-FormStepTwo": {
+    "title": "สร้างรายการสิ่งที่ปรารถนาของคุณ",
+    "description": "กรอกรายละเอียดเพื่อสร้างรายการสิ่งที่ปรารถนาใหม่",
+    "typeOfListLabel": "ประเภทของรายการ",
+    "dueDateLabel": "วันที่กำหนด",
+    "listNameLabel": "ชื่อของรายการ",
+    "provideAddressLabel": "คุณต้องการระบุที่อยู่ในการจัดส่งหรือไม่?",
+    "addressYesLabel": "ใช่",
+    "addressNoLabel": "ไม่ใช่",
+    "addressPlaceholder": "ป้อนที่อยู่ของคุณ",
+    "listDescriptionLabel": "คำอธิบาย",
+    "listDescriptionPlaceholder": "ป้อนคำอธิบายของรายการ",
+    "nextStepButton": "ขั้นตอนถัดไป"
+  },
+  "Dashboard-CreateNewWishlist-ReviewStep": {
+    "title": "ตรวจสอบรายการสิ่งที่ปรารถนาของคุณ",
+    "typeOfListLabel": "ประเภทของรายการ:",
+    "nameOfListLabel": "ชื่อของรายการ:",
+    "descriptionLabel": "คำอธิบาย:",
+    "dueDateLabel": "วันที่กำหนด:",
+    "provideAddressLabel": "ให้ที่อยู่หรือไม่:",
+    "yes": "ใช่",
+    "no": "ไม่ใช่",
+    "addressLabel": "ที่อยู่:",
+    "backButton": "กลับ",
+    "submitButton": "ส่งรายการสิ่งที่ปรารถนา"
   }
 }

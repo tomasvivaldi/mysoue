@@ -6,6 +6,7 @@ import SolidButtonBlack from "@/components/SolidButtonBlack";
 import SolidButtonBrown from "@/components/SolidButtonBrown"; // Assuming you have a red button component
 import BackButton from "@/components/buttons/BackButton";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries"; // Update your GraphQL query accordingly
+import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -55,6 +56,7 @@ const BackButtonWithNoSSR = dynamic(
 );
 
 const ProductDetails: React.FC = () => {
+  const t = useTranslations("Dashboard-MyWishlists-ProductPage");
   const params = useParams();
   const id = params.product_id;
 
@@ -84,7 +86,7 @@ const ProductDetails: React.FC = () => {
   }, [id]);
   console.log("data?.productsById", productDetails);
   if (loading) return <div>Loading...</div>;
-  if (!productDetails) return <div>Product not found.</div>;
+  if (!productDetails) return <div>{t("productNotFound")}</div>;
 
   return (
     <div className="w-full">
@@ -109,19 +111,19 @@ const ProductDetails: React.FC = () => {
             {productDetails.product_description}
           </p>
           <div className="mt-8 flex flex-col gap-4 w-full">
-            <SolidButtonBlack text="Add Details" />
-            <GhostButtonBlack text="View on Website" />
+            <SolidButtonBlack text={t("addDetailsButton")} />
+            <GhostButtonBlack text={t("viewOnWebsiteButton")} />
           </div>
         </div>
       </div>
       <div className="my-8 flex flex-col w-full px-10 gap-2">
-        <h2 className="text-2xl font-bold">Additional details</h2>
+        <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
         <p className=" text-base text-gray-700">
           {/* Assuming this should be the additional description */}
           {productDetails.product_description}
         </p>
         <div className="px-4 self-end">
-          <SolidButtonBlack text="Delete from list" />
+          <SolidButtonBlack text={t("deleteFromListButton")} />
         </div>
       </div>
     </div>

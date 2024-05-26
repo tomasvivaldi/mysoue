@@ -2,6 +2,7 @@
 
 import React from "react";
 import GhostButtonBlack from "./GhostButtonBlack";
+import { useTranslations } from "next-intl";
 
 type StepData = {
   listType: string;
@@ -23,48 +24,49 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
   onEdit,
   onSubmit,
 }) => {
+  const t = useTranslations("Dashboard-CreateNewWishlist-ReviewStep");
+
   return (
     <div className="flex flex-col items-center justify-center p-4 h-full w-full">
       <div className="rounded-md border-gray-200 bg-[#fbf9f4] px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl text-center">
-        <h2 className="text-2xl font-semibold mb-4">Review Your Wishlist</h2>
+        <h2 className="text-2xl font-semibold mb-4">{t("title")}</h2>
         <div className="text-left my-8 flex-col flex gap-2">
           <p>
-            <strong>Type of List:</strong> {formData.listType}
+            <strong>{t("typeOfListLabel")}</strong> {formData.listType}
           </p>
 
           <p>
-            <strong>Name of the List:</strong> {formData.listName}
+            <strong>{t("nameOfListLabel")}</strong> {formData.listName}
           </p>
 
           <p>
-            <strong>Description:</strong> {formData.description}
+            <strong>{t("descriptionLabel")}</strong> {formData.description}
           </p>
 
           <p>
-            <strong>Due Date:</strong> {formData.dueDate}
+            <strong>{t("dueDateLabel")}</strong> {formData.dueDate}
           </p>
 
           <p>
-            <strong>Provide Address:</strong>{" "}
-            {formData.provideAddress ? "Yes" : "No"}
+            <strong>{t("provideAddressLabel")}</strong>{" "}
+            {formData.provideAddress ? t("yes") : t("no")}
           </p>
           {formData.provideAddress && formData.address && (
             <p>
-              <strong>Address:</strong> {formData.address}
+              <strong>{t("addressLabel")}</strong> {formData.address}
             </p>
           )}
         </div>
         <button
-          className=" text-black font-medium py-2 px-4 rounded mb-4"
+          className="text-black font-medium py-2 px-4 rounded mb-4"
           onClick={onEdit}
         >
-          Back
+          {t("backButton")}
         </button>
 
-        <GhostButtonBlack text="Submit Wishlist " onClick={onSubmit} />
+        <GhostButtonBlack text={t("submitButton")} onClick={onSubmit} />
       </div>
     </div>
   );
 };
-
 export default ReviewStep;
