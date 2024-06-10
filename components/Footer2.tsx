@@ -23,7 +23,7 @@ const Footer2 = () => {
               <h5 className="text-base sm:text-lg font-semibold">
                 {t("contentHeading")}
               </h5>
-              <ul className="space-y-1">
+              <ul className="space-y-1 w-full whitespace-nowrap">
                 <li>
                   <Link
                     href="/"
@@ -43,7 +43,7 @@ const Footer2 = () => {
                 <li>
                   <Link
                     href="/create-a-list"
-                    className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 "
                   >
                     {t("createList")}
                   </Link>
@@ -98,7 +98,7 @@ const Footer2 = () => {
           alt={t("logoAlt")}
           width={5000}
           height={1276}
-          className="w-[1200px] self-start"
+          className="w-[1200px] self-start my-8 md:my-0"
         />
       </div>
     </footer>

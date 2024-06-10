@@ -12,7 +12,7 @@ const Banner = () => {
         flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8"
       >
         <div className="w-full flex flex-col lg:flex-row justify-between p-6 xl:p-12 gap-8 lg:gap-0 items-center">
-          <h2 className="text-2xl md:text-3xl max-w-lg font-nunito text-left">
+          <h2 className="text-2xl md:text-3xl max-w-lg font-nunito text-center md:text-left">
             {t("bannerTitle")}
             <br />
             <span className="font-simplemichael text-3xl md:text-4xl">

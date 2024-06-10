@@ -157,7 +157,7 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative text-gray-900 dark:text-slate-200 antialiased">
+    <div className="relative text-gray-900 dark:text-slate-200 antialiased  max-w-[90%] mx-auto">
       {/* <Toaster position="top-center" /> */}
       <Head>
         <title>Sign Up</title>

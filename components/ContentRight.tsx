@@ -9,9 +9,9 @@ const ContentRight = () => {
   return (
     <div
       key="1"
-      className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-0"
+      className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-2"
     >
-      <div className="flex items-center justify-center w-full md:w-1/2">
+      <div className="order-2 md:order-1 flex items-center justify-center w-full md:w-1/2">
         <Image
           src="/create1.png"
           alt={t("imageAlt")}
@@ -21,7 +21,7 @@ const ContentRight = () => {
           className="rounded-lg mx-auto md:my-auto w-full grow-0 shrink-0"
         />
       </div>
-      <div className="max-w-xl space-y-6">
+      <div className="order-1 md:order-2 max-w-xl space-y-6">
         <h1 className="heading2 font-simplemichael">{t("heading")}</h1>
         <ul className="list-disc space-y-4 pl-5 text-lg">
           <li className="font-nunito">{t("point1")}</li>

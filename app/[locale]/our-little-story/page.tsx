@@ -53,7 +53,7 @@ const OurLittleStory = () => {
                 width={1556}
                 height={1724}
                 objectPosition="center"
-                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0 or"
               />
               <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
                 <h3 className="heading3 mb-2 font-simplemichael">
@@ -71,7 +71,10 @@ const OurLittleStory = () => {
               viewport={{ once: true }}
             >
               {" "}
-              <motion.div className=" flex flex-col my-auto" variants={fadeIn}>
+              <motion.div
+                className="order-2 sm:order-1 flex flex-col my-auto"
+                variants={fadeIn}
+              >
                 <h3 className="heading3 mb-2 font-simplemichael">
                   {t("soueHeading")}
                 </h3>
@@ -83,7 +86,7 @@ const OurLittleStory = () => {
                 width={1556}
                 height={1724}
                 objectPosition="center"
-                className="rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
+                className="order-1 sm:order-2 rounded-lg mx-auto md:my-auto w-44 md:w-72 grow-0 shrink-0"
               />
             </motion.div>
             <motion.div

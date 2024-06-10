@@ -9,7 +9,7 @@ const ContentLeft = () => {
   return (
     <div
       key="1"
-      className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-0"
+      className="flex justify-between x-paddings my-12 flex-col md:flex-row gap-8 md:gap-2"
     >
       <div className="max-w-xl space-y-6">
         <h1 className="heading2 font-simplemichael">{t("heading")}</h1>
