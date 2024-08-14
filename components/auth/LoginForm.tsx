@@ -14,7 +14,6 @@ interface LoginFormProps {
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
-
 const LoginForm: React.FC<LoginFormProps> = ({
   handleLogin,
   handleEmailLogin,
@@ -25,11 +24,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
   const t = useTranslations("LoginForm");
 
   return (
-    <div className=" flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
-      <div className=" w-full max-w-md text-center text-white">
+    <div className="flex min-h-screen items-center justify-center bg-primary-100 dark:bg-gray-900">
+      <div className="w-full max-w-md text-center text-white">
         <div className="relative mt-5 rounded-2xl dark:border-2 dark:border-blue-200/20 dark:bg-slate-900/80 dark:shadow-slate-200/5 py-7 px-6">
           {/* Image container */}
-          <div className="absolute top-0 left-0 w-full h-full -z-10 ">
+          <div className="absolute top-0 left-0 w-full h-full -z-10">
             <Image
               src="/auth-bg.png"
               layout="fill"
@@ -39,12 +38,26 @@ const LoginForm: React.FC<LoginFormProps> = ({
               className="rounded-2xl"
             />
           </div>
+          <div className="absolute top-0 left-0 w-full h-full -z-10 opacity-10">
+            <Image
+              src="/effect.jpg"
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              alt="Background"
+              className="rounded-2xl"
+            />
+          </div>
 
-          <span className="heading2">MYSOUE</span>
+          {/* Using Simple Michael font for the heading */}
+          <span className="heading2 font-simple-michael text-4xl">MYSOUE</span>
 
-          <h1 className="text-xl font-semibold mt-4">{t("signInHeading")}</h1>
+          {/* Using Nunito font for text */}
+          <h1 className="text-xl font-semibold mt-4 font-nunito">
+            {t("signInHeading")}
+          </h1>
 
-          <div className="mt-1">
+          <div className="mt-1 font-nunito">
             <div className="text-left">
               <form
                 className="grid gap-y-2 mb-4"
@@ -139,49 +152,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 >
                   {t("signInWithGoogle")}
                 </SocialButton>
-                {/* <button
-                  className="w-full"
-                  type="button"
-                  onClick={() => handleLogin("facebook")}
-                >
-                  <SocialButton
-                    icon={
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 14222 14222"
-                      >
-                        <circle cx="7111" cy="7112" r="7111" fill="#1977f3" />
-                        <path
-                          d="M9879 9168l315-2056H8222V5778c0-562 275-1111 1159-1111h897V2917s-814-139-1592-139c-1624 0-2686 984-2686 2767v1567H4194v2056h1806v4969c362 57 733 86 1111 86s749-30 1111-86V9168z"
-                          fill="#fff"
-                        />
-                      </svg>
-                    }
-                  >
-                    Sign in with Facebook
-                  </SocialButton>
-                </button>
-                <button
-                  className="w-full"
-                  type="button"
-                  onClick={() => handleLogin("auth0")}
-                >
-                  <SocialButton
-                    icon={
-                      <svg
-                        role="img"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <title>Auth0</title>
-                        <path d="M21.98 7.448L19.62 0H4.347L2.02 7.448c-1.352 4.312.03 9.206 3.815 12.015L12.007 24l6.157-4.552c3.755-2.81 5.182-7.688 3.815-12.015l-6.16 4.58 2.343 7.45-6.157-4.597-6.158 4.58 2.358-7.433-6.188-4.55 7.63-.045L12.008 0l2.356 7.404 7.615.044z" />
-                      </svg>
-                    }
-                  >
-                    Sign in with Auth0
-                  </SocialButton>
-                </button> */}
-                <div className="mt-5 text-center text-xs">
+
+                <div className="font-nunito mt-5 text-center text-xs">
                   {t("noAccount")}{" "}
                   <a
                     href="/signup"

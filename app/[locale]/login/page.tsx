@@ -144,8 +144,10 @@ const Login = () => {
     return (
       // <div>Loading...</div>
       <LoadingBox
-        spinnerClassName="mx-24"
-        containerClassName="m-auto h-screen"
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png" // Path to your loading image
+        imageAlt="Loading spinner"
+        imageClassName="" // Optional: Add any Tailwind classes for styling
+        containerClassName="h-screen" // Optional: Center the loading box in the full screen height
       />
     );
 

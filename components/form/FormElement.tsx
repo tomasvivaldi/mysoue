@@ -24,7 +24,7 @@ const FormElement = (props: IFormElementProps) => {
       {props.children}
 
       {props.helper && (
-        <div className="mt-1 text-sm text-gray-500">{props.helper}</div>
+        <div className="font-nunito mt-1 text-sm text-gray-500">{props.helper}</div>
       )}
 
       <style jsx>

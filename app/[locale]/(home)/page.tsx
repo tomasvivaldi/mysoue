@@ -104,17 +104,19 @@ const HomePage = () => {
         speed="normal"
         className="border border-b-black border-t-black my-4 py-4 text-4xl tracking-[0.2em] font-inter"
       /> 
-      <HowItWorks />
-      <OurLists />
+      
+      
 
       {/* Responsive ; Need Final Copy */}
       {/* <Banner /> */}
-
+     
       {/* Responsive ; Need Final Copy */}
+      {/* <HowItWorks /> */}
+      {/* <OurLists /> */}
       <TestimonialCarousel />
       <Banner />
       <FAQSection />
-      <RedLogosBanner speed="fast" />
+      {/* <RedLogosBanner speed="fast" /> */}
       <div className="w-full mb-[100px]" />
     </>
   );

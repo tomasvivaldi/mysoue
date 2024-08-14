@@ -6,7 +6,7 @@ const Hero2 = () => {
   const t = useTranslations("Hero");
 
   return (
-    <div className="relative w-full h-screen -mt-[100px]">
+    <div className="relative w-full h-[90vh] -mt-[100px]">
       <Image
         alt={t("heroImageAlt")}
         className="w-full h-full object-cover"

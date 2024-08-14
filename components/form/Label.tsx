@@ -17,7 +17,7 @@ type ILabelProps = {
  */
 const Label = (props: ILabelProps) => {
   const labelClass = classNames(
-    " font-semibold text-gray-100 dark:text-slate-200",
+    "font-nunito font-semibold text-gray-100 dark:text-slate-200",
     "mt-2",
     props.colSpanSize
   );

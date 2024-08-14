@@ -3,13 +3,14 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { SmallTextBanner } from "./banners/SmallTextBanner";
 import GiftStack from "./GiftStack";
+import SolidButton from "./buttons/SolidButton";
 
 const AllAboutGifts = () => {
   const t = useTranslations("AllAboutGifts");
 
   return (
     <div key="1" className="bg-[#fff8e9]">
-      <SmallTextBanner
+      {/* <SmallTextBanner
         items={[
           t("bannerText"),
           t("bannerText"),
@@ -24,7 +25,10 @@ const AllAboutGifts = () => {
         direction="left"
         speed="slow"
         className="border border-b-[#B72228] border-t-[#B72228] mt-36 my-12 py-4 text-4xl tracking-[0.2em] font-inter"
-      />
+      /> */}
+      <div className=" my-8  w-full pb-12 flex justify-center">
+        <SolidButton text="Register Now" href="/login" className="text-xl px-12 py-4" />
+      </div>
       <div className="w-full flex flex-col lg:flex-row justify-around sm:p-8 x-paddings">
         <Image
           alt={t("imageAlt")}

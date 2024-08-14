@@ -15,7 +15,7 @@ type IButton2Props = {
 
 const Button2 = ({ type = "button", onClick, ...props }: IButton2Props) => {
   const btnClass = className(
-    "inline-block rounded-full text-center border transition-colors duration-300 hover:border-primary-400 hover:bg-[#fbf9f4]/10", // Added transition classes for smooth color changes.
+    "font-nunito inline-block rounded-full text-center border transition-colors duration-300 hover:border-primary-400 hover:bg-[#fbf9f4]/10", // Added transition classes for smooth color changes.
     {
       "text-lg font-semibold py-2 px-4": !props.xl,
       "font-extrabold text-xl py-4 px-6": props.xl,

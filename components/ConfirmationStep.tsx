@@ -27,7 +27,7 @@ const ConfirmationStep: React.FC = () => {
             <SolidButtonBlack text="Check Your Wishlists" />
           </a>
           <a href="/dashboard/our-wishlists">
-            <GhostButtonBlack text="Back to Our Lists" />
+            <GhostButtonBlack text="Back to Our lists" />
           </a>
         </div>
       </div>

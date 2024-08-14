@@ -2,9 +2,9 @@
   "Navbar": {
     "title": "MYSOUE",
     "home": "Home",
-    "ourStory": "Our Little Story",
-    "createList": "Create a List",
-    "ourLists": "Our Lists",
+    "ourStory": "Our little story",
+    "createList": "Create a list",
+    "ourLists": "Our lists",
     "login": "Login"
   },
   "Footer": {

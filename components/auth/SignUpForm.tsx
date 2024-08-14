@@ -98,11 +98,21 @@ const SignUpForm = ({
               className="rounded-2xl"
             />
           </div>
+          <div className="absolute top-0 left-0 w-full h-full -z-10 opacity-10">
+            <Image
+              src="/effect.jpg"
+              layout="fill"
+              objectFit="cover"
+              quality={100}
+              alt="Background"
+              className="rounded-2xl"
+            />
+          </div>
 
-          <span className="heading2">MYSOUE</span>
+          <span className="heading2 font-simple-michael">MYSOUE</span>
 
-          <h1 className="text-xl font-semibold mt-4">{t("heading")}</h1>
-          <p className="mt-2">{t("subheading")}</p>
+          <h1 className="text-xl font-semibold mt-4 font-nunito">{t("heading")}</h1>
+          <p className="mt-2 font-nunito">{t("subheading")}</p>
 
           <form className="grid gap-y-2 mb-4" onSubmit={handleSubmit}>
             <Label htmlFor="email">{t("emailLabel")}</Label>
@@ -145,12 +155,12 @@ const SignUpForm = ({
                 value={password}
                 onChange={handlePasswordChange}
               />
-              <div className="-mt-1 ml-1 font-semibold">
+              <div className="-mt-1 ml-1 font-semibold ">
                 <div
                   className={
                     hasMinLength
-                      ? "text-green-400 text-sm "
-                      : "text-gray-100 text-sm"
+                      ? "text-green-400 text-sm font-nunito "
+                      : "text-gray-100 text-sm font-nunito"
                   }
                 >
                   {hasMinLength ? null : null}
@@ -159,8 +169,8 @@ const SignUpForm = ({
                 <div
                   className={
                     hasUpperCase
-                      ? "text-green-400 text-sm"
-                      : "text-gray-100 text-sm"
+                      ? "text-green-400 text-sm font-nunito"
+                      : "text-gray-100 text-sm font-nunito"
                   }
                 >
                   {hasUpperCase ? null : null}
@@ -169,8 +179,8 @@ const SignUpForm = ({
                 <div
                   className={
                     hasLowerCase
-                      ? "text-green-400 text-sm"
-                      : "text-gray-100 text-sm"
+                      ? "text-green-400 text-sm font-nunito"
+                      : "text-gray-100 text-sm font-nunito"
                   }
                 >
                   {hasLowerCase ? null : null}
@@ -179,8 +189,8 @@ const SignUpForm = ({
                 <div
                   className={
                     hasNumber
-                      ? "text-green-400 text-sm"
-                      : "text-gray-100 text-sm"
+                      ? "text-green-400 text-sm font-nunito"
+                      : "text-gray-100 text-sm font-nunito"
                   }
                 >
                   {hasNumber ? null : null}
@@ -189,8 +199,8 @@ const SignUpForm = ({
                 <div
                   className={
                     hasSpecialChar
-                      ? "text-green-400 text-sm"
-                      : "text-gray-100 text-sm"
+                      ? "text-green-400 text-sm font-nunito"
+                      : "text-gray-100 text-sm font-nunito"
                   }
                 >
                   {hasSpecialChar ? null : null}
