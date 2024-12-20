@@ -7,7 +7,7 @@ import { getLocale } from "next-intl/server";
 const layout = ({ children }: { children: React.ReactNode }) => {
   const locale = getLocale();
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col bg-white">
       <Navbar3 locale={locale} />
       {children}
       <Footer2 />

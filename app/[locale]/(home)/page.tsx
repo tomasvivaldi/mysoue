@@ -7,9 +7,14 @@ import HeroSection from "@/components/HeroSection";
 import HowItWorks from "@/components/HowItWorks";
 import OurLists from "@/components/OurLists";
 import TestimonialCarousel from "@/components/TestimonialCarousel";
+import Carrousel from "@/components/aline_design/Carrousel";
+import MidBanner from "@/components/aline_design/MidBanner";
+import VideoBanner from "@/components/aline_design/VideoBanner";
+import Wishes from "@/components/aline_design/Wishes";
 
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
+import SolidButton from "@/components/buttons/SolidButton";
 
 const HomePage = () => {
   const testimonials = [
@@ -47,10 +52,29 @@ const HomePage = () => {
 
   return (
     <>
-      <Hero2 />
-      <FolderNotch>
+       <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <VideoBanner />
+      <Wishes />
+      <SmallTextBanner
+        items={[
+          "the gifting world",
+          "the gifting world",
+       
+        ]} // Array length for repetition
+        extraWord="Creativity"
+        genericText="WELCOME TO"
+        textColor="#b91c1c"
+        bgColor=""
+        direction="left"
+        speed="normal"
+        className="border border-b-red-700 border-t-red-700 my-4 py-4 text-4xl tracking-[0.2em] font-inter"
+      />
+      <MidBanner />
+      <Carrousel />
+      {/* <Hero2 /> */}
+      {/* <FolderNotch>
         <AllAboutGifts />
-      </FolderNotch>
+      </FolderNotch> */}
 
       {/* <SmallTextBanner
         items={[
@@ -113,7 +137,7 @@ const HomePage = () => {
       {/* Responsive ; Need Final Copy */}
       {/* <HowItWorks /> */}
       {/* <OurLists /> */}
-      <TestimonialCarousel />
+      {/* <TestimonialCarousel /> */}
       <Banner />
       <FAQSection />
       {/* <RedLogosBanner speed="fast" /> */}

@@ -17,7 +17,7 @@ const SolidButton: React.FC<SolidButtonProps> = ({
   className = "", // Default is an empty string
 }) => {
   const baseClasses =
-    "font-nunito inline-flex items-center justify-center text-sm ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 h-10 rounded-full px-6 py-2 font-medium text-white  bg-[#B72228] hover:bg-[#B72228]/90 active:bg-[#B72228]/80";
+    "font-nunito inline-flex items-center justify-center text-sm ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 h-10 rounded-full px-6 py-2 font-medium ";
 
   const buttonClasses = `${baseClasses} ${className}`.trim();
 

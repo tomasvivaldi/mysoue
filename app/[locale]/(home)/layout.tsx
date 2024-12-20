@@ -14,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   return (
     <div className="flex flex-col bg-[#fbf9f4] font-nunito">
-      <Navbar3 locale={locale} />
+      {/* <Navbar3 locale={locale} /> */}
       {children}
       <Footer2 />
     </div>
