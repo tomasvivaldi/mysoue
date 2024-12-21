@@ -8,9 +8,9 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   const locale = getLocale();
   return (
     <div className="flex flex-col bg-white">
-      <Navbar3 locale={locale} />
+      {/* <Navbar3 locale={locale} /> */}
       {children}
-      <Footer2 />
+      <div className="z-10"><Footer2 /></div>
     </div>
   );
 };

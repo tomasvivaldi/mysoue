@@ -52,7 +52,7 @@ const HomePage = () => {
 
   return (
     <>
-       <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
       <VideoBanner />
       <Wishes />
       <SmallTextBanner
