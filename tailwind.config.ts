@@ -108,6 +108,12 @@ module.exports = {
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+        '3/2': '3 / 2',
+        '21/9': '21 / 9',
+        '1.3h': '10 / 13',
+      },
     },
   },
 

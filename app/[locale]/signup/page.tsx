@@ -1,10 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { SignUpForm } from "@/components/auth/SignUpForm";
+import { SignUpForm } from "@/components/aline_design/auth/SignUpForm";
 import Head from "next/head";
-// import toast, { Toaster } from "react-hot-toast";
-
 import bcrypt from "bcryptjs";
 import { signIn } from "next-auth/react";
 import { useMutation, useQuery } from "@apollo/client";
@@ -12,13 +10,15 @@ import { ADD_USERS } from "@/graphql/mutations";
 import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
 
 const SignUp = () => {
-  const [username, setUsername] = useState("");
+  // Form states
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const router = useRouter();
 
   const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState("");
 
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
@@ -47,24 +47,28 @@ const SignUp = () => {
   }, [userDataLoading, userData, router, errorMessage]);
 
   const handleSignUp = async (
-    username: string,
+    // username: string,
     email: string,
-    password: string
+    password: string,
+    firstName: string,
+    lastName: string,
+    dateOfBirth: string,
+    gender: string
   ) => {
     if (loading) return;
     setLoading(true);
     setErrorMessage(null);
 
     // Ensure we have the latest user data before proceeding
-    // await refetchUserByEmail(email);
+        // await refetchUserByEmail(email);
 
-    const updated_at = new Date().toISOString();
-    const provider = "local";
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(password, salt);
-    // const isActive = true
-
-    // set the email for useQuery
+        const updated_at = new Date().toISOString();
+        const provider = "local";
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+        // const isActive = true
+    
+        // set the email for useQuery
     setUserEmail(email);
 
     // Wait for the user data to be fetched
@@ -139,8 +143,11 @@ const SignUp = () => {
           email: email,
           oauth_provider: "local",
           password_hash: hashedPassword,
-          username: username,
-          profile_picture_url: "", // Consider providing a default or allowing users to add this later
+          first_name: firstName,
+          last_name: lastName,
+          date_of_birth: dateOfBirth,
+          gender: gender,
+          profile_picture_url: "", // Optionally add a default profile picture
         },
       });
       console.log("User added:", result);
@@ -157,25 +164,41 @@ const SignUp = () => {
   };
 
   return (
-    <div className="relative text-gray-900 dark:text-slate-200 antialiased  max-w-[90%] mx-auto">
-      {/* <Toaster position="top-center" /> */}
+    <>
+    {/* <Toaster position="top-center" /> */}
       <Head>
         <title>Sign Up</title>
       </Head>
-      <div className="my-12">
-        <SignUpForm
-          email={email}
-          setEmail={setEmail}
-          username={username}
-          setUsername={setUsername}
-          password={password}
-          setPassword={setPassword}
-          handleSignUp={handleSignUp}
-          loading={loading}
-          errorMessage={errorMessage}
-        />
+      <div className="flex">
+        {/* Left Section: Empty space */}
+        <div className="w-1/2 bg-[#D6CBBE]"></div>
+
+        {/* Right Section: SignUp form */}
+        <div className="w-1/2 flex items-center justify-center">
+          <div className="w-full x-paddings ">
+            <SignUpForm
+              firstName={firstName}
+              setFirstName={setFirstName}
+              lastName={lastName}
+              setLastName={setLastName}
+              dateOfBirth={dateOfBirth}
+              setDateOfBirth={setDateOfBirth}
+              gender={gender}
+              setGender={setGender}
+              email={email}
+              setEmail={setEmail}
+          //     username={username}
+          // setUsername={setUsername}
+              password={password}
+              setPassword={setPassword}
+              handleSignUp={handleSignUp}
+              loading={loading}
+              errorMessage={errorMessage}
+            />
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

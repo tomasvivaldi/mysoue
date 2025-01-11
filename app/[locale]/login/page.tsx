@@ -3,7 +3,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
 
-import { LoginForm } from "@/components/auth/LoginForm";
+import { LoginForm } from "@/components/aline_design/auth/LoginForm";
 import Head from "next/head";
 
 import { User } from "next-auth";
@@ -181,7 +181,13 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="text-gray-900 dark:text-[#FFF8E9] antialiased max-w-[90%] mx-auto">
+      <div className="flex h-screen">
+        {/* Left Section: Empty space */}
+        <div className="w-1/2 bg-[#D6CBBE]"></div>
+
+        {/* Right Section: Login form */}
+        <div className="w-1/2 flex items-center justify-center">
+          <div className="w-full max-w-md">
         <LoginForm
           handleLogin={handleLogin}
           handleEmailLogin={modifiedHandleEmailLogin}
@@ -189,6 +195,8 @@ const Login = () => {
           loading={loading}
           setLoading={setLoading}
         />
+      </div>
+      </div>
       </div>
     </>
   );

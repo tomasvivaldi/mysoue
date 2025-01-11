@@ -10,6 +10,7 @@ import TestimonialCarousel from "@/components/TestimonialCarousel";
 import Carrousel from "@/components/aline_design/Carrousel";
 import MidBanner from "@/components/aline_design/MidBanner";
 import VideoBanner from "@/components/aline_design/VideoBanner";
+import VisionBoard from "@/components/aline_design/VisionBoard";
 import Wishes from "@/components/aline_design/Wishes";
 
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
@@ -139,8 +140,14 @@ const HomePage = () => {
       {/* <OurLists /> */}
       {/* <TestimonialCarousel /> */}
       <Banner />
-      <FAQSection />
+      {/* <FAQSection /> */}
       {/* <RedLogosBanner speed="fast" /> */}
+      <VisionBoard
+        title="I WANT"
+        subtitle="pilates mom vibes"
+        imageSrc="/Index/footer-banner-image.jpg" // Replace with the image path
+        backgroundImageSrc="/Index/footer-banner-bg.png" // Replace with the background path
+      />
       <div className="w-full mb-[100px]" />
     </>
   );

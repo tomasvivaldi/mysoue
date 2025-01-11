@@ -16,11 +16,11 @@ const SocialButton = ({
 }: ISocialButtonProps) => (
   <button
     type={type}
-    className="font-nunito inline-flex items-center justify-center w-full rounded-full border-2 border-white bg-transparent py-2 px-5 text-white hover:border-primary-400 hover:bg-[#fbf9f4]/10 transition-colors duration-300"
+    className="font-nunito inline-flex items-center justify-center w-full rounded-full border-2 border-[#C6B8A2] bg-transparent py-2 px-5 text-[#C6B8A2] hover:border-primary-400 hover:bg-[#C6B8A2]/20 transition-colors duration-300"
     onClick={onClick} // Use the onClick prop
   >
     <div className="w-6 h-6">{icon}</div>
-    <span className="ml-2 text-lg font-semibold font-nunito">{children}</span>
+    <span className="ml-2 text-lg font-base font-nunito">{children}</span>
   </button>
 );
 
