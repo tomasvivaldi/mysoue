@@ -8,7 +8,7 @@ interface UserListsProps {
 
 const UserLists: React.FC<UserListsProps> = ({ lists, onEdit, onAddNewList }) => {
   return (
-    <div className="bg-white w-full rounded-lg shadow-lg">
+    <div className="bg-white w-full rounded-lg">
       {/* Heading */}
       <h2 className="text-3xl font-semibold text-black mb-4">YOUR LISTS</h2>
       <hr className="border-t border-[#C6B8A2] mb-6" />

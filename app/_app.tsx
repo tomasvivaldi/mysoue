@@ -9,6 +9,7 @@ import client from "../apollo-client";
 // import { LocalizationProvider } from '@mui/x-date-pickers';
 // import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import Script from "next/script";
+import Head from "next/head";
 
 const MyApp = ({
   Component,
@@ -32,7 +33,11 @@ const MyApp = ({
               gtag('config', 'G-K50BW4JH06');
           `}
       </Script> */}
-
+      <Head>
+        {/* ------------NOT APPEARING ON GOOGLE SEARCH------------ */}
+        <meta name="robots" content="noindex, nofollow" />
+        {/* ------------NOT APPEARING ON GOOGLE SEARCH------------ */}
+      </Head>
       <Component {...pageProps} />
       {/* </LocalizationProvider> */}
       {/* </ThemeProvider> */}

@@ -211,7 +211,7 @@ export default function UserListsPage() {
   };
 
   return (
-    <div className="min-h-screen w-full x-paddings flex my-20 justify-center bg-white">
+    <div className="min-h-screen w-full x-paddings flex py-20 justify-center bg-white">
       <UserLists
         lists={lists}
         onEdit={handleEditList}

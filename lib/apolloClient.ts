@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 // export function createApolloClient() {
 //   return new ApolloClient({
 //     link: new HttpLink({
-//       uri: "https://pertuis.stepzen.net/api/getting-started/__graphql",
+//       uri: "https://kinkondongo.us-east-a.ibm.stepzen.net/api/getting-started/graphql",
 //     }),
 //     cache: new InMemoryCache(),
 //   });
@@ -12,7 +12,7 @@ import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
 const httpLink = new HttpLink({
-  uri: "https://pertuis.stepzen.net/api/getting-started/__graphql",
+  uri: "https://kinkondongo.us-east-a.ibm.stepzen.net/api/getting-started/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {

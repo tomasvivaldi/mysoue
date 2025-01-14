@@ -9,7 +9,7 @@ import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const client = new ApolloClient({
-  uri: "https://pertuis.stepzen.net/api/getting-started/__graphql",
+  uri: "https://kinkondongo.us-east-a.ibm.stepzen.net/api/getting-started/graphql",
   headers: {
     Authorization: `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
   },
