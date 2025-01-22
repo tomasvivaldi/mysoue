@@ -37,7 +37,7 @@ const createNewWishlist = () => {
 
   const [addWishlist, { data, loading, error }] = useMutation(ADD_WISHLIST);
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(2);
   const [listType, setListType] = useState("");
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
@@ -84,12 +84,17 @@ const createNewWishlist = () => {
 
   const handleSubmit = () => {
     console.log("Submitting form data:", formData);
-
-    // Assuming formData contains all the information
-    // and you have a way to get the current user's id
-    const userId = "28"; // This should be dynamically obtained
+  
+    // Ensure we have valid data
+    if (formData.length === 0 || !formData[0].listName || !formData[0].listType) {
+      console.error("Invalid form data. Please complete all required fields.");
+      return;
+    }
+  
+    // Prepare mutation variables
+    const userId = "28"; // This should be dynamically fetched, not hardcoded
     const now = new Date().toISOString();
-
+  
     addWishlist({
       variables: {
         user_id: userId,
@@ -104,13 +109,11 @@ const createNewWishlist = () => {
       },
     })
       .then((response) => {
-        // Handle the response here, e.g., showing a success message
-        console.log(response.data);
-        // Then go to the confirmation step
-        setCurrentStep(currentStep + 1);
+        console.log("Wishlist added successfully:", response.data);
+        // Proceed to confirmation step
+        setCurrentStep((prevStep) => prevStep + 1);
       })
       .catch((error) => {
-        // Handle any errors here, e.g., showing an error message
         console.error("Error submitting form:", error);
       });
   };

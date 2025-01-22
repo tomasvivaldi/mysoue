@@ -1,12 +1,31 @@
 "use client";
 
+import Link from "next/link";
+import { useState } from "react";
+import AddWishlistModal from "../modals/AddWishlistModal";
+
+interface Wishlist {
+  id: string;
+  title: string;
+}
+
 interface UserListsProps {
-  lists: { name: string }[];
-  onEdit: (listName: string) => void;
+  wishlists: Wishlist[];
+  onEdit: (listId: string) => void;
   onAddNewList: () => void;
 }
 
-const UserLists: React.FC<UserListsProps> = ({ lists, onEdit, onAddNewList }) => {
+const UserLists: React.FC<UserListsProps> = ({
+  wishlists,
+  onEdit,
+  onAddNewList,
+}) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  
   return (
     <div className="bg-white w-full rounded-lg">
       {/* Heading */}
@@ -15,14 +34,24 @@ const UserLists: React.FC<UserListsProps> = ({ lists, onEdit, onAddNewList }) =>
 
       {/* Lists */}
       <ul className="space-y-4">
-        {lists.map((list, index) => (
+        {wishlists.map((wishlist) => (
           <li
-            key={index}
-            className="flex items-center justify-between text-black text-sm"
+            key={wishlist.id}
+            className="group flex items-center justify-between text-black text-sm px-4 py-2
+                       transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
           >
-            <span className="font-semibold text-xl">{list.name}</span>
+            <Link
+              href={`/dashboard/my-wishlists/${wishlist.id}`}
+              passHref
+              className="flex-grow font-semibold text-xl hover:underline"
+            >
+              {wishlist.title}
+            </Link>
             <button
-              onClick={() => onEdit(list.name)}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent navigation when "edit" is clicked
+                onEdit(wishlist.id);
+              }}
               className="text-[#C6B8A2] hover:underline transition"
             >
               edit
@@ -34,12 +63,17 @@ const UserLists: React.FC<UserListsProps> = ({ lists, onEdit, onAddNewList }) =>
       {/* Add New Wishlist Button */}
       <div className="mt-8">
         <button
-          onClick={onAddNewList}
-          className="w-full bg-transparent border border-[#C6B8A2] rounded-full py-2 text-[#C6B8A2] font-bold hover:bg-[#C6B8A2]/10 transition"
+          onClick={handleOpenModal}
+          className="w-full bg-transparent border border-[#C6B8A2] rounded-full py-2 text-[#C6B8A2] font-bold hover:bg-[#C6B8A2]/10 transition block text-center"
         >
           ADD NEW WISHLIST
         </button>
       </div>
+      {/* Render the modal */}
+      <AddWishlistModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Close the modal
+      />
     </div>
   );
 };
