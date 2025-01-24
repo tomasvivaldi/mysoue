@@ -5,6 +5,7 @@ import GhostButtonBlack from "@/components/GhostButtonBlack";
 import GhostButtonWhite from "@/components/GhostButtonWhite";
 import ProductCard from "@/components/ProductCard";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
+import AddProductModal from "@/components/aline_design/modals/AddProductModal";
 import { Button2 } from "@/components/buttons/Button2";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
@@ -49,15 +50,17 @@ interface Wishlist {
   wishlist_items: WishlistItem[];
 }
 
+const PAGE_SIZE = 4; // Number of items to load per page
+
 const WishlistDetails: React.FC = () => {
-  const t = useTranslations("Dashboard-MyWishlists-WishlistPage");
   const params = useParams();
   const id = params.wishlist_id;
-  console.log("id", id);
 
-  // Placeholder for the wishlist wishlistDetails state
   const [wishlistDetails, setWishlistDetails] = useState<Wishlist | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const loadData = async () => {
@@ -65,20 +68,20 @@ const WishlistDetails: React.FC = () => {
         setLoading(true);
 
         if (id) {
-          const wishlistDetails = await client.query({
+          const response = await client.query({
             query: GET_WISHLIST_BY_ID,
-            variables: { id: id },
+            variables: { id },
           });
-          setWishlistDetails(wishlistDetails?.data?.wishlistsById[0]);
-          console.log(
-            "wishlistDetails",
-            wishlistDetails?.data?.wishlistsById[0]
-          );
-        } else {
-          console.log("No user email found, skipping data fetch.");
+          const data = response?.data?.wishlistsById?.[0];
+          setWishlistDetails(data || null);
+
+          // Initialize the first page of visible items
+          if (data) {
+            setVisibleItems(data.wishlist_items.slice(0, PAGE_SIZE));
+          }
         }
       } catch (error) {
-        console.error("Failed to fetch user data:", error);
+        console.error("Failed to fetch wishlist data:", error);
       } finally {
         setLoading(false);
       }
@@ -87,14 +90,35 @@ const WishlistDetails: React.FC = () => {
     loadData();
   }, [id]);
 
-  if (!wishlistDetails) return <div>Loading...</div>;
+  const handleLoadMore = () => {
+    if (wishlistDetails) {
+      const nextPage = currentPage + 1;
+      const startIndex = currentPage * PAGE_SIZE;
+      const newItems = wishlistDetails.wishlist_items.slice(
+        startIndex,
+        startIndex + PAGE_SIZE
+      );
+
+      setVisibleItems((prevItems) => [...prevItems, ...newItems]);
+      setCurrentPage(nextPage);
+    }
+  };
+
+  const hasMoreItems =
+    wishlistDetails &&
+    visibleItems.length < wishlistDetails.wishlist_items.length;
+
+  if (loading) return <div>Loading...</div>;
+  if (!wishlistDetails) return <div>No wishlist found.</div>;
+
   const readableDueDate = wishlistDetails.due_date
     ? new Date(wishlistDetails.due_date).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",
       })
-    : "none";
+    : "None";
+
   return (
     <div className="m-8 flex flex-col gap-4 w-full">
       <div className="flex flex-row justify-between">
@@ -105,18 +129,16 @@ const WishlistDetails: React.FC = () => {
           List
         </h1>
         <div className="flex gap-8">
-          <GhostButtonBlack text={"Add Product"} />
-          <SolidButtonBlack text={"Share List"} />
+          <GhostButtonBlack text="Add Product" onClick={() => setIsModalOpen(true)} />
+          <SolidButtonBlack text="Share List" />
         </div>
       </div>
       <div>
-        <p>{wishlistDetails.description} </p>
-        <p className="text-sm">
-          {t("dueDate")} {readableDueDate}
-        </p>
+        <p>{wishlistDetails.description}</p>
+        <p className="text-sm">Due Date: {readableDueDate}</p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4">
-        {wishlistDetails.wishlist_items.map((item: WishlistItem) => {
+        {visibleItems.map((item) => {
           const product = item.products[0]; // Assuming there's at least one product
           return (
             <ProductCard
@@ -125,14 +147,33 @@ const WishlistDetails: React.FC = () => {
               productDescription={
                 product?.product_description || "No description"
               }
-              imageUrl={product?.image_url || "/xmas.jpg"} // Replace with your actual image URL
+              imageUrl={product?.image_url || "/xmas.jpg"}
               wishlistId={wishlistDetails.id}
               productId={product?.id}
             />
           );
         })}
       </div>
-      <button>Load More</button>
+      <button
+        onClick={handleLoadMore}
+        disabled={!hasMoreItems}
+        className={`mt-4 px-4 py-2 rounded-full ${
+          hasMoreItems
+            ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+            : "bg-gray-200 text-gray-500 cursor-not-allowed"
+        }`}
+      >
+        {hasMoreItems ? "Load More" : "No More Items"}
+      </button>
+
+      {/* Add Product Modal */}
+      <AddProductModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onAddProduct={(productName, productDescription) => {
+          console.log("New Product Added:", { productName, productDescription });
+        }}
+      />
     </div>
   );
 };

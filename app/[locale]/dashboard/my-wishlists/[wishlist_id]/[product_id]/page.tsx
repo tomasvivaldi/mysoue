@@ -4,6 +4,7 @@ import client from "@/apollo-client";
 import GhostButtonBlack from "@/components/GhostButtonBlack";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import SolidButtonBrown from "@/components/SolidButtonBrown"; // Assuming you have a red button component
+import DeleteProductModal from "@/components/aline_design/modals/DeleteProductModal";
 import BackButton from "@/components/buttons/BackButton";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries"; // Update your GraphQL query accordingly
 import { useTranslations } from "next-intl";
@@ -62,6 +63,16 @@ const ProductDetails: React.FC = () => {
 
   const [productDetails, setProductDetails] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleDelete = () => {
+    console.log(`Product ${productDetails?.id} deleted.`);
+    // Add logic to delete the product here (e.g., API call)
+    closeModal();
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -73,7 +84,7 @@ const ProductDetails: React.FC = () => {
             query: GET_PRODUCT_BY_ID,
             variables: { id: id },
           });
-          setProductDetails(data?.productsById[0]); // Update based on your actual GraphQL query response
+          setProductDetails(data?.productsById[0]); // Adjust based on your query response structure
         }
       } catch (error) {
         console.error("Failed to fetch product data:", error);
@@ -84,13 +95,12 @@ const ProductDetails: React.FC = () => {
 
     loadData();
   }, [id]);
-  console.log("data?.productsById", productDetails);
+
   if (loading) return <div>Loading...</div>;
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
   return (
     <div className="w-full">
-      {/* <BackButtonWithNoSSR /> */}
       <div className="mt-4 flex flex-col md:flex-row justify-around w-full">
         <div>
           <img
@@ -102,7 +112,7 @@ const ProductDetails: React.FC = () => {
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
           />
         </div>
-        <div className=" w-1/2 flex flex-col mb-auto mt-12">
+        <div className="w-1/2 flex flex-col mb-auto mt-12">
           <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
           <p className="mt-2 text-xl font-light">
             {productDetails.price.toFixed(2)} THB
@@ -118,15 +128,23 @@ const ProductDetails: React.FC = () => {
       </div>
       <div className="my-8 flex flex-col w-full px-10 gap-2">
         <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
-        <p className=" text-base text-gray-700">
-          {/* Assuming this should be the additional description */}
+        <p className="text-base text-gray-700">
           {productDetails.product_description}
         </p>
         <div className="px-4 self-end">
-          <SolidButtonBlack text={t("deleteFromListButton")} />
+          <SolidButtonBlack text={t("deleteFromListButton")} onClick={openModal} />
         </div>
       </div>
+
+      {/* Delete Product Modal */}
+      <DeleteProductModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        onDelete={handleDelete}
+        productName={productDetails.product_name}
+      />
     </div>
   );
 };
+
 export default ProductDetails;

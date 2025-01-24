@@ -68,7 +68,7 @@ const HomePage = () => {
         bgColor=""
         direction="left"
         speed="normal"
-        className="border border-b-red-700 border-t-red-700 my-4 py-4 text-4xl tracking-[0.2em] font-inter"
+        className="border border-b-[#C64138] border-t-[#C64138] my-4 py-4 text-4xl tracking-[0.2em] font-inter"
       />
       <MidBanner />
       <Carrousel />
@@ -94,7 +94,7 @@ const HomePage = () => {
         bgColor=""
         direction="left"
         speed="normal"
-        className="bg-red-700 my-4 text-xs tracking-[0.2em] font-light"
+        className="bg-[#C64138] my-4 text-xs tracking-[0.2em] font-light"
       />
       
       <SmallTextBanner
@@ -111,7 +111,7 @@ const HomePage = () => {
         bgColor=""
         direction="left"
         speed="normal"
-        className="border border-b-red-700 border-t-red-700 my-4 py-4 text-4xl tracking-[0.2em] font-inter"
+        className="border border-b-[#C64138] border-t-[#C64138] my-4 py-4 text-4xl tracking-[0.2em] font-inter"
       />
       <SmallTextBanner
         items={[

@@ -172,23 +172,6 @@ export default function MyWishlists() {
           />
         </div>
 
-        <div className="flex justify-center mt-6">
-          {/* Pagination would go here */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Previous
-          </button>
-          {/* Map over page numbers and render page buttons */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            1
-          </button>
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            2
-          </button>
-          {/* ... */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Next
-          </button>
-        </div>
       </div>
     </>
   );

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import AddWishlistModal from "../modals/AddWishlistModal";
+import DeleteWishlistModal from "../modals/DeleteWishlistModal";
 
 interface Wishlist {
   id: string;
@@ -15,17 +16,38 @@ interface UserListsProps {
   onAddNewList: () => void;
 }
 
+
 const UserLists: React.FC<UserListsProps> = ({
   wishlists,
   onEdit,
   onAddNewList,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(
+    null
+  );
+
+  const handleOpenAddModal = () => {
+    setIsAddModalOpen(true);
   };
 
-  
+  const handleOpenDeleteModal = (wishlist: Wishlist) => {
+    setSelectedWishlist(wishlist);
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setSelectedWishlist(null);
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteWishlist = () => {
+    console.log(`Deleting wishlist with ID: ${selectedWishlist?.id}`);
+    // Add logic for deleting the wishlist here (e.g., API call)
+    handleCloseDeleteModal();
+  };
+
   return (
     <div className="bg-white w-full rounded-lg">
       {/* Heading */}
@@ -50,7 +72,7 @@ const UserLists: React.FC<UserListsProps> = ({
             <button
               onClick={(e) => {
                 e.preventDefault(); // Prevent navigation when "edit" is clicked
-                onEdit(wishlist.id);
+                handleOpenDeleteModal(wishlist);
               }}
               className="text-[#C6B8A2] hover:underline transition"
             >
@@ -63,16 +85,25 @@ const UserLists: React.FC<UserListsProps> = ({
       {/* Add New Wishlist Button */}
       <div className="mt-8">
         <button
-          onClick={handleOpenModal}
+          onClick={handleOpenAddModal}
           className="w-full bg-transparent border border-[#C6B8A2] rounded-full py-2 text-[#C6B8A2] font-bold hover:bg-[#C6B8A2]/10 transition block text-center"
         >
           ADD NEW WISHLIST
         </button>
       </div>
-      {/* Render the modal */}
+
+      {/* Add Wishlist Modal */}
       <AddWishlistModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)} // Close the modal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
+
+      {/* Delete Wishlist Modal */}
+      <DeleteWishlistModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleCloseDeleteModal}
+        onDelete={handleDeleteWishlist}
+        wishlistTitle={selectedWishlist?.title}
       />
     </div>
   );
