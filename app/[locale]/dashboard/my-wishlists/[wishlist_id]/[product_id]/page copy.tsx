@@ -1,6 +1,3 @@
-///////// for shared list //////////
-
-
 "use client";
 // pages/product/[id].tsx
 import client from "@/apollo-client";
@@ -8,7 +5,6 @@ import GhostButtonBlack from "@/components/GhostButtonBlack";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import SolidButtonBrown from "@/components/SolidButtonBrown"; // Assuming you have a red button component
 import DeleteProductModal from "@/components/aline_design/modals/DeleteProductModal";
-import ReserveGiftModal from "@/components/aline_design/modals/ReserveGiftModal";
 import BackButton from "@/components/buttons/BackButton";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries"; // Update your GraphQL query accordingly
 import { useTranslations } from "next-intl";
@@ -67,15 +63,15 @@ const ProductDetails: React.FC = () => {
 
   const [productDetails, setProductDetails] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
-
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  const handleReserveGift = (formData: { name: string; email: string; message: string }) => {
-    console.log("Reserved Gift Details:", formData);
+  const handleDelete = () => {
+    console.log(`Product ${productDetails?.id} deleted.`);
+    // Add logic to delete the product here (e.g., API call)
+    closeModal();
   };
 
   useEffect(() => {
@@ -88,7 +84,7 @@ const ProductDetails: React.FC = () => {
             query: GET_PRODUCT_BY_ID,
             variables: { id: id },
           });
-          setProductDetails(data?.productsById[0]);
+          setProductDetails(data?.productsById[0]); // Adjust based on your query response structure
         }
       } catch (error) {
         console.error("Failed to fetch product data:", error);
@@ -124,27 +120,28 @@ const ProductDetails: React.FC = () => {
           <p className="mt-4 text-base text-gray-700">
             {productDetails.product_description}
           </p>
-          <div className="my-8 flex flex-col w-full gap-2">
-            <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
-            <p className="text-base text-gray-700">
-              {productDetails.product_description}
-            </p>
+          <div className="mt-8 flex flex-col gap-4 w-full">
+            <SolidButtonBlack text={t("addDetailsButton")} />
+            <GhostButtonBlack text={t("viewOnWebsiteButton")} />
           </div>
-          <button
-            onClick={handleOpenModal}
-            className="bg-[#A5282C] text-white w-fit px-6 py-1 font-light rounded-full hover:bg-[#C64138] transition"
-          >
-            RESERVE
-          </button>
+        </div>
+      </div>
+      <div className="my-8 flex flex-col w-full px-10 gap-2">
+        <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
+        <p className="text-base text-gray-700">
+          {productDetails.product_description}
+        </p>
+        <div className="px-4 self-end">
+          <SolidButtonBlack text={t("deleteFromListButton")} onClick={openModal} />
         </div>
       </div>
 
-      {/* Reserve Gift Modal */}
-      <ReserveGiftModal
+      {/* Delete Product Modal */}
+      <DeleteProductModal
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onReserve={handleReserveGift}
-        productImage="/path-to-product-image.jpg"
+        onClose={closeModal}
+        onDelete={handleDelete}
+        productName={productDetails.product_name}
       />
     </div>
   );

@@ -71,6 +71,15 @@ export default function MyWishlists() {
         setLoading(true);
         const userEmail = user?.email;
 
+        ///// check if redux store is empty -> if yes: load and dispatch data | if no: dont do anything
+
+        /// if (reduxData) -> load data
+        ///  break
+        ////// else -> run code below
+
+        ///// when make changes on database also change redux data store     
+
+
         if (userEmail) {
           const emailResponse = await client.query({
             query: GET_USERS_BY_EMAIL,
@@ -89,6 +98,9 @@ export default function MyWishlists() {
             if (userDataById) {
               setUserData(userDataById);
               console.log("userData set to: ", userDataById);
+
+              ////// Dispatch to redux /////////
+
             } else {
               console.error("User data not found for ID:", userId);
             }
@@ -130,7 +142,7 @@ export default function MyWishlists() {
       <Head>
         <title>{t("pageTitle")}</title>
       </Head>
-      <div className="container mx-auto p-4 x-paddings2 mt-20">
+      <div className="container mx-auto p-4 ">
         {/* <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-regular font-simplemichael">
             {t("title")}

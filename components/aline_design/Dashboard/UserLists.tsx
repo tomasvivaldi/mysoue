@@ -49,7 +49,7 @@ const UserLists: React.FC<UserListsProps> = ({
   };
 
   return (
-    <div className="bg-white w-full rounded-lg">
+    <div className="bg-white w-full rounded-lg mt-8">
       {/* Heading */}
       <h2 className="text-3xl font-semibold text-black mb-4">YOUR LISTS</h2>
       <hr className="border-t border-[#C6B8A2] mb-6" />

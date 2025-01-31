@@ -76,7 +76,7 @@ export default function MyWishlists() {
       <Head>
         <title>My Account</title>
       </Head>
-      <div className="container mx-auto p-4 x-paddings2">
+      <div className="container mx-auto p-4 x-paddings">
         <AccountOverview name={userData.username} email={userData.email} />
       </div>
     </>
