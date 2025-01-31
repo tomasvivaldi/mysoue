@@ -41,7 +41,7 @@ export default function HeroBanner2() {
             <span className="sr-only">Search</span>
             🔍
           </button>
-          <Link href="/account" className="text-sm hover:opacity-80">
+          <Link href="/login" className="text-sm hover:opacity-80">
             ACCOUNT
           </Link>
           <div className="text-sm">

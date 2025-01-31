@@ -40,7 +40,7 @@ export default function VideoBanner() {
           <button className="hover:opacity-80">
             <Search className="w-5 h-5" />
           </button>
-          <Link href="/account" className="text-sm hover:opacity-80">
+          <Link href="/login" className="text-sm hover:opacity-80">
             ACCOUNT
           </Link>
           <div className="text-sm">
