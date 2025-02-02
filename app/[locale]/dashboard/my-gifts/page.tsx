@@ -45,15 +45,15 @@ const MyGifts: React.FC = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="m-8 flex flex-col gap-4 w-full">
+    <div className="my-8 flex flex-col gap-4 w-full">
       <div className="flex flex-row justify-between">
-        <h1 className="heading2">My Gifts</h1>
+        <h1 className="heading2 px-8">My Gifts</h1>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 flex-wrap">
+      <div className="flex flex-col sm:flex-row h-screen overflow-scroll w-fit mx-auto gap-4 flex-wrap">
         {gifts.map((gift: Gift) => (
           <MyGiftCard
             key={gift.id}
-            imageSrc={gift.image_url || "/placeholder.jpg"}
+            imageSrc={gift.image_url || "/create1.png"}
             onReceived={() => console.log(`Gift ${gift.id} marked as received`)}
             onNotReceived={() =>
               console.log(`Gift ${gift.id} marked as not received`)

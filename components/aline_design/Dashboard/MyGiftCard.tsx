@@ -18,7 +18,7 @@ const MyGiftCard: React.FC<MyGiftCardProps> = ({
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <div className="flex flex-col items-center justify-between bg-[#FBF9F4] rounded-2xl shadow-md p-4 w-64">
+    <div className="flex flex-col items-center bg-[#FBF9F4] rounded-2xl shadow-md p-4 lg:w-64 w-64 sm:w-60 h-fit">
       {/* Gift Image */}
       <div className="w-full h-40 flex items-center justify-center mb-4">
         <img
@@ -29,16 +29,16 @@ const MyGiftCard: React.FC<MyGiftCardProps> = ({
       </div>
 
       {/* Buttons */}
-      <div className="flex flex-col gap-3 w-full">
+      <div className="flex flex-col gap-2 w-full">
         <button
           onClick={handleOpenModal}
-          className="w-full text-[#6D6A65] border border-[#C6B8A2] py-2 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
+          className="w-full text-[#6D6A65] text-xs xl:text-base border border-[#C6B8A2] py-1 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
         >
           I'VE RECEIVED
         </button>
         <button
           onClick={onNotReceived}
-          className="w-full text-[#6D6A65] border border-[#C6B8A2] py-2 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
+          className="w-full text-[#6D6A65] text-xs xl:text-base border border-[#C6B8A2] py-1 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
         >
           HAVEN'T RECEIVED IT YET
         </button>

@@ -6,7 +6,7 @@ import Link from "next/link";
 const layout = ({ children }: { children: React.ReactNode }) => {
   const locale = getLocale();
   return (
-    <div className="x-paddings w-full">
+    <div className=" w-full">
       {children}
     </div>
   );

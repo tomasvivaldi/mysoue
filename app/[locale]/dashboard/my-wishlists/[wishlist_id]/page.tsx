@@ -6,6 +6,7 @@ import GhostButtonWhite from "@/components/GhostButtonWhite";
 import ProductCard from "@/components/ProductCard";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import AddProductModal from "@/components/aline_design/modals/AddProductModal";
+import AddProductOptionModal from "@/components/aline_design/modals/AddProductOptionModal";
 import { Button2 } from "@/components/buttons/Button2";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
@@ -61,6 +62,9 @@ const WishlistDetails: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -120,16 +124,16 @@ const WishlistDetails: React.FC = () => {
     : "None";
 
   return (
-    <div className="m-8 flex flex-col gap-4 w-full">
-      <div className="flex flex-row justify-between">
-        <h1 className="heading2">
+    <div className="my-8 ml-20 sm:ml-0 flex flex-col gap-4 w-full h-screen overflow-scroll">
+      <div className="flex flex-col gap-4 lg:justify-between lg:flex-row justify-between">
+        <h1 className="heading2 -ml-8 sm:ml-0">
           {wishlistDetails.title} -{" "}
           {wishlistDetails.type.charAt(0).toUpperCase() +
             wishlistDetails.type.slice(1)}{" "}
           List
         </h1>
         <div className="flex gap-8">
-          <GhostButtonBlack text="Add Product" onClick={() => setIsModalOpen(true)} />
+          <GhostButtonBlack text="Add Product" onClick={() => setIsOptionModalOpen(true)} />
           <SolidButtonBlack text="Share List" />
         </div>
       </div>
@@ -137,7 +141,7 @@ const WishlistDetails: React.FC = () => {
         <p>{wishlistDetails.description}</p>
         <p className="text-sm">Due Date: {readableDueDate}</p>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 mx-auto">
         {visibleItems.map((item) => {
           const product = item.products[0]; // Assuming there's at least one product
           return (
@@ -166,12 +170,27 @@ const WishlistDetails: React.FC = () => {
         {hasMoreItems ? "Load More" : "No More Items"}
       </button>
 
-      {/* Add Product Modal */}
+      {/* First Modal: "Choose Add Method" */}
+      <AddProductOptionModal
+        isOpen={isOptionModalOpen}
+        onClose={() => setIsOptionModalOpen(false)}
+        onAddManually={() => {
+          setIsOptionModalOpen(false); // Close first modal
+          setIsAddProductModalOpen(true); // Open second modal
+        }}
+        onBrowseProducts={() => {
+          console.log("Redirect to Browse Products page");
+          setIsOptionModalOpen(false);
+        }}
+      />
+
+      {/* Second Modal: "Add Product Form" */}
       <AddProductModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isAddProductModalOpen}
+        onClose={() => setIsAddProductModalOpen(false)}
         onAddProduct={(productName, productDescription) => {
           console.log("New Product Added:", { productName, productDescription });
+          setIsAddProductModalOpen(false); // Close after adding
         }}
       />
     </div>
