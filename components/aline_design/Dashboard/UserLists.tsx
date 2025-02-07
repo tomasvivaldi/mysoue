@@ -49,9 +49,9 @@ const UserLists: React.FC<UserListsProps> = ({
   };
 
   return (
-    <div className="bg-white w-full rounded-lg mt-8">
+    <div className="bg-white w-full rounded-lg mt-8 px-4 sm:px-0">
       {/* Heading */}
-      <h2 className="text-3xl font-semibold text-black mb-4">YOUR LISTS</h2>
+      <h2 className="text-3xl font-semibold text-black mb-2">YOUR LISTS</h2>
       <hr className="border-t border-[#C6B8A2] mb-6" />
 
       {/* Lists */}

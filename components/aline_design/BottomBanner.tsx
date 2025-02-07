@@ -18,7 +18,7 @@ export default function BottomBanner() {
 
       {/* Overlay Content */}
       <div className="absolute inset-0 flex flex-col sm:flex-row justify-center sm:justify-between items-center text-center z-10 px-6 mx-24">
-        <div className=''>
+        <div className=' text-shadow'>
             <h2 className="text-white text-2xl md:text-4xl font-semibold leading-tight tracking-wide">
             CHOOSING A GIFT
             </h2>
@@ -26,7 +26,7 @@ export default function BottomBanner() {
             doesn’t have to be hard
             </p>
         </div>
-        <button className="mt-4 px-6 py-2 bg-[#FFF9E8] text-neutral-800 rounded-full shadow-md hover:shadow-lg transition-all">
+        <button className=" whitespace-nowrap mt-4 px-6 py-2 bg-[#FFF9E8] text-neutral-800 rounded-full shadow-md hover:shadow-lg transition-all">
           start now
         </button>
       </div>

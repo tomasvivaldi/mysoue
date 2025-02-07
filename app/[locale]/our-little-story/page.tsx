@@ -39,7 +39,7 @@ const OurLittleStory = () => {
           >
             a bit about ourselves
           </motion.h2>
-          <p className="text-base leading-relaxed text-gray-600 w-[50%] mx-auto">
+          <p className="text-base leading-relaxed text-gray-600 w-[80%] sm:w-[50%] mx-auto">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

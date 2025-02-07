@@ -2,13 +2,10 @@
 import { useSession, signIn } from "next-auth/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
-
 import { LoginForm } from "@/components/aline_design/auth/LoginForm";
 import Head from "next/head";
-
 import { User } from "next-auth";
 import { useEffect, useState } from "react";
-// import LoadingBox from "@/template/LoadingBox";
 import { ADD_USERS } from "@/graphql/mutations";
 import { useRouter } from "next/navigation";
 import LoadingBox from "@/components/LoadingBox";
@@ -16,6 +13,7 @@ import LoadingBox from "@/components/LoadingBox";
 interface UserWithProvider extends User {
   provider?: string;
 }
+
 type UserData = {
   id: number;
   username: string;
@@ -35,13 +33,10 @@ const Login = () => {
   console.log("session", session);
   console.log("session?.user?.email", user?.email);
 
-  const { data: userData, loading: userDataLoading } = useQuery(
-    GET_USERS_BY_EMAIL,
-    {
-      variables: { email: user?.email },
-      skip: !user?.email,
-    }
-  );
+  const { data: userData, loading: userDataLoading } = useQuery(GET_USERS_BY_EMAIL, {
+    variables: { email: user?.email },
+    skip: !user?.email,
+  });
 
   useEffect(() => {
     console.log("Effect triggered", {
@@ -70,7 +65,6 @@ const Login = () => {
                 password_hash: "",
                 username: user?.name,
                 profile_picture_url: user?.image,
-                // Include `profile_picture_url` and `updated_at` if your backend expects them
               },
             });
             console.log("User added:", data);
@@ -79,27 +73,7 @@ const Login = () => {
             console.error("Error adding user:", error);
           }
         };
-        //   // try {
-        //   //   const response = await fetch('https://app.80kview.com/api/sendgrid/welcomeEmail', {
-        //   //     method: 'POST',
-        //   //     headers: {
-        //   //       'Content-Type': 'application/json'
-        //   //     },
-        //   //     body: JSON.stringify({
-        //   //       email: `${email}`,
-        //   //       username: `${user?.name}`
-        //   //     })
-        //   //   });
-
-        //   //   if (!response.ok) {
-        //   //     throw new Error('Network response was not ok ' + response.statusText);
-        //   //   }
-        //   // } catch (error) {
-        //   //   console.error('There was a problem with the fetch operation:', error);
-        //   // }
-        // };
         createUser();
-        // router.push("/dashboard/my-wishlists");
       }
     }
   }, [session, user, addUsers, userData, userDataLoading, router]);
@@ -108,13 +82,9 @@ const Login = () => {
     await signIn(provider, {});
   };
 
-  // define state
   const [loginFailed, setLoginFailed] = useState(false);
 
-  const handleEmailLogin = async (
-    email: string,
-    password: string
-  ): Promise<void> => {
+  const handleEmailLogin = async (email: string, password: string): Promise<void> => {
     setLoginFailed(false);
     const response = await signIn("credentials", {
       email,
@@ -127,33 +97,29 @@ const Login = () => {
   };
 
   const modifiedHandleEmailLogin = async (email: string, password: string) => {
-    setLoading(true); // Start loading
+    setLoading(true);
     try {
-      await handleEmailLogin(email, password); // Your existing login logic
+      await handleEmailLogin(email, password);
     } catch (error) {
       console.error("Login error:", error);
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
   console.log("login failed?", loginFailed);
 
-  // use userDataLoading to handle loading state
   if (userDataLoading)
     return (
-      // <div>Loading...</div>
       <LoadingBox
-        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png" // Path to your loading image
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
         imageAlt="Loading spinner"
-        imageClassName="" // Optional: Add any Tailwind classes for styling
-        containerClassName="h-screen" // Optional: Center the loading box in the full screen height
+        imageClassName=""
+        containerClassName="h-screen"
       />
     );
 
-  ///// // use userData to show some user information, assuming `GET_USERS_BY_EMAIL` query returns user's data directly
-  ///// if (userData) return
-
+  // In case you need to call createUser separately later:
   const createUser = async () => {
     console.log("createUser triggered:");
     try {
@@ -166,11 +132,9 @@ const Login = () => {
           password_hash: "",
           username: user?.name,
           profile_picture_url: user?.image,
-          // Include `profile_picture_url` and `updated_at` if your backend expects them
         },
       });
       console.log("User added:", data);
-      // router.push("/dashboard");
     } catch (error) {
       console.error("Error adding user:", error);
     }
@@ -181,22 +145,22 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <div className="flex h-screen">
-        {/* Left Section: Empty space */}
-        <div className="w-1/2 bg-[#D6CBBE]"></div>
+      <div className="flex flex-col md:flex-row h-screen">
+        {/* Left Section: Only visible on medium screens and up */}
+        <div className="hidden md:block md:w-1/2 bg-[#D6CBBE]"></div>
 
         {/* Right Section: Login form */}
-        <div className="w-1/2 flex items-center justify-center">
+        <div className="my-auto sm:my-0 w-full md:w-1/2 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
-        <LoginForm
-          handleLogin={handleLogin}
-          handleEmailLogin={modifiedHandleEmailLogin}
-          loginFailed={loginFailed}
-          loading={loading}
-          setLoading={setLoading}
-        />
-      </div>
-      </div>
+            <LoginForm
+              handleLogin={handleLogin}
+              handleEmailLogin={modifiedHandleEmailLogin}
+              loginFailed={loginFailed}
+              loading={loading}
+              setLoading={setLoading}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

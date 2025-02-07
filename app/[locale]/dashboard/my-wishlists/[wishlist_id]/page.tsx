@@ -124,20 +124,26 @@ const WishlistDetails: React.FC = () => {
     : "None";
 
   return (
-    <div className="my-8 ml-20 sm:ml-0 flex flex-col gap-4 w-full h-screen overflow-scroll">
-      <div className="flex flex-col gap-4 lg:justify-between lg:flex-row justify-between">
-        <h1 className="heading2 -ml-8 sm:ml-0">
-          {wishlistDetails.title} -{" "}
-          {wishlistDetails.type.charAt(0).toUpperCase() +
-            wishlistDetails.type.slice(1)}{" "}
-          List
+    <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full mb-20 sm:mb-0 ">
+      <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
+        <div className=" gap-[-100px]">
+        <h1 className="heading2">
+          {wishlistDetails.title} <br/>
         </h1>
-        <div className="flex gap-8">
-          <GhostButtonBlack text="Add Product" onClick={() => setIsOptionModalOpen(true)} />
-          <SolidButtonBlack text="Share List" />
+        <h2 className=" heading4">          
+            {wishlistDetails.type.charAt(0).toUpperCase() +
+            wishlistDetails.type.slice(1)}{" "} List
+        </h2></div>
+        <div className="flex flex-col sm:hidden mb-2">
+          <p>{wishlistDetails.description}</p>
+          <p className="text-sm">Due Date: {readableDueDate}</p>
+        </div>
+        <div className="flex gap-2 sm:gap-8">
+          <GhostButtonBlack text="Add&nbsp;Product" onClick={() => setIsOptionModalOpen(true)} />
+          <SolidButtonBlack text="Share&nbsp;List" />
         </div>
       </div>
-      <div>
+      <div className="hidden sm:flex sm:flex-col">
         <p>{wishlistDetails.description}</p>
         <p className="text-sm">Due Date: {readableDueDate}</p>
       </div>

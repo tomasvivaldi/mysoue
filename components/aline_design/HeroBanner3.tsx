@@ -10,7 +10,7 @@ interface HeroBanner3Props {
 
 const HeroBanner3: React.FC<HeroBanner3Props> = ({ backgroundImage, headingText, italicText }) => {
   return (
-    <div className="relative text-white mx-10 rounded-3xl overflow-hidden">
+    <div className="relative text-white mx-2 sm:mx-10 rounded-3xl overflow-hidden">
       {/* Background Image */}
       <div
         className="relative w-full h-[600px] bg-cover bg-center"
@@ -18,7 +18,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({ backgroundImage, headingText,
       />
 
       {/* Navigation Bar */}
-      <nav className="absolute top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-6 bg-[#A5282C]">
+      <nav className="hidden sm:flex absolute top-0 left-0 w-full z-50  items-center justify-between px-8 py-6 bg-[#A5282C]">
         <div className="flex gap-8">
           <Link href="/about" className="text-sm hover:opacity-80">
             ABOUT

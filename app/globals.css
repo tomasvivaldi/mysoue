@@ -85,6 +85,10 @@
     @apply pt-[98px];
   }
 
+  .text-shadow {
+    text-shadow: 1px 1px 2px black;
+  }
+  
   .paddings {
     @apply sm:px-16 sm:py-20 xs:p-8 px-6 py-12;
   }

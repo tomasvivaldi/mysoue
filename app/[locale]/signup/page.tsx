@@ -23,16 +23,12 @@ const SignUp = () => {
   const router = useRouter();
   const [addUsers] = useMutation(ADD_USERS);
   const [userEmail, setUserEmail] = useState<string | null>(null);
-  const { data: userData, loading: userDataLoading } = useQuery(
-    GET_USERS_BY_EMAIL,
-    {
-      variables: { email: userEmail },
-      skip: !userEmail,
-    }
-  );
+  const { data: userData, loading: userDataLoading } = useQuery(GET_USERS_BY_EMAIL, {
+    variables: { email: userEmail },
+    skip: !userEmail,
+  });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // This useEffect will be executed whenever errorMessage state changes
   useEffect(() => {
     console.log("Error message:", errorMessage);
   }, [errorMessage]);
@@ -47,7 +43,6 @@ const SignUp = () => {
   }, [userDataLoading, userData, router, errorMessage]);
 
   const handleSignUp = async (
-    // username: string,
     email: string,
     password: string,
     firstName: string,
@@ -59,16 +54,7 @@ const SignUp = () => {
     setLoading(true);
     setErrorMessage(null);
 
-    // Ensure we have the latest user data before proceeding
-        // await refetchUserByEmail(email);
-
-        const updated_at = new Date().toISOString();
-        const provider = "local";
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
-        // const isActive = true
-    
-        // set the email for useQuery
+    // Set the email for useQuery
     setUserEmail(email);
 
     // Wait for the user data to be fetched
@@ -80,38 +66,10 @@ const SignUp = () => {
         }
       }, 100);
     });
-    //     /////////Sent email through Sendgrip example code
-    //     //     try {
-    //     //       const response = await fetch(
-    //     //         "https://app.80kview.com/api/sendgrid/welcomeEmail",
-    //     //         {
-    //     //           method: "POST",
-    //     //           headers: {
-    //     //             "Content-Type": "application/json",
-    //     //           },
-    //     //           body: JSON.stringify({
-    //     //             email: `${email}`,
-    //     //             username: `${username}`,
-    //     //           }),
-    //     //         }
-    //     //       );
-
-    //     //       if (!response.ok) {
-    //     //         throw new Error("Network response was not ok " + response.statusText);
-    //     //       }
-    //     //     } catch (error) {
-    //     //       console.error("There was a problem with the fetch operation:", error);
-    //     //     }
-    //     //   }
-    //   }
-    // };
 
     // Check if user data exists and attempt to log them in
     if (userData?.usersByEmail?.length > 0) {
-      console.log(
-        "User already exists, attempting to log in:",
-        userData?.usersByEmail
-      );
+      console.log("User already exists, attempting to log in:", userData?.usersByEmail);
       try {
         const signInResult = await signIn("credentials", {
           email,
@@ -119,10 +77,8 @@ const SignUp = () => {
           redirect: false,
         });
         if (signInResult?.error) {
-          // Handle cases where login fails (e.g., wrong password)
           setErrorMessage(signInResult.error);
         } else {
-          // Redirect to dashboard upon successful login
           router.push("/dashboard/my-wishlists");
         }
       } catch (error) {
@@ -165,17 +121,16 @@ const SignUp = () => {
 
   return (
     <>
-    {/* <Toaster position="top-center" /> */}
       <Head>
         <title>Sign Up</title>
       </Head>
-      <div className="flex">
-        {/* Left Section: Empty space */}
-        <div className="w-1/2 bg-[#D6CBBE]"></div>
+      <div className="flex flex-col md:flex-row min-h-screen">
+        {/* Left Section: Only visible on medium screens and up */}
+        <div className="hidden md:block md:w-1/2 bg-[#D6CBBE]"></div>
 
         {/* Right Section: SignUp form */}
-        <div className="w-1/2 flex items-center justify-center">
-          <div className="w-full x-paddings ">
+        <div className="w-full md:w-1/2 flex items-center justify-center p-4">
+          <div className="w-full max-w-md">
             <SignUpForm
               firstName={firstName}
               setFirstName={setFirstName}
@@ -187,8 +142,6 @@ const SignUp = () => {
               setGender={setGender}
               email={email}
               setEmail={setEmail}
-          //     username={username}
-          // setUsername={setUsername}
               password={password}
               setPassword={setPassword}
               handleSignUp={handleSignUp}

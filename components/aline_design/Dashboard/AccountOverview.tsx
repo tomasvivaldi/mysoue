@@ -6,7 +6,7 @@ interface AccountOverviewProps {
 const AccountOverview: React.FC<AccountOverviewProps> = ({ name, email }) => {
   return (
     <div className="bg-white min-h-screen ml-7 xs:ml-4 p-2 xs:p-8 sm:ml-0 flex flex-col items-start">
-      <h1 className="text-3xl font-bold mb-6">HI, {name.toUpperCase()}</h1>
+      <h1 className="text-3xl font-bold mb-2">HI, {name.toUpperCase()}</h1>
       <hr className="border-t border-[#C6B8A2] w-full mb-6" />
 
       <div className="w-full">

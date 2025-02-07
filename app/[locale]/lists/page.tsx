@@ -53,27 +53,29 @@ const Lists = () => {
         headingText="FOR ALL" 
         italicText="wishes"
         />
-      <div className="  flex flex-col p-4 x-paddings items-center mb-20">
-        <div className="z-20 my-14 flex flex-col md:flex-row gap-[15px] sm:gap-6 flex-nowrap">
-            <a href="#">
-              <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-              GRADUATION</button>
-            </a>
-            <a href="#">
-              <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-              CHRISTMAS</button>
-            </a>
-            <a href="#">
-              <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-              BIRTHDAY</button>
-            </a>
-            <a href="#">
-              <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-              BABY SHOWER
-              </button>
-            </a>
-          </div>
-        <FocusCards cards={cards} />
+      <div className=" flex flex-col p-4 x-paddings items-center sm:mb-20">
+        <div className="order-2 sm:order-1 z-20 my-14 flex flex-col md:flex-row gap-[15px] sm:gap-6 flex-nowrap">
+          <a href="#">
+            <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
+            GRADUATION</button>
+          </a>
+          <a href="#">
+            <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
+            CHRISTMAS</button>
+          </a>
+          <a href="#">
+            <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
+            BIRTHDAY</button>
+          </a>
+          <a href="#">
+            <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
+            BABY SHOWER
+            </button>
+          </a>
+        </div>
+        <div className="sm:order-2 order-1 w-full h-fit">
+          <FocusCards cards={cards} />
+        </div>
       </div>
     </>
   );

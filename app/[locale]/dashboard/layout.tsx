@@ -45,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {isMobile ? (<>
             <button
             onClick={() => setIsSidebarOpen(true)}
-            className="fixed top-[90px] left-4 md:hidden bg-[#A5282C] text-white rounded-full p-2 shadow-lg z-50"
+            className="fixed top-[90px] left-2 md:hidden bg-[#A5282C] text-white rounded-full p-2 shadow-lg z-50"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-4 w-4 ">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -173,7 +173,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Main Content */}
       <div className={`flex-1 ml-0 md:ml-[33%]`}>{children}</div>
 
-      {/* Footer */}
+      {/* Footer */}  
       <Footer />
     </div>
   );

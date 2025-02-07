@@ -48,11 +48,11 @@ const Navbar3: React.FC<Navbar3Props> = ({ locale }) => {
 
   return (
     <nav
-      className={`z-50 sticky top-0 x-paddings flex items-center justify-between py-2 md:py-4 transition-all duration-500 ${
+      className={`sm:hidden z-50 sticky top-0 x-paddings flex items-center justify-between py-2 md:py-4 transition-all duration-500 ${
         isScrolled ? "shadow-md bg-[#fbf9f4]" : "bg-transparent"
       }`}
     >
-      <div className={`flex items-center  ${isMenuOpen ? "" : "space-x-8"}`}>
+      <div className={`flex items-center  justify-between w-full ${isMenuOpen ? "" : "space-x-8"}`}>
         {/* Hamburger button for mobile */}
         <button
           className="md:hidden"
@@ -75,7 +75,8 @@ const Navbar3: React.FC<Navbar3Props> = ({ locale }) => {
         </button>
         <a href="/">
           {/* Change to <Image/> */}
-          <h1 className="text-3xl font-light hidden sm:block flex-wrap ">
+          <h1 className="text-2xl font-light  flex-wrap ">
+            
             {t("title")}
           </h1>
         </a>
