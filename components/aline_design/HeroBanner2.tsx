@@ -19,8 +19,8 @@ export default function HeroBanner2() {
       </div>
 
       {/* Navigation Bar */}
-      <nav className="hidden sm:flex absolute top-0 left-0 w-full z-10 items-center justify-between px-8 py-6 bg-[#A5282C]">
-        <div className="flex gap-8">
+      <nav className="hidden sm:flex absolute top-0 left-0 w-full z-10 items-center justify-between px-4 md:px-8 py-6 bg-[#A5282C]">
+        <div className="flex gap-3 md:gap-8">
           <Link href="/about" className="text-sm hover:opacity-80">
             ABOUT
           </Link>
@@ -30,13 +30,16 @@ export default function HeroBanner2() {
           <Link href="/explore" className="text-sm hover:opacity-80">
             EXPLORE
           </Link>
+          <Link href="/blog" className="text-sm hover:opacity-80">
+            BLOG
+          </Link>
         </div>
 
         <Link href="/" className="text-2xl font-serif text-white">
           Mysoue
         </Link>
 
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-3 md:gap-8">
           <button className="hover:opacity-80">
             <span className="sr-only">Search</span>
             🔍
@@ -46,7 +49,7 @@ export default function HeroBanner2() {
           </Link>
           <div className="text-sm">
             <button className="hover:opacity-80">EN</button>
-            {' / '}
+            {" / "}
             <button className="hover:opacity-80">TH</button>
           </div>
         </div>

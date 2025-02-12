@@ -40,14 +40,10 @@ const OurLittleStory = () => {
           >
             a bit about ourselves
           </motion.h2>
-          <p className="text-base leading-relaxed text-gray-600 w-[80%] sm:w-[50%] mx-auto">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+          <p className="text-base text-justify leading-relaxed text-gray-600 w-[80%] sm:w-[50%] mx-auto">
+          At MYSOUE, we reimagine the gift-giving experience for everyone. You are celebrating some special occasions and want to share with your loved ones the items you would like to receive, please let us help you to achieve your dream. 
+          <br/><br/>
+          For each moment, we transform your wishes into curated lists, nothing more easy to Select, combine, and create the perfect list. Our goal is to bring a space where all your wishes will be gathered. 
           </p>
         </div>
         <OurAbout/>

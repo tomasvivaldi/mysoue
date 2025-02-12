@@ -10,7 +10,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex flex-col bg-white">
       {/* <Navbar3 locale={locale} /> */}
-      <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
+      <nav className="sm:fixed top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
   {/* Hidden checkbox to toggle mobile menu */}
   <input type="checkbox" id="menu-toggle" className="hidden peer" />
 
@@ -87,7 +87,6 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   </div>
 </nav>
       <div className="sm:hidden w-full h-[40px] sm:h-[80px]"/>
-      
       {children}
       <div className="z-10"><Footer2 /></div>
     </div>

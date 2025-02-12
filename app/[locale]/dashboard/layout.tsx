@@ -61,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         <>
           {/* Navbar */}
           <nav className="absolute top-0 left-0 w-full h-[80px] z-50 flex items-center justify-between px-8 py-6 bg-[#A5282C] text-white rounded-b-3xl">
-            <div className="flex gap-8">
+            <div className="flex gap-3 md:gap-8">
               <Link href="/about" className="text-sm hover:opacity-80">
                 ABOUT
               </Link>
@@ -77,7 +77,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               Mysoue
             </Link>
 
-            <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3 md:gap-8">
               <button className="hover:opacity-80">
                 <span className="sr-only">Search</span> 🔍
               </button>
