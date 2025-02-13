@@ -131,6 +131,18 @@
     "birthday": "วันเกิด",
     "babyShower": "เบบี้ชาวเวอร์"
   },
+  "LoginForm": {
+    "loginHeading": "เข้าสู่ระบบ",
+    "emailPlaceholder": "อีเมล",
+    "passwordPlaceholder": "รหัสผ่าน",
+    "loginFailedMessage": "อีเมลหรือรหัสผ่านไม่ถูกต้อง",
+    "processing": "กำลังดำเนินการ...",
+    "logIn": "เข้าสู่ระบบ",
+    "forgotPassword": "ลืมรหัสผ่าน?",
+    "noAccountSignUp": "ยังไม่มีบัญชีใช่ไหม? ลงทะเบียนเลย!",
+    "or": "หรือ",
+    "signInWithGoogle": "เข้าสู่ระบบด้วย Google"
+  },
 
   "AllAboutGifts": {
     "bannerText": "เรามีมัน",
@@ -290,19 +302,7 @@
     "memberDescription2": "ทริสตีก้า เฟสซิลิซี่ กราวิดา แอท เฟลิส. เซด ออร์นาเร่ อาร์คู, ทอร์ทอร์ เฮนด์เรอริต เอเตียม วัลปุตาเต้ ลิเบโร เทลลุส. เอเตียม นู",
     "imageAlt2": "ภาพสมาชิกในทีม"
   },
-  "LoginForm": {
-    "signInHeading": "เข้าสู่ระบบของคุณ",
-    "emailLabel": "อีเมล",
-    "passwordLabel": "รหัสผ่าน",
-    "loginFailedMessage": "- อีเมลหรือรหัสผ่านไม่ถูกต้อง -",
-    "processing": "กำลังดำเนินการ...",
-    "logIn": "เข้าสู่ระบบ",
-    "or": "หรือ",
-    "signInWithGoogle": "เข้าสู่ระบบด้วย Google",
-    "noAccount": "ไม่มีบัญชีผู้ใช้?",
-    "signUpNow": "สมัครเลย",
-    "backgroundAlt": "พื้นหลัง"
-  },
+
   "SignUpForm": {
     "backgroundAlt": "พื้นหลังการลงทะเบียน",
     "heading": "สร้างบัญชีของคุณ",
@@ -320,6 +320,27 @@
     "footerText": "มีบัญชีอยู่แล้ว?",
     "logInLinkText": "เข้าสู่ระบบ"
   },
+"RegisterForm": {
+    "registerHeading": "สมัครสมาชิก",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "gender": "เพศ",
+    "male": "ชาย",
+    "female": "หญิง",
+    "other": "อื่น ๆ",
+    "email": "อีเมล",
+    "password": "รหัสผ่าน",
+    "minLength": "ความยาวอย่างน้อย 8 ตัวอักษร",
+    "upperCase": "ต้องมีอักษรตัวใหญ่ (A-Z)",
+    "lowerCase": "ต้องมีอักษรตัวเล็ก (a-z)",
+    "number": "ต้องมีตัวเลข (0-9)",
+    "specialChar": "ต้องมีอักขระพิเศษ (!@#$...)",
+    "processing": "กำลังดำเนินการ...",
+    "register": "ลงทะเบียน",
+    "alreadyHaveAccount": "มีบัญชีอยู่แล้ว?",
+    "signIn": "เข้าสู่ระบบ"
+  },
+
   "Dashboard-Navbar": {
     "myWishlists": "รายการสิ่งที่ต้องการของฉัน",
     "createNewWishlist": "สร้างรายการสิ่งที่ต้องการใหม่",

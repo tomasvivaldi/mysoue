@@ -50,7 +50,7 @@ import Button3 from "../Button3";
     loading,
     errorMessage,
   }: SignUpFormProps) => {
-  const t = useTranslations("SignUpForm");
+  const t = useTranslations("RegisterForm");
 
   // Password validation states
   const [hasUpperCase, setHasUpperCase] = useState(false);
@@ -87,119 +87,101 @@ import Button3 from "../Button3";
   };
 
   return (
-    <div className="flex min-h-screen pt-20 items-center justify-center">
-      <div className="w-full  text-center">
-        <h1 className="text-3xl font-bold mb-8">SIGN UP</h1>
+<div className="flex min-h-screen pt-20 items-center justify-center">
+      <div className="w-full text-center">
+        {/* 1) Translate the heading */}
+        <h1 className="text-3xl font-bold mb-8">{t("registerHeading")}</h1>
+
         <form className="space-y-4" onSubmit={handleSubmit}>
-  {/* First Name and Last Name */}
-  <div className="flex gap-4">
-    <input
-      type="text"
-      placeholder="First Name"
-      className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
-      value={firstName}
-      onChange={(e) => setFirstName(e.target.value)}
-      required
-    />
-    <input
-      type="text"
-      placeholder="Last Name"
-      className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
-      value={lastName}
-      onChange={(e) => setLastName(e.target.value)}
-      required
-    />
-  </div>
+          {/* First Name and Last Name */}
+          <div className="flex gap-4">
+            <input
+              type="text"
+              placeholder={t("firstName")}
+              className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder={t("lastName")}
+              className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+            />
+          </div>
 
-  {/* Date of Birth and Gender */}
-  <div className="flex gap-4">
-    <input
-      type="date"
-      className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
-      value={dateOfBirth}
-      onChange={(e) => setDateOfBirth(e.target.value)}
-      required
-    />
-    <select
-      className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
-      value={gender}
-      onChange={(e) => setGender(e.target.value)}
-      required
-    >
-      <option value="" disabled>
-        Gender
-      </option>
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-      <option value="other">Other</option>
-    </select>
-  </div>
+          {/* Date of Birth and Gender */}
+          <div className="flex gap-4">
+            <input
+              type="date"
+              className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+            />
+            <select
+              className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
+              required
+            >
+              {/* Translate placeholder-like option */}
+              <option value="" disabled>
+                {t("gender")}
+              </option>
+              <option value="male">{t("male")}</option>
+              <option value="female">{t("female")}</option>
+              <option value="other">{t("other")}</option>
+            </select>
+          </div>
 
-  {/* Email */}
-  <input
-    type="email"
-    placeholder="Email"
-    className={`w-full border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2] ${
-      errorMessage ? "border-red-500" : ""
-    }`}
-    value={email}
-    onChange={(e) => setEmail(e.target.value)}
-    required
-  />
+          {/* Email */}
+          <input
+            type="email"
+            placeholder={t("email")}
+            className={`w-full border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2] ${
+              errorMessage ? "border-red-500" : ""
+            }`}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-  {/* Password */}
-  <input
-    type="password"
-    placeholder="Password"
-    className={`w-full border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2] 
-    ${
-      !isValidPassword ? "" : "border-green-500"
-    }
-    ${
-      errorMessage ? "border-red-500" : ""
-    }`}
-    value={password}
-    onChange={handlePasswordChange}
-    required
-  />
+          {/* Password */}
+          <input
+            type="password"
+            placeholder={t("password")}
+            className={`w-full border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]
+            ${isValidPassword ? "border-green-500" : ""}
+            ${errorMessage ? "border-red-500" : ""}
+            `}
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
 
           {/* Password Validation Feedback */}
           <div className="text-left text-sm mt-2">
-            <p
-              className={`${
-                password.length >= 8 ? "text-green-500" : "text-gray-500"
-              }`}
-            >
+            <p className={`${password.length >= 8 ? "text-green-500" : "text-gray-500"}`}>
               {t("minLength")}
             </p>
-            <p
-              className={`${
-                /[A-Z]/.test(password) ? "text-green-500" : "text-gray-500"
-              }`}
-            >
+            <p className={`${/[A-Z]/.test(password) ? "text-green-500" : "text-gray-500"}`}>
               {t("upperCase")}
             </p>
-            <p
-              className={`${
-                /[a-z]/.test(password) ? "text-green-500" : "text-gray-500"
-              }`}
-            >
+            <p className={`${/[a-z]/.test(password) ? "text-green-500" : "text-gray-500"}`}>
               {t("lowerCase")}
             </p>
-            <p
-              className={`${
-                /[0-9]/.test(password) ? "text-green-500" : "text-gray-500"
-              }`}
-            >
+            <p className={`${/[0-9]/.test(password) ? "text-green-500" : "text-gray-500"}`}>
               {t("number")}
             </p>
-            <p
-              className={`${
-                /[!@#$%^&*()_+\-=$begin:math:display$$end:math:display${};':"\\|,.<>\/?]+/.test(password)
-                  ? "text-green-500"
-                  : "text-gray-500"
-              }`}
-            >
+            <p className={`${
+              /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]+/.test(password)
+                ? "text-green-500"
+                : "text-gray-500"
+            }`}>
               {t("specialChar")}
             </p>
           </div>
@@ -211,18 +193,18 @@ import Button3 from "../Button3";
 
           {/* Submit Button */}
           <Button3 type="submit" disabled={loading}>
-            {loading ? t("processing") : "REGISTER"}
+            {loading ? t("processing") : t("register")}
           </Button3>
         </form>
 
         {/* Sign In Link */}
         <p className="mt-3 text-sm">
-          ALREADY HAVE AN ACCOUNT?{" "}
+          {t("alreadyHaveAccount")}{" "}
           <a
             href="/login"
             className="text-[#D6CBBE] font-semibold hover:underline"
           >
-            SIGN IN
+            {t("signIn")}
           </a>
         </p>
       </div>

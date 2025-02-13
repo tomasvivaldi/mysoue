@@ -2,87 +2,94 @@ import React from "react";
 import Navbar3 from "@/components/Navbar3";
 import { getLocale } from "next-intl/server";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   const locale = getLocale();
+  const t = useTranslations("MobileNav");
+  
   return (
     <div className="flex flex-col">
       {/* <Navbar3 locale={locale} /> */}
-      <nav className="absolute top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
-        {/* Hidden checkbox to toggle mobile menu (placed as a direct child so its peer can work) */}
-        <input type="checkbox" id="menu-toggle" className="hidden peer" />
+      <nav className="sm:fixed top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
+      {/* Hidden checkbox to toggle mobile menu */}
+      <input type="checkbox" id="menu-toggle" className="hidden peer" />
 
-        <div className="flex items-center justify-between px-8 py-2 sm:py-6">
-          {/* Mobile: Hamburger button */}
-          <label htmlFor="menu-toggle" className="sm:hidden cursor-pointer">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </label>
+      <div className="flex items-center justify-between px-8 py-2 sm:py-6">
+        {/* Mobile: Hamburger button */}
+        <label htmlFor="menu-toggle" className="sm:hidden cursor-pointer">
+          <svg
+            className="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </label>
 
-          {/* Desktop: Left nav links */}
-          <div className="hidden sm:flex gap-8">
-            <Link href="/about" className="text-sm hover:opacity-80">
-              ABOUT
-            </Link>
-            <Link href="/lists" className="text-sm hover:opacity-80">
-              LISTS
-            </Link>
-            <Link href="/explore" className="text-sm hover:opacity-80">
-              EXPLORE
-            </Link>
-          </div>
-
-          {/* Center brand */}
-          <Link href="/" className="text-2xl font-serif text-white">
-            Mysoue
+        {/* Desktop: Left nav links */}
+        <div className="hidden sm:flex gap-8">
+          <Link href="/about" className="text-sm hover:opacity-80">
+            {t("about")}
           </Link>
-
-          {/* Desktop: Right nav links */}
-          <div className="hidden sm:flex items-center gap-8">
-            <button className="hover:opacity-80 focus:outline-none">
-              <span className="sr-only">Search</span>
-              🔍
-            </button>
-            <Link href="/login" className="text-sm hover:opacity-80">
-              ACCOUNT
-            </Link>
-            <div className="text-sm">
-              <button className="hover:opacity-80">EN</button>
-              {" / "}
-              <button className="hover:opacity-80">TH</button>
-            </div>
-          </div>
+          <Link href="/lists" className="text-sm hover:opacity-80">
+            {t("lists")}
+          </Link>
+          <Link href="/explore" className="text-sm hover:opacity-80">
+            {t("explore")}
+          </Link>
+          <Link href="/blog" className="text-sm hover:opacity-80">
+            {t("blog")}
+          </Link>
         </div>
 
-        {/* Mobile Menu Dropdown (toggled via the checkbox "peer") */}
-        <div className="peer-checked:block hidden sm:hidden px-4 pb-4">
-          <div className="flex flex-col gap-4 my-4">
-            <Link href="/about" className="text-sm hover:opacity-80 block">
-              ABOUT
-            </Link>
-            <Link href="/lists" className="text-sm hover:opacity-80 block">
-              LISTS
-            </Link>
-            <Link href="/explore" className="text-sm hover:opacity-80 block">
-              EXPLORE
-            </Link>
-            <Link href="/login" className="text-sm hover:opacity-80 block">
-              ACCOUNT
-            </Link>
-            <div className="flex gap-2 text-sm">
-              <button className="hover:opacity-80">EN</button>
-              <span>/</span>
-              <button className="hover:opacity-80">TH</button>
-            </div>
-          </div>
+        {/* Center brand */}
+        <Link href="/" className="text-2xl font-serif text-white">
+          {t("brand")}
+        </Link>
+
+        {/* Desktop: Right nav links */}
+        <div className="hidden sm:flex items-center gap-8">
+          <button className="hover:opacity-80 focus:outline-none">
+            <span className="sr-only">{t("search")}</span>
+            🔍
+          </button>
+          <Link href="/login" className="text-sm hover:opacity-80">
+            {t("account")}
+          </Link>
+          <LocaleSwitcher />
         </div>
-      </nav>
+      </div>
+
+      {/* Mobile Menu Dropdown (toggled via the checkbox "peer") */}
+      <div className="peer-checked:block hidden sm:hidden px-4 pb-4">
+        <div className="flex flex-col gap-4 my-4">
+          <Link href="/about" className="text-sm hover:opacity-80 block">
+            {t("about")}
+          </Link>
+          <Link href="/lists" className="text-sm hover:opacity-80 block">
+            {t("lists")}
+          </Link>
+          <Link href="/explore" className="text-sm hover:opacity-80 block">
+            {t("explore")}
+          </Link>
+          <Link href="/blog" className="text-sm hover:opacity-80 block">
+            {t("blog")}
+          </Link>
+          <Link href="/login" className="text-sm hover:opacity-80 block">
+            {t("account")}
+          </Link>
+          <LocaleSwitcher />
+        </div>
+      </div>
+    </nav>
       {children}
     </div>
   );

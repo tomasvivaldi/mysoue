@@ -18,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   
   return (
     <div className="flex flex-col bg-[#fbf9f4] font-nunito ">
-            <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
+      <nav className="sm:hidden fixed top-0 left-0 w-full z-50 bg-[#A5282C] text-white rounded-b-3xl">
       {/* Hidden checkbox to toggle mobile menu */}
       <input type="checkbox" id="menu-toggle" className="hidden peer" />
 
@@ -90,7 +90,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <LocaleSwitcher />
         </div>
       </div>
-    </nav>
+      </nav>
       <div className="sm:hidden w-full h-[40px] sm:h-[80px]"/>{children}
       <Footer2 />
     </div>

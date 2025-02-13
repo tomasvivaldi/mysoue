@@ -1,6 +1,9 @@
 "use client";
-import { SocialButton } from "../../buttons/SocialButton";
+import React from "react";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
+
+import { SocialButton } from "../../buttons/SocialButton";
 
 interface LoginFormProps {
   handleLogin: (provider: string) => Promise<void>;
@@ -16,12 +19,15 @@ const LoginForm: React.FC<LoginFormProps> = ({
   loginFailed,
   loading,
 }) => {
+  // 1) Create a translator for the "LoginForm" namespace
   const t = useTranslations("LoginForm");
 
   return (
     <div className="text-center">
       {/* Login Header */}
-      <h1 className="text-3xl font-bold mb-8">LOGIN</h1>
+      <h1 className="text-3xl font-bold mb-8">
+        {t("loginHeading")}
+      </h1>
 
       {/* Login Form */}
       <form
@@ -41,7 +47,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
           type="email"
           name="email"
           required
-          placeholder="email"
+          placeholder={t("emailPlaceholder")}
           className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none"
         />
 
@@ -51,7 +57,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
           type="password"
           name="password"
           required
-          placeholder="password"
+          placeholder={t("passwordPlaceholder")}
           className="w-full border border-gray-300 rounded-full px-4 py-2 focus:outline-none"
         />
 
@@ -75,10 +81,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
       {/* Forgot Password and Signup Links */}
       <div className="mt-6 text-sm text-[#C6B8A2]">
         <a href="/forgot-password" className="block mb-2 hover:underline">
-          FORGOT YOUR PASSWORD?
+          {t("forgotPassword")}
         </a>
         <a href="/signup" className="font-semibold hover:underline">
-          DON’T HAVE AN ACCOUNT? SIGN UP!
+          {t("noAccountSignUp")}
         </a>
       </div>
 
@@ -93,42 +99,26 @@ const LoginForm: React.FC<LoginFormProps> = ({
       <SocialButton
         type="submit"
         icon={
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
             <defs>
-            <path
+              <path
                 id="a"
                 d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z"
-            />
+              />
             </defs>
             <clipPath id="b">
-            <use xlinkHref="#a" overflow="visible" />
+              <use xlinkHref="#a" overflow="visible" />
             </clipPath>
-            <path
-            clipPath="url(#b)"
-            fill="#FBBC05"
-            d="M0 37V11l17 13z"
-            />
-            <path
-            clipPath="url(#b)"
-            fill="#EA4335"
-            d="M0 11l17 13 7-6.1L48 14V0H0z"
-            />
-            <path
-            clipPath="url(#b)"
-            fill="#34A853"
-            d="M0 37l30-23 7.9 1L48 0v48H0z"
-            />
-            <path
-            clipPath="url(#b)"
-            fill="#4285F4"
-            d="M48 48L17 24l-4-3 35-10z"
-            />
-        </svg>
+            <path clipPath="url(#b)" fill="#FBBC05" d="M0 37V11l17 13z" />
+            <path clipPath="url(#b)" fill="#EA4335" d="M0 11l17 13 7-6.1L48 14V0H0z" />
+            <path clipPath="url(#b)" fill="#34A853" d="M0 37l30-23 7.9 1L48 0v48H0z" />
+            <path clipPath="url(#b)" fill="#4285F4" d="M48 48L17 24l-4-3 35-10z" />
+          </svg>
         }
         onClick={() => handleLogin("google")}
-    >
+      >
         {t("signInWithGoogle")}
-    </SocialButton>
+      </SocialButton>
     </div>
   );
 };
