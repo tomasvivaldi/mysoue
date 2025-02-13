@@ -1,25 +1,24 @@
 import createMiddleware from "next-intl/middleware";
 
 export default createMiddleware({
-  // A list of all locales that are supported
+  // All locales that you support
   locales: ["en", "th"],
 
-  // Used when no locale matches
-  defaultLocale: "en",
+  // The default locale if there's no locale in the path
+  defaultLocale: "en"
 });
 
 export const config = {
-  // Match only internationalized pathnames
+  // You can tailor these matchers to your routes.
   matcher: [
-    // Enable a redirect to a matching locale at the root
+    // 1) Match the homepage and redirect it (or rewrite) to /en or /th
     "/",
 
-    // Set a cookie to remember the previous locale for
-    // all requests that have a locale prefix
-    "/(th|en)/:path*",
+    // 2) Match sub-paths that already include /en or /th
+    "/(en|th)/:path*",
 
-    // Enable redirects that add missing locales
-    // (e.g. `/pathnames` -> `/en/pathnames`)
-    "/((?!_next|_vercel|.*\\..*).*)",
-  ],
+    // 3) Enable redirects that add missing locales 
+    //    (e.g. /about -> /en/about if "en" is default)
+    "/((?!_next|_vercel|.*\\..*).*)"
+  ]
 };

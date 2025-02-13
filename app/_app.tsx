@@ -11,10 +11,22 @@ import client from "../apollo-client";
 import Script from "next/script";
 import Head from "next/head";
 
+import { IntlProvider } from 'next-intl';
+
+
+type MyAppProps = AppProps & {
+  pageProps: {
+    session?: any;
+    messages: Record<string, any>;
+    locale: string;
+    [key: string]: any;
+  };
+};
+
 const MyApp = ({
   Component,
-  pageProps: { session, ...pageProps },
-}: AppProps) => (
+  pageProps: { session, messages, locale, ...pageProps },
+}: MyAppProps) => (
   <ApolloProvider client={client}>
     <SessionProvider session={session}>
       {/* <Toaster />
@@ -33,12 +45,20 @@ const MyApp = ({
               gtag('config', 'G-K50BW4JH06');
           `}
       </Script> */}
+
+    <IntlProvider messages={messages} locale={locale}>
+  
+
       <Head>
         {/* ------------NOT APPEARING ON GOOGLE SEARCH------------ */}
         <meta name="robots" content="noindex, nofollow" />
         {/* ------------NOT APPEARING ON GOOGLE SEARCH------------ */}
       </Head>
+
+
       <Component {...pageProps} />
+    </IntlProvider>
+ 
       {/* </LocalizationProvider> */}
       {/* </ThemeProvider> */}
     </SessionProvider>

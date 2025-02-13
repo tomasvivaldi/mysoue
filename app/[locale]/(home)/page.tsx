@@ -16,8 +16,12 @@ import Wishes from "@/components/aline_design/Wishes";
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
 import SolidButton from "@/components/buttons/SolidButton";
+import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 const HomePage = () => {
+  const locale = getLocale();
+  const t = useTranslations("SmallTextBanner");
   const testimonials = [
     {
       text: "Orci Vel Eget In Eu. Integer Amet Porttitor Hendrerit Etiam Arcu, Aliquet Duis Pretium Consequat. Semper Sed Viverra Enim Ut Nunc.",
@@ -54,16 +58,12 @@ const HomePage = () => {
   return (
     <>
       <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
-      <VideoBanner />
+      <VideoBanner locale={locale} />
       <Wishes />
       <SmallTextBanner
-        items={[
-          "the gifting world",
-          "the gifting world",
-       
-        ]} // Array length for repetition
-        extraWord="Creativity"
-        genericText="WELCOME TO"
+        items={[t("theGiftingWorld"), t("theGiftingWorld")]}
+        extraWord={t("creativity")}
+        genericText={t("welcomeTo")}
         textColor="#b91c1c"
         bgColor=""
         direction="left"
@@ -143,8 +143,6 @@ const HomePage = () => {
       {/* <FAQSection /> */}
       {/* <RedLogosBanner speed="fast" /> */}
       <VisionBoard
-        title="I WANT"
-        subtitle="pilates mom vibes"
         imageSrc="/Index/footer-banner-image.jpg" // Replace with the image path
         backgroundImageSrc="/Index/footer-banner-bg.png" // Replace with the background path
       />

@@ -1,20 +1,15 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import TopBanner from "@/components/TopBanner";
 import Head from "next/head";
 import Image from "next/image";
-import TeamSection from "@/components/TeamSection";
-import Banner2 from "@/components/Banner2";
-import TopBanner2 from "@/components/TopBanner2";
 import { useTranslations } from "next-intl";
-import OurAbout from "@/components/aline_design/OurAbout";
-import Founders from "@/components/aline_design/Founders";
-import BottomBanner from "@/components/aline_design/BottomBanner";
+
 import HeroBanner3 from "@/components/aline_design/HeroBanner3";
 import SolidButton from "@/components/buttons/SolidButton";
 import { FocusCards } from "@/components/aline_design/FocusCards";
 
+// Example data for FocusCards
 const cards = [
   {
     title: "GRADUATION",
@@ -35,8 +30,10 @@ const cards = [
 ];
 
 const Lists = () => {
-  const t = useTranslations("ourStory");
+  // 1) Create a translator from the "ListsPage" namespace
+  const t = useTranslations("ListsPage");
 
+  // Animation settings
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0, transition: { duration: 1 } },
@@ -44,35 +41,68 @@ const Lists = () => {
 
   return (
     <>
+      {/* 2) Replace the hard-coded page title */}
       <Head>
         <title>{t("pageTitle")}</title>
       </Head>
-      <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
-      <HeroBanner3 
-        backgroundImage={"/Lists/bg.jpg"} 
-        headingText="FOR ALL" 
-        italicText="wishes"
-        />
-      <div className=" flex flex-col p-4 x-paddings items-center sm:mb-20">
+
+      {/* 3) Translate "start now" */}
+      <SolidButton
+        text={t("startNow")}
+        href="/login"
+        className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]"
+      />
+
+      {/* 4) Translate HeroBanner3 headings */}
+      <HeroBanner3
+        backgroundImage="/Lists/bg.jpg"
+        headingText={t("heroMain")}
+        italicText={t("heroItalic")}
+      />
+
+      <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
+        <div className="text-center w-[95%] mx-auto mt-10 bg-[#FEFAF4] rounded-3xl">
+          <motion.h2
+            variants={fadeIn}
+            className="heading2 mb-4 font-simplemichael"
+            initial="initial"
+            whileInView="whileInView"
+            viewport={{ once: true }}
+          >
+            {t("needInspiration")}
+          </motion.h2>
+
+          {/* 5) Translate intro paragraph, with line breaks handled by whitespace-pre-line */}
+          <p className="text-base leading-relaxed text-gray-600 w-[80%] sm:max-w-6xl lg:max-w-7xl text-justify mx-auto whitespace-pre-line">
+            {t("introParagraph")}
+          </p>
+        </div>
+
+        {/* Buttons for each occasion */}
         <div className="order-2 sm:order-1 z-20 my-14 flex flex-col md:flex-row gap-[15px] sm:gap-6 flex-nowrap">
           <a href="#">
             <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-            GRADUATION</button>
+              {t("graduation")}
+            </button>
           </a>
           <a href="#">
             <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-            CHRISTMAS</button>
+              {t("christmas")}
+            </button>
           </a>
           <a href="#">
             <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-            BIRTHDAY</button>
+              {t("birthday")}
+            </button>
           </a>
           <a href="#">
             <button className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent">
-            BABY SHOWER
+              {t("babyShower")}
             </button>
           </a>
         </div>
+
+        {/* FocusCards component (if you want these card titles translated, you can do so similarly) */}
         <div className="sm:order-2 order-1 w-full h-fit">
           <FocusCards cards={cards} />
         </div>

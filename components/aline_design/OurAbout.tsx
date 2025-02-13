@@ -1,52 +1,53 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
+import { useState } from "react";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface SectionContent {
-  title: string
-  content: string
-  image: string // Add an image property
+  title: string;
+  content: string;
+  image: string;
 }
 
-const sections: SectionContent[] = [
-  {
-    title: 'OUR DNA',
-    content:
-      'the very essence of our concept is the result of an alliance between different cultures. we draw our inspiration not only from our own experience but also from our mixed cultural heritage between south america and europe.',
-    image: '/OurAbout/dna.jpg', // Path to the image for "OUR DNA"
-  },
-  {
-    title: 'OUR SOUÉ',
-    content:
-      'our commitment to authenticity and innovation drives us to create unique experiences that bridge cultural gaps and celebrate diversity.',
-    image: '/OurAbout/soue.jpg', // Path to the image for "OUR SOUÉ"
-  },
-  {
-    title: 'OUR VALUES',
-    content:
-      'we believe in fostering genuine connections, embracing cultural diversity, and creating meaningful experiences that resonate across borders.',
-    image: '/OurAbout/values.jpg', // Path to the image for "OUR VALUES"
-  },
-  {
-    title: 'OUR VISION',
-    content:
-      'to become a global platform that celebrates and connects diverse cultures, creating lasting impact through authentic experiences and meaningful relationships.',
-    image: '/OurAbout/vision.jpg', // Path to the image for "OUR VISION"
-  },
-]
-
 export default function OurAbout() {
-  const [activeSection, setActiveSection] = useState<string | null>(null)
+  // 1) Create a translator from the "OurAbout" namespace
+  const t = useTranslations("OurAbout");
 
-  const activeImage = sections.find((section) => section.title === activeSection)?.image
+  // 2) Build the sections array using translations
+  const sections: SectionContent[] = [
+    {
+      title: t("dnaTitle"),
+      content: t("dnaContent"),
+      image: "/OurAbout/dna.jpg",
+    },
+    {
+      title: t("soueTitle"),
+      content: t("soueContent"),
+      image: "/OurAbout/soue.jpg",
+    },
+    {
+      title: t("valuesTitle"),
+      content: t("valuesContent"),
+      image: "/OurAbout/values.jpg",
+    },
+    {
+      title: t("visionTitle"),
+      content: t("visionContent"),
+      image: "/OurAbout/vision.jpg",
+    },
+  ];
+
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const activeImage = sections.find(
+    (section) => section.title === activeSection
+  )?.image;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-4">
       <div className="relative aspect-[4/3] w-full">
-        {/* Display the active image or a default image */}
         <Image
-          src={activeImage || '/OurAbout/bg.jpg'} // Default image
+          src={activeImage || "/OurAbout/bg.jpg"}
           alt="About Us"
           fill
           className="object-cover rounded-lg transition-all duration-300"
@@ -69,8 +70,8 @@ export default function OurAbout() {
                 <p
                   className={`text-neutral-700 transform transition-all duration-300 ease-out ${
                     activeSection === section.title
-                      ? 'opacity-100 translate-y-0'
-                      : 'opacity-0 -translate-y-2'
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 -translate-y-2"
                   }`}
                 >
                   {section.content}
@@ -82,5 +83,5 @@ export default function OurAbout() {
         </div>
       </div>
     </div>
-  )
+  );
 }

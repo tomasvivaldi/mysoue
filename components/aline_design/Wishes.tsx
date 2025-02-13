@@ -1,18 +1,28 @@
-import Image from 'next/image';
-import { Plus, Menu, ArrowUpRight } from 'lucide-react';
+"use client";
+
+import Image from "next/image";
+import { Plus, Menu, ArrowUpRight } from "lucide-react";
+// 1) Import next-intl hook
+import { useTranslations } from "next-intl";
 
 export default function Wishes() {
+  // 2) Get translations from the "Wishes" namespace
+  const t = useTranslations("Wishes");
+
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-12 my-12">
       <h1 className="text-center text-4xl md:text-5xl lg:text-6xl font-serif italic mb-16">
-        for all your wishes
+        {/* 3) Use translation key for main title */}
+        {t("pageTitle")}
       </h1>
 
       <div className="grid md:grid-cols-3 gap-6">
         {/* CREATE Card */}
         <div className="bg-[#FFF9E8] border border-black rounded-3xl p-6 flex flex-col justify-between items-center min-h-[300px] min-w-[330px]">
           <div className="flex justify-between items-start w-full">
-            <h2 className="text-xl text-black hover:text-white-200 font-medium">CREATE</h2>
+            <h2 className="text-xl text-black hover:text-white-200 font-medium">
+              {t("create")}
+            </h2>
             <Plus className="w-6 h-6" />
           </div>
 
@@ -28,14 +38,16 @@ export default function Wishes() {
           </div>
 
           <button className="w-full py-2 px-4 rounded-full bg-[transparent] hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
-            GET INSPIRED BY OUR LISTS
+            {t("getInspired")}
           </button>
         </div>
 
         {/* SORT Card */}
         <div className="bg-[#FFF9E8] border border-black rounded-3xl p-6 flex flex-col justify-between items-center min-h-[340px] min-w-[310px]">
           <div className="flex justify-between items-start w-full">
-            <h2 className="text-xl text-black hover:text-white-200 font-medium">SORT</h2>
+            <h2 className="text-xl text-black hover:text-white-200 font-medium">
+              {t("sort")}
+            </h2>
             <Menu className="w-6 h-6" />
           </div>
 
@@ -51,14 +63,16 @@ export default function Wishes() {
           </div>
 
           <button className="w-full py-2 px-4 rounded-full bg-[transparent] hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
-            BROWSE ITEMS
+            {t("browseItems")}
           </button>
         </div>
 
         {/* SHARE Card */}
         <div className="bg-[#FFF9E8] border border-black rounded-3xl p-6 flex flex-col justify-between items-center min-h-[300px] min-w-[330px]">
           <div className="flex justify-between items-start w-full">
-            <h2 className="text-xl text-black hover:text-white-200 font-medium">SHARE</h2>
+            <h2 className="text-xl text-black hover:text-white-200 font-medium">
+              {t("share")}
+            </h2>
             <ArrowUpRight className="w-6 h-6" />
           </div>
 
@@ -74,7 +88,7 @@ export default function Wishes() {
           </div>
 
           <button className="w-full py-2 px-4 rounded-full bg-[transparent] hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
-            SIGN IN TO SHARE
+            {t("signInToShare")}
           </button>
         </div>
       </div>

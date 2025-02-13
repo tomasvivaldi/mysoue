@@ -1,12 +1,20 @@
 {
+
   "Navbar": {
     "title": "MYSOUE",
-    "home": "Home",
-    "ourStory": "Our little story",
-    "createList": "Create a list",
-    "ourLists": "Our lists",
-    "login": "Login"
+    "about": "About",
+    "lists": "Lists",
+    "login": "Login",
+    "explore": "Explore",
+    "blog": "Blog"
   },
+
+  "Hero": {
+    "gifting": "GIFTING",
+    "madeAuthentic": "made authentic",
+    "wishlistCTA": "create my wishlist"
+  },
+
   "Footer": {
     "sloganPart1": "WE MAKE",
     "sloganPart2": "gifting simple.",
@@ -17,12 +25,116 @@
     "login": "Login",
     "logoAlt": "Symbol"
   },
-  "Hero": {
-    "heroImageAlt": "Gifting made authentic",
-    "gifting": "GIFTING",
-    "madeAuthentic": "made authentic",
-    "logoAlt": "Gifting made authentic"
+
+  "Wishes": {
+      "pageTitle": "for all your wishes",
+      "create": "CREATE",
+      "getInspired": "GET INSPIRED BY OUR LISTS",
+      "sort": "SORT",
+      "browseItems": "BROWSE ITEMS",
+      "share": "SHARE",
+      "signInToShare": "SIGN IN TO SHARE"
+    },
+
+  "SmallTextBanner": {
+    "theGiftingWorld": "the gifting world",
+    "creativity": "Creativity",
+    "welcomeTo": "WELCOME TO"
   },
+  "MidBanner": {
+    "youWantIt": "you want it?",
+    "weGotIt": "we got it.",
+    "tagline": "for every occasion, we transform\nyour wishes into curated lists.",
+    "meetMysoue": "MEET MYSOUE"
+  },
+  "VisionBoard": {
+    "iWant": "I WANT",
+    "pilatesMomVibes": "pilates mom vibes",
+    "your": "YOUR",
+    "achievable": "ACHIEVABLE",
+    "visionBoard": "vision board"
+  },
+
+  "HeroBanner3": {
+    "about": "ABOUT",
+    "lists": "LISTS",
+    "explore": "EXPLORE",
+    "blog": "BLOG",
+    "mysoue": "Mysoue",
+    "search": "Search",
+    "account": "ACCOUNT"
+  },
+  "HeroBanner2": {
+    "about": "ABOUT",
+    "lists": "LISTS",
+    "explore": "EXPLORE",
+    "blog": "BLOG",
+    "mysoue": "Mysoue",
+    "search": "Search",
+    "account": "ACCOUNT",
+    "heroHeading": "WISHLISTS ACCESSIBLE \n TO {emphasis}",
+    "startNow": "start now"
+  },
+  "about": {
+    "pageTitle": "Our Little Story",
+    "startNow": "start now",
+    "bitAboutOurselves": "a bit about ourselves",
+    "introParagraph": "At MYSOUE, we reimagine the gift-giving experience for everyone. You are celebrating some special occasions and want to share with your loved ones the items you would like to receive, please let us help you to achieve your dream.\n\nFor each moment, we transform your wishes into curated lists, nothing more easy to Select, combine, and create the perfect list. Our goal is to bring a space where all your wishes will be gathered."
+  },
+  "OurAbout": {
+    "dnaTitle": "OUR DNA",
+    "dnaContent": "The very essence of our concept is the result of an alliance between different cultures. We draw our inspiration not only from our own experience but also from our mixed cultural heritage between South America and Europe.",
+    
+    "soueTitle": "OUR SOUÉ",
+    "soueContent": "In French, “souhait” means wish. And that is all we are about; We're all about making your wishes come true, eliminating worries, and creating space for meaningful moments and cherished memories with your loved ones. That's our mission – turning desires into delightful memories!",
+    
+    "valuesTitle": "OUR VALUES",
+    "valuesContent": "we believe in fostering genuine connections, embracing cultural diversity, and creating meaningful experiences that resonate across borders.",
+    
+    "visionTitle": "OUR VISION",
+    "visionContent": "to become a global platform that celebrates and connects diverse cultures, creating lasting impact through authentic experiences and meaningful relationships."
+  },
+  "Founders": {
+    "meetOurFounders": "meet our founders",
+
+    "luizaName": "LUIZA",
+    "luizaDescription": "A bold and inspiring woman from Brazil, channeled her international experiences in Asia into the creation of Mysoue. Driven by her belief in the power of diversity and innovation, she leads Mysoue with the goal of creating impactful, globally-minded solutions for everyone.",
+
+    "charlotteName": "CHARLOTTE",
+    "charlotteDescription": "Driven by a desire to innovate, Charlotte co-founded Mysoue at the age of 30. As a French entrepreneur, she is passionate about empowering others to embrace change and build a future full of possibilities."
+  },
+  "BottomBanner": {
+    "choosingAGift": "CHOOSING A GIFT",
+    "doesntHaveToBeHard": "doesn’t have to be hard",
+    "startNow": "start now"
+  },
+  "Blog": {
+    "pageTitle": "Blog | Mysoue",
+    "comingSoonHeading": "Our Blog is Coming Soon!",
+    "comingSoonText": "We're working on something exciting! Soon, you'll be able to explore articles on trends, gifting ideas, and more. Stay tuned!"
+  },
+  "MobileNav": {
+    "about": "ABOUT",
+    "lists": "LISTS",
+    "explore": "EXPLORE",
+    "blog": "BLOG",
+    "account": "ACCOUNT",
+    "search": "Search",
+    "brand": "Mysoue"
+  },
+  "ListsPage": {
+    "pageTitle": "Lists | Mysoue",
+    "startNow": "start now",
+    "heroMain": "FOR ALL",
+    "heroItalic": "wishes",
+    "needInspiration": "Need Some Inspiration?",
+    "introParagraph": "Not sure what to add to your wishlist? No worries! We've put together pre-made lists with the best gift ideas for every occasion—baby showers, birthdays, proms, Valentine's Day, and more! Whether you need a little inspiration or just want an easy way to pick the perfect gifts, we’ve got you covered.\n\nBrowse our curated lists and find the perfect match in seconds!",
+    "graduation": "GRADUATION",
+    "christmas": "CHRISTMAS",
+    "birthday": "BIRTHDAY",
+    "babyShower": "BABY SHOWER"
+  },
+
   "AllAboutGifts": {
     "bannerText": "WE GOT IT",
     "extraWord": "Creativity",

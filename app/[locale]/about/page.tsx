@@ -1,22 +1,21 @@
 "use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import TopBanner from "@/components/TopBanner";
 import Head from "next/head";
-import Image from "next/image";
-import TeamSection from "@/components/TeamSection";
-import Banner2 from "@/components/Banner2";
-import TopBanner2 from "@/components/TopBanner2";
 import { useTranslations } from "next-intl";
+
+import SolidButton from "@/components/buttons/SolidButton";
+import HeroBanner2 from "@/components/aline_design/HeroBanner2";
 import OurAbout from "@/components/aline_design/OurAbout";
 import Founders from "@/components/aline_design/Founders";
 import BottomBanner from "@/components/aline_design/BottomBanner";
-import HeroBanner2 from "@/components/aline_design/HeroBanner2";
-import SolidButton from "@/components/buttons/SolidButton";
 
-const OurLittleStory = () => {
-  const t = useTranslations("ourStory");
+const About = () => {
+  // 1) Access strings from the "ourStory" namespace
+  const t = useTranslations("about");
 
+  // For your fade-in animation
   const fadeIn = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0, transition: { duration: 1 } },
@@ -24,29 +23,41 @@ const OurLittleStory = () => {
 
   return (
     <>
+      {/* 2) Use the translated page title */}
       <Head>
         <title>{t("pageTitle")}</title>
       </Head>
-      <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+
+      {/* 3) Translate "start now" */}
+      <SolidButton
+        text={t("startNow")}
+        href="/login"
+        className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]"
+      />
+
       <HeroBanner2 />
-      <div className="  flex flex-col p-4 x-paddings ">
+
+      <div className="flex flex-col p-4 x-paddings">
         <div className="text-center w-[95%] mx-auto my-4 bg-[#FEFAF4] py-24 rounded-3xl">
-        <motion.h2
+          {/* 4) Translate "a bit about ourselves" */}
+          <motion.h2
             variants={fadeIn}
             className="heading2 mb-4 font-simplemichael"
             initial="initial"
             whileInView="whileInView"
             viewport={{ once: true }}
           >
-            a bit about ourselves
+            {t("bitAboutOurselves")}
           </motion.h2>
-          <p className="text-base text-justify leading-relaxed text-gray-600 w-[80%] sm:w-[50%] mx-auto">
-          At MYSOUE, we reimagine the gift-giving experience for everyone. You are celebrating some special occasions and want to share with your loved ones the items you would like to receive, please let us help you to achieve your dream. 
-          <br/><br/>
-          For each moment, we transform your wishes into curated lists, nothing more easy to Select, combine, and create the perfect list. Our goal is to bring a space where all your wishes will be gathered. 
+
+          {/* 5) Translate the paragraph */}
+          <p className="text-base text-justify leading-relaxed text-gray-600 w-[80%] sm:w-[50%] mx-auto whitespace-pre-line">
+            {t("introParagraph")}
           </p>
         </div>
-        <OurAbout/>
+
+        {/* Remaining sections */}
+        <OurAbout />
         <Founders />
         <BottomBanner />
       </div>
@@ -54,4 +65,4 @@ const OurLittleStory = () => {
   );
 };
 
-export default OurLittleStory;
+export default About;
