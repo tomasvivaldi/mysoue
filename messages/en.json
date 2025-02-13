@@ -344,6 +344,20 @@
     "signIn": "SIGN IN"
   },
 
+  "DashboardMobileNavbar": {
+    "navigation": "NAVIGATION",
+    "about": "ABOUT",
+    "lists": "LISTS",
+    "explore": "EXPLORE",
+    "dashboard": "DASHBOARD",
+    "accountOverview": "ACCOUNT OVERVIEW",
+    "myWishlists": "MY WISHLISTS",
+    "myGifts": "MY GIFTS",
+    "needHelpContactUs": "NEED HELP? CONTACT US.",
+    "logOut": "LOG OUT",
+    "account": "ACCOUNT"
+  },
+
   "Dashboard-Navbar": {
     "myWishlists": "My wishlists",
     "createNewWishlist": "Create new wishlist",

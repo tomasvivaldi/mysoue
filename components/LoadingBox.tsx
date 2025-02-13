@@ -15,7 +15,7 @@ function LoadingBox({
   containerClassName = "",
 }: LoadingBoxProps) {
   return (
-    <div className={`flex justify-center items-center animate-pulse duration-1000 w-full h-screen ${containerClassName}`}>
+    <div className={`flex justify-center items-center animate-pulse duration-1000 w-full ${containerClassName}`}>
       <Image
         src={imageSrc}
         alt={imageAlt}

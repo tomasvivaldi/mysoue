@@ -3,6 +3,7 @@
 import client from "@/apollo-client";
 import GhostButtonBlack from "@/components/GhostButtonBlack";
 import GhostButtonWhite from "@/components/GhostButtonWhite";
+import LoadingBox from "@/components/LoadingBox";
 import ProductCard from "@/components/ProductCard";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import AddProductModal from "@/components/aline_design/modals/AddProductModal";
@@ -112,7 +113,13 @@ const WishlistDetails: React.FC = () => {
     wishlistDetails &&
     visibleItems.length < wishlistDetails.wishlist_items.length;
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return       
+      <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
   if (!wishlistDetails) return <div>No wishlist found.</div>;
 
   const readableDueDate = wishlistDetails.due_date

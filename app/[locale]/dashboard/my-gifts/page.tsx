@@ -5,6 +5,7 @@ import client from "@/apollo-client";
 import MyGiftCard from "@/components/aline_design/Dashboard/MyGiftCard";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries"; // Adjust the query if necessary
 import { useSession } from "next-auth/react";
+import LoadingBox from "@/components/LoadingBox";
 
 interface Gift {
   id: string;
@@ -42,7 +43,13 @@ const MyGifts: React.FC = () => {
     loadGifts();
   }, [session?.user?.email]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) { return       <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
+    }
 
   return (
     <div className="my-8 flex flex-col gap-4 w-full">

@@ -340,6 +340,20 @@
     "alreadyHaveAccount": "มีบัญชีอยู่แล้ว?",
     "signIn": "เข้าสู่ระบบ"
   },
+  "DashboardMobileNavbar": {
+    "navigation": "เมนูนำทาง",
+    "about": "เกี่ยวกับ",
+    "lists": "รายการ",
+    "explore": "สำรวจ",
+    "dashboard": "แดชบอร์ด",
+    "accountOverview": "ภาพรวมบัญชี",
+    "myWishlists": "วิชลิสต์ของฉัน",
+    "myGifts": "ของขวัญของฉัน",
+    "needHelpContactUs": "ต้องการความช่วยเหลือ? ติดต่อเรา",
+    "logOut": "ออกจากระบบ",
+    "account": "บัญชี"
+  },
+
 
   "Dashboard-Navbar": {
     "myWishlists": "รายการสิ่งที่ต้องการของฉัน",

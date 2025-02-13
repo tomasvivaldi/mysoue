@@ -5,6 +5,7 @@ import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
 import client from "@/apollo-client";
 import { useSession } from "next-auth/react";
 import { User } from "next-auth";
+import LoadingBox from "@/components/LoadingBox";
 
 interface ChildComponentProps {
   userData: UserById | null;
@@ -112,7 +113,13 @@ const Dashboard: React.FC<any> = ({ children }) => {
 
   if (loading) {
     // Optional: Render a loading indicator
-    return <div>Loading...</div>;
+    return       
+      <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
   }
 
   return React.Children.map(children, (child) => {

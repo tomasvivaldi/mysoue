@@ -10,6 +10,7 @@ import { User } from "next-auth";
 import client from "@/apollo-client";
 import { useTranslations } from "next-intl";
 import UserLists from "@/components/aline_design/Dashboard/UserLists";
+import LoadingBox from "@/components/LoadingBox";
 
 interface WishlistItem {
   added_at: string;
@@ -118,10 +119,14 @@ export default function MyWishlists() {
     loadData();
   }, [user?.email]);
 
-  if (loading) {
-    // Optional: Render a loading indicator
-    return <div>Loading...</div>;
-  }
+  if (loading)    { 
+    return     <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
+    }
 
   const wishlists = [
     {

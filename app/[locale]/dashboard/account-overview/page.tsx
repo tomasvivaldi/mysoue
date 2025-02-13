@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import client from "@/apollo-client";
 import { GET_USERS_BY_EMAIL, GET_USERS_BY_ID } from "@/graphql/queries";
 import AccountOverview from "@/components/aline_design/Dashboard/AccountOverview";
+import LoadingBox from "@/components/LoadingBox";
 
 interface UserById {
   id: string;
@@ -64,8 +65,13 @@ export default function MyWishlists() {
   }, [session?.user?.email]);
 
   if (loading) {
-    return <div>Loading...</div>;
-  }
+    return     <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
+    }
 
   if (!userData) {
     return <div>No user data available</div>;

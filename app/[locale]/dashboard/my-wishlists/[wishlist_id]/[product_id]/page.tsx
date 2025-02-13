@@ -5,6 +5,7 @@
 // pages/product/[id].tsx
 import client from "@/apollo-client";
 import GhostButtonBlack from "@/components/GhostButtonBlack";
+import LoadingBox from "@/components/LoadingBox";
 import SolidButtonBlack from "@/components/SolidButtonBlack";
 import SolidButtonBrown from "@/components/SolidButtonBrown"; // Assuming you have a red button component
 import DeleteProductModal from "@/components/aline_design/modals/DeleteProductModal";
@@ -100,7 +101,13 @@ const ProductDetails: React.FC = () => {
     loadData();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return       
+      <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[80vh]"
+      />;
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
   return (
