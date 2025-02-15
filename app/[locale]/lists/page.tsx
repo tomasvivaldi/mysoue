@@ -8,6 +8,7 @@ import { useTranslations } from "next-intl";
 import HeroBanner3 from "@/components/aline_design/HeroBanner3";
 import SolidButton from "@/components/buttons/SolidButton";
 import { FocusCards } from "@/components/aline_design/FocusCards";
+import { FloatingButton } from "@/components/ui/FloatingButton";
 
 // Example data for FocusCards
 const cards = [
@@ -47,11 +48,8 @@ const Lists = () => {
       </Head>
 
       {/* 3) Translate "start now" */}
-      <SolidButton
-        text={t("startNow")}
-        href="/login"
-        className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]"
-      />
+      <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <FloatingButton/>
 
       {/* 4) Translate HeroBanner3 headings */}
       <HeroBanner3

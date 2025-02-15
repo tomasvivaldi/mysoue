@@ -16,6 +16,7 @@ import Wishes from "@/components/aline_design/Wishes";
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
 import SolidButton from "@/components/buttons/SolidButton";
+import { FloatingButton } from "@/components/ui/FloatingButton";
 import { useTranslations } from "next-intl";
 import { getLocale } from "next-intl/server";
 
@@ -55,9 +56,12 @@ const HomePage = () => {
     },
   ];
 
+
+
   return (
     <>
-      <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <FloatingButton/>
       <VideoBanner locale={locale} />
       <Wishes />
       <SmallTextBanner

@@ -10,6 +10,7 @@ import HeroBanner2 from "@/components/aline_design/HeroBanner2";
 import OurAbout from "@/components/aline_design/OurAbout";
 import Founders from "@/components/aline_design/Founders";
 import BottomBanner from "@/components/aline_design/BottomBanner";
+import { FloatingButton } from "@/components/ui/FloatingButton";
 
 const About = () => {
   // 1) Access strings from the "ourStory" namespace
@@ -29,11 +30,8 @@ const About = () => {
       </Head>
 
       {/* 3) Translate "start now" */}
-      <SolidButton
-        text={t("startNow")}
-        href="/login"
-        className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]"
-      />
+      <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      <FloatingButton/>
 
       <HeroBanner2 />
 

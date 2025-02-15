@@ -5,6 +5,7 @@ import Link from "next/link";
 import React from "react";
 import HeroBanner3 from "@/components/aline_design/HeroBanner3";
 import SolidButton from "@/components/buttons/SolidButton";
+import { FloatingButton } from "@/components/ui/FloatingButton";
 
 const products = [
   {
@@ -44,7 +45,8 @@ export default function Explore() {
       <Head>
         <title>Explore Products | Mysoue</title>
       </Head>
-        <SolidButton text="start now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+        <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+        <FloatingButton/>
         <HeroBanner3
           backgroundImage={"/Lists/bg.jpg"}
           headingText="FOR ALL"
