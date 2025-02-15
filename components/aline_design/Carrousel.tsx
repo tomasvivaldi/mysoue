@@ -1,58 +1,60 @@
 "use client";
-import React, { useState, useRef } from "react";
-import CarrouselCard from "./CarrouselCard";
-import GhostButtonBlack from "../GhostButtonBlack";
 
-interface CarrouselData {
+import React, { useState, useRef } from "react";
+import GhostButtonBlack from "../GhostButtonBlack";
+import { DirectionAwareHover } from "../ui/DirectionAwereHover";
+import { useTranslations } from "next-intl";
+
+interface CarrouselItem {
   img: string;
   postpreview: string;
 }
 
-const data: CarrouselData[] = [
-  {
-    img: "/Carrousel/carrousel-1.jpg",
-    postpreview:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet. \n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices, in mollis libero ullamcorper. Sed non ex massa. Duis volutpat lobortis libero vel congue. Quisque sed dapibus turpis. Sed sollicitudin justo eget",
-  },
-  {
-    img: "/Carrousel/carrousel-2.jpg",
-    postpreview:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet. \n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices, in mollis libero ullamcorper. Sed non ex massa. Duis volutpat lobortis libero vel congue. Quisque sed dapibus turpis. Sed sollicitudin justo eget",
-  },
-  {
-    img: "/Carrousel/carrousel-3.jpg",
-    postpreview:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet. \n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices, in mollis libero ullamcorper. Sed non ex massa. Duis volutpat lobortis libero vel congue. Quisque sed dapibus turpis. Sed sollicitudin justo eget",
-  },
-  {
-    img: "/Carrousel/carrousel-4.jpg",
-    postpreview:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet. \n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices, in mollis libero ullamcorper. Sed non ex massa. Duis volutpat lobortis libero vel congue. Quisque sed dapibus turpis. Sed sollicitudin justo eget",
-  },
-];
+export default function Carrousel() {
+  // 1) Load translations for the "Carrousel" namespace
+  const t = useTranslations("Carrousel");
 
-const Carrousel: React.FC = () => {
-  const [scrollPosition, setScrollPosition] = useState<number>(0);
+  // 2) Build your data array using the translation keys
+  const data: CarrouselItem[] = [
+    {
+      img: "/Carrousel/carrousel-1.jpg",
+      postpreview: t("postPreview1")
+    },
+    {
+      img: "/Carrousel/carrousel-2.jpg",
+      postpreview: t("postPreview2")
+    },
+    {
+      img: "/Carrousel/carrousel-3.jpg",
+      postpreview: t("postPreview3")
+    },
+    {
+      img: "/Carrousel/carrousel-4.jpg",
+      postpreview: t("postPreview4")
+    }
+  ];
+
+  const [scrollPosition, setScrollPosition] = useState(0);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement, UIEvent>): void => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     setScrollPosition(e.currentTarget.scrollLeft);
   };
 
-  const scrollToLeft = (): void => {
+  const scrollToLeft = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
         left: scrollPosition - containerRef.current.clientWidth / 2,
-        behavior: "smooth",
+        behavior: "smooth"
       });
     }
   };
 
-  const scrollToRight = (): void => {
+  const scrollToRight = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
         left: scrollPosition + containerRef.current.clientWidth / 2,
-        behavior: "smooth",
+        behavior: "smooth"
       });
     }
   };
@@ -62,10 +64,10 @@ const Carrousel: React.FC = () => {
       {/* Header Section */}
       <div className="flex flex-col sm:flex-row justify-between items-center py-4">
         <h3 className="text-3xl sm:text-5xl font-light text-center sm:text-left">
-          WHAT THEY SAY ABOUT US
+          {t("title")}
         </h3>
         <div className="mt-4 sm:mt-0">
-          <GhostButtonBlack text="FOLLOW US" />
+          <GhostButtonBlack text={t("followUs")} />
         </div>
       </div>
 
@@ -76,16 +78,15 @@ const Carrousel: React.FC = () => {
         onScroll={handleScroll}
       >
         {data.map((el, index) => (
-          <CarrouselCard
-            key={index}
-            img={el.img}
-            postpreview={el.postpreview}
-          />
+          <DirectionAwareHover key={index} imageUrl={el.img}>
+            {el.postpreview}
+          </DirectionAwareHover>
         ))}
       </div>
 
       {/* Navigation Buttons */}
       <div className="flex justify-between mt-4 font-extralight text-sm sm:text-base">
+        {/* Previous Button */}
         <button
           className={`mx-2 flex items-center gap-2 ${
             scrollPosition === 0 ? "opacity-50 cursor-default" : "cursor-pointer"
@@ -108,8 +109,10 @@ const Carrousel: React.FC = () => {
               d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
             />
           </svg>
-          <p>Previous</p>
+          <p>{t("previous")}</p>
         </button>
+
+        {/* Next Button */}
         <button
           className={`mx-2 flex items-center gap-2 ${
             scrollPosition ===
@@ -124,7 +127,7 @@ const Carrousel: React.FC = () => {
           }
           aria-label="Scroll to right"
         >
-          <p>Next</p>
+          <p>{t("next")}</p>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -143,6 +146,4 @@ const Carrousel: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Carrousel;
+}

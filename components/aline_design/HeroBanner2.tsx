@@ -60,10 +60,11 @@ export default function HeroBanner2() {
       <div className="absolute bottom-[10%] left-10 z-10">
         {/* Use interpolation for the hero heading:
             heroHeading: "WISHLISTS ACCESSIBLE \n TO {emphasis}" */}
-        <h1 className="text-4xl font-serif tracking-wide whitespace-pre-line">
+        <h1 className="text-4xl font-serif tracking-wide whitespace-pre-line text-shadow">
           {t.rich("heroHeading", {
-            emphasis: () => <span className="italic">everyone</span>
+            emphasis: () => <span className="italic"></span>
           })}
+          <span>{t("heroHeadingSpan")}</span>
         </h1>
 
         <Link

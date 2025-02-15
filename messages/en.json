@@ -73,6 +73,7 @@
     "search": "Search",
     "account": "ACCOUNT",
     "heroHeading": "WISHLISTS ACCESSIBLE \n TO {emphasis}",
+    "heroHeadingSpan": "everyone",
     "startNow": "start now"
   },
   "about": {
@@ -356,6 +357,17 @@
     "needHelpContactUs": "NEED HELP? CONTACT US.",
     "logOut": "LOG OUT",
     "account": "ACCOUNT"
+  },
+  "Carrousel": {
+    "title": "WHAT THEY SAY ABOUT US",
+    "followUs": "FOLLOW US",
+    "previous": "Previous",
+    "next": "Next",
+    
+    "postPreview1": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet.\n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices...",
+    "postPreview2": "Another sample text for the second post preview. Adjust as needed.",
+    "postPreview3": "Third post preview text goes here. Lorem ipsum again...",
+    "postPreview4": "Fourth post preview text. Feel free to adapt or translate into other languages."
   },
 
   "Dashboard-Navbar": {

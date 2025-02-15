@@ -70,6 +70,7 @@
     "search": "ค้นหา",
     "account": "บัญชี",
     "heroHeading": "รายการของขวัญที่ใครๆ ก็เข้าถึงได้ \n สำหรับ {emphasis}",
+    "heroHeadingSpan": "ทุกคน",
     "startNow": "เริ่มต้นเลย"
   },
   "about": {
@@ -352,6 +353,17 @@
     "needHelpContactUs": "ต้องการความช่วยเหลือ? ติดต่อเรา",
     "logOut": "ออกจากระบบ",
     "account": "บัญชี"
+  },
+  "Carrousel": {
+    "title": "ความคิดเห็นของพวกเขาเกี่ยวกับเรา",
+    "followUs": "ติดตามเรา",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    
+    "postPreview1": "ลอเร็ม อิปซัม ดอลลาร์ ซิท อาเมท, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet.\n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices...",
+    "postPreview2": "ตัวอย่างข้อความที่สองสำหรับตัวอย่างโพสต์ สามารถปรับเปลี่ยนได้ตามต้องการ",
+    "postPreview3": "ตัวอย่างข้อความที่สาม ลอเร็ม อิปซัม ดอลลาร์ ซิท อาเมท...",
+    "postPreview4": "ตัวอย่างข้อความที่สี่ สามารถแก้ไขหรือแปลเป็นภาษาอื่นได้ตามต้องการ"
   },
 
 
