@@ -1,17 +1,15 @@
 "use client";
-// pages/wishlist/[id].tsx
+
 import client from "@/apollo-client";
 import GhostButtonBlack from "@/components/GhostButtonBlack";
-import GhostButtonWhite from "@/components/GhostButtonWhite";
+import SolidButtonBlack from "@/components/SolidButtonBlack";
 import LoadingBox from "@/components/LoadingBox";
 import ProductCard from "@/components/ProductCard";
-import SolidButtonBlack from "@/components/SolidButtonBlack";
 import AddProductModal from "@/components/aline_design/modals/AddProductModal";
 import AddProductOptionModal from "@/components/aline_design/modals/AddProductOptionModal";
-import { Button2 } from "@/components/buttons/Button2";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
-import { useTranslations } from "next-intl";
-import { useParams, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl"; // Import translation hook
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Product {
@@ -25,6 +23,12 @@ interface Product {
   product_name: string;
   product_name_thai: string;
   updated_at: string;
+  platform: string;
+  category: string;
+  subcategory: string;
+  brand: string;
+  store_link: string;
+  highlighted: boolean;
 }
 
 interface WishlistItem {
@@ -57,15 +61,14 @@ const PAGE_SIZE = 4; // Number of items to load per page
 const WishlistDetails: React.FC = () => {
   const params = useParams();
   const id = params.wishlist_id;
+  const t = useTranslations("WishlistDetails"); // Use translations
 
   const [wishlistDetails, setWishlistDetails] = useState<Wishlist | null>(null);
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-
   const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+  const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const loadData = async () => {
@@ -113,14 +116,34 @@ const WishlistDetails: React.FC = () => {
     wishlistDetails &&
     visibleItems.length < wishlistDetails.wishlist_items.length;
 
-  if (loading) return       
+  // Function to handle opening the Add Product Option Modal
+  const openOptionModal = () => setIsOptionModalOpen(true);
+  const closeOptionModal = () => setIsOptionModalOpen(false);
+
+  // Function to open the Add Product Modal
+  const openAddProductModal = () => {
+    closeOptionModal();
+    setIsAddProductModalOpen(true);
+  };
+  const closeAddProductModal = () => setIsAddProductModalOpen(false);
+
+  // Function to handle adding a new product
+  const handleAddProduct = (productName: string, productDescription: string) => {
+    console.log("New product added:", { productName, productDescription });
+    closeAddProductModal();
+  };
+
+  if (loading)
+    return (
       <LoadingBox
         imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-        imageAlt="Loading spinner"
+        imageAlt={t("loading")}
         imageClassName=""
         containerClassName="h-[80vh]"
-      />;
-  if (!wishlistDetails) return <div>No wishlist found.</div>;
+      />
+    );
+
+  if (!wishlistDetails) return <div>{t("noWishlistFound")}</div>;
 
   const readableDueDate = wishlistDetails.due_date
     ? new Date(wishlistDetails.due_date).toLocaleDateString("en-US", {
@@ -128,31 +151,32 @@ const WishlistDetails: React.FC = () => {
         month: "long",
         day: "numeric",
       })
-    : "None";
+    : t("none");
 
   return (
-    <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full mb-20 sm:mb-0 ">
+    <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-20 sm:mb-0 h-fit">
       <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
-        <div className=" gap-[-100px]">
-        <h1 className="heading2">
-          {wishlistDetails.title} <br/>
-        </h1>
-        <h2 className=" heading4">          
+        <div>
+          <h1 className="heading2">{wishlistDetails.title}</h1>
+          <h2 className="heading4">
             {wishlistDetails.type.charAt(0).toUpperCase() +
-            wishlistDetails.type.slice(1)}{" "} List
-        </h2></div>
+              wishlistDetails.type.slice(1)}{" "}
+            {t("list")}
+          </h2>
+        </div>
         <div className="flex flex-col sm:hidden mb-2">
           <p>{wishlistDetails.description}</p>
-          <p className="text-sm">Due Date: {readableDueDate}</p>
+          <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
         </div>
         <div className="flex gap-2 sm:gap-8">
-          <GhostButtonBlack text="Add&nbsp;Product" onClick={() => setIsOptionModalOpen(true)} />
-          <SolidButtonBlack text="Share&nbsp;List" />
+          {/* Add Product Button with Modal Trigger */}
+          <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
+          <SolidButtonBlack text={t("shareList")} />
         </div>
       </div>
       <div className="hidden sm:flex sm:flex-col">
         <p>{wishlistDetails.description}</p>
-        <p className="text-sm">Due Date: {readableDueDate}</p>
+        <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 mx-auto">
         {visibleItems.map((item) => {
@@ -160,9 +184,9 @@ const WishlistDetails: React.FC = () => {
           return (
             <ProductCard
               key={item.id}
-              productName={product?.product_name || "Unnamed Product"}
+              productName={product?.product_name || t("unnamedProduct")}
               productDescription={
-                product?.product_description || "No description"
+                product?.product_description || t("noDescription")
               }
               imageUrl={product?.image_url || "/xmas.jpg"}
               wishlistId={wishlistDetails.id}
@@ -180,31 +204,22 @@ const WishlistDetails: React.FC = () => {
             : "bg-gray-200 text-gray-500 cursor-not-allowed"
         }`}
       >
-        {hasMoreItems ? "Load More" : "No More Items"}
+        {hasMoreItems ? t("loadMore") : t("noMoreItems")}
       </button>
 
-      {/* First Modal: "Choose Add Method" */}
+      {/* Add Product Option Modal */}
       <AddProductOptionModal
         isOpen={isOptionModalOpen}
-        onClose={() => setIsOptionModalOpen(false)}
-        onAddManually={() => {
-          setIsOptionModalOpen(false); // Close first modal
-          setIsAddProductModalOpen(true); // Open second modal
-        }}
-        onBrowseProducts={() => {
-          console.log("Redirect to Browse Products page");
-          setIsOptionModalOpen(false);
-        }}
+        onClose={closeOptionModal}
+        onAddManually={openAddProductModal}
+        onBrowseProducts={() => console.log("Browse products clicked")}
       />
 
-      {/* Second Modal: "Add Product Form" */}
+      {/* Add Product Modal */}
       <AddProductModal
         isOpen={isAddProductModalOpen}
-        onClose={() => setIsAddProductModalOpen(false)}
-        onAddProduct={(productName, productDescription) => {
-          console.log("New Product Added:", { productName, productDescription });
-          setIsAddProductModalOpen(false); // Close after adding
-        }}
+        onClose={closeAddProductModal}
+        onAddProduct={handleAddProduct}
       />
     </div>
   );

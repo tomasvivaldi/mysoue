@@ -12,11 +12,15 @@ interface UserById {
   id: string;
   email: string;
   username: string;
-  profile_picture_url: string;
+  first_name?: string;
+  last_name?: string;
+  birthdate?: string;
+  gender?: string;
+  profile_picture_url?: string;
   wishlists: any[]; // Adjust type as needed
 }
 
-export default function MyWishlists() {
+export default function AccountOverviewPage() {
   const { data: session } = useSession();
   const [userData, setUserData] = useState<UserById | null>(null);
   const [loading, setLoading] = useState(false);
@@ -47,7 +51,14 @@ export default function MyWishlists() {
               setUserData({
                 id: userData.id,
                 email: userData.email,
-                username: userData.username || "Unnamed User",
+                first_name: userData.first_name || "",
+                last_name: userData.last_name || "",
+                birthdate: userData.birthdate || "",
+                gender: userData.gender || "",
+                username:
+                  userData.first_name && userData.last_name
+                    ? `${userData.first_name} ${userData.last_name}`
+                    : userData.username || "Unnamed User",
                 profile_picture_url: userData.profile_picture_url || "",
                 wishlists: userData.wishlists || [],
               });
@@ -65,13 +76,15 @@ export default function MyWishlists() {
   }, [session?.user?.email]);
 
   if (loading) {
-    return     <LoadingBox
+    return (
+      <LoadingBox
         imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
         imageAlt="Loading spinner"
         imageClassName=""
         containerClassName="h-[80vh]"
-      />;
-    }
+      />
+    );
+  }
 
   if (!userData) {
     return <div>No user data available</div>;
@@ -83,7 +96,14 @@ export default function MyWishlists() {
         <title>My Account</title>
       </Head>
       <div className="container mx-auto my-8 sm:px-4 x-paddings">
-        <AccountOverview name={userData.username} email={userData.email} />
+        <AccountOverview
+          first_name={userData.first_name}
+          last_name={userData.last_name}
+          birthdate={userData.birthdate || ""}
+          gender={userData.gender || ""}
+          username={userData.username}
+          email={userData.email}
+        />
       </div>
     </>
   );

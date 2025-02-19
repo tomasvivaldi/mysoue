@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button2 } from "../../buttons/Button2";
 import { useTranslations } from "next-intl";
 import Button3 from "../Button3";
@@ -15,8 +15,8 @@ import Button3 from "../Button3";
     setFirstName: (firstName: string) => void;
     lastName: string;
     setLastName: (lastName: string) => void;
-    dateOfBirth: string;
-    setDateOfBirth: (dateOfBirth: string) => void;
+    birthdate: string;
+    setBirthdate: (birthdate: string) => void;
     gender: string;
     setGender: (gender: string) => void;
     handleSignUp: (
@@ -24,7 +24,7 @@ import Button3 from "../Button3";
       password: string,
       firstName: string,
       lastName: string,
-      dateOfBirth: string,
+      birthdate: string,
       gender: string
     ) => Promise<void>;
     loading: boolean;
@@ -42,8 +42,8 @@ import Button3 from "../Button3";
     setFirstName,
     lastName,
     setLastName,
-    dateOfBirth,
-    setDateOfBirth,
+    birthdate,
+    setBirthdate,
     gender,
     setGender,
     handleSignUp,
@@ -77,13 +77,20 @@ import Button3 from "../Button3";
     setPasswordFailed(false);
   };
 
+  const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedDate: string = e.target.value;
+    console.log("Date selected:", selectedDate); // Log the selected date (YYYY-MM-DD)
+    setBirthdate(selectedDate);
+    console.log("Date of birth: ", birthdate);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isValidPassword) {
       setPasswordFailed(true);
       return;
     }
-    handleSignUp( email, password, firstName, lastName, dateOfBirth, gender);
+    handleSignUp( email, password, firstName, lastName, birthdate, gender);
   };
 
   return (
@@ -118,8 +125,8 @@ import Button3 from "../Button3";
             <input
               type="date"
               className="w-1/2 border rounded-full px-4 py-2 border-black bg-[#FFF9E8] placeholder:text-[#C6B8A2]"
-              value={dateOfBirth}
-              onChange={(e) => setDateOfBirth(e.target.value)}
+              value={birthdate}
+              onChange={handleDateChange}
               required
             />
             <select

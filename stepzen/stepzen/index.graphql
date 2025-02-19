@@ -9,6 +9,18 @@ type Products {
   product_name: String!
   product_name_thai: String!
   updated_at: DateTime
+  platform: String
+  category: String
+  subcategory: String
+  brand: String
+  store_link: String
+  highlighted: Boolean
+
+# invol_link = affiliate link??
+# 
+# 
+
+
 }
 
 type Users {
@@ -20,6 +32,10 @@ type Users {
   profile_picture_url: String
   updated_at: DateTime
   username: String
+  birthdate: DateTime
+  gender: String
+  first_name: String
+  last_name: String
 }
 
 type UserData {
@@ -31,6 +47,10 @@ type UserData {
   profile_picture_url: String
   updated_at: DateTime
   username: String
+  birthdate: DateTime
+  gender: String
+  first_name: String
+  last_name: String
   wishlists: [Wishlists]
     @materializer(
       query: "wishlistsListByUserId"
@@ -292,6 +312,10 @@ type Mutation {
     created_at: DateTime
     # updated_at: DateTime
     profile_picture_url: String
+    first_name: String
+    last_name: String
+    gender: String
+    birthdate: Date
   ): Users
     @dbquery(
       type: "postgresql"
@@ -300,6 +324,30 @@ type Mutation {
       dml: INSERT
       configuration: "stepzen_config"
     )
+  updateUsers(
+    email: String!
+    first_name: String
+    last_name: String
+    birthdate: Date
+    gender: String
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE users
+      SET 
+        first_name = COALESCE($2, first_name),
+        last_name = COALESCE($3, last_name),
+        birthdate = COALESCE($4, birthdate),
+        gender = COALESCE($5, gender),
+        updated_at = NOW()
+      WHERE email = $1
+      RETURNING *;
+      """
+      configuration: "stepzen_config"
+    )
+    
   " Mutations for type 'Wishlist_items' "
   deleteWishlist_items(
     quantity: Int!

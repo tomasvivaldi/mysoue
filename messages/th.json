@@ -73,6 +73,84 @@
     "heroHeadingSpan": "ทุกคน",
     "startNow": "เริ่มต้นเลย"
   },
+"AccountOverview": {
+    "greeting": "สวัสดี, {name}",
+    "personalInfo": "ข้อมูลส่วนตัวของคุณ",
+    "name": "ชื่อ",
+    "email": "อีเมล",
+    "birthdate": "วันเกิด",
+    "gender": "เพศ",
+    "changeInfo": "เปลี่ยนข้อมูล"
+  },
+  "UserLists": {
+    "yourLists": "รายการของคุณ",
+    "delete": "ลบ",
+    "addNewWishlist": "เพิ่มรายการใหม่"
+  },
+  "AddWishlistModal": {
+    "newWishlist": "รายการของขวัญใหม่",
+    "description": "กรอกรายละเอียดสำหรับรายการของขวัญที่คุณต้องการสร้าง เพื่อให้คนที่คุณรักมีข้อมูลที่จำเป็น",
+    "add": "เพิ่ม",
+    "goBack": "กลับไป"
+  },
+  "WishlistDetails": {
+    "loading": "กำลังโหลด...",
+    "noWishlistFound": "ไม่พบรายการที่ต้องการ",
+    "none": "ไม่มี",
+    "list": "รายการ",
+    "dueDate": "วันครบกำหนด",
+    "addProduct": "เพิ่มสินค้า",
+    "shareList": "แชร์รายการ",
+    "unnamedProduct": "ไม่มีชื่อสินค้า",
+    "noDescription": "ไม่มีคำอธิบาย",
+    "loadMore": "โหลดเพิ่มเติม",
+    "noMoreItems": "ไม่มีสินค้าเพิ่มเติม"
+  },
+  "EditAccountInfo": {
+    "editYourInfo": "แก้ไขข้อมูลของคุณ",
+    "firstName": "ชื่อ",
+    "lastName": "นามสกุล",
+    "birthdate": "วันเกิด",
+    "gender": "เพศ",
+    "selectGender": "เลือกเพศ",
+    "male": "ชาย",
+    "female": "หญิง",
+    "other": "อื่นๆ",
+    "cancel": "ยกเลิก",
+    "saveChanges": "บันทึกการเปลี่ยนแปลง",
+    "saving": "กำลังบันทึก...",
+    "profileUpdated": "อัปเดตโปรไฟล์สำเร็จ!"
+  },
+
+
+
+
+
+
+  "MyGifts": {
+    "myGifts": "ของขวัญของฉัน",
+    "reservedGifts": "ของขวัญที่ถูกจอง",
+    "reservedGiftsList": "นี่คือของขวัญที่มีคนจองไว้ให้คุณ:",
+    "nonReservedGifts": "ของขวัญที่ยังไม่มีการจอง",
+    "allGiftsReserved": "ของขวัญทั้งหมดถูกจองแล้ว",
+    "noReservedGifts": "ยังไม่มีของขวัญที่ถูกจอง",
+    "price": "ราคา",
+    "reservedBy": "จองโดย",
+    "loading": "กำลังโหลด...",
+    "productNotFound": "ไม่พบสินค้า",
+    "markAsReceived": "ทำเครื่องหมายว่าได้รับแล้ว",
+    "received": "ได้รับของขวัญแล้ว",
+    "notReceived": "ยังไม่ได้รับของขวัญ",
+    "checkGift": "ตรวจสอบของขวัญ",
+    "unreserve": "ยกเลิกการจอง",
+    "checkWishlist": "ตรวจสอบรายการที่ต้องการ",
+    "reservedGift": "ของขวัญที่ถูกจองแล้ว",
+    "reserverName": "ชื่อและนามสกุล",
+    "reserverEmail": "อีเมล",
+    "privateMessage": "ข้อความส่วนตัว",
+    "dateReserved": "วันที่จอง"
+  },
+
   "about": {
     "pageTitle": "เรื่องราวของเรา",
     "startNow": "เริ่มต้นเลย",

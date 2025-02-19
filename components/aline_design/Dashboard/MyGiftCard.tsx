@@ -1,22 +1,21 @@
 import React, { useState } from "react";
-import ReceivedModal from "@/components/aline_design/modals/ReceivedModal"; // Import the modal
+import Link from "next/link";
 
 interface MyGiftCardProps {
-  imageSrc: string; // Image source URL
-  onReceived: () => void; // Callback for "I've Received" button
-  onNotReceived: () => void; // Callback for "Haven't Received It Yet" button
+  imageSrc: string;
+  onReceived: () => void;
+  onNotReceived: () => void;
+  productId: string;
+  received: boolean;
 }
 
 const MyGiftCard: React.FC<MyGiftCardProps> = ({
   imageSrc,
   onReceived,
   onNotReceived,
+  productId,
+  received,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
-
   return (
     <div className="flex flex-col items-center bg-[#FBF9F4] rounded-2xl shadow-md p-4 lg:w-64 w-64 sm:w-60 h-fit">
       {/* Gift Image */}
@@ -30,29 +29,30 @@ const MyGiftCard: React.FC<MyGiftCardProps> = ({
 
       {/* Buttons */}
       <div className="flex flex-col gap-2 w-full">
-        <button
-          onClick={handleOpenModal}
-          className="w-full text-[#6D6A65] text-xs xl:text-base border border-[#C6B8A2] py-1 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
+        <Link
+          href={`/dashboard/my-gifts/${productId}`}
+          passHref
+          className="flex justify-center w-full text-[#6D6A65] text-xs xl:text-base border border-[#C6B8A2] py-1 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
         >
-          I'VE RECEIVED
-        </button>
-        <button
-          onClick={onNotReceived}
-          className="w-full text-[#6D6A65] text-xs xl:text-base border border-[#C6B8A2] py-1 rounded-full font-medium hover:bg-[#C6B8A2]/10 transition"
-        >
-          HAVEN'T RECEIVED IT YET
-        </button>
-      </div>
+          CHECK GIFT
+        </Link>
 
-      {/* Received Modal */}
-      <ReceivedModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={() => {
-          onReceived();
-          handleCloseModal();
-        }}
-      />
+        {received ? (
+          <span
+            onClick={onNotReceived}
+            className="flex justify-center w-full text-[#6D6A65] text-xs xl:text-base py-1 rounded-full font-medium transition"
+          >
+            - GIFT RESERVED -
+          </span>
+        ) : (
+          <span
+            onClick={onNotReceived}
+            className="flex justify-center w-full text-[#6D6A65] text-xs xl:text-base py-1 rounded-full font-medium transition"
+          >
+            - GIFT NOT RESERVED YET -
+          </span>
+        )}
+      </div>
     </div>
   );
 };

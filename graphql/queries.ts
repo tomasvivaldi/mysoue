@@ -1,41 +1,5 @@
 import { gql } from "@apollo/client";
 
-// export const GET_CATEGORY_INFO_BY_USER = gql`
-//     query MyQuery($username: String!) {
-//      communityListByUser(username: $username) {
-//       username
-//       score
-//     }
-//   }
-// `;
-
-// export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
-//     query MyQuery($username: String!) {
-//       communityListByUserLatest(username: $username) {
-//       username
-//       score
-//       notes
-//       action_plan
-//     }
-//   }
-// `;
-
-export const GET_CATEGORY_INFO_BY_USER_LATEST = gql`
-  query MyQuery($username: String!) {
-    categoryListByUserLatest(username: $username) {
-      id
-      updated_at
-      username
-      score
-      notes
-      action_plan
-      goals
-    }
-  }
-`;
-
-// queries.ts
-
 export const GET_USERS_BY_EMAIL = gql`
   query MyQuery($email: String!) {
     usersByEmail(email: $email) {
@@ -47,6 +11,10 @@ export const GET_USERS_BY_EMAIL = gql`
       profile_picture_url
       updated_at
       username
+      first_name
+      last_name
+      gender
+      birthdate
     }
   }
 `;
@@ -62,7 +30,12 @@ export const GET_USERS_BY_ID = gql`
       profile_picture_url
       updated_at
       username
+      first_name
+      last_name
+      gender
+      birthdate
       wishlists {
+        id
         address
         created_at
         description
@@ -72,15 +45,14 @@ export const GET_USERS_BY_ID = gql`
         type
         updated_at
         user_id
-        id
         wishlist_items {
+          id
           added_at
           additional_description
           product_id
           quantity
           updated_at
           wishlist_id
-          id
         }
       }
     }
@@ -98,6 +70,12 @@ export const GET_PRODUCT_BY_ID = gql`
       image_url
       created_at
       updated_at
+      platform
+      category
+      subcategory
+      brand
+      store_link
+      highlighted
     }
   }
 `;
@@ -134,6 +112,12 @@ export const GET_WISHLIST_BY_ID = gql`
           product_name
           product_name_thai
           updated_at
+          platform
+          category
+          subcategory
+          brand
+          store_link
+          highlighted
         }
       }
     }

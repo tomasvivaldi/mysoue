@@ -13,7 +13,7 @@ const SignUp = () => {
   // Form states
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [birthdate, setBirthdate] = useState("");
   const [gender, setGender] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -47,7 +47,7 @@ const SignUp = () => {
     password: string,
     firstName: string,
     lastName: string,
-    dateOfBirth: string,
+    birthdate: string,
     gender: string
   ) => {
     if (loading) return;
@@ -101,7 +101,7 @@ const SignUp = () => {
           password_hash: hashedPassword,
           first_name: firstName,
           last_name: lastName,
-          date_of_birth: dateOfBirth,
+          birthdate: birthdate,
           gender: gender,
           profile_picture_url: "", // Optionally add a default profile picture
         },
@@ -136,8 +136,8 @@ const SignUp = () => {
               setFirstName={setFirstName}
               lastName={lastName}
               setLastName={setLastName}
-              dateOfBirth={dateOfBirth}
-              setDateOfBirth={setDateOfBirth}
+              birthdate={birthdate}
+              setBirthdate={setBirthdate}
               gender={gender}
               setGender={setGender}
               email={email}

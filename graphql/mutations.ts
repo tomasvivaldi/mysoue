@@ -7,8 +7,11 @@ export const ADD_USERS = gql`
     $oauth_provider: String
     $password_hash: String
     $profile_picture_url: String
-    # $updated_at: DateTime
     $username: String
+    $first_name: String
+    $last_name: String
+    $gender: String
+    $birthdate: Date
   ) {
     insertUsers(
       email: $email
@@ -17,15 +20,23 @@ export const ADD_USERS = gql`
       created_at: $created_at
       username: $username
       profile_picture_url: $profile_picture_url
+      first_name: $first_name
+      last_name: $last_name
+      gender: $gender
+      birthdate: $birthdate
     ) {
-      created_at
-      email
       id
+      email
+      username
       oauth_provider
       password_hash
       profile_picture_url
+      created_at
       updated_at
-      username
+      first_name
+      last_name
+      gender
+      birthdate
     }
   }
 `;
@@ -144,6 +155,33 @@ export const UPDATE_USER_SUBSCRIPTION = gql`
     updateUsers(id: $id, isActive: $isActive) {
       id
       isActive
+    }
+  }
+`;
+
+
+export const UPDATE_USER_INFO = gql`
+  mutation UpdateUserInfo(
+    $email: String!
+    $first_name: String
+    $last_name: String
+    $birthdate: Date
+    $gender: String
+  ) {
+    updateUsers(
+      email: $email
+      first_name: $first_name
+      last_name: $last_name
+      birthdate: $birthdate
+      gender: $gender
+    ) {
+      id
+      email
+      first_name
+      last_name
+      birthdate
+      gender
+      updated_at
     }
   }
 `;

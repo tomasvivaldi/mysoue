@@ -1,0 +1,2 @@
+affiliate_link,created_at,image_url,price,product_description,product_description_thai,id,product_name,product_name_thai,updated_at
+https://affiliate.example.com/product123,2023-01-01T00:00:00Z,https://example.com/images/product123.jpg,19.99,"This is a great product","ผลิตภัณฑ์ที่ยอดเยี่ยม",4,"Sample Product","ผลิตภัณฑ์ตัวอย่าง",2023-01-02T00:00:00Z

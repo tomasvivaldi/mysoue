@@ -28,7 +28,14 @@ interface Product {
   product_name: string;
   product_name_thai: string;
   updated_at: string;
+  platform: string;
+  category: string;
+  subcategory: string;
+  brand: string;
+  store_link: string;
+  highlighted: boolean;
 }
+
 
 interface WishlistItem {
   added_at: string;

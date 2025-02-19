@@ -59,7 +59,7 @@ const Lists = () => {
       />
 
       <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
-        <div className="text-center w-[95%] mx-auto mt-10 bg-[#FEFAF4] rounded-3xl">
+        <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
           <motion.h2
             variants={fadeIn}
             className="heading2 mb-4 font-simplemichael"

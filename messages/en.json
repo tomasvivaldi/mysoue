@@ -76,6 +76,85 @@
     "heroHeadingSpan": "everyone",
     "startNow": "start now"
   },
+"AccountOverview": {
+    "greeting": "HI, {name}",
+    "personalInfo": "YOUR PERSONAL INFO",
+    "name": "NAME",
+    "email": "EMAIL",
+    "birthdate": "BIRTHDATE",
+    "gender": "GENDER",
+    "changeInfo": "CHANGE INFO"
+  },
+  "UserLists": {
+    "yourLists": "YOUR LISTS",
+    "delete": "DELETE",
+    "addNewWishlist": "ADD NEW WISHLIST"
+  },
+  "AddWishlistModal": {
+    "newWishlist": "NEW WISHLIST",
+    "description": "Provide all the details for the gift list you'd like to create. This ensures your loved ones have the information they need.",
+    "add": "ADD",
+    "goBack": "GO BACK"
+  },
+  "WishlistDetails": {
+    "loading": "Loading...",
+    "noWishlistFound": "No wishlist found.",
+    "none": "None",
+    "list": "List",
+    "dueDate": "Due Date",
+    "addProduct": "Add Product",
+    "shareList": "Share List",
+    "unnamedProduct": "Unnamed Product",
+    "noDescription": "No description",
+    "loadMore": "Load More",
+    "noMoreItems": "No More Items"
+  },
+  "EditAccountInfo": {
+    "editYourInfo": "EDIT YOUR INFO",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "birthdate": "Birthdate",
+    "gender": "Gender",
+    "selectGender": "Select Gender",
+    "male": "Male",
+    "female": "Female",
+    "other": "Other",
+    "cancel": "CANCEL",
+    "saveChanges": "SAVE CHANGES",
+    "saving": "Saving...",
+    "profileUpdated": "Profile updated successfully!"
+  },
+
+
+
+
+
+
+
+  "MyGifts": {
+    "myGifts": "My Gifts",
+    "reservedGifts": "Reserved Gifts",
+    "reservedGiftsList": "Here are the gifts that have been reserved for you:",
+    "nonReservedGifts": "Unreserved Gifts",
+    "allGiftsReserved": "All gifts have been reserved.",
+    "noReservedGifts": "No gifts have been reserved yet.",
+    "price": "Price",
+    "reservedBy": "Reserved by",
+    "loading": "Loading...",
+    "productNotFound": "Product not found",
+    "markAsReceived": "Mark as Received",
+    "received": "Gift Received",
+    "notReceived": "Gift Not Received",
+    "checkGift": "Check Gift",
+    "unreserve": "Unreserve",
+    "checkWishlist": "Check Wishlist",
+    "reservedGift": "Reserved Gift",
+    "reserverName": "Name and Surname",
+    "reserverEmail": "Email",
+    "privateMessage": "Private Message",
+    "dateReserved": "Date Reserved"
+  },
+
   "about": {
     "pageTitle": "Our Little Story",
     "startNow": "start now",
