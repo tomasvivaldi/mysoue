@@ -64,7 +64,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         // Show Desktop Navbar + Sidebar for Medium and Larger Screens
         <>
           {/* Navbar */}
-          <nav className="absolute top-0 left-0 w-full h-[80px] z-50 flex items-center justify-between px-8 py-6 bg-[#A5282C] text-white rounded-b-3xl">
+          <nav className="fixed top-0 left-0 w-full h-[80px] z-50 flex items-center justify-between px-8 py-6 bg-[#A5282C] text-white rounded-b-3xl">
             <div className="flex gap-3 md:gap-8">
               <Link href="/about" className="text-sm hover:opacity-80">
                 {t("about")}
