@@ -151,6 +151,17 @@
     "dateReserved": "วันที่จอง"
   },
 
+  "SharedWishlist": {
+    "wishlistNotFound": "ไม่พบรายการที่ชอบ.",
+    "dueDate": "วันครบกำหนด",
+    "shippingAddress": "ที่อยู่สำหรับจัดส่ง",
+    "wishlistItems": "รายการที่ชอบ",
+    "price": "ราคา",
+    "additionalInfo": "ข้อมูลเพิ่มเติม",
+    "noWishlistItems": "ไม่พบรายการที่ชอบ."
+  },
+
+
   "about": {
     "pageTitle": "เรื่องราวของเรา",
     "startNow": "เริ่มต้นเลย",

@@ -11,6 +11,9 @@ import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl"; // Import translation hook
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import ShareWishlistModal from "@/components/aline_design/modals/ShareWishlistModal";
+import { useMutation } from "@apollo/client";
+import { INSERT_SHARED_WISHLIST } from "@/graphql/mutations";
 
 interface Product {
   affiliate_link: string;
@@ -42,6 +45,14 @@ interface WishlistItem {
   products: Product[];
 }
 
+interface SharedWishlists {
+  share_token: string;
+  created_at: string;
+  expires_at: string;
+  wishlist_id: number;
+  id: number;
+}
+
 interface Wishlist {
   address: string;
   created_at: string;
@@ -54,6 +65,7 @@ interface Wishlist {
   user_id: string;
   id: string;
   wishlist_items: WishlistItem[];
+  shared_wishlists: SharedWishlists[];
 }
 
 const PAGE_SIZE = 4; // Number of items to load per page
@@ -70,6 +82,11 @@ const WishlistDetails: React.FC = () => {
   const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [shareToken, setShareToken] = useState<string | null>(null);
+
+  const [insertSharedWishlist] = useMutation(INSERT_SHARED_WISHLIST);
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -80,9 +97,11 @@ const WishlistDetails: React.FC = () => {
             query: GET_WISHLIST_BY_ID,
             variables: { id },
           });
-          const data = response?.data?.wishlistsById?.[0];
-          setWishlistDetails(data || null);
-
+          const data = response?.data?.wishlistsById?.[0] as Wishlist;
+          console.log("data",data)
+          setWishlistDetails(data as Wishlist);
+          setShareToken(data?.shared_wishlists?.[0]?.share_token)
+          console.log("shareToken!!!!!!!!!",shareToken)
           // Initialize the first page of visible items
           if (data) {
             setVisibleItems(data.wishlist_items.slice(0, PAGE_SIZE));
@@ -92,6 +111,8 @@ const WishlistDetails: React.FC = () => {
         console.error("Failed to fetch wishlist data:", error);
       } finally {
         setLoading(false);
+        
+
       }
     };
 
@@ -128,8 +149,16 @@ const WishlistDetails: React.FC = () => {
   const closeAddProductModal = () => setIsAddProductModalOpen(false);
 
   // Function to handle adding a new product
-  const handleAddProduct = (productName: string, productDescription: string) => {
-    console.log("New product added:", { productName, productDescription });
+  const handleAddProduct = (productData: {
+    product_name: string;
+    product_description: string;
+    price: number;
+    image_url: string;
+    category: string;
+    brand: string;
+    store_link: string;
+  }) => {
+    console.log("New product added:", productData);
     closeAddProductModal();
   };
 
@@ -153,6 +182,33 @@ const WishlistDetails: React.FC = () => {
       })
     : t("none");
 
+    const handleGenerateShareLink = async (id: string) => {
+      if (!wishlistDetails) return;    
+      // Generate a new share token only if no existing one is found
+      const generatedToken =
+        Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+    
+      try {
+        console.log("Generating new share token. Wishlist ID:", id);
+        console.log("Generated share token:", generatedToken);
+    
+        const { data } = await insertSharedWishlist({
+          variables: {
+            wishlist_id: id,
+            share_token: generatedToken,
+            created_at: new Date().toISOString(),
+            expires_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), // Expires in 7 days
+          },
+        });
+    
+        console.log("New shared wishlist created:", data);
+        setShareToken(generatedToken);
+      } catch (error) {
+        console.error("Error creating shared wishlist:", error);
+      }
+    };
+
   return (
     <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-20 sm:mb-0 h-fit">
       <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
@@ -171,7 +227,7 @@ const WishlistDetails: React.FC = () => {
         <div className="flex gap-2 sm:gap-8">
           {/* Add Product Button with Modal Trigger */}
           <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
-          <SolidButtonBlack text={t("shareList")} />
+          <SolidButtonBlack text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
         </div>
       </div>
       <div className="hidden sm:flex sm:flex-col">
@@ -220,6 +276,15 @@ const WishlistDetails: React.FC = () => {
         isOpen={isAddProductModalOpen}
         onClose={closeAddProductModal}
         onAddProduct={handleAddProduct}
+      />
+
+      {/* Share Wishlist Modal */}
+      <ShareWishlistModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        wishlistId={wishlistDetails.id}
+        shareToken={shareToken || wishlistDetails?.shared_wishlists?.[0]?.share_token}
+        onGenerateShareLink={handleGenerateShareLink}
       />
     </div>
   );

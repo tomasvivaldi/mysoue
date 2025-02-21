@@ -120,6 +120,14 @@ export const GET_WISHLIST_BY_ID = gql`
           highlighted
         }
       }
+      shared_wishlists {
+        id
+        wishlist_id
+        share_token
+        created_at
+        expires_at
+    }
+
     }
   }
 `;
@@ -133,6 +141,67 @@ export const GET_WISHLIST_ITEM_BY_ID = gql`
       quantity
       created_at
       updated_at
+    }
+  }
+`;
+
+
+export const GET_SHARED_WISHLIST_BY_ID = gql`
+  query GetSharedWishlistById($id: ID!) {
+    sharedWishlistsById(id: $id) {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
+    }
+  }
+`;
+
+export const GET_SHARED_WISHLISTS_BY_WISHLIST_ID = gql`
+  query GetSharedWishlistsByWishlistId($wishlist_id: ID!) {
+    sharedWishlistsByWishlistId(wishlist_id: $wishlist_id) {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
+    }
+  }
+`;
+
+export const GET_SHARED_WISHLISTS_BY_TOKEN = gql`
+  query GetSharedWishlistsByToken($share_token: String!) {
+    sharedWishlistsByToken(share_token: $share_token) {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
+    }
+  }
+`;
+
+export const GET_SHARED_WISHLISTS = gql`
+  query GetSharedWishlists {
+    sharedWishlistsList {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
+    }
+  }
+`;
+
+export const GET_SHARED_WISHLISTS_PAGINATED = gql`
+  query GetSharedWishlistsPaginated($first: Int, $after: Int) {
+    sharedWishlistsPaginatedList(first: $first, after: $after) {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
     }
   }
 `;

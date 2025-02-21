@@ -66,7 +66,7 @@ type Wishlist_items {
   updated_at: DateTime!
   wishlist_id: ID!
   id: ID!
-  products: [Products]
+  products: Products
     @materializer(
       query: "productsById"
       arguments: [{ name: "id", field: "product_id" }]
@@ -88,6 +88,19 @@ type Wishlists {
       query: "wishlist_itemsListByUserId"
       arguments: [{ name: "wishlist_id", field: "id" }]
     )
+  shared_wishlists: [Shared_wishlists]
+    @materializer(
+      query: "sharedWishlistsByWishlistId"
+      arguments: [{ name: "wishlist_id", field: "id" }]
+    )
+}
+
+type Shared_wishlists {
+  share_token: String
+  created_at: DateTime
+  expires_at: DateTime
+  wishlist_id: ID!
+  id: ID!
 }
 
 """
@@ -96,7 +109,7 @@ Feel free to modify them or aggregate more.
 """
 type Query {
   " Queries for type 'Products' "
-  productsById(id: ID!): [Products]
+  productsById(id: ID!): Products
     @dbquery(
       type: "postgresql"
       schema: "public"
@@ -238,6 +251,56 @@ type Query {
       FROM "wishlists"
       WHERE "user_id" = $1
       ORDER BY "updated_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+  " Queries for type 'Shared_wishlists' "
+  sharedWishlistsById(id: ID!): [Shared_wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "shared_wishlists"
+      configuration: "stepzen_config"
+    )
+
+  sharedWishlistsByWishlistId(wishlist_id: ID!): [Shared_wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "shared_wishlists"
+      WHERE "wishlist_id" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+  sharedWishlistsByToken(share_token: String!): [Shared_wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT * FROM "shared_wishlists"
+      WHERE "share_token" = $1
+      """
+      configuration: "stepzen_config"
+    )
+
+  sharedWishlistsList: [Shared_wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "shared_wishlists"
+      configuration: "stepzen_config"
+    )
+
+  sharedWishlistsPaginatedList(first: Int, after: Int): [Shared_wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "share_token", "created_at", "expires_at", "wishlist_id", "id"
+      FROM "shared_wishlists"
+      LIMIT $1 OFFSET $2
       """
       configuration: "stepzen_config"
     )
@@ -416,6 +479,54 @@ type Mutation {
       schema: "public"
       table: "wishlists"
       dml: INSERT
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'shared_wishlists' "
+  deleteSharedWishlists(
+    id: ID!
+    wishlist_id: ID!
+    share_token: String!
+    created_at: DateTime!
+    expires_at: DateTime!
+  ): Shared_wishlists
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "shared_wishlists"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+
+  insertSharedWishlists(
+    wishlist_id: ID!
+    share_token: String!
+    created_at: DateTime
+    expires_at: DateTime
+  ): Shared_wishlists
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "shared_wishlists"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+
+  updateSharedWishlists(
+    id: ID!
+    share_token: String
+    expires_at: DateTime
+  ): Shared_wishlists
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE shared_wishlists
+      SET 
+        share_token = COALESCE($2, share_token),
+        expires_at = COALESCE($3, expires_at)
+      WHERE id = $1
+      RETURNING *;
+      """
       configuration: "stepzen_config"
     )
 }

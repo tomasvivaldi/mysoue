@@ -155,6 +155,16 @@
     "dateReserved": "Date Reserved"
   },
 
+  "SharedWishlist": {
+    "wishlistNotFound": "Wishlist not found.",
+    "dueDate": "Due Date",
+    "shippingAddress": "Shipping Address",
+    "wishlistItems": "Wishlist Items",
+    "price": "Price",
+    "additionalInfo": "Additional Information",
+    "noWishlistItems": "No wishlist items found."
+  },
+
   "about": {
     "pageTitle": "Our Little Story",
     "startNow": "start now",

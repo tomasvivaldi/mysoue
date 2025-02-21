@@ -186,6 +186,69 @@ export const UPDATE_USER_INFO = gql`
   }
 `;
 
+
+
+export const DELETE_SHARED_WISHLIST = gql`
+  mutation DeleteSharedWishlist(
+    $id: ID!
+    $wishlist_id: ID!
+    $share_token: String!
+    $created_at: DateTime!
+    $expires_at: DateTime!
+  ) {
+    deleteSharedWishlists(
+      id: $id
+      wishlist_id: $wishlist_id
+      share_token: $share_token
+      created_at: $created_at
+      expires_at: $expires_at
+    ) {
+      id
+    }
+  }
+`;
+
+export const INSERT_SHARED_WISHLIST = gql`
+  mutation InsertSharedWishlist(
+    $wishlist_id: ID!
+    $share_token: String!
+    $created_at: DateTime
+    $expires_at: DateTime
+  ) {
+    insertSharedWishlists(
+      wishlist_id: $wishlist_id
+      share_token: $share_token
+      created_at: $created_at
+      expires_at: $expires_at
+    ) {
+      id
+      wishlist_id
+      share_token
+      created_at
+      expires_at
+    }
+  }
+`;
+
+export const UPDATE_SHARED_WISHLIST = gql`
+  mutation UpdateSharedWishlist(
+    $id: ID!
+    $share_token: String
+    $expires_at: DateTime
+  ) {
+    updateSharedWishlists(
+      id: $id
+      share_token: $share_token
+      expires_at: $expires_at
+    ) {
+      id
+      wishlist_id
+      share_token
+      expires_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,
