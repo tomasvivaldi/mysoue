@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import ReviewStep from "@/components/ReviewStep";
 import ConfirmationStep from "@/components/ConfirmationStep";
 import { useMutation, gql } from "@apollo/client";
-import { ADD_WISHLIST } from "@/graphql/mutations"; // Adjust the import path to where your mutations are defined
+import { ADD_WISHLIST } from "@/graphql/mutations";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
 

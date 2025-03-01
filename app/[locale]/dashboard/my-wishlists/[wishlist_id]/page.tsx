@@ -224,7 +224,7 @@ const WishlistDetails: React.FC = () => {
           <p>{wishlistDetails.description}</p>
           <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
         </div>
-        <div className="flex gap-2 sm:gap-8">
+        <div className="flex flex-col xs:flex-row gap-2 sm:gap-8">
           {/* Add Product Button with Modal Trigger */}
           <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
           <SolidButtonBlack text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
@@ -235,21 +235,20 @@ const WishlistDetails: React.FC = () => {
         <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
       </div>
       <div className="flex flex-col sm:flex-row gap-4 mx-auto">
-        {visibleItems.map((item) => {
-          const product = item.products[0]; // Assuming there's at least one product
-          return (
-            <ProductCard
-              key={item.id}
-              productName={product?.product_name || t("unnamedProduct")}
-              productDescription={
-                product?.product_description || t("noDescription")
-              }
-              imageUrl={product?.image_url || "/xmas.jpg"}
-              wishlistId={wishlistDetails.id}
-              productId={product?.id}
-            />
-          );
-        })}
+      {visibleItems.map((item) => {
+        const products = Array.isArray(item.products) ? item.products : [item.products];
+        const product = products[0]; // Now safely get the first item
+        return (
+          <ProductCard
+            key={item.id}
+            productName={product?.product_name || t("unnamedProduct")}
+            productDescription={product?.product_description || t("noDescription")}
+            imageUrl={product?.image_url || "/xmas.jpg"}
+            wishlistId={wishlistDetails.id}
+            productId={product?.id || ""}
+          />
+        );
+      })}
       </div>
       <button
         onClick={handleLoadMore}

@@ -38,7 +38,7 @@ module.exports = {
         simplemichael: ['"Simple Michael"', "serif"],
       },
       colors: {
-        primary: "#a67b6a",
+        primary: "#A5282C",
         black: {
           DEFAULT: "#000",
           100: "#0D1117",

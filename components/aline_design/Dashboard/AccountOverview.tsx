@@ -25,7 +25,7 @@ const AccountOverview: React.FC<AccountOverviewProps> = ({
   const t = useTranslations("AccountOverview"); // Get translations for this component
 
   return (
-    <div className="bg-white h-fit ml-7 xs:ml-4 p-2 xs:p-8 sm:ml-0 flex flex-col items-start">
+    <div className=" h-fit ml-7 xs:ml-4 p-2 xs:p-8 sm:ml-0 flex flex-col items-start">
       <h1 className="text-3xl font-bold mb-2">{t("greeting", { name: displayName.toUpperCase() })}</h1>
       <hr className="border-t border-[#C6B8A2] w-full mb-6" />
 

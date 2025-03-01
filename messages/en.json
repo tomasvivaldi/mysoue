@@ -125,7 +125,55 @@
     "profileUpdated": "Profile updated successfully!"
   },
 
-
+  "ShareWishlistModal":{
+    "share_qr_title": "Share QR Code",
+    "share_qr_text": "Check out this QR code for my wishlist!",
+    "share_wishlist_title": "Share My Wishlist",
+    "share_wishlist_text": "Check out my wishlist!",
+    "sharing_not_supported": "Sharing is not supported on your device.",
+    "share_wishlist": "Share Wishlist",
+    "copy_link_message": "Copy the link below to share your wishlist.",
+    "copied": "Copied!",
+    "copy": "Copy",
+    "share_to_socials": "Share to Socials",
+    "generate_link_message": "Generate a link to share your wishlist.",
+    "generate_link": "Generate Link",
+    "go_back": "Go Back"
+  },
+  "AddProductModal":{
+    "add_new_product": "ADD NEW PRODUCT",
+    "product_name_placeholder": "Product Name *",
+    "product_description_placeholder": "Product Description *",
+    "price_placeholder": "Price *",
+    "image_url_placeholder": "Image URL",
+    "brand_placeholder": "Brand",
+    "store_link_placeholder": "Store Link",
+    "add_product": "ADD",
+    "go_back": "GO BACK",
+    "fill_required_fields": "Please fill out all required fields."
+  },
+  "AddProductOptionModal":{
+    "add_a_product": "ADD A PRODUCT",
+    "how_would_you_like_to_add_your_product": "HOW WOULD YOU LIKE TO ADD YOUR PRODUCT?",
+    "add_manually": "ADD MANUALLY",
+    "browse_our_products": "BROWSE OUR PRODUCTS",
+    "close": "Close"
+  },
+  "Shared-Wishlists-ProductPage": {
+    "productNotFound": "Product not found",
+    "additionalDetails": "Additional Details"
+  },
+  "ReserveGiftModal": {
+    "modalTitle": "RESERVE GIFT",
+    "labelName": "Name and surname:",
+    "placeholderName": "Your name",
+    "labelEmail": "Email:",
+    "placeholderEmail": "Your email",
+    "labelMessage": "Private message:",
+    "placeholderMessage": "Your message",
+    "reserveButton": "RESERVE",
+    "cancelButton": "THINK MORE ABOUT IT"
+  },
 
 
 
@@ -443,6 +491,7 @@
     "accountOverview": "ACCOUNT OVERVIEW",
     "myWishlists": "MY WISHLISTS",
     "myGifts": "MY GIFTS",
+    "sharedWishlists": "SHARED WISHLISTS",
     "needHelpContactUs": "NEED HELP? CONTACT US.",
     "logOut": "LOG OUT",
     "account": "ACCOUNT"
@@ -490,7 +539,7 @@
   "Dashboard-SharedWishlists": {
     "pageTitle": "Dashboard",
     "sharedWishlists": "Shared Wishlists",
-    "createNewWishlist": "Create New Wishlist"
+    "viewAllLists": "View All Lists"
   },
   "Dashboard-CreateNewWishlist": {
     "pageTitle": "Create New Wishlist",

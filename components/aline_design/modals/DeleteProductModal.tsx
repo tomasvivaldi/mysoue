@@ -2,6 +2,8 @@ import React from "react";
 
 interface DeleteProductModalProps {
   isOpen: boolean;
+  isWishlistShared: boolean;
+  isProductReserved: boolean;
   onClose: () => void;
   onDelete: () => void;
   productName?: string; // Optional: Display the product name in the modal
@@ -9,6 +11,8 @@ interface DeleteProductModalProps {
 
 const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
   isOpen,
+  isWishlistShared,
+  isProductReserved,
   onClose,
   onDelete,
   productName = "this product",
@@ -27,9 +31,11 @@ const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
         </button>
 
         {/* Modal Content */}
-        <div className="text-center">
-          <h2 className="text-2xl font-bold text-black mb-6">Delete Product</h2>
-          <p className="text-base text-gray-700 mb-8">
+        <div className="text-center flex flex-col gap-4">
+          <h2 className="text-2xl font-bold text-black">Delete Product</h2>
+          {isWishlistShared && <span className="">- This wishlist is currently being shared -</span>}
+          {isProductReserved && <span className="text-primary font-bold">- This product is already reserved -</span>}
+          <p className="text-base text-gray-700 ">
             Are you sure you want to delete <strong>{productName}</strong>? This
             action cannot be undone.
           </p>

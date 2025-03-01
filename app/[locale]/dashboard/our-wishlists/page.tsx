@@ -1,59 +1,87 @@
-import Card from "@/components/Card";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useApolloClient } from "@apollo/client";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import Card from "@/components/Card";
+import { GET_PRE_LISTS } from "@/graphql/queries";
 
-const Login = () => {
+interface PreList {
+  pre_list: string;
+}
+
+const getImageForWishlist = (type?: string): string => {
+  if (!type) return "/default.jpg";
+  switch (type.toLowerCase()) {
+    case "christmas":
+      return "/xmas.jpg";
+    case "baby shower":
+      return "/baby.jpg";
+    // add more types as needed
+    default:
+      return "/create1.png";
+  }
+};
+
+const OurWishlistsPage = () => {
   const t = useTranslations("Dashboard-OurWishlists");
-  const wishlists = [
-    {
-      id: 1,
-      title: "Christmas",
-      description: "Short List Descriptions",
-      imageUrl: "/xmas.jpg",
-    },
-    {
-      id: 2,
-      title: "Baby Shower",
-      description: "Short List Descriptions",
-      imageUrl: "/baby.jpg",
-    },
-    {
-      id: 1,
-      title: "Christmas",
-      description: "Short List Descriptions",
-      imageUrl: "/xmas.jpg",
-    },
-    {
-      id: 2,
-      title: "Baby Shower",
-      description: "Short List Descriptions",
-      imageUrl: "/baby.jpg",
-    },
-    {
-      id: 1,
-      title: "Christmas",
-      description: "Short List Descriptions",
-      imageUrl: "/xmas.jpg",
-    },
-    {
-      id: 2,
-      title: "Baby Shower",
-      description: "Short List Descriptions",
-      imageUrl: "/baby.jpg",
-    },
-    // ... more wishlists
-  ];
+  const client = useApolloClient();
+  const [loading, setLoading] = useState<boolean>(false);
+  const [preLists, setPreLists] = useState<PreList[]>([]);
+
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        const { data } = await client.query({
+          query: GET_PRE_LISTS,
+        });
+        // data.preLists should be an array of objects with a "pre_list" field.
+        setPreLists(data.preLists);
+      } catch (error) {
+        console.error("Failed to fetch preLists:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, [client]);
+
+  if (loading) {
+    return (
+      <div className="h-[80vh] flex items-center justify-center">
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
+  // Create wishlist-like objects from the preLists
+  const wishlists = preLists.map((item) => {
+    const type = item.pre_list;
+    return {
+      id: type, // use pre_list as unique id
+      title: type,
+      description: `Explore products for ${type}`,
+      imageUrl: getImageForWishlist(type),
+      type: type,
+    };
+  });
+
   return (
     <>
       <Head>
-        <title>{t("pageTitle")}</title>
+        <title>{t("pageTitle") || "Our Wishlists"}</title>
       </Head>
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto px-4 mt-8 pb-24">
         <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-regular">{t("ourWishlists")}</h1>
+          <h1 className="text-3xl font-regular">
+            {t("ourWishlists") || "Our Wishlists"}
+          </h1>
           <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
             <a href="/dashboard/create-new-wishlist">
-              {t("createNewWishlist")}
+              {t("createNewWishlist") || "Create New Wishlist"}
             </a>
           </button>
         </div>
@@ -64,27 +92,31 @@ const Login = () => {
               key={wishlist.id}
               img={wishlist.imageUrl}
               activity={wishlist.title}
-              type={" list type"}
-              date={" list date"}
+              type={wishlist.type}
+              date={""}
               postpreview={wishlist.description}
-              id={`${wishlist.id}`}
+              id={wishlist.id}
+              href={`/dashboard/our-wishlists/${wishlist.id}`}
             />
           ))}
+          {wishlists.length === 0 && (
+            <p className="text-center w-full">
+              {t("noWishlistsFound") || "No wishlists available."}
+            </p>
+          )}
         </div>
 
         <div className="flex justify-center mt-6">
-          {/* Pagination would go here */}
+          {/* Pagination (if needed) */}
           <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
             Previous
           </button>
-          {/* Map over page numbers and render page buttons */}
           <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
             1
           </button>
           <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
             2
           </button>
-          {/* ... */}
           <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
             Next
           </button>
@@ -94,4 +126,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default OurWishlistsPage;

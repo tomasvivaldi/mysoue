@@ -160,6 +160,56 @@
     "additionalInfo": "ข้อมูลเพิ่มเติม",
     "noWishlistItems": "ไม่พบรายการที่ชอบ."
   },
+  "ShareWishlistModal":{
+    "share_qr_title": "แชร์คิวอาร์โค้ด",
+    "share_qr_text": "ดูคิวอาร์โค้ดสำหรับวิดลิสต์ของฉัน!",
+    "share_wishlist_title": "แชร์วิดลิสต์ของฉัน",
+    "share_wishlist_text": "ดูวิดลิสต์ของฉัน!",
+    "sharing_not_supported": "อุปกรณ์ของคุณไม่รองรับการแชร์",
+    "share_wishlist": "แชร์วิดลิสต์",
+    "copy_link_message": "คัดลอกลิงก์ด้านล่างเพื่อแชร์วิดลิสต์ของคุณ",
+    "copied": "คัดลอกแล้ว!",
+    "copy": "คัดลอก",
+    "share_to_socials": "แชร์ไปยังโซเชียล",
+    "generate_link_message": "สร้างลิงก์เพื่อแชร์วิดลิสต์ของคุณ",
+    "generate_link": "สร้างลิงก์",
+    "go_back": "กลับ"
+  },
+  "AddProductModal":{
+    "add_new_product": "เพิ่มผลิตภัณฑ์ใหม่",
+    "product_name_placeholder": "ชื่อผลิตภัณฑ์ *",
+    "product_description_placeholder": "รายละเอียดผลิตภัณฑ์ *",
+    "price_placeholder": "ราคา *",
+    "image_url_placeholder": "URL รูปภาพ",
+    "brand_placeholder": "แบรนด์",
+    "store_link_placeholder": "ลิงก์ร้านค้า",
+    "add_product": "เพิ่ม",
+    "go_back": "กลับ",
+    "fill_required_fields": "กรุณากรอกข้อมูลในฟิลด์ที่จำเป็นทั้งหมด"
+  },
+  "AddProductOptionModal": {
+    "add_a_product": "เพิ่มผลิตภัณฑ์",
+    "how_would_you_like_to_add_your_product": "คุณต้องการเพิ่มผลิตภัณฑ์ของคุณอย่างไร?",
+    "add_manually": "เพิ่มด้วยตนเอง",
+    "browse_our_products": "เรียกดูผลิตภัณฑ์ของเรา",
+    "close": "ปิด"
+  },
+  "Shared-Wishlists-ProductPage": {
+    "productNotFound": "ไม่พบผลิตภัณฑ์",
+    "additionalDetails": "รายละเอียดเพิ่มเติม"
+  },
+  "ReserveGiftModal": {
+    "modalTitle": "จองของขวัญ",
+    "labelName": "ชื่อและนามสกุล:",
+    "placeholderName": "ชื่อของคุณ",
+    "labelEmail": "อีเมล:",
+    "placeholderEmail": "อีเมลของคุณ",
+    "labelMessage": "ข้อความส่วนตัว:",
+    "placeholderMessage": "ข้อความของคุณ",
+    "reserveButton": "จอง",
+    "cancelButton": "คิดอีกนิด"
+  },
+
 
 
   "about": {
@@ -439,6 +489,7 @@
     "accountOverview": "ภาพรวมบัญชี",
     "myWishlists": "วิชลิสต์ของฉัน",
     "myGifts": "ของขวัญของฉัน",
+    "sharedWishlists": "วิดลิสต์ที่แชร์",
     "needHelpContactUs": "ต้องการความช่วยเหลือ? ติดต่อเรา",
     "logOut": "ออกจากระบบ",
     "account": "บัญชี"
@@ -487,7 +538,7 @@
   "Dashboard-SharedWishlists": {
     "pageTitle": "แดชบอร์ด",
     "sharedWishlists": "รายการสิ่งที่ปรารถนาที่แชร์",
-    "createNewWishlist": "สร้างรายการสิ่งที่ปรารถนาใหม่"
+    "viewAllLists": "ดูรายการทั้งหมด"
   },
   "Dashboard-CreateNewWishlist": {
     "pageTitle": "สร้างรายการสิ่งที่ปรารถนาใหม่",

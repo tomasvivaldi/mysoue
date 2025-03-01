@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslations } from "next-intl";
 
 interface ModalProps {
   isOpen: boolean;
@@ -28,6 +29,8 @@ const categories = [
 ];
 
 const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }) => {
+  const t = useTranslations("AddProductModal");
+  
   const [productName, setProductName] = React.useState("");
   const [productDescription, setProductDescription] = React.useState("");
   const [price, setPrice] = React.useState<number | "">("");
@@ -38,7 +41,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
 
   const handleAddProduct = () => {
     if (!productName.trim() || !productDescription.trim() || !price) {
-      alert("Please fill out all required fields.");
+      alert(t("fill_required_fields"));
       return;
     }
 
@@ -79,13 +82,15 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
 
         {/* Modal Content */}
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-black mb-6">ADD NEW PRODUCT</h2>
+          <h2 className="text-2xl font-bold text-black mb-6">
+            {t("add_new_product")}
+          </h2>
 
           <div className="flex flex-col gap-4">
             {/* Product Name */}
             <input
               type="text"
-              placeholder="Product Name *"
+              placeholder={t("product_name_placeholder")}
               value={productName}
               onChange={(e) => setProductName(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -93,7 +98,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
 
             {/* Product Description */}
             <textarea
-              placeholder="Product Description *"
+              placeholder={t("product_description_placeholder")}
               value={productDescription}
               onChange={(e) => setProductDescription(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -102,7 +107,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             {/* Price */}
             <input
               type="number"
-              placeholder="Price *"
+              placeholder={t("price_placeholder")}
               value={price}
               onChange={(e) => setPrice(e.target.value ? Number(e.target.value) : "")}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -111,7 +116,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             {/* Image URL */}
             <input
               type="text"
-              placeholder="Image URL"
+              placeholder={t("image_url_placeholder")}
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -133,7 +138,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             {/* Brand */}
             <input
               type="text"
-              placeholder="Brand"
+              placeholder={t("brand_placeholder")}
               value={brand}
               onChange={(e) => setBrand(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -142,7 +147,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             {/* Store Link */}
             <input
               type="text"
-              placeholder="Store Link"
+              placeholder={t("store_link_placeholder")}
               value={storeLink}
               onChange={(e) => setStoreLink(e.target.value)}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
@@ -153,7 +158,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               onClick={handleAddProduct}
               className="w-fit mx-auto bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
             >
-              ADD
+              {t("add_product")}
             </button>
 
             {/* Go Back Button */}
@@ -161,7 +166,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               onClick={onClose}
               className="text-gray-500 hover:text-gray-700 text-lg"
             >
-              GO BACK
+              {t("go_back")}
             </button>
           </div>
         </div>

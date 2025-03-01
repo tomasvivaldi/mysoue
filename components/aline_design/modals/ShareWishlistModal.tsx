@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import QRCode from "qrcode";
+import { useTranslations } from "next-intl";
 
 interface ShareWishlistModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
   shareToken: initialShareToken,
   onGenerateShareLink,
 }) => {
+  const t = useTranslations("ShareWishlistModal");
   const [copied, setCopied] = useState(false);
   const [shareToken, setShareToken] = useState<string | undefined>(initialShareToken);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
@@ -75,8 +77,8 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
           if (navigator.canShare && navigator.canShare({ files: [file] })) {
             await navigator.share({
               files: [file],
-              title: "Share QR Code",
-              text: "Check out this QR code for my wishlist!",
+              title: t("share_qr_title"),
+              text: t("share_qr_text"),
               url: shareLink,
             });
             return;
@@ -84,15 +86,15 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
         }
         // Fallback: share the link
         await navigator.share({
-          title: "Share My Wishlist",
-          text: "Check out my wishlist!",
+          title: t("share_wishlist_title"),
+          text: t("share_wishlist_text"),
           url: shareLink,
         });
       } catch (error) {
         console.error("Error sharing:", error);
       }
     } else {
-      alert("Sharing is not supported on your device.");
+      alert(t("sharing_not_supported"));
     }
   };
 
@@ -111,11 +113,11 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
 
         {/* Modal Content */}
         <div className="text-center flex flex-col">
-          <h2 className="text-2xl font-bold mb-6">SHARE WISHLIST</h2>
+          <h2 className="text-2xl font-bold mb-6">{t("share_wishlist")}</h2>
 
           {shareToken ? (
             <>
-              <p className="mb-4">Copy the link below to share:</p>
+              <p className="mb-4">{t("copy_link_message")}</p>
               {/* QR Code Display */}
               {qrCodeDataUrl && (
                 <div className="mb-4">
@@ -137,7 +139,7 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
                   onClick={handleCopyLink}
                   className="ml-2 bg-white text-[#A5282C] px-4 py-1 rounded-lg hover:bg-gray-200 transition"
                 >
-                  {copied ? "Copied!" : "Copy"}
+                  {copied ? t("copied") : t("copy")}
                 </button>
               </div>
 
@@ -147,20 +149,18 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
                   onClick={handleShareToSocial}
                   className="w-fit mx-auto bg-white text-[#A5282C] py-2 px-8 rounded-full font-medium hover:bg-gray-200 transition"
                 >
-                  Share to Socials
+                  {t("share_to_socials")}
                 </button>
               </div>
             </>
           ) : (
             <>
-              <p className="mb-4">
-                Generate a shareable link to allow others to view this wishlist.
-              </p>
+              <p className="mb-4">{t("generate_link_message")}</p>
               <button
                 onClick={handleGenerateLink}
                 className="w-fit mx-auto bg-white text-[#A5282C] py-2 px-8 rounded-full font-medium hover:bg-gray-200 transition"
               >
-                GENERATE LINK
+                {t("generate_link")}
               </button>
             </>
           )}
@@ -170,7 +170,7 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
             onClick={onClose}
             className="mt-4 text-white hover:text-gray-300 text-lg"
           >
-            GO BACK
+            {t("go_back")}
           </button>
         </div>
       </div>

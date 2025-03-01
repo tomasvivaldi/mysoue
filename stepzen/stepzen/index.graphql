@@ -15,12 +15,16 @@ type Products {
   brand: String
   store_link: String
   highlighted: Boolean
+  pre_list: String
+  wishlist_items: [Wishlist_items]
+    @materializer(
+      query: "wishlistItemsByProductId"
+      arguments: [{ name: "product_id", field: "id" }]
+    )
+}
 
-# invol_link = affiliate link??
-# 
-# 
-
-
+type PreList {
+  pre_list: String
 }
 
 type Users {
@@ -71,7 +75,18 @@ type Wishlist_items {
       query: "productsById"
       arguments: [{ name: "id", field: "product_id" }]
     )
+  reserved_gifts: [ReservedGifts]
+    @materializer(
+      query: "reservedGiftsByWishlistItemId"
+      arguments: [{ name: "wishlist_item_id", field: "id" }]
+    )
+  wishlists: [Wishlists]
+    @materializer(
+      query: "wishlistsById"
+      arguments: [{ name: "id", field: "wishlist_id" }]
+    )
 }
+
 type Wishlists {
   address: String
   created_at: DateTime
@@ -103,6 +118,16 @@ type Shared_wishlists {
   id: ID!
 }
 
+type ReservedGifts {
+  id: ID!
+  name_and_surname: String!
+  email: String!
+  private_message: String
+  created_at: DateTime!
+  updated_at: DateTime!
+  wishlist_item_id: ID!
+}
+
 """
 The following queries are just a set of examples of how to access your schema.
 Feel free to modify them or aggregate more.
@@ -128,7 +153,28 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-      SELECT "affiliate_link", "created_at", "image_url", "price", "product_description", "product_description_thai", "id", "product_name", "product_name_thai", "updated_at" FROM "products" LIMIT $1 OFFSET $2
+      SELECT "affiliate_link", "created_at", "image_url", "price", "product_description", "product_description_thai", "id", "product_name", "product_name_thai", "updated_at", "pre_list" FROM "products" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
+  preLists: [PreList]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT DISTINCT "pre_list" AS pre_list
+        FROM "products"
+      """
+      configuration: "stepzen_config"
+    )
+  productsByPreList(pre_list: String!): [Products]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+        SELECT *
+        FROM "products"
+        WHERE "pre_list" = $1
       """
       configuration: "stepzen_config"
     )
@@ -217,6 +263,17 @@ type Query {
       """
       configuration: "stepzen_config"
     )
+  wishlistItemsByProductId(product_id: ID!): [Wishlist_items]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "wishlist_items"
+      WHERE "product_id" = $1
+      """
+      configuration: "stepzen_config"
+    )
   " Queries for type 'Wishlists' "
   wishlistsById(id: ID!): [Wishlists]
     @dbquery(
@@ -225,7 +282,6 @@ type Query {
       table: "wishlists"
       configuration: "stepzen_config"
     )
-
   wishlistsList: [Wishlists]
     @dbquery(
       type: "postgresql"
@@ -262,7 +318,6 @@ type Query {
       table: "shared_wishlists"
       configuration: "stepzen_config"
     )
-
   sharedWishlistsByWishlistId(wishlist_id: ID!): [Shared_wishlists]
     @dbquery(
       type: "postgresql"
@@ -273,7 +328,6 @@ type Query {
       """
       configuration: "stepzen_config"
     )
-
   sharedWishlistsByToken(share_token: String!): [Shared_wishlists]
     @dbquery(
       type: "postgresql"
@@ -284,7 +338,6 @@ type Query {
       """
       configuration: "stepzen_config"
     )
-
   sharedWishlistsList: [Shared_wishlists]
     @dbquery(
       type: "postgresql"
@@ -292,7 +345,6 @@ type Query {
       table: "shared_wishlists"
       configuration: "stepzen_config"
     )
-
   sharedWishlistsPaginatedList(first: Int, after: Int): [Shared_wishlists]
     @dbquery(
       type: "postgresql"
@@ -304,6 +356,31 @@ type Query {
       """
       configuration: "stepzen_config"
     )
+    
+  " Query for ReservedGifts by wishlist_item_id (used by the materializer on Wishlist_items) "
+  reservedGiftsByWishlistItemId(wishlist_item_id: ID!): [ReservedGifts]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "reserved_gifts"
+      WHERE "wishlist_item_id" = $1
+      """
+      configuration: "stepzen_config"
+    )
+  " Query for Wishlists by wishlist_id (used by the materializer on Wishlist_items) "
+  wishlistsByWishlistItemId(wishlist_id: ID!): [Wishlists]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "wishlist_items"
+      WHERE "wishlist_id" = $1
+      """
+      configuration: "stepzen_config"
+    )      
 }
 
 """
@@ -323,6 +400,7 @@ type Mutation {
     updated_at: DateTime!
     image_url: String!
     affiliate_link: String!
+    pre_list: String!
   ): Products
     @dbquery(
       type: "postgresql"
@@ -341,6 +419,7 @@ type Mutation {
     updated_at: DateTime
     image_url: String
     affiliate_link: String!
+    pre_list: String!
   ): Products
     @dbquery(
       type: "postgresql"
@@ -496,7 +575,6 @@ type Mutation {
       dml: DELETE
       configuration: "stepzen_config"
     )
-
   insertSharedWishlists(
     wishlist_id: ID!
     share_token: String!
@@ -510,7 +588,6 @@ type Mutation {
       dml: INSERT
       configuration: "stepzen_config"
     )
-
   updateSharedWishlists(
     id: ID!
     share_token: String
@@ -524,6 +601,62 @@ type Mutation {
       SET 
         share_token = COALESCE($2, share_token),
         expires_at = COALESCE($3, expires_at)
+      WHERE id = $1
+      RETURNING *;
+      """
+      configuration: "stepzen_config"
+    )
+
+  " Mutations for type 'ReservedGifts' "
+  insertReservedGifts(
+    name_and_surname: String!
+    email: String!
+    private_message: String
+    wishlist_item_id: ID!
+    created_at: DateTime
+    updated_at: DateTime
+  ): ReservedGifts
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "reserved_gifts"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  deleteReservedGifts(
+    id: ID!
+    name_and_surname: String!
+    email: String!
+    private_message: String!
+    created_at: DateTime!
+    updated_at: DateTime!
+    wishlist_item_id: ID!
+  ): ReservedGifts
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "reserved_gifts"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  updateReservedGifts(
+    id: ID!
+    name_and_surname: String
+    email: String
+    private_message: String
+    wishlist_item_id: ID
+  ): ReservedGifts
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE reserved_gifts
+      SET 
+        name_and_surname = COALESCE($2, name_and_surname),
+        email = COALESCE($3, email),
+        private_message = COALESCE($4, private_message),
+        wishlist_item_id = COALESCE($5, wishlist_item_id),
+        updated_at = NOW()
       WHERE id = $1
       RETURNING *;
       """

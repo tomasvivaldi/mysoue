@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import LocaleSwitcherMobile from "@/components/LocaleSwitcherMobile";
 
 interface DashboardMobileNavbarProps {
   isOpen: boolean;
@@ -94,7 +94,9 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
                   }`}
                   onClick={onClose}
                 >
-                  <span className="text-sm md:text-lg">{t("accountOverview")}</span>
+                  <span className="text-sm md:text-lg">
+                    {t("accountOverview")}
+                  </span>
                   {isActive("/dashboard/account-overview") ? (
                     <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
                   ) : (
@@ -113,7 +115,9 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
                   }`}
                   onClick={onClose}
                 >
-                  <span className="text-sm md:text-lg">{t("myWishlists")}</span>
+                  <span className="text-sm md:text-lg">
+                    {t("myWishlists")}
+                  </span>
                   {isActive("/dashboard/my-wishlists") ? (
                     <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
                   ) : (
@@ -140,10 +144,32 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
                   )}
                 </Link>
               </li>
+
+              {/* New Shared Wishlists Link */}
+              <li>
+                <Link
+                  href="/dashboard/shared-wishlists"
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-4 rounded-lg ${
+                    isActive("/dashboard/shared-wishlists")
+                      ? "font-bold"
+                      : "hover:bg-[#f2f2f2] transition"
+                  }`}
+                  onClick={onClose}
+                >
+                  <span className="text-sm md:text-lg">
+                    {t("sharedWishlists")}
+                  </span>
+                  {isActive("/dashboard/shared-wishlists") ? (
+                    <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
+                  ) : (
+                    <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
+                  )}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="flex justify-start my-4">
-            <LocaleSwitcher />
+            <LocaleSwitcherMobile />
           </div>
           {/* Footer */}
           <div className="mt-8">

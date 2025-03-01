@@ -20,11 +20,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   console.log("Product card - productId", productId);
   return (
     <Link
-      href={`/dashboard/my-wishlists/${wishlistId}/${productId}`} // Updated the dynamic href
+      href={`/dashboard/my-wishlists/${wishlistId}/${productId}`}
       passHref
     >
       <div
-        className="border bg-card text-card-foreground w-[300px] lg:w-[350px] rounded-lg overflow-hidden shadow-lg
+        className="border bg-card text-card-foreground w-[250px] xs:w-[300px] sm:w-[250px] lg:w-[350px] rounded-lg overflow-hidden shadow-lg
       transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-105"
         data-v0-t="card"
       >
@@ -39,14 +39,14 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className="space-y-4 p-4">
           <h3 className="text-lg font-semibold">{productName}</h3>
           <p className="text-sm text-gray-600">{productDescription}</p>
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-10 px-4 py-2 bg-[#e2e8f0] text-black">
               View
             </button>
             <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-destructive/90 h-10 px-4 py-2 bg-[#fed7d7] text-black">
               Delete
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </Link>

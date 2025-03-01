@@ -126,8 +126,6 @@ export const ADD_PRODUCT = gql`
   }
 `;
 
-
-
 export const ADD_USER_PREFERENCES = gql`
   mutation AddUserPreferences(
     $use_case: String!
@@ -159,7 +157,6 @@ export const UPDATE_USER_SUBSCRIPTION = gql`
   }
 `;
 
-
 export const UPDATE_USER_INFO = gql`
   mutation UpdateUserInfo(
     $email: String!
@@ -185,8 +182,6 @@ export const UPDATE_USER_INFO = gql`
     }
   }
 `;
-
-
 
 export const DELETE_SHARED_WISHLIST = gql`
   mutation DeleteSharedWishlist(
@@ -249,8 +244,38 @@ export const UPDATE_SHARED_WISHLIST = gql`
   }
 `;
 
+// New mutation for ReservedGifts
+export const ADD_RESERVED_GIFT = gql`
+  mutation AddReservedGift(
+    $name_and_surname: String!
+    $email: String!
+    $private_message: String
+    $wishlist_item_id: ID!
+    $created_at: DateTime
+    $updated_at: DateTime
+  ) {
+    insertReservedGifts(
+      name_and_surname: $name_and_surname
+      email: $email
+      private_message: $private_message
+      wishlist_item_id: $wishlist_item_id
+      created_at: $created_at
+      updated_at: $updated_at
+    ) {
+      id
+      name_and_surname
+      email
+      private_message
+      wishlist_item_id
+      created_at
+      updated_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,
   UPDATE_USER_SUBSCRIPTION,
+  ADD_RESERVED_GIFT,
 };
