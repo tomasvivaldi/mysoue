@@ -24,8 +24,8 @@ const getImageForWishlist = (type?: string): string => {
   }
 };
 
-const OurWishlistsPage = () => {
-  const t = useTranslations("Dashboard-OurWishlists");
+const mysoueListsPage = () => {
+  const t = useTranslations("Dashboard-mysoueLists");
   const client = useApolloClient();
   const [loading, setLoading] = useState<boolean>(false);
   const [preLists, setPreLists] = useState<PreList[]>([]);
@@ -72,21 +72,16 @@ const OurWishlistsPage = () => {
   return (
     <>
       <Head>
-        <title>{t("pageTitle") || "Our Wishlists"}</title>
+        <title>{t("pageTitle") || "MySoue Wishlists"}</title>
       </Head>
-      <div className="container mx-auto px-4 mt-8 pb-24">
+      <div className="container mx-auto px-8 mt-8 pb-24">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-regular">
-            {t("ourWishlists") || "Our Wishlists"}
+            {t("mysoueLists") || "MySoue Wishlists"}
           </h1>
-          <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
-            <a href="/dashboard/create-new-wishlist">
-              {t("createNewWishlist") || "Create New Wishlist"}
-            </a>
-          </button>
         </div>
 
-        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
+        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start sm:pl-4 md:pl-0">
           {wishlists.map((wishlist) => (
             <Card
               key={wishlist.id}
@@ -96,7 +91,7 @@ const OurWishlistsPage = () => {
               date={""}
               postpreview={wishlist.description}
               id={wishlist.id}
-              href={`/dashboard/our-wishlists/${wishlist.id}`}
+              href={`/dashboard/mysoue-lists/${wishlist.id}`}
             />
           ))}
           {wishlists.length === 0 && (
@@ -105,25 +100,9 @@ const OurWishlistsPage = () => {
             </p>
           )}
         </div>
-
-        <div className="flex justify-center mt-6">
-          {/* Pagination (if needed) */}
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Previous
-          </button>
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            1
-          </button>
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            2
-          </button>
-          <button className="mx-1 px-4 py-2 text-sm bg-gray-300 rounded">
-            Next
-          </button>
-        </div>
       </div>
     </>
   );
 };
 
-export default OurWishlistsPage;
+export default mysoueListsPage;

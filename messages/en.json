@@ -492,6 +492,8 @@
     "myWishlists": "MY WISHLISTS",
     "myGifts": "MY GIFTS",
     "sharedWishlists": "SHARED WISHLISTS",
+    "dashboardExplore": "DASHBOARD EXPLORE",
+    "mysoueLists": "MySoue LISTS",
     "needHelpContactUs": "NEED HELP? CONTACT US.",
     "logOut": "LOG OUT",
     "account": "ACCOUNT"
@@ -531,9 +533,9 @@
     "viewOnWebsiteButton": "View on Website",
     "deleteFromListButton": "Delete from list"
   },
-  "Dashboard-OurWishlists": {
+  "Dashboard-mysoueLists": {
     "pageTitle": "Dashboard",
-    "ourWishlists": "Our Wishlists",
+    "mysoueLists": "MySoue Wishlists",
     "createNewWishlist": "Create New Wishlist"
   },
   "Dashboard-SharedWishlists": {

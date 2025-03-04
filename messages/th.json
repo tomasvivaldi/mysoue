@@ -487,9 +487,11 @@
     "explore": "สำรวจ",
     "dashboard": "แดชบอร์ด",
     "accountOverview": "ภาพรวมบัญชี",
-    "myWishlists": "วิชลิสต์ของฉัน",
+    "myWishlists": "รายการที่ฉันต้องการ",
     "myGifts": "ของขวัญของฉัน",
-    "sharedWishlists": "วิดลิสต์ที่แชร์",
+    "sharedWishlists": "รายการที่แชร์",
+    "dashboardExplore": "สำรวจแดชบอร์ด",
+    "mysoueLists": "รายการ MySoue",
     "needHelpContactUs": "ต้องการความช่วยเหลือ? ติดต่อเรา",
     "logOut": "ออกจากระบบ",
     "account": "บัญชี"
@@ -530,9 +532,9 @@
     "viewOnWebsiteButton": "ดูบนเว็บไซต์",
     "deleteFromListButton": "ลบจากรายการ"
   },
-  "Dashboard-OurWishlists": {
+  "Dashboard-mysoueLists": {
     "pageTitle": "แดชบอร์ด",
-    "ourWishlists": "รายการสิ่งที่ปรารถนาของเรา",
+    "mysoueLists": "รายการสิ่งที่ปรารถนาของเรา",
     "createNewWishlist": "สร้างรายการสิ่งที่ปรารถนาใหม่"
   },
   "Dashboard-SharedWishlists": {

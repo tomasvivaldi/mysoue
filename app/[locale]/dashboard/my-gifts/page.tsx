@@ -199,7 +199,7 @@ const MyGifts: React.FC = () => {
       title: string;
       reserved: WishlistItem[];
       unreserved: WishlistItem[];
-      shared_wishlists: SharedWishlists[]; // ✅ Include shared_wishlists
+      shared_wishlists: SharedWishlists[];
     }[] = [];
   
     const nonSharedWishlists: {
@@ -207,7 +207,7 @@ const MyGifts: React.FC = () => {
       title: string;
       reserved: WishlistItem[];
       unreserved: WishlistItem[];
-      shared_wishlists: SharedWishlists[]; // ✅ Include shared_wishlists
+      shared_wishlists: SharedWishlists[];
     }[] = [];
   
     wishlists.forEach((wishlist) => {

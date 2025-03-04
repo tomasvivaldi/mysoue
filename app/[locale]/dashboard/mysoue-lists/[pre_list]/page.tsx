@@ -5,8 +5,9 @@ import { useApolloClient } from "@apollo/client";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import Head from "next/head";
-import Card from "@/components/Card";
+import ProductCard3 from "@/components/cards/ProductCard3";
 import { GET_PRODUCTS_BY_PRELIST } from "@/graphql/queries";
+import LoadingBox from "@/components/LoadingBox";
 
 interface Product {
   affiliate_link: string;
@@ -29,12 +30,11 @@ interface Product {
   wishlist_items: any[];
 }
 
-const OurWishlistsPreListPage = () => {
-  // Extract and decode the pre_list parameter from the URL
+const mysoueListsPreListPage = () => {
   const { pre_list } = useParams() as { pre_list: string };
   const decodedPreList = decodeURIComponent(pre_list);
-  
-  const t = useTranslations("Dashboard-OurWishlists");
+
+  const t = useTranslations("Dashboard-mysoueLists");
   const client = useApolloClient();
   const [loading, setLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<Product[]>([]);
@@ -48,7 +48,7 @@ const OurWishlistsPreListPage = () => {
           variables: { pre_list: decodedPreList },
         });
         setProducts(data.productsByPreList);
-        console.log("data?.productsByPreList?.image_url",data)
+        
       } catch (error) {
         console.error("Failed to fetch products by pre_list:", error);
       } finally {
@@ -64,31 +64,38 @@ const OurWishlistsPreListPage = () => {
   if (loading) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
-        <p>Loading...</p>
+        <LoadingBox
+          imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+          imageAlt="Loading spinner"
+          imageClassName=""
+          containerClassName="h-[80vh]"
+        />
       </div>
     );
   }
 
+  console.log("products:",products)
+
   return (
     <>
       <Head>
-        <title>{t("pageTitle") || "Our Wishlists"}</title>
+        <title>{t("pageTitle") || "MySoue Wishlists"}</title>
       </Head>
       <div className="container mx-auto px-4 mt-8 pb-24">
         <h1 className="text-3xl font-regular mb-6">
-          {t("ourWishlists") || "Our Wishlists"}: {decodedPreList}
+          {t("mysoueLists") || "MySoue Wishlists"}: {decodedPreList}
         </h1>
         <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
           {products.map((product) => (
-            <Card
+            <ProductCard3
               key={product.id}
-              img={product.image_url}
-              activity={product.product_name}
-              type={product.pre_list}
-              date={new Date(product.created_at).toLocaleDateString()}
-              postpreview={product.product_description}
-              id={product.id}
-              href={`/dashboard/our-wishlists/${product.pre_list}/${product.id}`}
+              productId={product.id}
+              preList={pre_list}
+              imageUrl={product?.image_url}
+              name={product?.product_name}
+              price={product?.price}
+              additionalDescription={product?.product_description}
+              brand={product?.brand}
             />
           ))}
           {products.length === 0 && (
@@ -102,4 +109,4 @@ const OurWishlistsPreListPage = () => {
   );
 };
 
-export default OurWishlistsPreListPage;
+export default mysoueListsPreListPage;

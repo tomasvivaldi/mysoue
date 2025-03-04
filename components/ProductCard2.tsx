@@ -22,7 +22,7 @@ const ProductCard2: React.FC<ProductCard2Props> = ({
 }) => {
   return (
     <Link href={`/shared/${shareToken}/${productId}`} passHref key={productId}>
-      <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 min-w-[225px]">
         <div className="relative h-48 w-full">
           <Image
             src={imageUrl}

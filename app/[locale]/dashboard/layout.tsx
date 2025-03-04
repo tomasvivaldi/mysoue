@@ -179,6 +179,42 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     )}
                   </Link>
                 </li>
+                {/* New My Soue Wishlists Link */}
+                <li>
+                  <Link
+                    href="/dashboard/mysoue-lists"
+                    className={`flex items-center justify-between border-b border-[#C6B8A2] pb-4 rounded-lg ${
+                      isActive("/dashboard/mysoue-lists")
+                        ? "font-bold"
+                        : "hover:bg-[#f2f2f2] transition"
+                    }`}
+                  >
+                    <span className="text-lg">{t("mysoueLists")}</span>
+                    {isActive("/dashboard/mysoue-lists") ? (
+                      <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
+                    ) : (
+                      <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
+                    )}
+                  </Link>
+                </li>
+                {/* New Shared Wishlists Link */}
+                <li>
+                  <Link
+                    href="/dashboard/explore"
+                    className={`flex items-center justify-between border-b border-[#C6B8A2] pb-4 rounded-lg ${
+                      isActive("/dashboard/explore")
+                        ? "font-bold"
+                        : "hover:bg-[#f2f2f2] transition"
+                    }`}
+                  >
+                    <span className="text-lg">{t("dashboardExplore")}</span>
+                    {isActive("/dashboard/explore") ? (
+                      <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
+                    ) : (
+                      <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
+                    )}
+                  </Link>
+                </li>
               </ul>
 
               {/* Footer Section */}

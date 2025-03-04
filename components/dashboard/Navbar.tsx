@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ isSidebarOpen, setIsSidebarOpen }) => {
     { text: t("myWishlists"), href: "/dashboard/my-wishlists" },
     { text: t("createNewWishlist"), href: "/dashboard/create-new-wishlist" },
     { text: t("sharedWishlists"), href: "/dashboard/shared-wishlists" },
-    { text: t("ourLists"), href: "/dashboard/our-wishlists" },
+    { text: t("ourLists"), href: "/dashboard/mysoue-lists" },
   ];
 
   return (

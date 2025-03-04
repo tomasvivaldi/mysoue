@@ -1,12 +1,10 @@
 import React from "react";
-import Navbar3 from "@/components/Navbar3";
 import { getLocale } from "next-intl/server";
-import Link from "next/link";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   const locale = getLocale();
   return (
-    <div className=" w-full">
+    <div className="px-4 w-full">
       {children}
     </div>
   );

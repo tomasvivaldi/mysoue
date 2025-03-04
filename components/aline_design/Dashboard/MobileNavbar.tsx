@@ -47,9 +47,9 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
         {/* Sidebar Content */}
         <div className="pt-16 px-6">
           {/* Navbar Links */}
-          <div className="mb-8">
-            <h3 className="text-xl font-bold mb-4">{t("navigation")}</h3>
-            <ul className="flex flex-col gap-4">
+          <div className="mb-4">
+            <h3 className="text-xl font-bold mb-2">{t("navigation")}</h3>
+            <ul className="flex flex-col gap-2">
               <li>
                 <Link
                   href="/about"
@@ -82,12 +82,12 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
 
           {/* Sidebar Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4">{t("dashboard")}</h3>
+            <h3 className="text-xl font-bold mb-2">{t("dashboard")}</h3>
             <ul className="flex flex-col gap-2">
               <li>
                 <Link
                   href="/dashboard/account-overview"
-                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-4 rounded-lg ${
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
                     isActive("/dashboard/account-overview")
                       ? "font-bold"
                       : "hover:bg-[#f2f2f2] transition"
@@ -108,7 +108,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
               <li>
                 <Link
                   href="/dashboard/my-wishlists"
-                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-4 rounded-lg ${
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
                     isActive("/dashboard/my-wishlists")
                       ? "font-bold"
                       : "hover:bg-[#f2f2f2] transition"
@@ -129,7 +129,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
               <li>
                 <Link
                   href="/dashboard/my-gifts"
-                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-4 rounded-lg ${
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
                     isActive("/dashboard/my-gifts")
                       ? "font-bold"
                       : "hover:bg-[#f2f2f2] transition"
@@ -149,7 +149,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
               <li>
                 <Link
                   href="/dashboard/shared-wishlists"
-                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-4 rounded-lg ${
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
                     isActive("/dashboard/shared-wishlists")
                       ? "font-bold"
                       : "hover:bg-[#f2f2f2] transition"
@@ -166,6 +166,49 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
                   )}
                 </Link>
               </li>
+
+              {/* ///// */}
+              <li>
+                <Link
+                  href="/dashboard/mysoue-lists"
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
+                    isActive("/dashboard/mysoue-lists")
+                      ? "font-bold"
+                      : "hover:bg-[#f2f2f2] transition"
+                  }`}
+                  onClick={onClose}
+                >
+                  <span className="text-sm md:text-lg">
+                    {t("mysoueLists")}
+                  </span>
+                  {isActive("/dashboard/mysoue-lists") ? (
+                    <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
+                  ) : (
+                    <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
+                  )}
+                </Link>
+              </li>
+               {/* ///// */}
+               <li>
+                <Link
+                  href="/dashboard/explore"
+                  className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
+                    isActive("/dashboard/explore")
+                      ? "font-bold"
+                      : "hover:bg-[#f2f2f2] transition"
+                  }`}
+                  onClick={onClose}
+                >
+                  <span className="text-sm md:text-lg">
+                    {t("dashboardExplore")}
+                  </span>
+                  {isActive("/dashboard/explore") ? (
+                    <div className="w-5 h-5 bg-[#C6B8A2] rounded-full"></div>
+                  ) : (
+                    <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
+                  )}
+                </Link>
+              </li>
             </ul>
           </div>
           <div className="flex justify-start my-4">
@@ -173,7 +216,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
           </div>
           {/* Footer */}
           <div className="mt-8">
-            <p className="text-sm text-[#C6B8A2] mb-4">
+            <p className="text-sm text-[#C6B8A2] mb-2">
               {t("needHelpContactUs")}
             </p>
             <button
