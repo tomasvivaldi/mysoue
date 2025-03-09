@@ -9,6 +9,8 @@ import ProductCard3 from "@/components/cards/ProductCard3";
 import { GET_PRODUCTS_LIST } from "@/graphql/queries";
 import LoadingBox from "@/components/LoadingBox";
 import { FilterContent } from "@/components/aline_design/FilterContent";
+import { AnimatedLists } from "@/components/ui/AnimatedLists";
+import { useTranslations } from "next-intl";
 
 interface Product {
   id: string;
@@ -25,11 +27,51 @@ interface Product {
   rating?: number;
 }
 
+
+type WishlistItem = {
+  title: string;
+  description: string;
+  link: string;
+  src: string;
+};
+
+
+
 export default function ProductExplorer() {
+  const t = useTranslations("ProductExplorer");
+
+  const mockWishlists: WishlistItem[] = [
+    {
+      title: t("wishlist.baby.title"),
+      description: t("wishlist.baby.description"),
+      link: "/dashboard/mysoue-lists/Baby%20shower",
+      src: "/baby.jpg",
+    },
+    {
+      title: t("wishlist.herBirthday.title"),
+      description: t("wishlist.herBirthday.description"),
+      link: "/dashboard/mysoue-lists/her-birthday",
+      src: "/bday.jpg",
+    },
+    {
+      title: t("wishlist.christmas.title"),
+      description: t("wishlist.christmas.description"),
+      link: "/dashboard/mysoue-lists/christmas",
+      src: "/xmas.jpg",
+    },
+    {
+      title: t("wishlist.hisBirthday.title"),
+      description: t("wishlist.hisBirthday.description"),
+      link: "/dashboard/mysoue-lists/his-birthday",
+      src: "/bg1.jpg",
+    },
+  ];
+
+
   const client = useApolloClient();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-
+  
   // Filter states
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>([]);
@@ -141,62 +183,70 @@ export default function ProductExplorer() {
     );
   }
 
+
+
   return (
     <>
       <Head>
         <title>Product Explorer</title>
       </Head>
       <div className="container mx-auto px-4 py-8 relative">
-        <h1 className="text-3xl font-bold mb-8 text-center">Product Explorer</h1>
-        <div className="mb-4 pl-4 md:pl-0">
+        <h1 className="text-4xl font-bold mb-8 text-center">{t("exploreProductsTitle")}</h1>
+        <h2 className="text-3xl font-semibold text-center">{t("featuredWishlistsTitle")}</h2>
+        <AnimatedLists wishlists={mockWishlists} />
+        
+        {filteredProducts.length > 0 ? (
+          <>
+            <h2 className="text-2xl font-semibold mb-4">{t("browseProductsTitle")}</h2>
+            <div className="mb-4 pl-4 md:pl-0">
           <button
             onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
-            className="hover:underline"
+            className="underline hover:text-gray-600"
           >
-            Filters
+            {t("filters")}
           </button>
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
           <p className="text-sm">
-            Showing {filteredProducts.length} of {allProducts.length} products
+          {t("showingProducts", { count: filteredProducts.length, total: allProducts.length })}
           </p>
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium">Sort by:</span>
+          <span className="text-sm font-medium">{t("sortBy")}</span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="p-2 border rounded-md"
             >
-              <option value="price-low-high">Price: Low to High</option>
-              <option value="price-high-low">Price: High to Low</option>
+              <option value="price-low-high">{t("priceLowHigh")}</option>
+              <option value="price-high-low">{t("priceHighLow")}</option>
             </select>
           </div>
         </div>
-        {filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredProducts.map((product) => (
-              <ProductCard3
-                key={product.id}
-                productId={product.id}
-                preList={product.pre_list}
-                imageUrl={product.image_url}
-                name={product.product_name}
-                price={product.price}
-                additionalDescription={product.product_description}
-                brand={product.brand}
-                category={product.category}
-                subcategory={product.subcategory}
-              />
-            ))}
-          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredProducts.map((product) => (
+                <ProductCard3
+                  key={product.id}
+                  productId={product.id}
+                  preList={product.pre_list}
+                  imageUrl={product.image_url}
+                  name={product.product_name}
+                  price={product.price}
+                  additionalDescription={product.product_description}
+                  brand={product.brand}
+                  category={product.category}
+                  subcategory={product.subcategory}
+                />
+              ))}
+            </div>
+          </>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <p className="text-lg font-medium mb-2">No products found</p>
+            <p className="text-lg font-medium mb-2">{t("noProductsFound")}</p>
             <p className="mb-4">
-              Try adjusting your filters to find what you're looking for.
+            {t("adjustFilters")}
             </p>
             <button onClick={clearFilters} className="bg-blue-600 text-white px-4 py-2 rounded-md">
-              Clear all filters
+            {t("clearFilters")}
             </button>
           </div>
         )}

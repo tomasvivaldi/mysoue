@@ -85,7 +85,7 @@ const mysoueListsPreListPage = () => {
         <h1 className="text-3xl font-regular mb-6">
           {t("mysoueLists") || "MySoue Wishlists"}: {decodedPreList}
         </h1>
-        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <ProductCard3
               key={product.id}

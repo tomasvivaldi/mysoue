@@ -28,7 +28,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
   const safeImageUrl = imageUrl || "/create1.png";
 
   return (
-    <Link href={`/dashboard/mysoue-lists/${preList}/${productId}`} passHref key={productId}>
+    <Link href={`/dashboard/explore/${productId}`} passHref key={productId}>
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105  ">
         <div className="relative h-48 w-full">
           <Image
@@ -40,19 +40,19 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
           />
         </div>
         <div className="p-4">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">
+          <h2 className="text-lg font-semibold text-gray-800 ">
             {name || "Unnamed Product"}
           </h2>
           {price !== null && (
-            <p className="text-md text-gray-600 mb-2">
-              Price: ${price.toFixed(2)}
+            <p className="text-md text-gray-600 ">
+              <span className="font-semibold">Price: </span>{price.toFixed(2)}฿
             </p>
           )}
-          {brand && <p className="text-sm text-gray-600">Brand: {brand}</p>}
-          {category && <p className="text-sm text-gray-600">Category: {category}</p>}
-          {subcategory && <p className="text-sm text-gray-600">Subcategory: {subcategory}</p>}
+          {brand && <p className="text-sm text-gray-600 "><span className="font-semibold">Brand: </span> {brand}</p>}
+          {/* {category && <p className="text-sm text-gray-600">Category: {category}</p>}
+          {subcategory && <p className="text-sm text-gray-600">Subcategory: {subcategory}</p>} */}
           {additionalDescription && (
-            <p className="text-sm text-gray-600 mt-2">
+            <p className="text-sm text-gray-600 ">
               {additionalDescription}
             </p>
           )}

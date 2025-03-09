@@ -174,6 +174,38 @@
     "reserveButton": "RESERVE",
     "cancelButton": "THINK MORE ABOUT IT"
   },
+  "ProductExplorer": {
+    "exploreProductsTitle": "Explore Products at Mysoue",
+  "featuredWishlistsTitle": "Featured Wishlists",
+  "browseProductsTitle": "Browse Products",
+  "filters": "Filters",
+  "showingProducts": "Showing {count} of {total} products",
+  "sortBy": "Sort by:",
+  "priceLowHigh": "Price: Low to High",
+  "priceHighLow": "Price: High to Low",
+  "noProductsFound": "No products found",
+  "adjustFilters": "Try adjusting your filters to find what you're looking for.",
+  "clearFilters": "Clear all filters",
+  "checkWishlist": "Check Wishlist",
+  "wishlist": {
+    "baby": {
+      "title": "Baby Shower Wishlist",
+      "description": "The perfect compilation of presents to receive when hosting your first baby shower"
+    },
+    "herBirthday": {
+      "title": "Her Birthday Wishlist",
+      "description": "A curated selection of gifts perfect for celebrating her special day with style."
+    },
+    "christmas": {
+      "title": "Christmas Wishlist",
+      "description": "Discover festive and joyful gifts that bring holiday cheer to everyone."
+    },
+    "hisBirthday": {
+      "title": "His Birthday Wishlist",
+      "description": "Handpicked gifts to make his birthday unforgettable with quality and style."
+    }
+  }
+  },
 
 
 

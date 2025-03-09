@@ -12,6 +12,7 @@ import MidBanner from "@/components/aline_design/MidBanner";
 import VideoBanner from "@/components/aline_design/VideoBanner";
 import VisionBoard from "@/components/aline_design/VisionBoard";
 import Wishes from "@/components/aline_design/Wishes";
+import WishlistsFeatures from "@/components/aline_design/WishlistsFeatures";
 
 import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";

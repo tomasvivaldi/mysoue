@@ -5,6 +5,7 @@ import { getLocale } from "next-intl/server";
 import Link from "next/link";
 import LocaleSwitcher from "@/components/LocaleSwitcher";
 import { useTranslations } from "next-intl";
+import FloatingSocials from "@/components/aline_design/FloatingSocials";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -93,6 +94,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       </nav>
       <div className="sm:hidden w-full h-[40px] sm:h-[80px]"/>{children}
       <Footer2 />
+      <FloatingSocials />
     </div>
   );
 };

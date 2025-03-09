@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Head from "next/head";
 import Card from "@/components/Card";
 import { GET_PRE_LISTS } from "@/graphql/queries";
+import PreListCard from "@/components/cards/PreListCard";
 
 interface PreList {
   pre_list: string;
@@ -82,18 +83,16 @@ const mysoueListsPage = () => {
         </div>
 
         <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start sm:pl-4 md:pl-0">
-          {wishlists.map((wishlist) => (
-            <Card
-              key={wishlist.id}
-              img={wishlist.imageUrl}
-              activity={wishlist.title}
-              type={wishlist.type}
-              date={""}
-              postpreview={wishlist.description}
-              id={wishlist.id}
-              href={`/dashboard/mysoue-lists/${wishlist.id}`}
+        {wishlists.map((wishlist) => (
+          <PreListCard  
+            id={wishlist.id}
+            key={wishlist.id}
+            img={wishlist.imageUrl}
+            title={wishlist.title}
+            description={wishlist.description}
+            href={`/dashboard/mysoue-lists/${wishlist.id}`}
             />
-          ))}
+        ))}
           {wishlists.length === 0 && (
             <p className="text-center w-full">
               {t("noWishlistsFound") || "No wishlists available."}

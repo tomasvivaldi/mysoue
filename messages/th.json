@@ -209,6 +209,38 @@
     "reserveButton": "จอง",
     "cancelButton": "คิดอีกนิด"
   },
+  "ProductExplorer": {
+    "exploreProductsTitle": "สำรวจผลิตภัณฑ์ที่ Mysoue",
+    "featuredWishlistsTitle": "รายการที่ต้องการที่โดดเด่น",
+    "browseProductsTitle": "เลือกดูผลิตภัณฑ์",
+    "filters": "ตัวกรอง",
+    "showingProducts": "แสดง {count} จาก {total} ผลิตภัณฑ์",
+    "sortBy": "เรียงลำดับตาม:",
+    "priceLowHigh": "ราคา: ต่ำไปสูง",
+    "priceHighLow": "ราคา: สูงไปต่ำ",
+    "noProductsFound": "ไม่พบผลิตภัณฑ์",
+    "adjustFilters": "ลองปรับตัวกรองเพื่อค้นหาสิ่งที่คุณต้องการ",
+    "clearFilters": "ล้างตัวกรองทั้งหมด",
+    "checkWishlist": "ตรวจสอบรายการที่ต้องการ",
+    "wishlist": {
+      "baby": {
+        "title": "รายการของขวัญสำหรับ Baby Shower",
+        "description": "ชุดของขวัญที่เหมาะสำหรับการจัด Baby Shower ครั้งแรก"
+      },
+      "herBirthday": {
+        "title": "รายการของขวัญสำหรับวันเกิดของเธอ",
+        "description": "คัดสรรของขวัญที่สมบูรณ์แบบสำหรับฉลองวันเกิดของเธออย่างมีสไตล์"
+      },
+      "christmas": {
+        "title": "รายการของขวัญสำหรับคริสต์มาส",
+        "description": "ค้นหาของขวัญที่เต็มไปด้วยความสุขและความสนุกในช่วงเทศกาลคริสต์มาส"
+      },
+      "hisBirthday": {
+        "title": "รายการของขวัญสำหรับวันเกิดของเขา",
+        "description": "ของขวัญที่คัดสรรมาเพื่อทำให้วันเกิดของเขาเป็นวันที่น่าจดจำด้วยคุณภาพและสไตล์"
+      }
+    }
+  },
 
 
 
