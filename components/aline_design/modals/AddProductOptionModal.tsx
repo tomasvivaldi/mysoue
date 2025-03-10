@@ -56,7 +56,7 @@ const AddProductOptionModal: React.FC<AddProductOptionModalProps> = ({
           onClick={onClose}
           className="absolute top-4 right-4 text-white text-2xl"
         >
-          {t("close")}
+          X
         </button>
       </div>
     </div>

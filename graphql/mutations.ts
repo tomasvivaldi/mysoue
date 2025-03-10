@@ -273,6 +273,64 @@ export const ADD_RESERVED_GIFT = gql`
   }
 `;
 
+export const INSERT_WISHLIST_ITEMS = gql`
+  mutation InsertWishlistItems(
+    $wishlist_id: ID!
+    $product_id: ID!
+    $quantity: Int!
+    $additional_description: String
+    $updated_at: DateTime!
+    $added_at: DateTime!
+  ) {
+    insertWishlist_items(
+      wishlist_id: $wishlist_id
+      product_id: $product_id
+      quantity: $quantity
+      additional_description: $additional_description
+      updated_at: $updated_at
+      added_at: $added_at
+    ) {
+      id
+      wishlist_id
+      product_id
+      quantity
+      additional_description
+      updated_at
+      added_at
+    }
+  }
+`;
+
+export const DELETE_WISHLIST_ITEMS = gql`
+  mutation DeleteWishlistItems(
+    $id: ID!
+    $wishlist_id: ID!
+    $product_id: ID!
+    $quantity: Int!
+    $additional_description: String!
+    $updated_at: DateTime!
+    $added_at: DateTime!
+  ) {
+    deleteWishlist_items(
+      id: $id
+      wishlist_id: $wishlist_id
+      product_id: $product_id
+      quantity: $quantity
+      additional_description: $additional_description
+      updated_at: $updated_at
+      added_at: $added_at
+    ) {
+      id
+      wishlist_id
+      product_id
+      quantity
+      additional_description
+      updated_at
+      added_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,

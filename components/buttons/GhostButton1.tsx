@@ -1,7 +1,7 @@
-// components/GhostButtonBlack.tsx
+// components/GhostButton1.tsx
 import React from "react";
 
-type GhostButtonBlackProps = {
+type GhostButton1Props = {
   text: string;
   onClick?: () => void;
   disabled?: boolean;
@@ -9,7 +9,7 @@ type GhostButtonBlackProps = {
   target?: string; // Optional target prop for links
 };
 
-const GhostButtonBlack: React.FC<GhostButtonBlackProps> = ({
+const GhostButton1: React.FC<GhostButton1Props> = ({
   text,
   onClick,
   disabled = false,
@@ -22,9 +22,9 @@ const GhostButtonBlack: React.FC<GhostButtonBlackProps> = ({
       <a
         href={href}
         target={target}
-        className=" whitespace-nowrap font-nunito inline-flex items-center justify-center md:text-lg ring-offset-background 
+        className="whitespace-nowrap font-nunito inline-flex items-center justify-center md:text-lg ring-offset-background 
         transition-colors disabled:pointer-events-none disabled:opacity-50
-        hover:bg-white/80 active:bg-stone-100 h-10 bg-transparent text-black border-black border-2 rounded-full px-6 py-2 font-medium"
+        hover:bg-[#FFF8E9] active:bg-stone-100 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
       >
         {text}
       </a>
@@ -34,7 +34,7 @@ const GhostButtonBlack: React.FC<GhostButtonBlackProps> = ({
       <button
         className="whitespace-nowrap font-nunito inline-flex items-center justify-center md:text-lg ring-offset-background 
         transition-colors disabled:pointer-events-none disabled:opacity-50
-        hover:bg-white/80 active:bg-stone-100 h-10 bg-transparent text-black border-black border-2 rounded-full px-6 py-2 font-medium"
+        hover:bg-[#FFF8E9] active:bg-stone-100 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
         onClick={onClick}
         disabled={disabled}
       >
@@ -44,4 +44,4 @@ const GhostButtonBlack: React.FC<GhostButtonBlackProps> = ({
   }
 };
 
-export default GhostButtonBlack;
+export default GhostButton1;

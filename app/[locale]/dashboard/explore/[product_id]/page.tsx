@@ -1,19 +1,16 @@
 "use client";
-
-
-//////////// TEMPLATE PAGE ////////////
-
 import client from "@/apollo-client";
 import GhostButtonBlack from "@/components/GhostButtonBlack";
 import LoadingBox from "@/components/LoadingBox";
-import SolidButtonBlack from "@/components/SolidButtonBlack";
-import DeleteProductModal from "@/components/aline_design/modals/DeleteProductModal";
-import BackButton from "@/components/buttons/BackButton";
+import AddToWishlistModal from "@/components/aline_design/modals/AddToWishlistModal";
+import WishlistSelectionModal from "@/components/aline_design/modals/WishlistSelectionModal";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
-import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import SolidButton1 from "@/components/buttons/SolidButton1";
+import GhostButton1 from "@/components/buttons/GhostButton1";
 
 interface Product {
   affiliate_link: string;
@@ -82,28 +79,20 @@ interface ReservedGifts {
   private_message: string;
 }
 
-const BackButtonWithNoSSR = dynamic(
-  () => import("@/components/buttons/BackButton"),
-  { ssr: false }
-);
-
 const ProductDetails: React.FC = () => {
-  const t = useTranslations("Dashboard-MyWishlists-ProductPage");
+  const t = useTranslations("Dashboard-Explore-ProductPage");
   const params = useParams();
   const id = params.product_id;
 
   const [productDetails, setProductDetails] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isWishlistModalOpen, setIsWishlistModalOpen] = useState(false);
+  const [isWishlistSelectionModalOpen, setIsWishlistSelectionModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const handleDelete = () => {
-    console.log(`Product ${productDetails?.id} deleted.`);
-    // Add your product deletion logic here (API call, etc.)
-    closeModal();
-  };
+  const openWishlistModal = () => setIsWishlistModalOpen(true);
+  const closeWishlistModal = () => setIsWishlistModalOpen(false);
+  const openWishlistSelectionModal = () => setIsWishlistSelectionModalOpen(true);
+  const closeWishlistSelectionModal = () => setIsWishlistSelectionModalOpen(false);
 
   useEffect(() => {
     const loadData = async () => {
@@ -137,25 +126,18 @@ const ProductDetails: React.FC = () => {
     );
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
-  // Determine wishlist sharing and reservation status using the first wishlist item
-  const firstWishlistItem = productDetails.wishlist_items?.[0];
-  const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
-  const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
-
   return (
     <div className="w-full pb-20">
-      <div className="mt-4 flex flex-col md:flex-row items-center w-full">
-        <div>
-          <img
-            alt="Product Image"
-            className="rounded-lg"
-            src={productDetails.image_url || "/placeholder.svg"}
-            width="400"
-            height="400"
-            style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
-          />
-        </div>
-        <div className="w-1/2 flex flex-col mb-auto mt-12">
+      <div className="mt-4  flex flex-col lg:flex-row items-center w-full gap-4">
+        <Image
+          alt="Product Image"
+          className="rounded-lg w-full max-w-[400px]"
+          src={productDetails?.image_url || "/placeholder.svg"}
+          style={{ aspectRatio: "1", objectFit: "cover" }}
+          width={400}
+          height={400}
+        />
+        <div className="w-full px-4 lg:px-0 flex flex-col ">
           <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
           <p className="mt-2 text-xl font-light">
             {productDetails.price.toFixed(2)} THB
@@ -163,33 +145,30 @@ const ProductDetails: React.FC = () => {
           <p className="mt-4 text-base text-gray-700">
             {productDetails.product_description}
           </p>
-          <div className="mt-8 flex flex-col gap-4 w-full">
-            <SolidButtonBlack text={t("addDetailsButton")} />
-            <GhostButtonBlack text={t("viewOnWebsiteButton")} />
-          {isProductReserved && <span className="text-xl px-4 font-semibold mx-auto text-primary">- This product is already reserved -</span>}
-          {isWishlistShared && !isProductReserved && <span className="text-lg px-4 font-semibold mx-auto text-gray-700">- This product is on a shared wishlist and available for reservation -</span>}
-          
+          <div className="mt-8 flex flex-col gap-4 w-full ">
+            <SolidButton1 text={t("addToWishlistButton")} onClick={openWishlistModal} />
+            <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails.affiliate_link} target="_blank" />
           </div>
         </div>
       </div>
-      <div className="my-8 flex flex-col w-full px-10 gap-2">
-        <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
-        <p className="text-base text-gray-700">
-          {productDetails.product_description}
-        </p>
-        <div className="px-4 self-end">
-          <SolidButtonBlack text={t("deleteFromListButton")} onClick={openModal} />
-        </div>
-      </div>
-      {/* Delete Product Modal */}
-      <DeleteProductModal
-        isOpen={isModalOpen}
-        isWishlistShared={isWishlistShared}
-        isProductReserved={isProductReserved}
-        onClose={closeModal}
-        onDelete={handleDelete}
-        productName={productDetails.product_name}
+
+      {/* Add to Wishlist Modal */}
+      <AddToWishlistModal
+        isOpen={isWishlistModalOpen}
+        onClose={closeWishlistModal}
+        onCreateWishlist={() => {
+          console.log("Opening Wishlist Selection Modal");
+          closeWishlistModal();
+          openWishlistSelectionModal();
+        }}
+        onBrowseWishlists={() => {
+          console.log("Browsing wishlists");
+          closeWishlistModal();
+        }}
       />
+      <WishlistSelectionModal
+        isOpen={isWishlistSelectionModalOpen}
+        onClose={closeWishlistSelectionModal} productId={productDetails.id}      />
     </div>
   );
 };

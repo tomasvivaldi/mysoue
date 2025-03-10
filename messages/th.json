@@ -241,6 +241,22 @@
       }
     }
   },
+  "AddToWishlistModal": {
+    "add_to_wishlist": "เพิ่มในรายการที่ต้องการ",
+    "how_would_you_like_to_add_the_product_to_your_wishlist": "คุณต้องการเพิ่มสินค้าลงในรายการที่ต้องการของคุณอย่างไร?",
+    "add_product_to_wishlist": "เพิ่มสินค้าลงในรายการที่ต้องการ",
+    "go_back": "ย้อนกลับ"
+  },
+  "WishlistSelectionModal": {
+    "select_a_wishlist": "เลือกรายการที่ต้องการ",
+    "no_wishlists_found": "ไม่พบรายการที่ต้องการ",
+    "already_in_list": "สินค้าได้ถูกเพิ่มในรายการนี้แล้ว",
+    "selected_wishlist": "รายการที่เลือก",
+    "close": "ปิด",
+    "saving": "กำลังบันทึก",
+    "confirm": "เพิ่ม",
+    "error_adding_item": "เกิดข้อผิดพลาดในการเพิ่มสินค้า"
+  },
 
 
 
@@ -563,6 +579,13 @@
     "addDetailsButton": "เพิ่มรายละเอียด",
     "viewOnWebsiteButton": "ดูบนเว็บไซต์",
     "deleteFromListButton": "ลบจากรายการ"
+  },
+  "Dashboard-Explore-ProductPage": {
+    "productNotFound": "ไม่พบสินค้า",
+    "addToWishlistButton": "เพิ่มลงในรายการที่ต้องการ",
+    "viewOnWebsiteButton": "ดูบนเว็บไซต์",
+    "additionalDetails": "รายละเอียดเพิ่มเติม",
+    "deleteFromListButton": "ลบออกจากรายการ"
   },
   "Dashboard-mysoueLists": {
     "pageTitle": "แดชบอร์ด",

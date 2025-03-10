@@ -206,6 +206,22 @@
     }
   }
   },
+  "AddToWishlistModal": {
+    "add_to_wishlist": "Add to Wishlist",
+    "how_would_you_like_to_add_the_product_to_your_wishlist": "How would you like to add the product to your wishlist?",
+    "add_product_to_wishlist": "Add Product to Wishlist",
+    "go_back": "Go Back"
+  },
+  "WishlistSelectionModal": {
+    "select_a_wishlist": "Select a Wishlist",
+    "no_wishlists_found": "No wishlists found",
+    "already_in_list": "Product added to this list",
+    "selected_wishlist": "Selected Wishlist",
+    "close": "Close",
+    "saving": "saving",
+    "confirm": "Add",
+    "error_adding_item": "Error adding item."
+  },
 
 
 
@@ -564,6 +580,13 @@
     "addDetailsButton": "Add Details",
     "viewOnWebsiteButton": "View on Website",
     "deleteFromListButton": "Delete from list"
+  },
+  "Dashboard-Explore-ProductPage": {
+    "productNotFound": "Product not found",
+    "addToWishlistButton": "Add to Wishlist",
+    "viewOnWebsiteButton": "View on Website",
+    "additionalDetails": "Additional Details",
+    "deleteFromListButton": "Delete from List"
   },
   "Dashboard-mysoueLists": {
     "pageTitle": "Dashboard",
