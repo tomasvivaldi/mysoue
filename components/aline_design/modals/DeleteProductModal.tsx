@@ -6,7 +6,8 @@ interface DeleteProductModalProps {
   isProductReserved: boolean;
   onClose: () => void;
   onDelete: () => void;
-  productName?: string; // Optional: Display the product name in the modal
+  productName?: string; 
+  deletionLoading: boolean; // Added deletionLoading prop
 }
 
 const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
@@ -16,8 +17,9 @@ const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
   onClose,
   onDelete,
   productName = "this product",
+  deletionLoading, // Destructured deletionLoading
 }) => {
-  if (!isOpen) return null; // Don't render the modal if it's not open
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -33,8 +35,12 @@ const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
         {/* Modal Content */}
         <div className="text-center flex flex-col gap-4">
           <h2 className="text-2xl font-bold text-black">Delete Product</h2>
-          {isWishlistShared && <span className="">- This wishlist is currently being shared -</span>}
-          {isProductReserved && <span className="text-primary font-bold">- This product is already reserved -</span>}
+          {(isWishlistShared || isProductReserved) && (
+            <p className="text-sm text-primary font-semibold">
+              {isWishlistShared && !isProductReserved && "- This wishlist is currently being shared -"}
+              {isProductReserved && "- This product is already reserved -"}              
+            </p>
+          )}
           <p className="text-base text-gray-700 ">
             Are you sure you want to delete <strong>{productName}</strong>? This
             action cannot be undone.
@@ -45,8 +51,9 @@ const DeleteProductModal: React.FC<DeleteProductModalProps> = ({
             <button
               onClick={onDelete}
               className="bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
+              disabled={deletionLoading} // Disabled if deletionLoading is true
             >
-              DELETE
+              {deletionLoading ? 'Deleting...' : 'DELETE'} 
             </button>
 
             {/* Cancel Button */}

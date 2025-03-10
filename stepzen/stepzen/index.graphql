@@ -494,11 +494,11 @@ type Mutation {
   deleteWishlist_items(
     quantity: Int!
     wishlist_id: ID!
-    additional_description: String!
+    additional_description: String
     product_id: ID!
     id: ID!
-    updated_at: DateTime!
-    added_at: DateTime!
+    updated_at: DateTime
+    added_at: DateTime
   ): Wishlist_items
     @dbquery(
       type: "postgresql"

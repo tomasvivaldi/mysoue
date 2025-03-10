@@ -307,9 +307,9 @@ export const DELETE_WISHLIST_ITEMS = gql`
     $wishlist_id: ID!
     $product_id: ID!
     $quantity: Int!
-    $additional_description: String!
-    $updated_at: DateTime!
-    $added_at: DateTime!
+    $additional_description: String
+    $updated_at: DateTime
+    $added_at: DateTime
   ) {
     deleteWishlist_items(
       id: $id

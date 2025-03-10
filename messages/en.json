@@ -575,11 +575,14 @@
     "dueDate": "due date:"
   },
   "Dashboard-MyWishlists-ProductPage": {
-    "additionalDetails": "Additional details",
-    "productNotFound.": "Product not found.",
+    "productNotFound": "Product not found",
+    "productNotInWishlist": "Product Not In This Wishlist",
+    "searchProducts": "Explore Our Products",
+    "browseAdditional": "You can go back to view your wishlist or you can also browse all products by clicking below",
     "addDetailsButton": "Add Details",
     "viewOnWebsiteButton": "View on Website",
-    "deleteFromListButton": "Delete from list"
+    "additionalDetails": "Additional Details",
+    "deleteFromListButton": "Delete from List"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "Product not found",

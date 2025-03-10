@@ -126,13 +126,15 @@ const ProductDetails: React.FC = () => {
     );
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
+  const src = productDetails?.image_url || "/create1.png"
+
   return (
     <div className="w-full pb-20">
       <div className="mt-4  flex flex-col lg:flex-row items-center w-full gap-4">
         <Image
           alt="Product Image"
           className="rounded-lg w-full max-w-[400px]"
-          src={productDetails?.image_url || "/placeholder.svg"}
+          src={src}
           style={{ aspectRatio: "1", objectFit: "cover" }}
           width={400}
           height={400}
