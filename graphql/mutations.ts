@@ -331,6 +331,36 @@ export const DELETE_WISHLIST_ITEMS = gql`
   }
 `;
 
+export const UPDATE_WISHLIST_ITEMS = gql`
+  mutation UpdateWishlistItems(
+    $id: ID!
+    $quantity: Int
+    $wishlist_id: ID
+    $additional_description: String
+    $product_id: ID
+    $updated_at: DateTime
+    $added_at: DateTime
+  ) {
+    updateWishlist_items(
+      id: $id
+      quantity: $quantity
+      wishlist_id: $wishlist_id
+      additional_description: $additional_description
+      product_id: $product_id
+      updated_at: $updated_at
+      added_at: $added_at
+    ) {
+      id
+      wishlist_id
+      product_id
+      quantity
+      additional_description
+      updated_at
+      added_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,

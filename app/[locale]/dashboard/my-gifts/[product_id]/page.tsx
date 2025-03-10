@@ -125,7 +125,7 @@ const ProductDetails: React.FC = () => {
           <img
             alt="Product Image"
             className="rounded-lg"
-            src={productDetails.image_url || "/placeholder.svg"}
+            src={productDetails.image_url || "/create1.png"}
             width="400"
             height="400"
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}

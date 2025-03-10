@@ -131,7 +131,7 @@ const ProductDetails: React.FC = () => {
           <Image
             alt="Product Image"
             className="rounded-lg min-w-[350px] min-h-[350px]"
-            src={productDetails.image_url || "/placeholder.svg"}
+            src={productDetails.image_url || "/create1.png"}
             width="400"
             height="400"
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
@@ -178,7 +178,7 @@ const ProductDetails: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onReserve={handleReserveGift}
-          productImage={productDetails.image_url || "/placeholder.svg"}
+          productImage={productDetails.image_url || "/create1.png"}
           wishlistItemId={productDetails?.wishlist_items?.[0]?.id}
         />
       )}

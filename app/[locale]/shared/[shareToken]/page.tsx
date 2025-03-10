@@ -175,7 +175,7 @@ const SharedWishlistPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {wishlist.wishlist_items.map((item) => {
                 console.log("item?.products:",item?.products)
-                const imageUrl = item?.products?.image_url || "/placeholder.svg";
+                const imageUrl = item?.products?.image_url || "/create1.png";
                 const name = item.products?.product_name;
                 const price = item.products?.price;
                 const productId = item.product_id;

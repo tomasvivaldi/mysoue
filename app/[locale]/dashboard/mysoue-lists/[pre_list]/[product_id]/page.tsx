@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 
 interface Product {
   affiliate_link: string;
@@ -142,19 +143,19 @@ const ProductDetails: React.FC = () => {
   const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
   const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
 
+  const src = productDetails?.image_url || "/create1.png"
+
   return (
     <div className="w-full pb-20">
-      <div className="mt-4 flex flex-col md:flex-row items-center w-full">
-        <div>
-          <img
-            alt="Product Image"
-            className="rounded-lg"
-            src={productDetails.image_url || "/placeholder.svg"}
-            width="400"
-            height="400"
-            style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
-          />
-        </div>
+      <div className="mt-4  flex flex-col lg:flex-row items-center w-full gap-4">
+        <Image
+          alt="Product Image"
+          className="rounded-lg w-full max-w-[400px]"
+          src={src}
+          style={{ aspectRatio: "1", objectFit: "cover" }}
+          width={400}
+          height={400}
+        />
         <div className="w-1/2 flex flex-col mb-auto mt-12">
           <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
           <p className="mt-2 text-xl font-light">
@@ -181,15 +182,6 @@ const ProductDetails: React.FC = () => {
           <SolidButtonBlack text={t("deleteFromListButton")} onClick={openModal} />
         </div>
       </div>
-      {/* Delete Product Modal */}
-      <DeleteProductModal
-        isOpen={isModalOpen}
-        isWishlistShared={isWishlistShared}
-        isProductReserved={isProductReserved}
-        onClose={closeModal}
-        onDelete={handleDelete}
-        productName={productDetails.product_name}
-      />
     </div>
   );
 };

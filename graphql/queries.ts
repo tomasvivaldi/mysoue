@@ -115,6 +115,7 @@ export const GET_PRODUCT_BY_ID = gql`
       wishlist_items {
         id
         wishlist_id
+        additional_description
         product_id
         quantity
         added_at

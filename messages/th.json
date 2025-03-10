@@ -576,12 +576,25 @@
   "Dashboard-MyWishlists-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",
     "productNotInWishlist": "สินค้าไม่ได้อยู่ในรายการที่ต้องการนี้",
+    "notInListMessage": "สินค้าชื่อ \"{productName}\" ไม่ได้อยู่ในรายการนี้",
     "searchProducts": "สำรวจสินค้าของเรา",
-    "browseAdditional": "คุณสามารถเรียกดูสินค้าทั้งหมดหรือดูรายการที่ต้องการทั้งหมดของคุณ",
+    "browseAdditional": "คุณสามารถกลับไปดูรายการที่ต้องการของคุณ หรือคุณยังสามารถเรียกดูสินค้าทั้งหมดโดยคลิกด้านล่าง",
     "addDetailsButton": "เพิ่มรายละเอียด",
     "viewOnWebsiteButton": "ดูบนเว็บไซต์",
     "additionalDetails": "รายละเอียดเพิ่มเติม",
-    "deleteFromListButton": "ลบออกจากรายการ"
+    "deleteFromListButton": "ลบออกจากรายการ",
+    "deleteProductTitle": "ลบสินค้า",
+    "deleteConfirmation": "คุณแน่ใจหรือไม่ว่าต้องการลบ {productName}? การกระทำนี้ไม่สามารถย้อนกลับได้",
+    "wishlistSharedMessage": "- รายการที่ต้องการนี้กำลังถูกแชร์อยู่ -",
+    "productReservedMessage": "- สินค้านี้ถูกจองไว้แล้ว -",
+    "deleteButton": "ลบ",
+    "deletingButton": "กำลังลบ...",
+    "cancelButton": "ยกเลิก",
+    "updateDetailsTitle": "อัปเดตรายละเอียดเพิ่มเติม",
+    "updateDetailsPlaceholder": "กรอกข้อความของคุณที่นี่...",
+    "cancel": "ยกเลิก",
+    "confirm": "ยืนยัน",
+    "updating": "กำลังอัปเดต..."
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",

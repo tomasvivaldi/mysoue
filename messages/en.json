@@ -577,12 +577,25 @@
   "Dashboard-MyWishlists-ProductPage": {
     "productNotFound": "Product not found",
     "productNotInWishlist": "Product Not In This Wishlist",
+    "notInListMessage": "The product \"{productName}\" is not included in this wishlist.",
     "searchProducts": "Explore Our Products",
     "browseAdditional": "You can go back to view your wishlist or you can also browse all products by clicking below",
     "addDetailsButton": "Add Details",
     "viewOnWebsiteButton": "View on Website",
     "additionalDetails": "Additional Details",
-    "deleteFromListButton": "Delete from List"
+    "deleteFromListButton": "Delete from List",
+    "deleteProductTitle": "Delete Product",
+    "deleteConfirmation": "Are you sure you want to delete {productName}? This action cannot be undone.",
+    "wishlistSharedMessage": "- This wishlist is currently being shared -",
+    "productReservedMessage": "- This product is already reserved -",
+    "deleteButton": "DELETE",
+    "deletingButton": "Deleting...",
+    "cancelButton": "CANCEL",
+    "updateDetailsTitle": "Update Additional Details",
+    "updateDetailsPlaceholder": "Enter your message here...",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "updating": "Updating..."
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "Product not found",
