@@ -27,15 +27,12 @@ interface Product {
   rating?: number;
 }
 
-
 type WishlistItem = {
   title: string;
   description: string;
   link: string;
   src: string;
 };
-
-
 
 export default function ProductExplorer() {
   const t = useTranslations("ProductExplorer");
@@ -67,7 +64,6 @@ export default function ProductExplorer() {
     },
   ];
 
-
   const client = useApolloClient();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -79,6 +75,10 @@ export default function ProductExplorer() {
   const [sortBy, setSortBy] = useState<string>("featured");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isFilterSidebarOpen, setIsFilterSidebarOpen] = useState<boolean>(false);
+  
+  const PAGE_SIZE = 12;
+  const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   // Fetch all products on mount
   useEffect(() => {
@@ -162,6 +162,22 @@ export default function ProductExplorer() {
     setFilteredProducts(result);
   }, [selectedCategories, selectedSubcategories, priceRange, sortBy, allProducts]);
 
+  // Initialize pagination
+  useEffect(() => {
+    setVisibleProducts(filteredProducts.slice(0, PAGE_SIZE));
+    setCurrentPage(1);
+  }, [filteredProducts]);
+
+  // Handle loading more products
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1;
+    const newVisible = filteredProducts.slice(0, nextPage * PAGE_SIZE);
+    setVisibleProducts(newVisible);
+    setCurrentPage(nextPage);
+  };
+
+  const hasMoreItems = visibleProducts.length < filteredProducts.length;
+
   // Clear all filters
   const clearFilters = () => {
     setSelectedCategories([]);
@@ -183,8 +199,6 @@ export default function ProductExplorer() {
     );
   }
 
-
-
   return (
     <>
       <Head>
@@ -196,34 +210,34 @@ export default function ProductExplorer() {
         <AnimatedLists wishlists={mockWishlists} />
         
         {filteredProducts.length > 0 ? (
-          <>
+          <div className="flex flex-col">
             <h2 className="text-2xl font-semibold mb-4">{t("browseProductsTitle")}</h2>
             <div className="mb-4 pl-4 md:pl-0">
-          <button
-            onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
-            className="underline hover:text-gray-600"
-          >
-            {t("filters")}
-          </button>
-        </div>
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
-          <p className="text-sm">
-          {t("showingProducts", { count: filteredProducts.length, total: allProducts.length })}
-          </p>
-          <div className="flex items-center gap-2">
-          <span className="text-sm font-medium">{t("sortBy")}</span>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="p-2 border rounded-md"
-            >
-              <option value="price-low-high">{t("priceLowHigh")}</option>
-              <option value="price-high-low">{t("priceHighLow")}</option>
-            </select>
-          </div>
-        </div>
+              <button
+                onClick={() => setIsFilterSidebarOpen(!isFilterSidebarOpen)}
+                className="underline hover:text-gray-600"
+              >
+                {t("filters")}
+              </button>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-between items-center mb-6">
+              <p className="text-sm">
+                {t("showingProducts", { count: visibleProducts.length, total: allProducts.length })}
+              </p>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">{t("sortBy")}</span>
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="p-2 border rounded-md"
+                >
+                  <option value="price-low-high">{t("priceLowHigh")}</option>
+                  <option value="price-high-low">{t("priceHighLow")}</option>
+                </select>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
+              {visibleProducts.map((product) => (
                 <ProductCard3
                   key={product.id}
                   productId={product.id}
@@ -238,15 +252,28 @@ export default function ProductExplorer() {
                 />
               ))}
             </div>
-          </>
+            {hasMoreItems && (
+              <button
+                onClick={handleLoadMore}
+                disabled={!hasMoreItems}
+                className={`mt-4 px-4 py-2 rounded-full mx-auto ${
+                  hasMoreItems
+                    ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+                    : "bg-gray-200 text-gray-500 cursor-not-allowed"
+                }`}
+              >
+                {hasMoreItems ? t("loadMore") : t("noMoreItems")}
+              </button>
+            )}
+          </div>
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center">
             <p className="text-lg font-medium mb-2">{t("noProductsFound")}</p>
             <p className="mb-4">
-            {t("adjustFilters")}
+              {t("adjustFilters")}
             </p>
-            <button onClick={clearFilters} className="bg-blue-600 text-white px-4 py-2 rounded-md">
-            {t("clearFilters")}
+            <button onClick={clearFilters} className="bg-[#A5282C] text-white hover:bg-[#C64138] transition rounded-full px-2 py-1">
+              {t("clearFilters")}
             </button>
           </div>
         )}

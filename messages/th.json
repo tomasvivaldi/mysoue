@@ -222,6 +222,8 @@
     "adjustFilters": "ลองปรับตัวกรองเพื่อค้นหาสิ่งที่คุณต้องการ",
     "clearFilters": "ล้างตัวกรองทั้งหมด",
     "checkWishlist": "ตรวจสอบรายการที่ต้องการ",
+    "loadMore": "โหลดเพิ่มเติม",
+    "noMoreItems": "ไม่มีรายการเพิ่มเติม",
     "wishlist": {
       "baby": {
         "title": "รายการของขวัญสำหรับ Baby Shower",
@@ -533,6 +535,7 @@
     "about": "เกี่ยวกับ",
     "lists": "รายการ",
     "explore": "สำรวจ",
+    "blog": "บล็อก",
     "dashboard": "แดชบอร์ด",
     "accountOverview": "ภาพรวมบัญชี",
     "myWishlists": "รายการที่ฉันต้องการ",

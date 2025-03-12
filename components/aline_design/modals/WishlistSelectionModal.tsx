@@ -241,7 +241,7 @@ const WishlistSelectionModal: React.FC<WishlistSelectionModalProps> = ({ isOpen,
                 >
                 {selectedWishlist.wishlist_items && selectedWishlist.wishlist_items.some((item: any) => item.product_id === productId)
                     ? t("already_in_list")
-                    : (mutationLoading ? t("adding") : t("confirm"))}
+                    : (mutationLoading ? t("saving") : t("confirm"))}
                 </button>
             )}
             </div>

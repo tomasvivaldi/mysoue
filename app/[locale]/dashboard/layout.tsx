@@ -84,8 +84,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <Link href="/lists" className="text-sm hover:opacity-80">
                 {t("lists")}
               </Link>
-              <Link href="/explore" className="text-sm hover:opacity-80">
-                {t("explore")}
+              <Link href="/blog" className="text-sm hover:opacity-80">
+                {t("blog")}
               </Link>
             </div>
 

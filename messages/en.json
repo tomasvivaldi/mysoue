@@ -176,35 +176,37 @@
   },
   "ProductExplorer": {
     "exploreProductsTitle": "Explore Products at Mysoue",
-  "featuredWishlistsTitle": "Featured Wishlists",
-  "browseProductsTitle": "Browse Products",
-  "filters": "Filters",
-  "showingProducts": "Showing {count} of {total} products",
-  "sortBy": "Sort by:",
-  "priceLowHigh": "Price: Low to High",
-  "priceHighLow": "Price: High to Low",
-  "noProductsFound": "No products found",
-  "adjustFilters": "Try adjusting your filters to find what you're looking for.",
-  "clearFilters": "Clear all filters",
-  "checkWishlist": "Check Wishlist",
-  "wishlist": {
-    "baby": {
-      "title": "Baby Shower Wishlist",
-      "description": "The perfect compilation of presents to receive when hosting your first baby shower"
-    },
-    "herBirthday": {
-      "title": "Her Birthday Wishlist",
-      "description": "A curated selection of gifts perfect for celebrating her special day with style."
-    },
-    "christmas": {
-      "title": "Christmas Wishlist",
-      "description": "Discover festive and joyful gifts that bring holiday cheer to everyone."
-    },
-    "hisBirthday": {
-      "title": "His Birthday Wishlist",
-      "description": "Handpicked gifts to make his birthday unforgettable with quality and style."
+    "featuredWishlistsTitle": "Featured Wishlists",
+    "browseProductsTitle": "Browse Products",
+    "filters": "Filters",
+    "showingProducts": "Showing {count} of {total} products",
+    "sortBy": "Sort by:",
+    "priceLowHigh": "Price: Low to High",
+    "priceHighLow": "Price: High to Low",
+    "noProductsFound": "No products found",
+    "adjustFilters": "Try adjusting your filters to find what you're looking for.",
+    "clearFilters": "Clear all filters",
+    "checkWishlist": "Check Wishlist",
+    "loadMore": "Load More",
+    "noMoreItems": "No More Items",
+    "wishlist": {
+      "baby": {
+        "title": "Baby Shower Wishlist",
+        "description": "The perfect compilation of presents to receive when hosting your first baby shower"
+      },
+      "herBirthday": {
+        "title": "Her Birthday Wishlist",
+        "description": "A curated selection of gifts perfect for celebrating her special day with style."
+      },
+      "christmas": {
+        "title": "Christmas Wishlist",
+        "description": "Discover festive and joyful gifts that bring holiday cheer to everyone."
+      },
+      "hisBirthday": {
+        "title": "His Birthday Wishlist",
+        "description": "Handpicked gifts to make his birthday unforgettable with quality and style."
+      }
     }
-  }
   },
   "AddToWishlistModal": {
     "add_to_wishlist": "Add to Wishlist",
@@ -218,7 +220,7 @@
     "already_in_list": "Product added to this list",
     "selected_wishlist": "Selected Wishlist",
     "close": "Close",
-    "saving": "saving",
+    "saving": "saving...",
     "confirm": "Add",
     "error_adding_item": "Error adding item."
   },
@@ -535,6 +537,7 @@
     "about": "ABOUT",
     "lists": "LISTS",
     "explore": "EXPLORE",
+    "blog": "BLOG",
     "dashboard": "DASHBOARD",
     "accountOverview": "ACCOUNT OVERVIEW",
     "myWishlists": "MY WISHLISTS",

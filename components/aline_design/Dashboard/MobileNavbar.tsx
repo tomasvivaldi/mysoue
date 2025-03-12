@@ -70,11 +70,11 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
               </li>
               <li>
                 <Link
-                  href="/explore"
+                  href="/blog"
                   className="text-sm hover:opacity-80"
                   onClick={onClose}
                 >
-                  {t("explore")}
+                  {t("blog")}
                 </Link>
               </li>
             </ul>

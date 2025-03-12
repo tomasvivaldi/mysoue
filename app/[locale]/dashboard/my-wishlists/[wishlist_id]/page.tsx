@@ -14,6 +14,7 @@ import React, { useEffect, useState } from "react";
 import ShareWishlistModal from "@/components/aline_design/modals/ShareWishlistModal";
 import { useMutation } from "@apollo/client";
 import { INSERT_SHARED_WISHLIST } from "@/graphql/mutations";
+import ProductCard3 from "@/components/cards/ProductCard3";
 
 interface Product {
   affiliate_link: string;
@@ -32,6 +33,7 @@ interface Product {
   brand: string;
   store_link: string;
   highlighted: boolean;
+  pre_list: string;
 }
 
 interface WishlistItem {
@@ -68,7 +70,7 @@ interface Wishlist {
   shared_wishlists: SharedWishlists[];
 }
 
-const PAGE_SIZE = 4; // Number of items to load per page
+const PAGE_SIZE = 6; // Number of items to load per page
 
 const WishlistDetails: React.FC = () => {
   const params = useParams();
@@ -210,7 +212,7 @@ const WishlistDetails: React.FC = () => {
     };
 
   return (
-    <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-20 sm:mb-0 h-fit">
+    <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
       <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
         <div>
           <h1 className="heading2">{wishlistDetails.title}</h1>
@@ -234,18 +236,22 @@ const WishlistDetails: React.FC = () => {
         <p>{wishlistDetails.description}</p>
         <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
       </div>
-      <div className="flex flex-col sm:flex-row gap-4 mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
       {visibleItems.map((item) => {
         const products = Array.isArray(item.products) ? item.products : [item.products];
         const product = products[0]; // Now safely get the first item
         return (
-          <ProductCard
-            key={item.id}
-            productName={product?.product_name || t("unnamedProduct")}
-            productDescription={product?.product_description || t("noDescription")}
-            imageUrl={product?.image_url || "/xmas.jpg"}
-            wishlistId={wishlistDetails.id}
-            productId={product?.id || ""}
+          <ProductCard3
+            key={product.id}
+            productId={product.id}
+            preList={product.pre_list}
+            imageUrl={product.image_url}
+            name={product.product_name}
+            price={product.price}
+            additionalDescription={product.product_description}
+            brand={product.brand}
+            category={product.category}
+            subcategory={product.subcategory}
           />
         );
       })}
