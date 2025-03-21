@@ -130,7 +130,7 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
               className="bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
               disabled={loading}
             >
-              {t("reserveButton")}
+              {loading ? "Reserving..." : t("reserveButton")}
             </button>
             <button onClick={onClose} className="text-[#6D6A65] text-sm hover:underline">
               {t("cancelButton")}

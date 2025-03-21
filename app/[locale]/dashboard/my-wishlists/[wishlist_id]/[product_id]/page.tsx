@@ -18,6 +18,7 @@ import SolidButton1 from "@/components/buttons/SolidButton1";
 import SolidButton2 from "@/components/buttons/SolidButton2";
 import UpdateWishlistDetailsModal from "@/components/aline_design/modals/UpdateWishlistDetailsModal";
 import Image from "next/image";
+import ReservedGiftCard from "@/components/cards/ReservedGiftCard";
 
 interface Product {
   affiliate_link: string;
@@ -277,6 +278,15 @@ const ProductDetails: React.FC = () => {
                   </span>
                 )}
               </div>
+              {/* Reservation Details Section */}
+          {productDetails.wishlist_items &&
+          productDetails.wishlist_items[0] &&
+          productDetails.wishlist_items[0].reserved_gifts &&
+          productDetails.wishlist_items[0].reserved_gifts.length > 0 && (
+            <ReservedGiftCard
+              reservedGift={productDetails.wishlist_items[0].reserved_gifts[0]}
+            />
+          )}
             </div>
           </div>
           <div className="my-8 flex flex-col w-full px-10 gap-2">

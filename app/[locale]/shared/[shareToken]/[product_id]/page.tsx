@@ -82,7 +82,36 @@ const ProductDetails: React.FC = () => {
 
   const handleReserveGift = (formData: { name: string; email: string; message: string }) => {
     console.log("Reserved Gift Details:", formData);
-    // You can add additional logic to update state after a successful mutation
+    // Create a new reserved gift object
+    const newReservedGift = {
+      id: new Date().getTime().toString(),  // temporary unique id; in a real app, this would come from the server
+      wishlist_item_id: productDetails?.wishlist_items?.[0]?.id || "",
+      email: formData.email,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+      name_and_surname: formData.name,
+      private_message: formData.message,
+    };
+
+    // Update local state to mark the gift as reserved
+    setProductDetails((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        wishlist_items: prev.wishlist_items.map((item, idx) => {
+          if (idx === 0) { // update the first wishlist item
+            return {
+              ...item,
+              reserved_gifts: item.reserved_gifts ? [...item.reserved_gifts, newReservedGift] : [newReservedGift],
+            };
+          }
+          return item;
+        }),
+      };
+    });
+
+    // Close the reserve modal
+    setIsModalOpen(false);
   };
 
   useEffect(() => {

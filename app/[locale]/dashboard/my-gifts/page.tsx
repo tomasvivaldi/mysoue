@@ -106,7 +106,7 @@ const MyGifts: React.FC = () => {
   const { data: session } = useSession();
   const [wishlists, setWishlist] = useState<Wishlist[]>([]);
   const [loading, setLoading] = useState(false);
-  const t = useTranslations("MyGifts");
+  const t = useTranslations("Dashboard-MyGifts");
 
   const user = session?.user as UserWithProvider;
 
@@ -245,6 +245,7 @@ const MyGifts: React.FC = () => {
     return { sharedWishlists, nonSharedWishlists };
   };
   const { sharedWishlists, nonSharedWishlists } = organizeProductsByWishlist(wishlists);
+  
 
   return (
     <div className="my-8 px-4 flex flex-col gap-4 w-full">
@@ -266,12 +267,12 @@ const MyGifts: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {wishlist.reserved.map((wishlistItem) => {                  
                   const product = wishlistItem?.products;
-                  
+                  const shareToken = wishlist.shared_wishlists?.[0]?.share_token || ""
+                  const productId = product?.id
                   return product ? (
                     <ProductCard2
-                      key={wishlistItem?.id}
-                      shareToken={wishlist.shared_wishlists?.[0]?.share_token || ""}
-                      productId={product?.id}
+                      href={`/shared/${shareToken}/${productId}`} 
+                      key={wishlistItem?.id}                    
                       imageUrl={product?.image_url || "/create1.png"}
                       name={product?.product_name}
                       price={product?.price}
@@ -288,11 +289,12 @@ const MyGifts: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {wishlist.unreserved.map((wishlistItem) => {
                   const product = wishlistItem?.products;
+                  const shareToken = wishlist.shared_wishlists?.[0]?.share_token || ""
+                  const productId = product?.id
                   return product ? (
-                    <ProductCard2
+                    <ProductCard2                      
+                      href={`/shared/${shareToken}/${productId}`} 
                       key={wishlistItem?.id}
-                      shareToken={wishlist.shared_wishlists?.[0]?.share_token || ""}
-                      productId={product?.id}
                       imageUrl={product?.image_url || "/create1.png"}
                       name={product?.product_name}
                       price={product?.price}

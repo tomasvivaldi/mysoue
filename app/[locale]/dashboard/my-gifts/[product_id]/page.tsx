@@ -1,6 +1,7 @@
 "use client";
 
 import client from "@/apollo-client";
+import ReservedGiftCard from "@/components/cards/ReservedGiftCard";
 import LoadingBox from "@/components/LoadingBox";
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
@@ -8,94 +9,71 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Product {
-  id: string;
-  product_name: string;
-  product_description: string;
+  affiliate_link: string;
+  created_at: string;
   image_url: string;
   price: number;
-  received: boolean;
+  product_description: string;
+  product_description_thai: string;
+  id: string;
+  product_name: string;
+  product_name_thai: string;
+  updated_at: string;
+  platform: string;
+  category: string;
+  subcategory: string;
+  brand: string;
+  store_link: string;
+  highlighted: boolean;
+  wishlist_items: WishlistItem[];
 }
 
-interface Reservation {
-  reserver_name: string;
-  reserver_email: string;
-  message: string;
-  date_reserved: string;
+interface WishlistItem {
+  added_at: string;
+  additional_description: string;
+  product_id: string;
+  quantity: number;
+  updated_at: string;
+  wishlist_id: string;
+  id: string;
+  products: Product;
+  reserved_gifts: ReservedGifts[];
+}
+
+interface ReservedGifts {
+  id: string;
+  wishlist_item_id: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  name_and_surname: string;
+  private_message: string;
 }
 
 const ProductDetails: React.FC = () => {
-  const t = useTranslations("MyGifts");
+  const t = useTranslations("Dashboard-MyWishlists-ProductPage");
   const params = useParams();
   const productId = params.product_id;
 
   const [productDetails, setProductDetails] = useState<Product | null>(null);
-  const [reservationDetails, setReservationDetails] = useState<Reservation | null>(null);
   const [loading, setLoading] = useState(false);
-
-  // import { GET_WISHLIST_RESERVATIONS } from "@/graphql/queries"; // Add this GraphQL query
-
-  // useEffect(() => {
-  //   const fetchReservedGifts = async () => {
-  //     try {
-  //       if (wishlistId) {
-  //         const { data } = await client.query({
-  //           query: GET_WISHLIST_RESERVATIONS,
-  //           variables: { wishlistId },
-  //         });
-
-  //         setReservedGifts(data.reservedGifts || []);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching reserved gifts:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchReservedGifts();
-  // }, [wishlistId]);
-
-  // if (loading) {
-  //   return (
-  //     <LoadingBox
-  //       imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-  //       imageAlt={t("loading")}
-  //       imageClassName=""
-  //       containerClassName="h-[80vh]"
-  //     />
-  //   );
-  // }
 
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
-
         if (productId) {
-          // Simulate API call
-          setTimeout(() => {
-            setProductDetails({
-              id: "123",
-              product_name: "Smart Watch",
-              product_description: "A high-tech smart watch with fitness tracking.",
-              image_url: "/mock/smartwatch.jpg",
-              price: 250.99,
-              received: false,
-            });
-
-            // Mock reservation data
-            setReservationDetails({
-              reserver_name: "Jane Doe",
-              reserver_email: "jane.doe@example.com",
-              message: "Hope you like this surprise! 🎁",
-              date_reserved: "2024-02-19",
-            });
-
-            setLoading(false);
-          }, 1000); // Simulated delay
+          console.log("Fetching product data for productId:", productId);
+          const { data } = await client.query({
+            query: GET_PRODUCT_BY_ID,
+            variables: { id: productId },
+          });
+          console.log("Product data fetched:", data);
+          setProductDetails(data?.productsById);
         }
       } catch (error) {
         console.error("Failed to fetch product data:", error);
+      } finally {
         setLoading(false);
       }
     };
@@ -141,22 +119,13 @@ const ProductDetails: React.FC = () => {
           </p>
 
           {/* Reservation Details Section */}
-          {reservationDetails && (
-            <div className="my-8 flex flex-col w-full gap-3 p-4 bg-[#A5282C] rounded-lg shadow-md">
-              <h2 className="text-2xl font-bold text-white">{t("reservedGift")}</h2>
-              <p className="text-gray-100">
-                <strong>{t("reservedBy")}:</strong> {reservationDetails.reserver_name}
-              </p>
-              <p className="text-gray-100">
-                <strong>{t("reserverEmail")}:</strong> {reservationDetails.reserver_email}
-              </p>
-              <p className="text-gray-100">
-                <strong>{t("privateMessage")}:</strong> "{reservationDetails.message}"
-              </p>
-              <p className="text-gray-100">
-                <strong>{t("dateReserved")}:</strong> {reservationDetails.date_reserved}
-              </p>
-            </div>
+          {productDetails.wishlist_items &&
+          productDetails.wishlist_items[0] &&
+          productDetails.wishlist_items[0].reserved_gifts &&
+          productDetails.wishlist_items[0].reserved_gifts.length > 0 && (
+            <ReservedGiftCard
+              reservedGift={productDetails.wishlist_items[0].reserved_gifts[0]}
+            />
           )}
         </div>
       </div>

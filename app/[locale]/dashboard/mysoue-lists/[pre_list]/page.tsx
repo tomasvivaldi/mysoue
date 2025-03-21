@@ -86,18 +86,21 @@ const mysoueListsPreListPage = () => {
           {t("mysoueLists") || "MySoue Wishlists"}: {decodedPreList}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <ProductCard3
-              key={product.id}
-              productId={product.id}
-              preList={pre_list}
-              imageUrl={product?.image_url}
-              name={product?.product_name}
-              price={product?.price}
-              additionalDescription={product?.product_description}
-              brand={product?.brand}
-            />
-          ))}
+          {products.map((product) => {
+            const productId = product.id
+            return (
+              <ProductCard3
+                href={`/dashboard/explore/${productId}`}
+                key={product.id}
+                preList={pre_list}
+                imageUrl={product?.image_url}
+                name={product?.product_name}
+                price={product?.price}
+                additionalDescription={product?.product_description}
+                brand={product?.brand}
+              />
+            )}
+          )}
           {products.length === 0 && (
             <p className="text-center w-full">
               {t("noProductsFound") || "No products available for this list."}

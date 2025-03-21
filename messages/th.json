@@ -135,7 +135,6 @@
     "allGiftsReserved": "ของขวัญทั้งหมดถูกจองแล้ว",
     "noReservedGifts": "ยังไม่มีของขวัญที่ถูกจอง",
     "price": "ราคา",
-    "reservedBy": "จองโดย",
     "loading": "กำลังโหลด...",
     "productNotFound": "ไม่พบสินค้า",
     "markAsReceived": "ทำเครื่องหมายว่าได้รับแล้ว",
@@ -145,6 +144,7 @@
     "unreserve": "ยกเลิกการจอง",
     "checkWishlist": "ตรวจสอบรายการที่ต้องการ",
     "reservedGift": "ของขวัญที่ถูกจองแล้ว",
+    "reservedBy": "จองโดย",
     "reserverName": "ชื่อและนามสกุล",
     "reserverEmail": "อีเมล",
     "privateMessage": "ข้อความส่วนตัว",
@@ -597,7 +597,20 @@
     "updateDetailsPlaceholder": "กรอกข้อความของคุณที่นี่...",
     "cancel": "ยกเลิก",
     "confirm": "ยืนยัน",
-    "updating": "กำลังอัปเดต..."
+    "updating": "กำลังอัปเดต...",
+    "reservedGift": "ของขวัญที่ถูกจองแล้ว",
+    "reservedBy": "จองโดย",
+    "reserverName": "ชื่อและนามสกุล",
+    "reserverEmail": "อีเมล",
+    "privateMessage": "ข้อความส่วนตัว",
+    "dateReserved": "วันที่จอง"
+  },
+  "Dashboard-MyGifts": {
+    "myGifts": "ของขวัญของฉัน",
+    "sharedWishlists": "รายชื่อของขวัญที่แชร์",
+    "reserved": "จองแล้ว",
+    "unreserved": "ยังไม่จอง",
+    "noSharedWishlists": "ไม่มีรายชื่อของขวัญที่แชร์"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",

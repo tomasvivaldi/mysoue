@@ -103,7 +103,7 @@ const ProductDetails: React.FC = () => {
             query: GET_PRODUCT_BY_ID,
             variables: { id: id },
           });
-          setProductDetails(data?.productsById); // Adjust based on your query response structure
+          setProductDetails(data?.productsById); 
         }
       } catch (error) {
         console.error("Failed to fetch product data:", error);

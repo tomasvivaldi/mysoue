@@ -237,7 +237,6 @@
     "allGiftsReserved": "All gifts have been reserved.",
     "noReservedGifts": "No gifts have been reserved yet.",
     "price": "Price",
-    "reservedBy": "Reserved by",
     "loading": "Loading...",
     "productNotFound": "Product not found",
     "markAsReceived": "Mark as Received",
@@ -247,11 +246,14 @@
     "unreserve": "Unreserve",
     "checkWishlist": "Check Wishlist",
     "reservedGift": "Reserved Gift",
+    "reservedBy": "Reserved by",
     "reserverName": "Name and Surname",
     "reserverEmail": "Email",
     "privateMessage": "Private Message",
     "dateReserved": "Date Reserved"
   },
+
+  
 
   "SharedWishlist": {
     "wishlistNotFound": "Wishlist not found.",
@@ -598,7 +600,19 @@
     "updateDetailsPlaceholder": "Enter your message here...",
     "cancel": "Cancel",
     "confirm": "Confirm",
-    "updating": "Updating..."
+    "updating": "Updating...",
+    "reservedGift": "Reserved Gift",
+    "reservedBy": "Reserved by",
+    "reserverEmail": "Email",
+    "privateMessage": "Private Message",
+    "dateReserved": "Date Reserved"
+  },
+  "Dashboard-MyGifts": {
+    "myGifts": "My Gifts",
+    "sharedWishlists": "Shared Wishlists",
+    "reserved": "Reserved",
+    "unreserved": "Unreserved",
+    "noSharedWishlists": "No shared wishlists available."
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "Product not found",
@@ -654,4 +668,6 @@
     "backButton": "Back",
     "submitButton": "Submit Wishlist"
   }
+  
+
 }

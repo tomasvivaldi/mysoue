@@ -34,6 +34,7 @@ interface Product {
   store_link: string;
   highlighted: boolean;
   pre_list: string;
+  wishlist_items: WishlistItem[];
 }
 
 interface WishlistItem {
@@ -75,6 +76,7 @@ const PAGE_SIZE = 6; // Number of items to load per page
 const WishlistDetails: React.FC = () => {
   const params = useParams();
   const id = params.wishlist_id;
+  const wishlist_id = id
   const t = useTranslations("WishlistDetails"); // Use translations
 
   const [wishlistDetails, setWishlistDetails] = useState<Wishlist | null>(null);
@@ -239,11 +241,13 @@ const WishlistDetails: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
       {visibleItems.map((item) => {
         const products = Array.isArray(item.products) ? item.products : [item.products];
-        const product = products[0]; // Now safely get the first item
+        const product = products[0]; 
+        const productId = product?.id
+        console.log("product",product)
         return (
           <ProductCard3
-            key={product.id}
-            productId={product.id}
+            href={`/dashboard/my-wishlists/${wishlist_id}/${productId}`}
+            key={product.id}            
             preList={product.pre_list}
             imageUrl={product.image_url}
             name={product.product_name}

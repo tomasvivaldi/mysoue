@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductCard2Props {
-  shareToken: string;
-  productId: string;
+  href: string;
   imageUrl: string;
   name: string;
   price: number | null;
@@ -12,8 +11,7 @@ interface ProductCard2Props {
 }
 
 const ProductCard2: React.FC<ProductCard2Props> = ({
-  shareToken,
-  productId,
+  href,
   imageUrl,
   name,
   price,
@@ -21,7 +19,7 @@ const ProductCard2: React.FC<ProductCard2Props> = ({
   additionalDescription,
 }) => {
   return (
-    <Link href={`/shared/${shareToken}/${productId}`} passHref key={productId}>
+    <Link href={href} passHref key={href}>
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 min-w-[225px]">
         <div className="relative h-48 w-full">
           <Image

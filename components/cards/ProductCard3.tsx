@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface ProductCard3Props {
-  productId: string;
+  href: string;
   preList: string;
   imageUrl: string;
   name: string;
@@ -14,7 +14,7 @@ interface ProductCard3Props {
 }
 
 const ProductCard3: React.FC<ProductCard3Props> = ({
-  productId,
+  href,
   preList,
   imageUrl,
   name,
@@ -28,7 +28,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
   const safeImageUrl = imageUrl || "/create1.png";
 
   return (
-    <Link href={`/dashboard/explore/${productId}`} passHref key={productId}>
+    <Link href={href} passHref key={href}>
       <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105  ">
         <div className="relative h-48 w-full">
           <Image
