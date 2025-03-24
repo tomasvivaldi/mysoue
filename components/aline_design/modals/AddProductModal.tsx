@@ -12,7 +12,7 @@ interface ModalProps {
     category: string;
     brand: string;
     store_link: string;
-  }) => void;
+  }) => Promise<void>;
 }
 
 const categories = [
@@ -38,24 +38,34 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
   const [category, setCategory] = React.useState(categories[0]); // Default to first category
   const [brand, setBrand] = React.useState("");
   const [storeLink, setStoreLink] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
 
-  const handleAddProduct = () => {
-    if (!productName.trim() || !productDescription.trim() || !price) {
+  const handleAddProduct = async () => {
+    if (!productName.trim() || !productDescription.trim() || price === "") {
       alert(t("fill_required_fields"));
       return;
     }
+    setIsLoading(true);
+    try {
+      await onAddProduct({
+        product_name: productName,
+        product_description: productDescription,
+        price: Number(price),
+        image_url: imageUrl,
+        category,
+        brand,
+        store_link: storeLink,
+      });
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Error adding product", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    onAddProduct({
-      product_name: productName,
-      product_description: productDescription,
-      price: Number(price),
-      image_url: imageUrl,
-      category,
-      brand,
-      store_link: storeLink,
-    });
-
-    // Clear fields after submission
+  const handleReset = () => {
     setProductName("");
     setProductDescription("");
     setPrice("");
@@ -63,8 +73,7 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
     setCategory(categories[0]);
     setBrand("");
     setStoreLink("");
-
-    onClose(); // Close the modal
+    setIsSuccess(false);
   };
 
   if (!isOpen) return null; // Don't render if not open
@@ -74,7 +83,10 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
       <div className="relative w-[90%] sm:w-[70%] lg:w-[40%] bg-[#FDF4E5] rounded-lg shadow-lg p-8 max-h-[80vh] overflow-y-scroll">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={() => {
+            console.log('AddProductModal: Modal closed by user.');
+            onClose();
+          }}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl"
         >
           &times;
@@ -92,7 +104,10 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               type="text"
               placeholder={t("product_name_placeholder")}
               value={productName}
-              onChange={(e) => setProductName(e.target.value)}
+              onChange={(e) => {
+                console.log('Product name changed:', e.target.value);
+                setProductName(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
@@ -100,7 +115,10 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             <textarea
               placeholder={t("product_description_placeholder")}
               value={productDescription}
-              onChange={(e) => setProductDescription(e.target.value)}
+              onChange={(e) => {
+                console.log('Product description changed:', e.target.value);
+                setProductDescription(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
@@ -109,7 +127,11 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               type="number"
               placeholder={t("price_placeholder")}
               value={price}
-              onChange={(e) => setPrice(e.target.value ? Number(e.target.value) : "")}
+              onChange={(e) => {
+                const val = e.target.value ? Number(e.target.value) : "";
+                console.log('Price changed:', val);
+                setPrice(val);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
@@ -118,14 +140,20 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               type="text"
               placeholder={t("image_url_placeholder")}
               value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              onChange={(e) => {
+                console.log('Image URL changed:', e.target.value);
+                setImageUrl(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
             {/* Category Dropdown */}
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => {
+                console.log('Category selected:', e.target.value);
+                setCategory(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
             >
               {categories.map((cat) => (
@@ -140,7 +168,10 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               type="text"
               placeholder={t("brand_placeholder")}
               value={brand}
-              onChange={(e) => setBrand(e.target.value)}
+              onChange={(e) => {
+                console.log('Brand changed:', e.target.value);
+                setBrand(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
@@ -149,21 +180,38 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
               type="text"
               placeholder={t("store_link_placeholder")}
               value={storeLink}
-              onChange={(e) => setStoreLink(e.target.value)}
+              onChange={(e) => {
+                console.log('Store link changed:', e.target.value);
+                setStoreLink(e.target.value);
+              }}
               className="w-full border border-gray-300 rounded-lg px-4 py-2"
             />
 
             {/* Add Product Button */}
             <button
               onClick={handleAddProduct}
+              disabled={isLoading}
               className="w-fit mx-auto bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
             >
-              {t("add_product")}
+              {isLoading ? t("loading") : isSuccess ? t("product_added") : t("add_product")}
             </button>
+
+            {/* Add Another Product Button */}
+            {isSuccess && (
+              <button
+                onClick={handleReset}
+                className="w-fit mx-auto border border-[#A5282C] text-gray-700 py-2 px-8 rounded-full font-medium hover:bg-white/70 transition"
+              >
+                {t("add_another_product")}
+              </button>
+            )}
 
             {/* Go Back Button */}
             <button
-              onClick={onClose}
+              onClick={() => {
+                console.log('AddProductModal: Go back button clicked.');
+                onClose();
+              }}
               className="text-gray-500 hover:text-gray-700 text-lg"
             >
               {t("go_back")}

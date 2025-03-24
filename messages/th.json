@@ -185,7 +185,10 @@
     "store_link_placeholder": "ลิงก์ร้านค้า",
     "add_product": "เพิ่ม",
     "go_back": "กลับ",
-    "fill_required_fields": "กรุณากรอกข้อมูลในฟิลด์ที่จำเป็นทั้งหมด"
+    "fill_required_fields": "กรุณากรอกข้อมูลในฟิลด์ที่จำเป็นทั้งหมด",
+    "product_added": "เพิ่มสินค้าแล้ว",
+    "loading": "กำลังโหลด...",
+    "add_another_product": "เพิ่มสินค้าอีกตัว"
   },
   "AddProductOptionModal": {
     "add_a_product": "เพิ่มผลิตภัณฑ์",

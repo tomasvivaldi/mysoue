@@ -6,44 +6,18 @@ import LoadingBox from "@/components/LoadingBox";
 import { useSession } from "next-auth/react";
 import { User } from "next-auth";
 import { gql, useMutation } from "@apollo/client";
+import {INSERT_WISHLIST_ITEMS} from "@//graphql/mutations";
 
 interface WishlistSelectionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  productId: string; // Added productId prop
+  productId: string; 
 }
 
 interface UserWithProvider extends User {
   provider?: string;
 }
 
-const INSERT_WISHLIST_ITEMS = gql`
-  mutation InsertWishlistItems(
-    $wishlist_id: ID!
-    $product_id: ID!
-    $quantity: Int!
-    $additional_description: String
-    $updated_at: DateTime!
-    $added_at: DateTime!
-  ) {
-    insertWishlist_items(
-      wishlist_id: $wishlist_id
-      product_id: $product_id
-      quantity: $quantity
-      additional_description: $additional_description
-      updated_at: $updated_at
-      added_at: $added_at
-    ) {
-      id
-      wishlist_id
-      product_id
-      quantity
-      additional_description
-      updated_at
-      added_at
-    }
-  }
-`;
 
 const WishlistSelectionModal: React.FC<WishlistSelectionModalProps> = ({ isOpen, onClose, productId }) => {
   const t = useTranslations("WishlistSelectionModal");

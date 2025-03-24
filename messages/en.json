@@ -150,7 +150,10 @@
     "store_link_placeholder": "Store Link",
     "add_product": "ADD",
     "go_back": "GO BACK",
-    "fill_required_fields": "Please fill out all required fields."
+    "fill_required_fields": "Please fill out all required fields.",
+    "product_added": "Product added",
+    "loading": "Loading...",
+    "add_another_product": "Add another product"
   },
   "AddProductOptionModal":{
     "add_a_product": "ADD A PRODUCT",

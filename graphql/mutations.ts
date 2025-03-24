@@ -81,19 +81,22 @@ export const ADD_WISHLIST = gql`
 export const ADD_WISHLIST_ITEM = gql`
   mutation AddWishlistItem(
     $wishlist_id: ID!
-    $product_id: ID!
+    $product_id: ID
+    $external_product_id: ID
     $quantity: Int!
     $created_at: DateTime
   ) {
     insertWishlistItem(
       wishlist_id: $wishlist_id
       product_id: $product_id
+      external_product_id: $external_product_id
       quantity: $quantity
       created_at: $created_at
     ) {
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       created_at
       updated_at
@@ -120,6 +123,43 @@ export const ADD_PRODUCT = gql`
       name
       description
       price
+      created_at
+      updated_at
+    }
+  }
+`;
+
+export const ADD_EXTERNAL_PRODUCT = gql`
+  mutation AddExternalProduct(
+    $product_name: String!
+    $product_description: String!
+    $price: Float!
+    $image_url: String
+    $category: String!
+    $brand: String
+    $store_link: String!
+    $created_at: DateTime!
+    $updated_at: DateTime!
+  ) {
+    insertExternalProduct(
+      product_name: $product_name
+      product_description: $product_description
+      price: $price
+      image_url: $image_url
+      category: $category
+      brand: $brand
+      store_link: $store_link
+      created_at: $created_at
+      updated_at: $updated_at
+    ) {
+      id
+      product_name
+      product_description
+      price
+      image_url
+      category
+      brand
+      store_link
       created_at
       updated_at
     }
@@ -276,7 +316,8 @@ export const ADD_RESERVED_GIFT = gql`
 export const INSERT_WISHLIST_ITEMS = gql`
   mutation InsertWishlistItems(
     $wishlist_id: ID!
-    $product_id: ID!
+    $product_id: ID
+    $external_product_id: ID
     $quantity: Int!
     $additional_description: String
     $updated_at: DateTime!
@@ -285,6 +326,7 @@ export const INSERT_WISHLIST_ITEMS = gql`
     insertWishlist_items(
       wishlist_id: $wishlist_id
       product_id: $product_id
+      external_product_id: $external_product_id
       quantity: $quantity
       additional_description: $additional_description
       updated_at: $updated_at
@@ -293,6 +335,7 @@ export const INSERT_WISHLIST_ITEMS = gql`
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       additional_description
       updated_at
@@ -305,7 +348,8 @@ export const DELETE_WISHLIST_ITEMS = gql`
   mutation DeleteWishlistItems(
     $id: ID!
     $wishlist_id: ID!
-    $product_id: ID!
+    $product_id: ID
+    $external_product_id: ID
     $quantity: Int!
     $additional_description: String
     $updated_at: DateTime
@@ -315,6 +359,7 @@ export const DELETE_WISHLIST_ITEMS = gql`
       id: $id
       wishlist_id: $wishlist_id
       product_id: $product_id
+      external_product_id: $external_product_id
       quantity: $quantity
       additional_description: $additional_description
       updated_at: $updated_at
@@ -323,6 +368,7 @@ export const DELETE_WISHLIST_ITEMS = gql`
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       additional_description
       updated_at
@@ -338,6 +384,7 @@ export const UPDATE_WISHLIST_ITEMS = gql`
     $wishlist_id: ID
     $additional_description: String
     $product_id: ID
+    $external_product_id: ID
     $updated_at: DateTime
     $added_at: DateTime
   ) {
@@ -347,12 +394,14 @@ export const UPDATE_WISHLIST_ITEMS = gql`
       wishlist_id: $wishlist_id
       additional_description: $additional_description
       product_id: $product_id
+      external_product_id: $external_product_id
       updated_at: $updated_at
       added_at: $added_at
     ) {
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       additional_description
       updated_at
@@ -366,4 +415,5 @@ export const mutations = {
   ADD_USER_PREFERENCES,
   UPDATE_USER_SUBSCRIPTION,
   ADD_RESERVED_GIFT,
+  ADD_EXTERNAL_PRODUCT
 };

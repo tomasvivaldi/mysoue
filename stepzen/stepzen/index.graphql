@@ -65,7 +65,8 @@ type UserData {
 type Wishlist_items {
   added_at: DateTime
   additional_description: String
-  product_id: ID!
+  product_id: ID
+  external_product_id: ID
   quantity: Int!
   updated_at: DateTime!
   wishlist_id: ID!
@@ -74,6 +75,11 @@ type Wishlist_items {
     @materializer(
       query: "productsById"
       arguments: [{ name: "id", field: "product_id" }]
+    )
+  external_products: ExternalProduct
+    @materializer(
+      query: "externalProductById"
+      arguments: [{ name: "id", field: "external_product_id" }]
     )
   reserved_gifts: [ReservedGifts]
     @materializer(
@@ -127,6 +133,20 @@ type ReservedGifts {
   updated_at: DateTime!
   wishlist_item_id: ID!
 }
+
+type ExternalProduct {
+  id: ID!
+  product_name: String!
+  product_description: String
+  price: Float
+  image_url: String
+  category: String
+  brand: String
+  store_link: String
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
 
 """
 The following queries are just a set of examples of how to access your schema.
@@ -381,6 +401,31 @@ type Query {
       """
       configuration: "stepzen_config"
     )      
+  " Queries for type 'ExternalProduct' "
+  externalProductById(id: ID!): ExternalProduct
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "external_products"
+      configuration: "stepzen_config"
+    )
+  externalProductsList: [ExternalProduct]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "external_products"
+      configuration: "stepzen_config"
+    )
+  externalProductsPaginatedList(first: Int, after: Int): [ExternalProduct]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "id", "product_name", "product_description", "price", "image_url", "category", "brand", "store_link", "created_at", "updated_at"
+      FROM "external_products" LIMIT $1 OFFSET $2
+      """
+      configuration: "stepzen_config"
+    )
 }
 
 """
@@ -683,6 +728,74 @@ type Mutation {
         private_message = COALESCE($4, private_message),
         wishlist_item_id = COALESCE($5, wishlist_item_id),
         updated_at = NOW()
+      WHERE id = $1
+      RETURNING *;
+      """
+      configuration: "stepzen_config"
+    )
+  " Mutations for type 'ExternalProduct' "
+  insertExternalProduct(
+    product_name: String!
+    product_description: String
+    price: Float
+    image_url: String
+    category: String
+    brand: String
+    store_link: String
+    created_at: DateTime!
+    updated_at: DateTime!
+  ): ExternalProduct
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "external_products"
+      dml: INSERT
+      configuration: "stepzen_config"
+    )
+  deleteExternalProduct(
+    id: ID!
+    product_name: String!
+    product_description: String
+    price: Float
+    image_url: String
+    category: String
+    brand: String
+    store_link: String
+    created_at: DateTime!
+    updated_at: DateTime!
+  ): ExternalProduct
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "external_products"
+      dml: DELETE
+      configuration: "stepzen_config"
+    )
+  updateExternalProduct(
+    id: ID!
+    product_name: String
+    product_description: String
+    price: Float
+    image_url: String
+    category: String
+    brand: String
+    store_link: String
+    updated_at: DateTime!
+  ): ExternalProduct
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE external_products
+      SET 
+        product_name = COALESCE($2, product_name),
+        product_description = COALESCE($3, product_description),
+        price = COALESCE($4, price),
+        image_url = COALESCE($5, image_url),
+        category = COALESCE($6, category),
+        brand = COALESCE($7, brand),
+        store_link = COALESCE($8, store_link),
+        updated_at = COALESCE($9, updated_at)
       WHERE id = $1
       RETURNING *;
       """

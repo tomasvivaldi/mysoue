@@ -50,6 +50,7 @@ export const GET_USERS_BY_ID = gql`
           added_at
           additional_description
           product_id
+          external_product_id
           quantity
           updated_at
           wishlist_id
@@ -71,6 +72,18 @@ export const GET_USERS_BY_ID = gql`
             store_link
             highlighted
             pre_list
+          }
+          external_products {
+            id
+            product_name
+            product_description
+            price
+            image_url
+            created_at
+            updated_at
+            category
+            brand
+            store_link
           }
           reserved_gifts {
             id
@@ -117,6 +130,7 @@ export const GET_PRODUCT_BY_ID = gql`
         wishlist_id
         additional_description
         product_id
+        external_product_id
         quantity
         added_at
         updated_at
@@ -128,6 +142,18 @@ export const GET_PRODUCT_BY_ID = gql`
           created_at
           updated_at
           wishlist_item_id
+        }
+        external_products {
+          id
+          product_name
+          product_description
+          price
+          image_url
+          created_at
+          updated_at
+          category
+          brand
+          store_link
         }
         wishlists {
           id
@@ -193,6 +219,7 @@ export const GET_WISHLIST_BY_ID = gql`
         added_at
         additional_description
         product_id
+        external_product_id
         quantity
         updated_at
         wishlist_id
@@ -214,6 +241,18 @@ export const GET_WISHLIST_BY_ID = gql`
           store_link
           highlighted
           pre_list
+        }
+        external_products {
+          id
+          product_name
+          product_description
+          price
+          image_url
+          created_at
+          updated_at
+          category
+          brand
+          store_link
         }
         reserved_gifts {
           id
@@ -242,6 +281,7 @@ export const GET_WISHLIST_ITEM_BY_ID = gql`
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       created_at
       updated_at
@@ -263,6 +303,18 @@ export const GET_WISHLIST_ITEM_BY_ID = gql`
         store_link
         highlighted
         pre_list
+      }
+      external_products {
+        id
+        product_name
+        product_description
+        price
+        image_url
+        created_at
+        updated_at
+        category
+        brand
+        store_link
       }
       reserved_gifts {
         id
@@ -343,9 +395,22 @@ export const GET_WISHLIST_ITEMS_BY_PRODUCT_ID = gql`
       id
       wishlist_id
       product_id
+      external_product_id
       quantity
       added_at
       updated_at
+      external_products {
+        id
+        product_name
+        product_description
+        price
+        image_url
+        created_at
+        updated_at
+        category
+        brand
+        store_link
+      }
       reserved_gifts {
         id
         name_and_surname
@@ -387,6 +452,82 @@ export const GET_PRODUCTS_BY_PRELIST = gql`
       pre_list
       wishlist_items {
         id
+        external_product_id
+        external_products {
+          id
+          product_name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_ALL_PRODUCTS = gql`
+  query GetAllProducts {
+    productsList {
+      id
+      product_name
+      product_description
+      price
+      affiliate_link
+      image_url
+      created_at
+      updated_at
+      platform
+      category
+      subcategory
+      brand
+      store_link
+      highlighted
+      pre_list
+    }
+    externalProductsList {
+      id
+      product_name
+      product_description
+      price
+      affiliate_link
+      image_url
+      created_at
+      updated_at
+      category
+      brand
+      store_link
+    }
+  }
+`;
+
+export const GET_WISHLIST_ITEMS_BY_EXTERNAL_PRODUCT_ID = gql`
+  query GetWishlistItemsByExternalProductId($external_product_id: ID!) {
+    wishlistItemsByExternalProductId(external_product_id: $external_product_id) {
+      id
+      wishlist_id
+      product_id
+      external_product_id
+      quantity
+      added_at
+      updated_at
+      external_products {
+        id
+        product_name
+        product_description
+        price
+        affiliate_link
+        image_url
+        created_at
+        updated_at
+        category
+        brand
+        store_link
+      }
+      reserved_gifts {
+        id
+        name_and_surname
+        email
+        private_message
+        created_at
+        updated_at
+        wishlist_item_id
       }
     }
   }
@@ -404,7 +545,9 @@ export const queries = {
   GET_SHARED_WISHLISTS,
   GET_SHARED_WISHLISTS_PAGINATED,
   GET_WISHLIST_ITEMS_BY_PRODUCT_ID,
+  GET_WISHLIST_ITEMS_BY_EXTERNAL_PRODUCT_ID,
   GET_PRODUCTS_LIST,
   GET_PRE_LISTS,
   GET_PRODUCTS_BY_PRELIST,
+  GET_ALL_PRODUCTS
 };
