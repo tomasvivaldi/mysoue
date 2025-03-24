@@ -139,7 +139,7 @@ const ProductDetails: React.FC = () => {
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
   // Determine wishlist sharing and reservation status using the first wishlist item
-  const firstWishlistItem = productDetails.wishlist_items?.[0];
+  const firstWishlistItem = productDetails?.wishlist_items?.[0];
   const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
   const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
 
@@ -157,12 +157,12 @@ const ProductDetails: React.FC = () => {
           height={400}
         />
         <div className="w-1/2 flex flex-col mb-auto mt-12">
-          <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
+          <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
           <p className="mt-2 text-xl font-light">
-            {productDetails.price.toFixed(2)} THB
+            {productDetails?.price.toFixed(2)} THB
           </p>
           <p className="mt-4 text-base text-gray-700">
-            {productDetails.product_description}
+            {productDetails?.product_description}
           </p>
           <div className="mt-8 flex flex-col gap-4 w-full">
             <SolidButtonBlack text={t("addDetailsButton")} />
@@ -176,7 +176,7 @@ const ProductDetails: React.FC = () => {
       <div className="my-8 flex flex-col w-full px-10 gap-2">
         <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
         <p className="text-base text-gray-700">
-          {productDetails.product_description}
+          {productDetails?.product_description}
         </p>
         <div className="px-4 self-end">
           <SolidButtonBlack text={t("deleteFromListButton")} onClick={openModal} />

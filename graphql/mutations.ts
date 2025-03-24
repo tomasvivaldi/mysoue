@@ -347,32 +347,11 @@ export const INSERT_WISHLIST_ITEMS = gql`
 export const DELETE_WISHLIST_ITEMS = gql`
   mutation DeleteWishlistItems(
     $id: ID!
-    $wishlist_id: ID!
-    $product_id: ID
-    $external_product_id: ID
-    $quantity: Int!
-    $additional_description: String
-    $updated_at: DateTime
-    $added_at: DateTime
   ) {
     deleteWishlist_items(
       id: $id
-      wishlist_id: $wishlist_id
-      product_id: $product_id
-      external_product_id: $external_product_id
-      quantity: $quantity
-      additional_description: $additional_description
-      updated_at: $updated_at
-      added_at: $added_at
     ) {
       id
-      wishlist_id
-      product_id
-      external_product_id
-      quantity
-      additional_description
-      updated_at
-      added_at
     }
   }
 `;

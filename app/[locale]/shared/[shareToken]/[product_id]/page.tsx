@@ -160,24 +160,24 @@ const ProductDetails: React.FC = () => {
           <Image
             alt="Product Image"
             className="rounded-lg min-w-[350px] min-h-[350px]"
-            src={productDetails.image_url || "/create1.png"}
+            src={productDetails?.image_url || "/create1.png"}
             width="400"
             height="400"
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
           />
         </div>
         <div className="w-[80%] sm:w-1/2 md:max-w-[350px] flex flex-col mb-16 mt-8 md:mt-12 gap-0 md:gap-4">
-          <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
+          <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
           <p className="mt-2 text-xl font-light">
-            {productDetails.price.toFixed(2)} THB
+            {productDetails?.price.toFixed(2)} THB
           </p>
           <p className="text-base text-gray-700">
-            {productDetails.product_description}
+            {productDetails?.product_description}
           </p>
           <div className="my-2 flex flex-col w-full gap-2">
             <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
             <p className="text-base text-gray-700">
-              {productDetails.product_description}
+              {productDetails?.product_description}
             </p>
           </div>
           {/* Conditional Rendering Based on Reservation Status */}
@@ -207,7 +207,7 @@ const ProductDetails: React.FC = () => {
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           onReserve={handleReserveGift}
-          productImage={productDetails.image_url || "/create1.png"}
+          productImage={productDetails?.image_url || "/create1.png"}
           wishlistItemId={productDetails?.wishlist_items?.[0]?.id}
         />
       )}

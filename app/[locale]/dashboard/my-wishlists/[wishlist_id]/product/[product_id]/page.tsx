@@ -37,7 +37,21 @@ interface Product {
   brand: string;
   store_link: string;
   highlighted: boolean;
+  pre_list: string;
   wishlist_items: WishlistItem[];
+}
+
+interface ExternalProduct {
+  id: string;
+  product_name: string;
+  product_description?: string;
+  price?: number;
+  image_url?: string;
+  category?: string;
+  brand?: string;
+  store_link?: string;
+  created_at: string;
+  updated_at: string;
 }
 
 interface WishlistItem {
@@ -51,6 +65,7 @@ interface WishlistItem {
   products: Product[];
   reserved_gifts: ReservedGifts[];
   wishlists: Wishlist[];
+  external_products: ExternalProduct[];
 }
 
 interface SharedWishlists {
@@ -113,11 +128,11 @@ const ProductDetails: React.FC = () => {
   const [updateWishlistItem, { loading: updateLoading, error: updateError }] = useMutation(UPDATE_WISHLIST_ITEMS);
 
   const handleModalConfirm = async (newMessage: string) => {
-    if (!productDetails?.wishlist_items || productDetails.wishlist_items.length === 0) {
+    if (!productDetails?.wishlist_items || productDetails?.wishlist_items.length === 0) {
       console.warn("No wishlist item available to update.");
       return;
     }
-    const wishlistItem = productDetails.wishlist_items[0]; // assuming the first item
+    const wishlistItem = productDetails?.wishlist_items[0]; // assuming the first item
     const now = new Date().toISOString();
     try {
       const { data } = await updateWishlistItem({
@@ -150,23 +165,17 @@ const ProductDetails: React.FC = () => {
   };
 
   const handleDelete = async () => {
-    if (!productDetails?.wishlist_items || productDetails.wishlist_items.length === 0) {
+    if (!productDetails?.wishlist_items || productDetails?.wishlist_items.length === 0) {
       console.warn("No wishlist item found for deletion.");
       return;
     }
-    const wishlistItem = productDetails.wishlist_items[0];
+    const wishlistItem = productDetails?.wishlist_items[0];
     try {
       setDeletionLoading(true);
       const { data } = await client.mutate({
         mutation: DELETE_WISHLIST_ITEMS,
         variables: {
           id: wishlistItem.id,
-          wishlist_id: wishlistItem.wishlist_id,
-          product_id: wishlistItem.product_id,
-          quantity: wishlistItem.quantity,
-          additional_description: wishlistItem.additional_description || "",
-          updated_at: wishlistItem.updated_at,
-          added_at: wishlistItem.added_at,
         },
       });
       console.log("Wishlist item deleted:", data?.deleteWishlist_items);
@@ -217,14 +226,14 @@ const ProductDetails: React.FC = () => {
     );
   if (!productDetails) return <div>{t("productNotFound")}</div>;
 
-  const firstWishlistItem = productDetails.wishlist_items?.[0];
+  const firstWishlistItem = productDetails?.wishlist_items?.[0];
   const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
   const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
 
   const src = productDetails?.image_url || "/create1.png"
   return (
     <div className="w-full pb-20">
-      {productDetails.wishlist_items && productDetails.wishlist_items.length === 0 ? (
+      {productDetails?.wishlist_items && productDetails?.wishlist_items.length === 0 ? (
         <div className="w-full text-center mt-4 relative px-4 py-6 sm:py-12 flex flex-col gap-2">
           <div className="absolute left-0 top-0">
             <BackButtonWithNoSSR />
@@ -233,7 +242,7 @@ const ProductDetails: React.FC = () => {
             {t("productNotInWishlist") || "Product Not In This Wishlist"}
           </h1>
           <p className="text-gray-600">
-            {`The product "${productDetails.product_name}" is not included in this wishlist.`}
+            {`The product "${productDetails?.product_name}" is not included in this wishlist.`}
           </p>
           <div className="flex flex-col gap-4 justify-center">
             <p className="text-center text-sm text-gray-500">
@@ -256,16 +265,16 @@ const ProductDetails: React.FC = () => {
               height={400}
             />
             <div className="w-1/2 flex flex-col mb-auto mt-12">
-              <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
+              <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
               <p className="mt-2 text-xl font-light">
-                {productDetails.price.toFixed(2)} THB
+                {productDetails?.price.toFixed(2)} THB
               </p>
               <p className="mt-4 text-base text-gray-700">
-                {productDetails.product_description}
+                {productDetails?.product_description}
               </p>
               <div className="mt-8 flex flex-col gap-4 w-full">
                 <SolidButton1 text={t("addDetailsButton")} onClick={handleUpdateDetails} />
-                <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails.affiliate_link} target="_blank" />
+                <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails?.affiliate_link} target="_blank" />
                 {updateError && <p className="text-red-500 mt-2">Error updating details.</p>}
                 {isProductReserved && (
                   <span className="text-xl px-4 font-semibold mx-auto text-primary">
@@ -279,12 +288,12 @@ const ProductDetails: React.FC = () => {
                 )}
               </div>
               {/* Reservation Details Section */}
-          {productDetails.wishlist_items &&
-          productDetails.wishlist_items[0] &&
-          productDetails.wishlist_items[0].reserved_gifts &&
-          productDetails.wishlist_items[0].reserved_gifts.length > 0 && (
+          {productDetails?.wishlist_items &&
+          productDetails?.wishlist_items[0] &&
+          productDetails?.wishlist_items[0].reserved_gifts &&
+          productDetails?.wishlist_items[0].reserved_gifts.length > 0 && (
             <ReservedGiftCard
-              reservedGift={productDetails.wishlist_items[0].reserved_gifts[0]}
+              reservedGift={productDetails?.wishlist_items[0].reserved_gifts[0]}
             />
           )}
             </div>
@@ -313,7 +322,7 @@ const ProductDetails: React.FC = () => {
         isProductReserved={isProductReserved}
         onClose={closeModal}
         onDelete={handleDelete}
-        productName={productDetails.product_name}
+        productName={productDetails?.product_name}
         deletionLoading={deletionLoading}
       />
       {/* Update Wishlist Details Modal */}

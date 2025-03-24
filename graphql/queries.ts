@@ -179,6 +179,33 @@ export const GET_PRODUCT_BY_ID = gql`
   }
 `;
 
+export const GET_EXTERNAL_PRODUCT_BY_ID = gql`
+  query GetExternalProductById($id: ID!) {
+    externalProductById(id: $id) {
+      id
+      product_name
+      product_description
+      price
+      image_url
+      category
+      brand
+      store_link
+      created_at
+      updated_at
+      wishlist_items {
+        id
+        wishlist_id
+        product_id
+        external_product_id
+        additional_description
+        quantity
+        added_at
+        updated_at
+      }
+    }
+  }
+`;
+
 export const GET_PRODUCTS_LIST = gql`
   query GetProductsList {
     productsList {

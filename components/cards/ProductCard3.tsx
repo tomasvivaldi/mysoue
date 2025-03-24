@@ -43,7 +43,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
           <h2 className="text-lg font-semibold text-gray-800 ">
             {name || "Unnamed Product"}
           </h2>
-          {price !== null && (
+          {price && price !== null && (
             <p className="text-md text-gray-600 ">
               <span className="font-semibold">Price: </span>{price.toFixed(2)}฿
             </p>

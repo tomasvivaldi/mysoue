@@ -140,16 +140,16 @@ const ProductDetails: React.FC = () => {
           height={400}
         />
         <div className="w-full px-4 lg:px-0 flex flex-col ">
-          <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
+          <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
           <p className="mt-2 text-xl font-light">
-            {productDetails.price.toFixed(2)} THB
+            {productDetails?.price.toFixed(2)} THB
           </p>
           <p className="mt-4 text-base text-gray-700">
-            {productDetails.product_description}
+            {productDetails?.product_description}
           </p>
           <div className="mt-8 flex flex-col gap-4 w-full ">
             <SolidButton1 text={t("addToWishlistButton")} onClick={openWishlistModal} />
-            <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails.affiliate_link} target="_blank" />
+            <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails?.affiliate_link} target="_blank" />
           </div>
         </div>
       </div>
@@ -170,7 +170,7 @@ const ProductDetails: React.FC = () => {
       />
       <WishlistSelectionModal
         isOpen={isWishlistSelectionModalOpen}
-        onClose={closeWishlistSelectionModal} productId={productDetails.id}      />
+        onClose={closeWishlistSelectionModal} productId={productDetails?.id}      />
     </div>
   );
 };

@@ -103,28 +103,28 @@ const ProductDetails: React.FC = () => {
           <img
             alt="Product Image"
             className="rounded-lg"
-            src={productDetails.image_url || "/create1.png"}
+            src={productDetails?.image_url || "/create1.png"}
             width="400"
             height="400"
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
           />
         </div>
         <div className="w-1/2 flex flex-col mb-auto mt-12">
-          <h1 className="text-3xl font-bold">{productDetails.product_name}</h1>
+          <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
           <p className="mt-2 text-xl font-light">
-            {productDetails.price.toFixed(2)} THB
+            {productDetails?.price.toFixed(2)} THB
           </p>
           <p className="mt-4 text-base text-gray-700">
-            {productDetails.product_description}
+            {productDetails?.product_description}
           </p>
 
           {/* Reservation Details Section */}
-          {productDetails.wishlist_items &&
-          productDetails.wishlist_items[0] &&
-          productDetails.wishlist_items[0].reserved_gifts &&
-          productDetails.wishlist_items[0].reserved_gifts.length > 0 && (
+          {productDetails?.wishlist_items &&
+          productDetails?.wishlist_items[0] &&
+          productDetails?.wishlist_items[0].reserved_gifts &&
+          productDetails?.wishlist_items[0].reserved_gifts.length > 0 && (
             <ReservedGiftCard
-              reservedGift={productDetails.wishlist_items[0].reserved_gifts[0]}
+              reservedGift={productDetails?.wishlist_items[0].reserved_gifts[0]}
             />
           )}
         </div>

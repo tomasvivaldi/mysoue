@@ -38,6 +38,19 @@ interface Product {
   wishlist_items: WishlistItem[];
 }
 
+interface ExternalProduct {
+  id: string;
+  product_name: string;
+  product_description?: string;
+  price?: number;
+  image_url?: string;
+  category?: string;
+  brand?: string;
+  store_link?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 interface WishlistItem {
   added_at: string;
   additional_description: string;
@@ -47,6 +60,7 @@ interface WishlistItem {
   wishlist_id: string;
   id: string;
   products: Product[];
+  external_products: ExternalProduct[];
 }
 
 interface SharedWishlists {
@@ -112,6 +126,7 @@ const WishlistDetails: React.FC = () => {
           // Initialize the first page of visible items
           if (data) {
             setVisibleItems(data.wishlist_items.slice(0, PAGE_SIZE));
+            console.log("data.wishlist_items.slice(0, PAGE_SIZE)",data.wishlist_items.slice(0, PAGE_SIZE))
           }
         }
       } catch (error) {
@@ -203,6 +218,7 @@ const WishlistDetails: React.FC = () => {
     store_link: string;
   }) => {
     try {
+      // Add external product and capture its ID in a local variable
       const response = await addExternalProduct({
         variables: {
           product_name: productData.product_name,
@@ -217,52 +233,31 @@ const WishlistDetails: React.FC = () => {
         },
       });
       console.log("New external product added:", response.data);
-      setExternalProductId(response.data?.id)
-    } catch (error) {
-      console.error("Error adding external product:", error);
-    }
-    // setIsAddProductModalOpen(false);
-
-    // Check if the product is already in the selected wishlist
-    if ( wishlistDetails && visibleItems.some((item: any) => item.product_id === externalProductId)) {
-      console.warn("Product already in wishlist.");
-      return;
-    }
-    try {
+      const newProductId = response.data?.insertExternalProduct?.id;
+      setExternalProductId(newProductId);
+      
+      // Insert the new product into wishlist_items
       const now = new Date().toISOString();
-      const response = await insertWishlistItems({
+      const insertResponse = await insertWishlistItems({
         variables: {
           wishlist_id: wishlist_id,
-          product_id: externalProductId,
+          external_product_id: newProductId,
           quantity: 1,
           additional_description: "",
           updated_at: now,
           added_at: now,
         },
       });
-      console.log("Wishlist item inserted:", response.data.insertWishlist_items);
-      const newItem = response.data.insertWishlist_items;
-
-      // Also update the userData state to update the corresponding wishlist in the list
-      setVisibleItems((prevUserData: any) => {
-        if (!prevUserData || !prevUserData.wishlists) return prevUserData;
-        const updatedWishlists = prevUserData.wishlists.map((wishlist: any) => {
-          if (wishlist.id === wishlist_id) {
-            return {
-              ...wishlist,
-              wishlist_items: wishlist.wishlist_items ? [...wishlist.wishlist_items, newItem] : [newItem],
-            };
-          }
-          return wishlist;
-        });
-        return { ...prevUserData, wishlists: updatedWishlists };
-      });
+      console.log("Wishlist item inserted:", insertResponse.data.insertWishlist_items);
+      const newItem = insertResponse.data.insertWishlist_items;
       
-      // At this point, the UI should reflect that the product is already added without closing the modal.
+      // Update the visibleItems array with the new wishlist item
+      setVisibleItems((prevItems) => [...prevItems, newItem]);
+      
+      // Optionally, you might also want to keep the modal open or provide further feedback here.
     } catch (error) {
       console.error("Error inserting wishlist item:", error);
     }
-
   };
 
   return (
@@ -304,20 +299,24 @@ const WishlistDetails: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
             {visibleItems.map((item) => {
               const products = Array.isArray(item.products) ? item.products : [item.products];
-              const product = products[0]; 
-              const productId = product?.id              
+              const product = products[0];
+              const productId = product?.id
+              const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
+              const externalProduct = externalProducts[0];
+              const externalProductId = externalProduct?.id
+              const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
               return (
                 <ProductCard3
-                  href={`/dashboard/my-wishlists/${wishlist_id}/${productId}`}
-                  key={product.id}            
-                  preList={product.pre_list}
-                  imageUrl={product.image_url}
-                  name={product.product_name}
-                  price={product.price}
-                  additionalDescription={product.product_description}
-                  brand={product.brand}
-                  category={product.category}
-                  subcategory={product.subcategory}
+                  href={productLink}
+                  key={product?.id || externalProduct?.id}
+                  preList={product?.pre_list || ""}
+                  imageUrl={product?.image_url || externalProduct?.image_url || ""}
+                  name={product?.product_name || externalProduct?.product_name}
+                  price={product?.price || externalProduct?.price || 0}
+                  additionalDescription={product?.product_description || externalProduct?.product_description}
+                  brand={product?.brand || externalProduct?.brand}
+                  category={product?.category || externalProduct?.category}
+                  subcategory={product?.subcategory || ""}
                 />
               );
             })}

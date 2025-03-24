@@ -99,98 +99,93 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
           </h2>
 
           <div className="flex flex-col gap-4">
-            {/* Product Name */}
-            <input
-              type="text"
-              placeholder={t("product_name_placeholder")}
-              value={productName}
-              onChange={(e) => {
-                console.log('Product name changed:', e.target.value);
-                setProductName(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+            <fieldset disabled={isSuccess} className="flex flex-col gap-4">
+              {/* Product Name */}
+              <input
+                type="text"
+                placeholder={t("product_name_placeholder")}
+                value={productName}
+                onChange={(e) => {
+                  setProductName(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
 
-            {/* Product Description */}
-            <textarea
-              placeholder={t("product_description_placeholder")}
-              value={productDescription}
-              onChange={(e) => {
-                console.log('Product description changed:', e.target.value);
-                setProductDescription(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+              {/* Product Description */}
+              <textarea
+                placeholder={t("product_description_placeholder")}
+                value={productDescription}
+                onChange={(e) => {
+                  setProductDescription(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
 
-            {/* Price */}
-            <input
-              type="number"
-              placeholder={t("price_placeholder")}
-              value={price}
-              onChange={(e) => {
-                const val = e.target.value ? Number(e.target.value) : "";
-                console.log('Price changed:', val);
-                setPrice(val);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+              {/* Price */}
+              <input
+                type="number"
+                placeholder={t("price_placeholder")}
+                value={price}
+                onChange={(e) => {
+                  const val = e.target.value ? Number(e.target.value) : "";
+                  setPrice(val);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
 
-            {/* Image URL */}
-            <input
-              type="text"
-              placeholder={t("image_url_placeholder")}
-              value={imageUrl}
-              onChange={(e) => {
-                console.log('Image URL changed:', e.target.value);
-                setImageUrl(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+              {/* Image URL */}
+              <input
+                type="text"
+                placeholder={t("image_url_placeholder")}
+                value={imageUrl}
+                onChange={(e) => {
+                  setImageUrl(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
 
-            {/* Category Dropdown */}
-            <select
-              value={category}
-              onChange={(e) => {
-                console.log('Category selected:', e.target.value);
-                setCategory(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
-            >
-              {categories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              {/* Category Dropdown */}
+              <select
+                value={category}
+                onChange={(e) => {
+                  setCategory(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
+              >
+                {categories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
 
-            {/* Brand */}
-            <input
-              type="text"
-              placeholder={t("brand_placeholder")}
-              value={brand}
-              onChange={(e) => {
-                console.log('Brand changed:', e.target.value);
-                setBrand(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+              {/* Brand */}
+              <input
+                type="text"
+                placeholder={t("brand_placeholder")}
+                value={brand}
+                onChange={(e) => {
+                  setBrand(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
 
-            {/* Store Link */}
-            <input
-              type="text"
-              placeholder={t("store_link_placeholder")}
-              value={storeLink}
-              onChange={(e) => {
-                console.log('Store link changed:', e.target.value);
-                setStoreLink(e.target.value);
-              }}
-              className="w-full border border-gray-300 rounded-lg px-4 py-2"
-            />
+              {/* Store Link */}
+              <input
+                type="text"
+                placeholder={t("store_link_placeholder")}
+                value={storeLink}
+                onChange={(e) => {
+                  setStoreLink(e.target.value);
+                }}
+                className="w-full border border-gray-300 rounded-lg px-4 py-2"
+              />
+            </fieldset>
 
             {/* Add Product Button */}
             <button
               onClick={handleAddProduct}
-              disabled={isLoading}
+              disabled={isLoading || isSuccess}
               className="w-fit mx-auto bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
             >
               {isLoading ? t("loading") : isSuccess ? t("product_added") : t("add_product")}
@@ -209,7 +204,6 @@ const AddProductModal: React.FC<ModalProps> = ({ isOpen, onClose, onAddProduct }
             {/* Go Back Button */}
             <button
               onClick={() => {
-                console.log('AddProductModal: Go back button clicked.');
                 onClose();
               }}
               className="text-gray-500 hover:text-gray-700 text-lg"
