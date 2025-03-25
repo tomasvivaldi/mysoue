@@ -70,31 +70,31 @@ const UserLists: React.FC<UserListsProps> = ({
 
       {/* Lists */}
       <ul className="space-y-4">
-  {localWishlists.map((wishlist) => (
-    <li
-      key={wishlist.id}
-      className="group flex items-center justify-between text-black text-sm px-4 py-2
-                 transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
-    >
-      <Link
-        href={`/dashboard/my-wishlists/${wishlist.id}`}
-        passHref
-        className="flex-grow font-semibold text-xl hover:underline"
-      >
-        {wishlist.title}
-      </Link>
-      <button
-        onClick={(e) => {
-          e.preventDefault(); // Prevent navigation when "delete" is clicked
-          handleOpenDeleteModal(wishlist);
-        }}
-        className="text-[#C6B8A2] hover:underline transition"
-      >
-        {t("delete")}
-      </button>
-    </li>
-  ))}
-</ul>
+        {localWishlists.map((wishlist) => (
+          <li
+            key={wishlist.id}
+            className="group flex items-center justify-between text-black text-sm px-4 py-2
+                      transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
+          >
+            <Link
+              href={`/dashboard/my-wishlists/${wishlist.id}`}
+              passHref
+              className="flex-grow font-semibold text-xl hover:underline"
+            >
+              {wishlist.title}
+            </Link>
+            <button
+              onClick={(e) => {
+                e.preventDefault(); // Prevent navigation when "delete" is clicked
+                handleOpenDeleteModal(wishlist);
+              }}
+              className="text-[#C6B8A2] hover:underline transition"
+            >
+              {t("delete")}
+            </button>
+          </li>
+        ))}
+      </ul>
 
       {/* Add New Wishlist Button */}
       <div className="mt-8">
