@@ -128,60 +128,13 @@ export default function MyWishlists() {
       />;
     }
 
-  const wishlists = [
-    {
-      id: 1,
-      title: "Christmas",
-      description: "Short List Descriptions",
-      imageUrl: "/xmas.jpg",
-    },
-    {
-      id: 2,
-      title: "Baby Shower",
-      description: "Short List Descriptions",
-      imageUrl: "/baby.jpg",
-    },
-  ];
   return (
     <>
       <Head>
         <title>{t("pageTitle")}</title>
       </Head>
       <div className="container mx-auto p-4 ">
-        {/* <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-regular font-simplemichael">
-            {t("title")}
-          </h1>
-          <button className="bg-black text-white px-4 py-2 rounded hover:shadow-lg transition duration-300">
-            <a href="/dashboard/create-new-wishlist" className=" font-nunito">
-              {t("createNewWishlistButton")}
-            </a>
-          </button>
-        </div> */}
-
         <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
-          {/* {userData?.wishlists.map((wishlist) => {
-            // Only attempt to create a Date object if wishlist.due_date is defined
-            const readableDate = wishlist.due_date
-              ? new Date(wishlist.due_date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })
-              : "none";
-            console.log("wishlist", wishlist);
-            return (
-              <Card
-                key={wishlist?.id}
-                id={wishlist?.id}
-                img="/xmas.jpg" // fix this to dinamically match image to list type
-                activity={wishlist.title}
-                type={wishlist.type}
-                date={readableDate} // Use the formatted date or "none"
-                postpreview={wishlist?.description!}
-              />
-            );
-          })} */}
           <UserLists
             wishlists={userData?.wishlists || []}
             onEdit={(id) => console.log(`Edit wishlist with id: ${id}`)}
@@ -193,36 +146,3 @@ export default function MyWishlists() {
     </>
   );
 }
-
-// "use client";
-
-// import UserLists from "@/components/aline_design/Dashboard/UserLists";
-// import React from "react";
-
-
-// export default function UserListsPage() {
-//   // Example lists
-//   const lists = [
-//     { name: "Birthday" },
-//     { name: "Valentine" },
-//     { name: "Graduation" },
-//   ];
-
-//   const handleEditList = (listName: string) => {
-//     alert(`Edit ${listName}`);
-//   };
-
-//   const handleAddNewList = () => {
-//     alert("Add New Wishlist");
-//   };
-
-//   return (
-//     <div className="min-h-screen w-full x-paddings flex py-20 justify-center bg-white">
-//       <UserLists
-//         lists={lists}
-//         onEdit={handleEditList}
-//         onAddNewList={handleAddNewList}
-//       />
-//     </div>
-//   );
-// }

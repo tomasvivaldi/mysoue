@@ -5,19 +5,19 @@ import GhostButtonBlack from "@/components/GhostButtonBlack";
 import React, { useState } from "react";
 import ReviewStep from "@/components/ReviewStep";
 import ConfirmationStep from "@/components/ConfirmationStep";
-import { useMutation, gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { ADD_WISHLIST } from "@/graphql/mutations";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
 
-// Define the type for each step's data if needed
+// Define the type for each step's data
 type StepData = {
   listType: string;
   listName: string;
   description: string;
   dueDate: string;
   provideAddress: boolean;
-  address?: string | undefined;
+  address?: string;
 };
 
 interface ListOption {
@@ -25,7 +25,7 @@ interface ListOption {
   label: string;
 }
 
-const createNewWishlist = () => {
+const CreateNewWishlist = () => {
   const t = useTranslations("Dashboard-CreateNewWishlist");
   const listOptions: ListOption[] = [
     { value: "", label: "Select a type" },
@@ -35,96 +35,98 @@ const createNewWishlist = () => {
     { value: "marriage", label: "Marriage wishlist" },
   ];
 
-  const [addWishlist, { data, loading, error }] = useMutation(ADD_WISHLIST);
+  // Destructure the loading flag from useMutation
+  const [addWishlist, { loading: mutationLoading }] = useMutation(ADD_WISHLIST);
 
-  const [currentStep, setCurrentStep] = useState(2);
+  // Start at step 1 (welcome screen)
+  const [currentStep, setCurrentStep] = useState(1);
   const [listType, setListType] = useState("");
   const [listName, setListName] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [address, setAddress] = useState("");
   const [provideAddress, setProvideAddress] = useState(false);
-  const [formData, setFormData] = useState<StepData[]>([]);
+  // Store the step's data once validated; null until then
+  const [formData, setFormData] = useState<StepData | null>(null);
+  const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
+  const [isNextDisabled, setIsNextDisabled] = useState(false);
+  const [triggerShake, setTriggerShake] = useState(false);
 
   const goNextStep = () => {
-    // Check if you're moving away from the step that involves FormStepTwo
+    if (isNextDisabled) return;
+
+    // Validate only on the form step
     if (currentStep === 2) {
-      // Create an object with the form data
       const stepData: StepData = {
         listType,
         listName,
         description,
         dueDate,
         provideAddress,
-        ...(provideAddress && { address }), // Include address conditionally
+        ...(provideAddress && { address }),
       };
 
-      // Set formData state
-      setFormData([...formData, stepData]); // This assumes formData is meant to accumulate data from all steps
+      const newErrors: { [key: string]: boolean } = {};
+      if (!listType) newErrors.listType = true;
+      if (!listName.trim()) newErrors.listName = true;
+      if (!dueDate) newErrors.dueDate = true;
+      if (provideAddress && !address.trim()) newErrors.address = true;
+      if (!description.trim()) newErrors.description = true;
+
+      setErrors(newErrors);
+
+      if (Object.keys(newErrors).length > 0) {
+        // Trigger shake animation on errors
+        setTriggerShake(true);
+        setTimeout(() => setTriggerShake(false), 500);
+        return;
+      }
+
+      // Save the validated step data
+      setFormData(stepData);
     }
 
-    // Proceed to the next step
+    // Prevent button spam
+    setIsNextDisabled(true);
+    setTimeout(() => setIsNextDisabled(false), 1000);
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
-  // Function to handle form data submission of each step
-  const handleFormData = (stepData: StepData) => {
-    setFormData((prevData) => {
-      const newData = [...prevData];
-      newData[currentStep - 1] = stepData;
-      return newData;
-    });
-    goNextStep();
-  };
-
   const handleEdit = () => {
-    // Go back to the first step to edit the form
-    setCurrentStep(1);
+    // Allow user to edit the form by returning to the form step
+    setCurrentStep(2);
   };
 
   const handleSubmit = () => {
-    console.log("Submitting form data:", formData);
-  
-    // Ensure we have valid data
-    if (formData.length === 0 || !formData[0].listName || !formData[0].listType) {
+    if (!formData || !formData.listName || !formData.listType) {
       console.error("Invalid form data. Please complete all required fields.");
       return;
     }
-  
-    // Prepare mutation variables
-    const userId = "28"; // This should be dynamically fetched, not hardcoded
+
+    const userId = "28"; // Ideally, fetch this dynamically
     const now = new Date().toISOString();
-  
+
     addWishlist({
       variables: {
         user_id: userId,
-        title: formData[0].listName,
-        type: formData[0].listType,
-        description: formData[0].description,
-        due_date: formData[0].dueDate,
-        require_address: formData[0].provideAddress,
-        address: formData[0].address || "",
+        title: formData.listName,
+        type: formData.listType,
+        description: formData.description,
+        due_date: formData.dueDate,
+        require_address: formData.provideAddress,
+        address: formData.address || "",
         created_at: now,
         updated_at: now,
       },
     })
       .then((response) => {
         console.log("Wishlist added successfully:", response.data);
-        // Proceed to confirmation step
+        // Move to confirmation step
         setCurrentStep((prevStep) => prevStep + 1);
       })
       .catch((error) => {
         console.error("Error submitting form:", error);
       });
-  };
-
-  const mockFormData: StepData = {
-    listType: "Birthday",
-    listName: "30th Birthday Bash",
-    description:
-      "A collection of items I would love for my 30th birthday celebration!",
-    dueDate: "2024-05-23",
-    provideAddress: true,
   };
 
   const renderStep = () => {
@@ -133,16 +135,12 @@ const createNewWishlist = () => {
         return (
           <div className="flex flex-col items-center justify-center p-4 h-full">
             <div
-              className="text-center my-auto flex flex-col gap-4 rounded-md border-gray-200 bg-[#fbf9f4]
-              px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl"
+              className="text-center my-auto flex flex-col gap-4 rounded-md border-gray-200 
+              bg-[#fbf9f4] px-4 md:px-12 py-6 w-[90%] sm:w-[80%] lg:w-[50%] mx-auto shadow-xl"
             >
               <h2 className="text-4xl font-medium mb-4">{t("stepOneTitle")}</h2>
               <p className="mb-8">{t("stepOneDescription")}</p>
-
-              <GhostButtonBlack
-                text={t("stepOneButton")}
-                onClick={goNextStep}
-              />
+              <GhostButtonBlack text={t("stepOneButton")} onClick={goNextStep} />
             </div>
           </div>
         );
@@ -150,6 +148,8 @@ const createNewWishlist = () => {
         return (
           <div className="flex flex-col items-center justify-center p-4 h-full w-full">
             <FormStepTwo
+              errors={errors}
+              setErrors={setErrors}
               onNext={goNextStep}
               listOptions={listOptions}
               listType={listType}
@@ -164,16 +164,18 @@ const createNewWishlist = () => {
               setProvideAddress={setProvideAddress}
               address={address}
               setAddress={setAddress}
+              triggerShake={triggerShake}
             />
           </div>
         );
       case 3:
         return (
-          formData.length > 0 && (
+          formData && (
             <ReviewStep
-              formData={formData[formData.length - 1]}
+              formData={formData}
               onEdit={handleEdit}
               onSubmit={handleSubmit}
+              loading={mutationLoading} // Pass the mutation loading state
             />
           )
         );
@@ -194,4 +196,4 @@ const createNewWishlist = () => {
   );
 };
 
-export default createNewWishlist;
+export default CreateNewWishlist;

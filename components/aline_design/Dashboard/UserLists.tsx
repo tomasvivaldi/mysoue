@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useState } from "react";
 import AddWishlistModal from "../modals/AddWishlistModal";
 import DeleteWishlistModal from "../modals/DeleteWishlistModal";
-import { useTranslations } from "next-intl"; // Import translation hook
+import { useTranslations } from "next-intl"; 
+import { useMutation } from "@apollo/client";
+import { DELETE_WISHLISTS } from "@/graphql/mutations";
 
 interface Wishlist {
   id: string;
@@ -22,12 +24,12 @@ const UserLists: React.FC<UserListsProps> = ({
   onEdit,
   onAddNewList,
 }) => {
-  const t = useTranslations("UserLists"); // Get translations for this component
+  const t = useTranslations("UserLists");
+  const [deleteWishlistMutation, { loading: deleteLoading, error: deleteError }] = useMutation(DELETE_WISHLISTS);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(
-    null
-  );
+  const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(null);
+  const [localWishlists, setLocalWishlists] = useState<Wishlist[]>(wishlists);
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -43,10 +45,21 @@ const UserLists: React.FC<UserListsProps> = ({
     setIsDeleteModalOpen(false);
   };
 
-  const handleDeleteWishlist = () => {
-    console.log(`Deleting wishlist with ID: ${selectedWishlist?.id}`);
-    // Add logic for deleting the wishlist here (e.g., API call)
-    handleCloseDeleteModal();
+  const handleDeleteWishlist = async () => {
+    if (!selectedWishlist) return;
+    try {
+      await deleteWishlistMutation({ variables: { id: selectedWishlist.id } });
+      console.log(`Wishlist with ID: ${selectedWishlist.id} deleted successfully.`);
+      // Update the local state by filtering out the deleted wishlist
+      const updatedWishlists = localWishlists.filter(
+        (wishlist) => wishlist.id !== selectedWishlist.id
+      );
+      setLocalWishlists(updatedWishlists);
+      console.log("Updated local wishlists:", updatedWishlists);
+      handleCloseDeleteModal();
+    } catch (error) {
+      console.error("Error deleting wishlist:", error);
+    }
   };
 
   return (
@@ -57,31 +70,31 @@ const UserLists: React.FC<UserListsProps> = ({
 
       {/* Lists */}
       <ul className="space-y-4">
-        {wishlists.map((wishlist) => (
-          <li
-            key={wishlist.id}
-            className="group flex items-center justify-between text-black text-sm px-4 py-2
-                       transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
-          >
-            <Link
-              href={`/dashboard/my-wishlists/${wishlist.id}`}
-              passHref
-              className="flex-grow font-semibold text-xl hover:underline"
-            >
-              {wishlist.title}
-            </Link>
-            <button
-              onClick={(e) => {
-                e.preventDefault(); // Prevent navigation when "delete" is clicked
-                handleOpenDeleteModal(wishlist);
-              }}
-              className="text-[#C6B8A2] hover:underline transition"
-            >
-              {t("delete")}
-            </button>
-          </li>
-        ))}
-      </ul>
+  {localWishlists.map((wishlist) => (
+    <li
+      key={wishlist.id}
+      className="group flex items-center justify-between text-black text-sm px-4 py-2
+                 transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
+    >
+      <Link
+        href={`/dashboard/my-wishlists/${wishlist.id}`}
+        passHref
+        className="flex-grow font-semibold text-xl hover:underline"
+      >
+        {wishlist.title}
+      </Link>
+      <button
+        onClick={(e) => {
+          e.preventDefault(); // Prevent navigation when "delete" is clicked
+          handleOpenDeleteModal(wishlist);
+        }}
+        className="text-[#C6B8A2] hover:underline transition"
+      >
+        {t("delete")}
+      </button>
+    </li>
+  ))}
+</ul>
 
       {/* Add New Wishlist Button */}
       <div className="mt-8">

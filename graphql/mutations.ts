@@ -344,6 +344,23 @@ export const INSERT_WISHLIST_ITEMS = gql`
   }
 `;
 
+export const DELETE_WISHLISTS = gql`
+  mutation DeleteWishlists($id: ID!) {
+    deleteWishlists(id: $id) {
+      id
+      user_id
+      title
+      type
+      description
+      due_date
+      require_address
+      address
+      created_at
+      updated_at
+    }
+  }
+`;
+
 export const DELETE_WISHLIST_ITEMS = gql`
   mutation DeleteWishlistItems(
     $id: ID!

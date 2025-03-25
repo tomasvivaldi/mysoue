@@ -17,12 +17,14 @@ type ReviewStepProps = {
   formData: StepData;
   onEdit: () => void; // Function to go back and edit the form
   onSubmit: () => void; // Function to submit the form
+  loading: boolean;    // Flag to indicate if the mutation is loading
 };
 
 const ReviewStep: React.FC<ReviewStepProps> = ({
   formData,
   onEdit,
   onSubmit,
+  loading,
 }) => {
   const t = useTranslations("Dashboard-CreateNewWishlist-ReviewStep");
 
@@ -34,19 +36,15 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
           <p>
             <strong>{t("typeOfListLabel")}</strong> {formData.listType}
           </p>
-
           <p>
             <strong>{t("nameOfListLabel")}</strong> {formData.listName}
           </p>
-
           <p>
             <strong>{t("descriptionLabel")}</strong> {formData.description}
           </p>
-
           <p>
             <strong>{t("dueDateLabel")}</strong> {formData.dueDate}
           </p>
-
           <p>
             <strong>{t("provideAddressLabel")}</strong>{" "}
             {formData.provideAddress ? t("yes") : t("no")}
@@ -63,10 +61,14 @@ const ReviewStep: React.FC<ReviewStepProps> = ({
         >
           {t("backButton")}
         </button>
-
-        <GhostButtonBlack text={t("submitButton")} onClick={onSubmit} />
+        <GhostButtonBlack
+          text={t("submitButton")}
+          onClick={onSubmit}
+          disabled={loading}  // disable the button when loading is true
+        />
       </div>
     </div>
   );
 };
+
 export default ReviewStep;

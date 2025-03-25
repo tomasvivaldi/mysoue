@@ -609,15 +609,6 @@ type Mutation {
   " Mutations for type 'Wishlists' "
   deleteWishlists(
     id: ID!
-    user_id: ID!
-    created_at: DateTime!
-    updated_at: DateTime!
-    description: String!
-    require_address: Boolean!
-    due_date: DateTime!
-    address: String!
-    title: String!
-    type: String!
   ): Wishlists
     @dbquery(
       type: "postgresql"
