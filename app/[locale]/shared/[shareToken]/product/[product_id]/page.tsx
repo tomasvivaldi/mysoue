@@ -177,7 +177,7 @@ const ProductDetails: React.FC = () => {
           <div className="my-2 flex flex-col w-full gap-2">
             <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
             <p className="text-base text-gray-700">
-              {productDetails?.product_description}
+              {productDetails?.wishlist_items?.[0]?.additional_description || <span className=" text-gray-500 ml-4 text-sm font-light"> -No additional details added for this product</span>}
             </p>
           </div>
           {/* Conditional Rendering Based on Reservation Status */}

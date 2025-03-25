@@ -28,6 +28,19 @@ interface Product {
   wishlist_items: WishlistItem[];
 }
 
+interface ExternalProduct {
+  id: string;
+  product_name: string;
+  product_description?: string;
+  price?: number;
+  image_url?: string;
+  category?: string;
+  brand?: string;
+  store_link?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 interface WishlistItem {
   added_at: string;
   additional_description: string;
@@ -37,6 +50,7 @@ interface WishlistItem {
   wishlist_id: string;
   id: string;
   products: Product;
+  external_products: ExternalProduct;
   reserved_gifts: ReservedGifts[];
 }
 
@@ -176,15 +190,16 @@ const SharedWishlistPage = () => {
               {wishlist.wishlist_items.map((item) => {
                 console.log("item?.products:",item?.products)
                 const imageUrl = item?.products?.image_url || "/create1.png";
-                const name = item.products?.product_name;
-                const price = item.products?.price;
-                const productId = item.product_id;
+                const name = item.products?.product_name || item?.external_products?.product_name;
+                const price = item.products?.price || item?.external_products?.price;
+                const productId = item.product_id || item?.external_products?.id;
                 // Check if the gift for this wishlist item is already reserved
                 const isGiftReserved = Boolean(
                   item?.reserved_gifts?.length
                 );
+                const productLink = item.product_id ? `/shared/${shareToken}/product/${productId}`: `/shared/${shareToken}/external-product/${productId}`;
                 return (
-                  <Link href={`/shared/${shareToken}/${productId}`} passHref key={item.id}>
+                  <Link href={productLink} passHref key={item.id}>
                     <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
                       <div className="relative h-48 w-full">
                         <Image

@@ -201,6 +201,34 @@ export const GET_EXTERNAL_PRODUCT_BY_ID = gql`
         quantity
         added_at
         updated_at
+        reserved_gifts {
+          id
+          name_and_surname
+          email
+          private_message
+          created_at
+          updated_at
+          wishlist_item_id
+        }
+        wishlists {
+          id
+          address
+          created_at
+          description
+          due_date
+          require_address
+          title
+          type
+          updated_at
+          user_id
+          shared_wishlists {
+            id
+            wishlist_id
+            share_token
+            created_at
+            expires_at
+          }
+        }
       }
     }
   }
