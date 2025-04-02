@@ -108,6 +108,18 @@ const SignUp = () => {
       });
       console.log("User added:", result);
 
+      // Send welcome email
+      await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          emailType: 'welcome',
+          to: email,
+          name: `${firstName} ${lastName}`,
+        }),
+      });
+      console.log("email sent (maybe)")
+
       // Attempt to sign in after successful sign up
       await signIn("credentials", { email, password, redirect: false });
       router.push("/dashboard/my-wishlists");

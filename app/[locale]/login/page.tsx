@@ -68,6 +68,18 @@ const Login = () => {
               },
             });
             console.log("User added:", data);
+
+            // Send welcome email
+            await fetch('/api/sendEmail', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                emailType: 'welcome',
+                to: user?.email,
+                name: user?.name,
+              }),
+            });
+
             router.push("/dashboard/my-wishlists");
           } catch (error) {
             console.error("Error adding user:", error);
