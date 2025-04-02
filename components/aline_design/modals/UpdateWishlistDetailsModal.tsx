@@ -8,7 +8,7 @@ interface UpdateWishlistDetailsModalProps {
   initialValue?: string;
   onClose: () => void;
   onConfirm: (newMessage: string) => void;
-  loading?: boolean; // New prop for mutation loading
+  loading?: boolean;
 }
 
 const UpdateWishlistDetailsModal: React.FC<UpdateWishlistDetailsModalProps> = ({

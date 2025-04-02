@@ -173,7 +173,8 @@
     "share_to_socials": "แชร์ไปยังโซเชียล",
     "generate_link_message": "สร้างลิงก์เพื่อแชร์วิดลิสต์ของคุณ",
     "generate_link": "สร้างลิงก์",
-    "go_back": "กลับ"
+    "go_back": "กลับ",
+    "loading": "กำลังโหลด..."
   },
   "AddProductModal":{
     "add_new_product": "เพิ่มผลิตภัณฑ์ใหม่",

@@ -16,6 +16,7 @@ import ShareWishlistModal from "@/components/aline_design/modals/ShareWishlistMo
 import { useMutation } from "@apollo/client";
 import { INSERT_SHARED_WISHLIST } from "@/graphql/mutations";
 import ProductCard3 from "@/components/cards/ProductCard3";
+import { useSession } from "next-auth/react";
 
 interface Product {
   affiliate_link: string;
@@ -89,6 +90,7 @@ interface Wishlist {
 const PAGE_SIZE = 6; // Number of items to load per page
 
 const WishlistDetails: React.FC = () => {
+  const { data: session } = useSession();
   const params = useParams();
   const id = params.wishlist_id;
   const wishlist_id = id
@@ -197,6 +199,27 @@ const WishlistDetails: React.FC = () => {
       });
   
       console.log("New shared wishlist created:", data);
+      
+      // Send wishlist share email
+      const userEmail = session?.user?.email; 
+      const name = session?.user?.name;
+      const shareLink = generatedToken
+      ? `${window.location.origin}/shared/${generatedToken}`
+      : "-----error-----";
+  
+
+      await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          emailType: 'wishlistShare',
+          to: userEmail,
+          name: `${name}`,
+          wishlistLink:`${shareLink}`,
+        }),
+      });
+      console.log("email sent to: ",userEmail);
+
       setShareToken(generatedToken);
     } catch (error) {
       console.error("Error creating shared wishlist:", error);

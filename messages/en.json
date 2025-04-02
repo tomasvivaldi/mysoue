@@ -138,7 +138,8 @@
     "share_to_socials": "Share to Socials",
     "generate_link_message": "Generate a link to share your wishlist.",
     "generate_link": "Generate Link",
-    "go_back": "Go Back"
+    "go_back": "Go Back",
+    "loading": "Loading..."
   },
   "AddProductModal":{
     "add_new_product": "ADD NEW PRODUCT",

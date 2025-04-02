@@ -43,7 +43,7 @@ const AddProductOptionModal: React.FC<AddProductOptionModalProps> = ({
 
           {/* Browse Products Button */}
           <a
-            href="/lists"
+            href="/dashboard/explore"
             onClick={onBrowseProducts}
             className="bg-transparent border-2 border-[#FDF4E5] text-[#FDF4E5] py-2 px-8 rounded-full font-medium hover:bg-[#FDF4E5]/20 transition whitespace-nowrap"
           >

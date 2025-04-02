@@ -35,6 +35,7 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
   const [copied, setCopied] = useState(false);
   const [shareToken, setShareToken] = useState<string | undefined>(initialShareToken);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {
     console.log("Share token when opening modal:", initialShareToken);
@@ -64,8 +65,14 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleGenerateLink = () => {
-    onGenerateShareLink(wishlistId);
+  const handleGenerateLink = async () => {
+    setIsGenerating(true);
+    try {
+      await onGenerateShareLink(wishlistId);
+    } catch (error) {
+      console.error("Error generating link:", error);
+    }
+    setIsGenerating(false);
   };
 
   const handleShareToSocial = async () => {
@@ -158,9 +165,10 @@ const ShareWishlistModal: React.FC<ShareWishlistModalProps> = ({
               <p className="mb-4">{t("generate_link_message")}</p>
               <button
                 onClick={handleGenerateLink}
+                disabled={isGenerating}
                 className="w-fit mx-auto bg-white text-[#A5282C] py-2 px-8 rounded-full font-medium hover:bg-gray-200 transition"
               >
-                {t("generate_link")}
+                {isGenerating ? t("loading") : t("generate_link")}
               </button>
             </>
           )}

@@ -54,7 +54,7 @@ interface RequestBody {
   purchaser?: string;
   thankYouLink?: string;
   listCreateLink?: string;
-  createWishlistLink?: string;
+  wishlistLink?: string;
   wishlistOwnerName?: string;
   productLink?: string;
   cancelLink?: string;
@@ -152,28 +152,28 @@ export async function POST(request: Request): Promise<Response> {
         await sendChristmasEmail(body as (typeof body) & { listCreateLink: string });
         break;
       case 'valentine':
-        if (!body.createWishlistLink) {
-          return NextResponse.json({ error: 'Missing required field: createWishlistLink for valentine email.' }, { status: 400 });
+        if (!body.wishlistLink) {
+          return NextResponse.json({ error: 'Missing required field: wishlistLink for valentine email.' }, { status: 400 });
         }
-        await sendValentinesEmail(body as (typeof body) & { createWishlistLink: string });
+        await sendValentinesEmail(body as (typeof body) & { wishlistLink: string });
         break;
       case 'birthdayReminder':
-        if (!body.createWishlistLink) {
-          return NextResponse.json({ error: 'Missing required field: createWishlistLink for birthdayReminder email.' }, { status: 400 });
+        if (!body.wishlistLink) {
+          return NextResponse.json({ error: 'Missing required field: wishlistLink for birthdayReminder email.' }, { status: 400 });
         }
-        await sendBirthdayReminderEmail(body as (typeof body) & { createWishlistLink: string });
+        await sendBirthdayReminderEmail(body as (typeof body) & { wishlistLink: string });
         break;
       case 'wishlistShare':
-        if (!body.wishlistOwnerName || 
+        if (!body.name || 
             // !body.viewWishlistLink || 
-            !body.createWishlistLink) {
+            !body.wishlistLink) {
           return NextResponse.json(
-            { error: 'Missing required fields for wishlistShare email. Required: wishlistOwnerName, viewWishlistLink, createWishlistLink.' },
+            { error: 'Missing required fields for wishlistShare email. Required: wishlistOwnerName, viewWishlistLink, wishlistLink.' },
             { status: 400 }
           );
         }
         await sendWishlistShareEmail(
-          body as (typeof body) & { wishlistOwnerName: string; viewWishlistLink: string; createWishlistLink: string }
+          body as (typeof body) & { wishlistOwnerName: string; viewWishlistLink: string; wishlistLink: string }
         );
         break;
       case 'giftReservationConfirmation':
@@ -182,11 +182,11 @@ export async function POST(request: Request): Promise<Response> {
         //   !body.deadline ||
         //   !body.purchaseLink ||
           !body.cancelLink ||
-          !body.createWishlistLink ||
+          !body.wishlistLink ||
           !body.wishlistOwnerName
         ) {
           return NextResponse.json(
-            { error: 'Missing required fields for giftReservationConfirmation email. Required: giftName, deadline, purchaseLink, cancelLink, createWishlistLink, wishlistOwnerName.' },
+            { error: 'Missing required fields for giftReservationConfirmation email. Required: giftName, deadline, purchaseLink, cancelLink, wishlistLink, wishlistOwnerName.' },
             { status: 400 }
           );
         }
@@ -196,7 +196,7 @@ export async function POST(request: Request): Promise<Response> {
             deadline: string;
             purchaseLink: string;
             cancelLink: string;
-            createWishlistLink: string;
+            wishlistLink: string;
             wishlistOwnerName: string;
           }
         );
@@ -208,10 +208,10 @@ export async function POST(request: Request): Promise<Response> {
     //     //   !body.deadline ||
     //       !body.productLink ||
     //       !body.cancelLink ||
-    //       !body.createWishlistLink
+    //       !body.wishlistLink
     //     ) {
     //       return NextResponse.json(
-    //         { error: 'Missing required fields for giftReservationReminder email. Required: giftName, wishlistOwnerName, deadline, productLink, cancelLink, createWishlistLink.' },
+    //         { error: 'Missing required fields for giftReservationReminder email. Required: giftName, wishlistOwnerName, deadline, productLink, cancelLink, wishlistLink.' },
     //         { status: 400 }
     //       );
     //     }
@@ -222,7 +222,7 @@ export async function POST(request: Request): Promise<Response> {
     //         deadline: string;
     //         productLink: string;
     //         cancelLink: string;
-    //         createWishlistLink: string;
+    //         wishlistLink: string;
     //       }
     //     );
     //     break;

@@ -278,13 +278,13 @@ export async function sendPersonalInfoReminderEmail(
   
   // 11. Valentine’s email (20 days before)
   export async function sendValentinesEmail(
-    data: EmailData & { createWishlistLink: string }
+    data: EmailData & { wishlistLink: string }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,
       from: 'info@mysoue.com',
       subject: `Love is in the air! Create your Valentine’s wishlist now! 💖`,
-      text: `Hey ${data.name || 'there'}!\n\nCupid is on the way… and it’s the perfect time to add some love to your wishlist!\n\nWhether you're in a relationship, single, or celebrating self-love, Mysoue helps you create a wishlist filled with gifts you truly love – because you deserve the best!\n\nWhy create your wishlist now?\n- Get gifts you actually want\n- Help your special someone find the perfect surprise\n- Discover our trendy & romantic gift ideas\n\nCreate your wishlist here: ${data.createWishlistLink}\n\nLet love (and the perfect gifts) find you! Need help? We’re here at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
+      text: `Hey ${data.name || 'there'}!\n\nCupid is on the way… and it’s the perfect time to add some love to your wishlist!\n\nWhether you're in a relationship, single, or celebrating self-love, Mysoue helps you create a wishlist filled with gifts you truly love – because you deserve the best!\n\nWhy create your wishlist now?\n- Get gifts you actually want\n- Help your special someone find the perfect surprise\n- Discover our trendy & romantic gift ideas\n\nCreate your wishlist here: ${data.wishlistLink}\n\nLet love (and the perfect gifts) find you! Need help? We’re here at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                <h1>Hey ${data.name || 'there'}!</h1>
                <p>Cupid is on the way… and it’s the perfect time to add some love to your wishlist!</p>
@@ -295,7 +295,7 @@ export async function sendPersonalInfoReminderEmail(
                  <li>Help your special someone find the perfect surprise</li>
                  <li>Discover our trendy & romantic gift ideas</li>
                </ul>
-               <p><strong>Create your wishlist here:</strong> <a href="${data.createWishlistLink}">${data.createWishlistLink}</a></p>
+               <p><strong>Create your wishlist here:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
                <p>Let love (and the perfect gifts) find you! Need help? We’re here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
                <p>XOXO,<br/>Mysoue Team ✨</p>
              </div>`
@@ -304,13 +304,13 @@ export async function sendPersonalInfoReminderEmail(
   
   // 12. Birthday reminder email (20 days before)
   export async function sendBirthdayReminderEmail(
-    data: EmailData & { createWishlistLink: string }
+    data: EmailData & { wishlistLink: string }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,
       from: 'info@mysoue.com',
       subject: `It’s almost your birthday, ${data.name || 'there'}! Time to make your wishlist!`,
-      text: `Hey ${data.name || 'there'}!\n\nYour special day is coming up… and you deserve to be spoiled with gifts you really want!\n\nWith Mysoue, creating your birthday wishlist is super easy – just add your favorite gifts and share it with your loved ones. No more guesswork, just surprises you’ll love!\n\nWhy make your wishlist now?\n- Get the gifts you’ve been dreaming of\n- Make it easy for your friends & family to pick the perfect surprise\n- Discover new trendy & personalized gift ideas\n\nStart your wishlist today: ${data.createWishlistLink}\n\nLet’s make this birthday your best one yet! Need help? We’re here at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
+      text: `Hey ${data.name || 'there'}!\n\nYour special day is coming up… and you deserve to be spoiled with gifts you really want!\n\nWith Mysoue, creating your birthday wishlist is super easy – just add your favorite gifts and share it with your loved ones. No more guesswork, just surprises you’ll love!\n\nWhy make your wishlist now?\n- Get the gifts you’ve been dreaming of\n- Make it easy for your friends & family to pick the perfect surprise\n- Discover new trendy & personalized gift ideas\n\nStart your wishlist today: ${data.wishlistLink}\n\nLet’s make this birthday your best one yet! Need help? We’re here at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                <h1>Hey ${data.name || 'there'}!</h1>
                <p>Your special day is coming up… and you deserve to be spoiled with gifts you really want!</p>
@@ -321,7 +321,7 @@ export async function sendPersonalInfoReminderEmail(
                  <li>Make it easy for your friends & family to pick the perfect surprise</li>
                  <li>Discover new trendy & personalized gift ideas</li>
                </ul>
-               <p><strong>Start your wishlist today:</strong> <a href="${data.createWishlistLink}">${data.createWishlistLink}</a></p>
+               <p><strong>Start your wishlist today:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
                <p>Let’s make this birthday your best one yet! Need help? We’re here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
                <p>XOXO,<br/>Mysoue Team ✨</p>
              </div>`
@@ -331,9 +331,9 @@ export async function sendPersonalInfoReminderEmail(
 // sharing wishlist
 export async function sendWishlistShareEmail(
     data: EmailData & { 
-      wishlistOwnerName: string; 
+      name: string; 
       viewWishlistLink: string; 
-      createWishlistLink: string; 
+      wishlistLink: string; 
     }
   ): Promise<void> {
     await sendgrid.send({
@@ -342,7 +342,7 @@ export async function sendWishlistShareEmail(
       subject: `Knock-Knock ✊ someone would like to share his/her wishlist with you!`,
       text: `Hey there,
   
-  ${data.wishlistOwnerName} has created a wishlist on Mysoue and would love for you to check it out! 🎉
+  ${data.name} has created a wishlist on Mysoue and would love for you to check it out! 🎉
   
   But first: What's a wishlist?
   A wishlist is a personal gift list with handpicked items for special events like birthdays, baby showers, weddings, and more! No guessing—just pick a gift they really want. 🎁
@@ -352,20 +352,20 @@ export async function sendWishlistShareEmail(
   ✔️ Super Easy – Choose and find a perfect gift in just a few clicks.
   ✔️ No extra work – Choose something your close ones will truly love.
   
-  Check out ${data.wishlistOwnerName}’s wishlist now: ${data.viewWishlistLink}
+  Check out ${data.name}’s wishlist now: ${data.viewWishlistLink}
   
   Finding the perfect gift has never been easier! If you have any questions, we’re here to help at info@mysoue.com.
   
-  Let’s make ${data.wishlistOwnerName}’s special occasion extra magical! ✨💖
+  Let’s make ${data.name}’s special occasion extra magical! ✨💖
   
   PS: Want to get the perfect gift for yourself too? Start your own wishlist now! It’s free and easy. No more unwanted gifts—just gifts you truly want!
-  PS2: The sky may have limits, but we don’t! Also use our platform to create your personal wishlists, like vision boards, where you can dream big, plan for later or just gather all those “impossible” dreams. With us, you create a reality where anything’s possible - and just one button away: ${data.createWishlistLink}
+  PS2: The sky may have limits, but we don’t! Also use our platform to create your personal wishlists, like vision boards, where you can dream big, plan for later or just gather all those “impossible” dreams. With us, you create a reality where anything’s possible - and just one button away: ${data.wishlistLink}
   
   XOXO,
   Mysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <p>Hey there,</p>
-    <p><strong>${data.wishlistOwnerName}</strong> has created a wishlist on Mysoue and would love for you to check it out! 🎉</p>
+    <p><strong>${data.name}</strong> has created a wishlist on Mysoue and would love for you to check it out! 🎉</p>
     <p><strong>But first: What's a wishlist?</strong></p>
     <p>A wishlist is a <strong>personal gift list</strong> with handpicked items for special events like birthdays, baby showers, weddings, and more! No guessing—just pick a gift they really want. 🎁</p>
     <p><strong>Why you’ll love it:</strong></p>
@@ -374,11 +374,11 @@ export async function sendWishlistShareEmail(
       <li><strong>Super Easy</strong> – Choose and find a perfect gift in just a few clicks.</li>
       <li><strong>No extra work</strong> – Choose something your close ones will truly love.</li>
     </ul>
-    <p><strong>Check out ${data.wishlistOwnerName}’s wishlist now:</strong> <a href="${data.viewWishlistLink}">${data.viewWishlistLink}</a></p>
+    <p><strong>Check out ${data.name}’s wishlist now:</strong> <a href="${data.viewWishlistLink}">${data.viewWishlistLink}</a></p>
     <p>Finding the perfect gift has never been easier! If you have any questions, we’re here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a>.</p>
-    <p>Let’s make ${data.wishlistOwnerName}’s special occasion extra magical! ✨💖</p>
+    <p>Let’s make ${data.name}’s special occasion extra magical! ✨💖</p>
     <p><em>PS: Want to get the perfect gift for yourself too? Start your own wishlist now! It’s free and easy. No more unwanted gifts—just gifts you truly want!</em></p>
-    <p><em>PS2: The sky may have limits, but we don’t! Also use our platform to create your personal wishlists, like vision boards, where you can dream big, plan for later or just gather all those “impossible” dreams. With us, you create a reality where anything’s possible - and just one button away: <a href="${data.createWishlistLink}">${data.createWishlistLink}</a></em></p>
+    <p><em>PS2: The sky may have limits, but we don’t! Also use our platform to create your personal wishlists, like vision boards, where you can dream big, plan for later or just gather all those “impossible” dreams. With us, you create a reality where anything’s possible - and just one button away: <a href="${data.wishlistLink}">${data.wishlistLink}</a></em></p>
     <p>XOXO,<br/>Mysoue Team ✨</p>
   </div>`
     });
@@ -391,21 +391,21 @@ export async function sendGiftReservationConfirmationEmail(
       deadline: string; 
       purchaseLink: string; 
       cancelLink: string; 
-      createWishlistLink: string; 
-      wishlistOwnerName: string; 
+      wishlistLink: string; 
+      name: string; 
     }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,
       from: 'info@mysoue.com',
-      subject: `You’ve reserved a gift for ${data.wishlistOwnerName}! Don’t forget to complete your purchase! 🎁✨`,
+      subject: `You’ve reserved a gift for ${data.name}! Don’t forget to complete your purchase! 🎁✨`,
       text: `Hey there!
   
-  Great news! You’ve reserved "${data.giftName}" from ${data.wishlistOwnerName}’s wishlist on Mysoue—they’re going to LOVE it!
+  Great news! You’ve reserved "${data.giftName}" from ${data.name}’s wishlist on Mysoue—they’re going to LOVE it!
   
   Here’s what you need to do next:
   - Complete your purchase before the deadline (${data.deadline})
-  - Make sure ${data.wishlistOwnerName} receives their special surprise!
+  - Make sure ${data.name} receives their special surprise!
   
   Ready to finalize your gift? ${data.purchaseLink}
   
@@ -417,24 +417,24 @@ export async function sendGiftReservationConfirmationEmail(
   
   PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you’ll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!
   
-  Start your wishlist now & let your loved ones surprise you with the perfect gifts: ${data.createWishlistLink}
+  Start your wishlist now & let your loved ones surprise you with the perfect gifts: ${data.wishlistLink}
   
   XOXO,
   Mysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
     <p>Hey there!</p>
-    <p>Great news! You’ve reserved "<strong>${data.giftName}</strong>" from <strong>${data.wishlistOwnerName}</strong>’s wishlist on Mysoue—they’re going to LOVE it!</p>
+    <p>Great news! You’ve reserved "<strong>${data.giftName}</strong>" from <strong>${data.name}</strong>’s wishlist on Mysoue—they’re going to LOVE it!</p>
     <p><strong>Here’s what you need to do next:</strong></p>
     <ul>
       <li>Complete your purchase before the deadline (<strong>${data.deadline}</strong>)</li>
-      <li>Make sure <strong>${data.wishlistOwnerName}</strong> receives their special surprise!</li>
+      <li>Make sure <strong>${data.name}</strong> receives their special surprise!</li>
     </ul>
     <p><strong>Ready to finalize your gift?</strong> <a href="${data.purchaseLink}">${data.purchaseLink}</a></p>
     <p><strong>Hurry!</strong> The wishlist closes soon! Don’t miss your chance to be part of this special moment!</p>
     <p><strong>Changed your mind?</strong> You can cancel your reservation in just one click: <a href="${data.cancelLink}">${data.cancelLink}</a></p>
     <p>If you have any questions, we’re here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a>.</p>
     <p><em>PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you’ll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!</em></p>
-    <p><strong>Start your wishlist now & let your loved ones surprise you with the perfect gifts:</strong> <a href="${data.createWishlistLink}">${data.createWishlistLink}</a></p>
+    <p><strong>Start your wishlist now & let your loved ones surprise you with the perfect gifts:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
     <p>XOXO,<br/>Mysoue Team ✨</p>
   </div>`
     });

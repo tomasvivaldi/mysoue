@@ -29,7 +29,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
 
   return (
     <Link href={href} passHref key={href}>
-      <div className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105  ">
+      <div className="bg-white h-[350px] rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105  ">
         <div className="relative h-48 w-full">
           <Image
             src={safeImageUrl}
@@ -39,7 +39,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
-        <div className="p-4">
+        <div className="p-2 max-h-[150px] overflow-y-auto">
           <h2 className="text-lg font-semibold text-gray-800 ">
             {name || "Unnamed Product"}
           </h2>
