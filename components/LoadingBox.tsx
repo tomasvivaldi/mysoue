@@ -20,8 +20,8 @@ function LoadingBox({
         src={imageSrc}
         alt={imageAlt}
         className={imageClassName}
-        width={128} // Set the desired width
-        height={128} // Set the desired height
+        width={128} 
+        height={128} 
       />
     </div>
   );

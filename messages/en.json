@@ -625,6 +625,10 @@
     "additionalDetails": "Additional Details",
     "deleteFromListButton": "Delete from List"
   },
+  "Explore-ProductPage": {
+    "productNotFound": "Product not found.",
+    "startMysoue": "Start your Mysoue journey"
+  },
   "Dashboard-mysoueLists": {
     "pageTitle": "Dashboard",
     "mysoueLists": "MySoue Wishlists",

@@ -9,12 +9,14 @@ interface HeroBanner3Props {
   backgroundImage: string; // Background image URL
   headingText: string;     // Main heading text (still a prop if you want dynamic)
   italicText: string;      // Italicized part of the heading (still a prop)
+  textColor?: string;      // New optional text color prop
 }
 
 const HeroBanner3: React.FC<HeroBanner3Props> = ({
   backgroundImage,
   headingText,
   italicText,
+  textColor 
 }) => {
   // 2) Create a translator for the "HeroBanner3" namespace
   const t = useTranslations("HeroBanner3");
@@ -61,7 +63,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
 
       {/* Hero Content */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <h1 className="text-4xl font-serif tracking-wide text-black text-center">
+        <h1 className={`text-4xl font-serif tracking-wide text-center ${textColor}`}>
           {headingText} <span className="italic">{italicText}</span>
         </h1>
       </div>

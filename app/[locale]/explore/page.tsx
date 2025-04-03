@@ -200,18 +200,15 @@ export default function Explore() {
         <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
         <FloatingButton/>
         <HeroBanner3
-          backgroundImage={"/Lists/bg.jpg"}
-          headingText="FOR ALL"
-          italicText="wishes"
+          backgroundImage={"/Explore/bg.jpg"}
+          headingText="EXPLORE"
+          italicText="our products"
+          textColor="text-[#fff] text-shadow"
         />
 
         {/* Products Grid */}
         <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
           <div className="flex flex-col">
-            <>
-              <Head>
-                <title>Product Explorer</title>
-              </Head>
               <div className="container mx-auto px-4 py-8 relative">
                 <h1 className="text-4xl font-bold mb-8 text-center">{t("exploreProductsTitle")}</h1>
                 <h2 className="text-3xl font-semibold text-center">{t("featuredWishlistsTitle")}</h2>
@@ -244,7 +241,6 @@ export default function Explore() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {visibleProducts.map((product) => (
-                       
                       <ProductCard3
                         href={`/explore/${product.id}`}
                         key={product.id}
@@ -328,7 +324,6 @@ export default function Explore() {
                   )}
                 </AnimatePresence>
               </div>
-            </>
           </div>
         </div>
     </>

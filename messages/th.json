@@ -623,6 +623,10 @@
     "additionalDetails": "รายละเอียดเพิ่มเติม",
     "deleteFromListButton": "ลบออกจากรายการ"
   },
+  "Explore-ProductPage": {
+    "productNotFound": "ไม่พบสินค้า",
+    "startMysoue": "เริ่มต้นกับ Mysoue ของคุณ"
+  },
   "Dashboard-mysoueLists": {
     "pageTitle": "แดชบอร์ด",
     "mysoueLists": "รายการสิ่งที่ปรารถนาของเรา",

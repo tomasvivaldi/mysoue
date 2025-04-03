@@ -56,6 +56,7 @@ const Lists = () => {
         backgroundImage="/Lists/bg.jpg"
         headingText={t("heroMain")}
         italicText={t("heroItalic")}
+        textColor="text-[#fff] text-shadow"
       />
 
       <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
