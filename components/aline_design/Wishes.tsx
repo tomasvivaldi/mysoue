@@ -28,7 +28,7 @@ export default function Wishes() {
           {/* Centered Image */}
           <div className="flex-grow flex items-center justify-center">
             <Image
-              src="/wishes/create.svg"
+              src="/Wishes/create.svg"
               alt="Create Image"
               width={180}
               height={180}
