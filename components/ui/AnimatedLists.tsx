@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl"; // Import the translation hook
+import GhostButton1 from "../buttons/GhostButton1";
 
 type WishlistItem = {
   title: string;
@@ -92,13 +93,14 @@ export const AnimatedLists = ({
             </AnimatePresence>
           </div>
         </div>
-        <div className="flex justify-between flex-col py-4">
+        <div className="flex justify-between flex-col py-4 ">
           <motion.div
             key={active}
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="flex flex-col gap-4"
           >
             <h3 className="text-2xl font-bold dark:text-white text-black">
               {wishlists[active].title}
@@ -108,9 +110,11 @@ export const AnimatedLists = ({
               target="_blank"
               rel="noopener noreferrer"
             >
-              <button className="w-[80%]  my-2 md:my-4 bg-transparent border border-[#C6B8A2] rounded-full py-1 px-2 whitespace-nowrap text-[#C6B8A2] font-semibold hover:bg-[#C6B8A2]/10 transition block text-center">
+              {/* <button className="w-[80%]  my-2 md:my-4 bg-transparent border border-[#C6B8A2] rounded-full py-1 px-2 whitespace-nowrap text-[#C6B8A2] font-semibold hover:bg-[#C6B8A2]/10 transition block text-center">
                 {t("checkWishlist")}
-              </button>
+              </button> */}
+              <GhostButton1 text={t("checkWishlist")} />
+              {/* //////Send to wishlist page////// */}
             </a>
             <motion.p className="text-lg text-gray-500 dark:text-neutral-300">
               {wishlists[active].description.split(" ").map((word, index) => (

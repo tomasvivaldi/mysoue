@@ -24,7 +24,7 @@ const GhostButton1: React.FC<GhostButton1Props> = ({
         target={target}
         className="whitespace-nowrap font-nunito inline-flex items-center justify-center md:text-lg ring-offset-background 
         transition-colors disabled:pointer-events-none disabled:opacity-50
-        hover:bg-[#FFF8E9] active:bg-stone-100 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
+        hover:bg-primary hover:text-white hover:border-white active:text-[#C6B8A2] active:border-[#C6B8A2] active:bg-stone-200 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
       >
         {text}
       </a>
@@ -34,7 +34,7 @@ const GhostButton1: React.FC<GhostButton1Props> = ({
       <button
         className="whitespace-nowrap font-nunito inline-flex items-center justify-center md:text-lg ring-offset-background 
         transition-colors disabled:pointer-events-none disabled:opacity-50
-        hover:bg-[#FFF8E9] active:bg-stone-100 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
+        hover:bg-primary hover:text-white hover:border-white active:text-[#C6B8A2] active:border-[#C6B8A2] active:bg-stone-200 h-10 bg-transparent text-[#C6B8A2] border-[#C6B8A2] border-2 rounded-full px-6 py-2 font-medium"
         onClick={onClick}
         disabled={disabled}
       >

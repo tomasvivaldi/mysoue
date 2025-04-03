@@ -29,7 +29,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
 
   return (
     <Link href={href} passHref key={href}>
-      <div className="bg-white h-[350px] rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105  ">
+      <div className="bg-white h-[350px] rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg">
         <div className="relative h-48 w-full">
           <Image
             src={safeImageUrl}
