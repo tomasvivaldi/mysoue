@@ -50,7 +50,7 @@ export default function Wishes() {
 
           <div className="flex-grow flex items-center justify-center">
             <Image
-              src="/wishes/sort.svg"
+              src="/Wishes/sort.svg"
               alt="Sort Image"
               width={180}
               height={180}
@@ -72,7 +72,7 @@ export default function Wishes() {
 
           <div className="flex-grow flex items-center justify-center">
             <Image
-              src="/wishes/share.svg"
+              src="/Wishes/share.svg"
               alt="Share Image"
               width={180}
               height={180}
