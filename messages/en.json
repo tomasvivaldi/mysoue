@@ -632,7 +632,25 @@
   "Dashboard-mysoueLists": {
     "pageTitle": "Dashboard",
     "mysoueLists": "MySoue Wishlists",
-    "createNewWishlist": "Create New Wishlist"
+    "createNewWishlist": "Create New Wishlist",
+    "wishlist": {
+      "baby": {
+        "title": "Baby Shower Wishlist",
+        "description": "The perfect compilation of presents to receive when hosting your first baby shower"
+      },
+      "herBirthday": {
+        "title": "Her Birthday Wishlist",
+        "description": "A curated selection of gifts perfect for celebrating her special day with style."
+      },
+      "christmas": {
+        "title": "Christmas Wishlist",
+        "description": "Discover festive and joyful gifts that bring holiday cheer to everyone."
+      },
+      "hisBirthday": {
+        "title": "His Birthday Wishlist",
+        "description": "Handpicked gifts to make his birthday unforgettable with quality and style."
+      }
+    }
   },
   "Dashboard-SharedWishlists": {
     "pageTitle": "Dashboard",

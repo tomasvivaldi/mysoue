@@ -7,6 +7,7 @@ import Head from "next/head";
 import Card from "@/components/Card";
 import { GET_PRE_LISTS } from "@/graphql/queries";
 import PreListCard from "@/components/cards/PreListCard";
+import { AnimatedLists } from "@/components/ui/AnimatedLists";
 
 interface PreList {
   pre_list: string;
@@ -25,11 +26,47 @@ const getImageForWishlist = (type?: string): string => {
   }
 };
 
+type WishlistItem = {
+  title: string;
+  description: string;
+  link: string;
+  src: string;
+};
+
 const mysoueListsPage = () => {
   const t = useTranslations("Dashboard-mysoueLists");
+
+  const mockWishlists: WishlistItem[] = [
+    {
+      title: t("wishlist.baby.title"),
+      description: t("wishlist.baby.description"),
+      link: "/dashboard/mysoue-lists/Baby%20shower",
+      src: "/baby.jpg",
+    },
+    {
+      title: t("wishlist.herBirthday.title"),
+      description: t("wishlist.herBirthday.description"),
+      link: "/dashboard/mysoue-lists/her-birthday",
+      src: "/bday.jpg",
+    },
+    {
+      title: t("wishlist.christmas.title"),
+      description: t("wishlist.christmas.description"),
+      link: "/dashboard/mysoue-lists/christmas",
+      src: "/xmas.jpg",
+    },
+    {
+      title: t("wishlist.hisBirthday.title"),
+      description: t("wishlist.hisBirthday.description"),
+      link: "/dashboard/mysoue-lists/his-birthday",
+      src: "/bg1.jpg",
+    },
+  ];
+
   const client = useApolloClient();
   const [loading, setLoading] = useState<boolean>(false);
   const [preLists, setPreLists] = useState<PreList[]>([]);
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
   useEffect(() => {
     const loadData = async () => {
@@ -38,7 +75,6 @@ const mysoueListsPage = () => {
         const { data } = await client.query({
           query: GET_PRE_LISTS,
         });
-        // data.preLists should be an array of objects with a "pre_list" field.
         setPreLists(data.preLists);
       } catch (error) {
         console.error("Failed to fetch preLists:", error);
@@ -58,17 +94,22 @@ const mysoueListsPage = () => {
     );
   }
 
-  // Create wishlist-like objects from the preLists
   const wishlists = preLists.map((item) => {
     const type = item.pre_list;
     return {
-      id: type, // use pre_list as unique id
+      id: type,
       title: type,
       description: `Explore products for ${type}`,
       imageUrl: getImageForWishlist(type),
       type: type,
     };
   });
+
+  const allTypes = ["all"].concat(Array.from(new Set(wishlists.map(item => item.type))));
+
+  const filteredWishlists = activeFilter === "all" 
+    ? wishlists 
+    : wishlists.filter(wishlist => wishlist.type === activeFilter);
 
   return (
     <>
@@ -82,20 +123,48 @@ const mysoueListsPage = () => {
           </h1>
         </div>
 
+        {/* Featured Wishlists Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-normal mb-2">Check out MYSOUE's featured wishlists!</h2>
+          <AnimatedLists wishlists={mockWishlists} />
+        </div>
+
+        {/* All Wishlists Section */}
+        <div className="mb-6">
+          <h2 className="text-2xl font-normal mb-6">All Wishlists</h2>
+          {/* Filter buttons */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {allTypes.map((type) => (
+              <button
+                key={type}
+                onClick={() => setActiveFilter(type)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                  activeFilter === type
+                    ? "bg-primary text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                }`}
+              >
+                {type === "all" ? "All" : type}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Wishlist cards */}
         <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start sm:pl-4 md:pl-0">
-        {wishlists.map((wishlist) => (
-          <PreListCard  
-            id={wishlist.id}
-            key={wishlist.id}
-            img={wishlist.imageUrl}
-            title={wishlist.title}
-            description={wishlist.description}
-            href={`/dashboard/mysoue-lists/${wishlist.id}`}
+          {filteredWishlists.map((wishlist) => (
+            <PreListCard  
+              id={wishlist.id}
+              key={wishlist.id}
+              img={wishlist.imageUrl}
+              title={wishlist.title}
+              description={wishlist.description}
+              href={`/dashboard/mysoue-lists/${wishlist.id}`}
             />
-        ))}
-          {wishlists.length === 0 && (
+          ))}
+          {filteredWishlists.length === 0 && (
             <p className="text-center w-full">
-              {t("noWishlistsFound") || "No wishlists available."}
+              {t("noWishlistsFound") || "No wishlists available for this filter."}
             </p>
           )}
         </div>
