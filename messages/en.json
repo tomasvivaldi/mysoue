@@ -340,6 +340,28 @@
     "or": "or",
     "signInWithGoogle": "Sign in with Google"
   },
+  "ResetPassword":{
+    "passwordsDontMatch": "Passwords don't match",
+    "passwordRequirementsNotMet": "Password does not meet the requirements",
+    "errorOccurred": "An error occurred. Please try again.",
+    "invalidLinkHeading": "Invalid Reset Link",
+    "invalidLinkDescription": "This password reset link is invalid or has expired.",
+    "requestNewLink": "Request a new password reset link",
+    "resetYourPassword": "Reset your password",
+    "resetSubheading": "Enter your new password below.",
+    "resetSuccessMessage": "Your password has been successfully reset. You can now log in with your new password.",
+    "newPasswordPlaceholder": "New password",
+    "minLength": "At least 8 characters",
+    "upperCase": "At least one uppercase letter",
+    "lowerCase": "At least one lowercase letter",
+    "number": "At least one number",
+    "specialChar": "At least one special character",
+    "confirmNewPasswordPlaceholder": "Confirm new password",
+    "sendResetLink": "Send Reset Link",
+    "resetting": "Resetting...",
+    "resetPassword": "Reset Password",
+    "goToLogin": "Go to login"
+  },
 
 
   "AllAboutGifts": {

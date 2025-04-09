@@ -337,6 +337,28 @@
     "or": "หรือ",
     "signInWithGoogle": "เข้าสู่ระบบด้วย Google"
   },
+  "ResetPassword":{
+    "passwordsDontMatch": "รหัสผ่านไม่ตรงกัน",
+    "passwordRequirementsNotMet": "รหัสผ่านไม่เป็นไปตามข้อกำหนด",
+    "errorOccurred": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+    "invalidLinkHeading": "ลิงก์รีเซ็ตรหัสผ่านไม่ถูกต้อง",
+    "invalidLinkDescription": "ลิงก์รีเซ็ตรหัสผ่านนี้ไม่ถูกต้องหรือหมดอายุแล้ว",
+    "requestNewLink": "ขอลิงก์รีเซ็ตรหัสผ่านใหม่",
+    "resetYourPassword": "รีเซ็ตรหัสผ่านของคุณ",
+    "resetSubheading": "กรอกรหัสผ่านใหม่ของคุณด้านล่าง",
+    "resetSuccessMessage": "รีเซ็ตรหัสผ่านของคุณสำเร็จแล้ว คุณสามารถเข้าสู่ระบบด้วยรหัสผ่านใหม่ได้",
+    "newPasswordPlaceholder": "รหัสผ่านใหม่",
+    "minLength": "อย่างน้อย 8 ตัวอักษร",
+    "upperCase": "ต้องมีอักษรตัวใหญ่อย่างน้อยหนึ่งตัว",
+    "lowerCase": "ต้องมีอักษรตัวเล็กอย่างน้อยหนึ่งตัว",
+    "number": "ต้องมีตัวเลขอย่างน้อยหนึ่งตัว",
+    "specialChar": "ต้องมีอักขระพิเศษอย่างน้อยหนึ่งตัว",
+    "confirmNewPasswordPlaceholder": "ยืนยันรหัสผ่านใหม่",
+    "sendResetLink": "ส่งลิงก์รีเซ็ตรหัสผ่าน",
+    "resetting": "กำลังรีเซ็ต...",
+    "resetPassword": "รีเซ็ตรหัสผ่าน",
+    "goToLogin": "ไปที่หน้าล็อกอิน"
+  },
 
   "AllAboutGifts": {
     "bannerText": "เรามีมัน",
