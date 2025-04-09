@@ -613,10 +613,19 @@
   },
   "Dashboard-MyGifts": {
     "myGifts": "My Gifts",
+    "noWishlistsFound": "No wishlists found.",
     "sharedWishlists": "Shared Wishlists",
-    "reserved": "Reserved",
-    "unreserved": "Unreserved",
-    "noSharedWishlists": "No shared wishlists available."
+    "reserved": "reserved",
+    "unreserved": "unreserved",
+    "reservedGifts": "Reserved Gifts",
+    "unreservedGifts": "Unreserved Gifts",
+    "noReservedGifts": "No reserved gifts yet.",
+    "noUnreservedGifts": "No unreserved gifts yet.",
+    "productNameMissing": "Product Name Unavailable",
+    "loadMore": "Load More",
+    "noSharedWishlistsButPrivate": "You have private wishlists, but none are currently shared.",
+    "noSharedWishlists": "No shared wishlists to display.",
+    "myPrivateWishlists": "My Private Wishlists"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "Product not found",

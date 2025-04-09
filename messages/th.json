@@ -611,10 +611,19 @@
   },
   "Dashboard-MyGifts": {
     "myGifts": "ของขวัญของฉัน",
-    "sharedWishlists": "รายชื่อของขวัญที่แชร์",
-    "reserved": "จองแล้ว",
-    "unreserved": "ยังไม่จอง",
-    "noSharedWishlists": "ไม่มีรายชื่อของขวัญที่แชร์"
+    "noWishlistsFound": "ไม่พบวิชลิสต์",
+    "sharedWishlists": "วิชลิสต์ที่แชร์",
+    "reserved": "ถูกจองแล้ว",
+    "unreserved": "ยังไม่ถูกจอง",
+    "reservedGifts": "ของขวัญที่ถูกจองแล้ว",
+    "unreservedGifts": "ของขวัญที่ยังไม่ถูกจอง",
+    "noReservedGifts": "ยังไม่มีของขวัญที่ถูกจอง",
+    "noUnreservedGifts": "ยังไม่มีของขวัญที่ยังไม่ถูกจอง",
+    "productNameMissing": "ไม่มีชื่อสินค้า",
+    "loadMore": "โหลดเพิ่มเติม",
+    "noSharedWishlistsButPrivate": "คุณมีวิชลิสต์ส่วนตัว แต่ยังไม่มีรายการใดที่แชร์",
+    "noSharedWishlists": "ไม่มีวิชลิสต์ที่แชร์แสดง",
+    "myPrivateWishlists": "วิชลิสต์ส่วนตัวของฉัน"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",

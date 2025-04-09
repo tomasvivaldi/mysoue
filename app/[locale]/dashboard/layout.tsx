@@ -162,7 +162,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </li>
 
                 {/* New Shared Wishlists Link */}
-                <li>
+                {/* <li>
                   <Link
                     href="/dashboard/shared-wishlists"
                     className={`flex items-center justify-between border-b border-[#C6B8A2] pb-4 rounded-lg ${
@@ -178,7 +178,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
                     )}
                   </Link>
-                </li>
+                </li> */}
                 {/* New My Soue Wishlists Link */}
                 <li>
                   <Link
@@ -197,7 +197,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     )}
                   </Link>
                 </li>
-                {/* New Shared Wishlists Link */}
+                {/* New Explore Wishlists Link */}
                 <li>
                   <Link
                     href="/dashboard/explore"
