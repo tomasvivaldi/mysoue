@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import { GET_PRE_LISTS } from "@/graphql/queries";
 import PreListCard from "@/components/cards/PreListCard";
 import { AnimatedLists } from "@/components/ui/AnimatedLists";
+import LoadingBox from "@/components/LoadingBox";
 
 interface PreList {
   pre_list: string;
@@ -86,14 +87,6 @@ const mysoueListsPage = () => {
     loadData();
   }, [client]);
 
-  if (loading) {
-    return (
-      <div className="h-[80vh] flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
-  }
-
   const wishlists = preLists.map((item) => {
     const type = item.pre_list;
     return {
@@ -111,6 +104,8 @@ const mysoueListsPage = () => {
     ? wishlists 
     : wishlists.filter(wishlist => wishlist.type === activeFilter);
 
+  const loadFinished = !loading && filteredWishlists.length !== 0
+
   return (
     <>
       <Head>
@@ -122,52 +117,64 @@ const mysoueListsPage = () => {
             {t("mysoueLists") || "MySoue Wishlists"}
           </h1>
         </div>
-
-        {/* Featured Wishlists Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-normal mb-2">Check out MYSOUE's featured wishlists!</h2>
-          <AnimatedLists wishlists={mockWishlists} />
-        </div>
-
-        {/* All Wishlists Section */}
-        <div className="mb-6">
-          <h2 className="text-2xl font-normal mb-6">All Wishlists</h2>
-          {/* Filter buttons */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {allTypes.map((type) => (
-              <button
-                key={type}
-                onClick={() => setActiveFilter(type)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  activeFilter === type
-                    ? "bg-primary text-white"
-                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                }`}
-              >
-                {type === "all" ? "All" : type}
-              </button>
-            ))}
+        {loadFinished ? (
+        <>
+          {/* Featured Wishlists Section */}
+          <div className="mb-12">
+            <h2 className="text-2xl font-normal mb-2">Check out MYSOUE's featured wishlists!</h2>
+            <AnimatedLists wishlists={mockWishlists} />
           </div>
-        </div>
 
-        {/* Wishlist cards */}
-        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start sm:pl-4 md:pl-0">
-          {filteredWishlists.map((wishlist) => (
-            <PreListCard  
-              id={wishlist.id}
-              key={wishlist.id}
-              img={wishlist.imageUrl}
-              title={wishlist.title}
-              description={wishlist.description}
-              href={`/dashboard/mysoue-lists/${wishlist.id}`}
-            />
-          ))}
-          {filteredWishlists.length === 0 && (
-            <p className="text-center w-full">
-              {t("noWishlistsFound") || "No wishlists available for this filter."}
-            </p>
-          )}
-        </div>
+          {/* All Wishlists Section */}
+          <div className="mb-6">
+            <h2 className="text-2xl font-normal mb-6">All Wishlists</h2>          
+          </div>
+          <div className="flex flex-col">
+            <div className="flex flex-wrap gap-2 mb-6">
+              {allTypes.map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setActiveFilter(type)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    activeFilter === type
+                      ? "bg-primary text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  }`}
+                >
+                  {type === "all" ? "All" : type}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start sm:pl-4 md:pl-0">
+              {filteredWishlists.map((wishlist) => (
+                <PreListCard  
+                  id={wishlist.id}
+                  key={wishlist.id}
+                  img={wishlist.imageUrl}
+                  title={wishlist.title}
+                  description={wishlist.description}
+                  href={`/dashboard/mysoue-lists/${wishlist.id}`}
+                />
+              ))}
+              {filteredWishlists.length === 0 && (
+                <p className="text-center w-full">
+                  {t("noWishlistsFound") || "No wishlists available for this filter."}
+                </p>
+              )}
+            </div>
+          </div>
+        </>
+      ):(
+      <>
+        <LoadingBox
+        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+        imageAlt="Loading spinner"
+        imageClassName=""
+        containerClassName="h-[65vh]"
+        />
+      </>) }
+        
       </div>
     </>
   );

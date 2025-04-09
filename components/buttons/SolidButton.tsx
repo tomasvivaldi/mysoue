@@ -5,8 +5,8 @@ type SolidButtonProps = {
   text: string;
   onClick?: () => void;
   disabled?: boolean;
-  href?: string; // Optional href prop for linking
-  className?: string; // Optional className prop for additional styling
+  href?: string; 
+  className?: string; 
 };
 
 const SolidButton: React.FC<SolidButtonProps> = ({
@@ -14,7 +14,7 @@ const SolidButton: React.FC<SolidButtonProps> = ({
   onClick,
   disabled = false,
   href,
-  className = "", // Default is an empty string
+  className = "", 
 }) => {
   const baseClasses =
     "font-nunito inline-flex items-center justify-center text-sm ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 h-10 rounded-full px-6 py-2 font-medium ";

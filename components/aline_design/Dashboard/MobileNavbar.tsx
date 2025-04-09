@@ -146,7 +146,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
               </li>
 
               {/* New Shared Wishlists Link */}
-              <li>
+              {/* <li>
                 <Link
                   href="/dashboard/shared-wishlists"
                   className={`flex items-center justify-between border-b border-[#C6B8A2] py-2 rounded-lg ${
@@ -165,7 +165,7 @@ const DashboardMobileNavbar: React.FC<DashboardMobileNavbarProps> = ({
                     <div className="w-5 h-5 border border-[#C6B8A2] rounded-full"></div>
                   )}
                 </Link>
-              </li>
+              </li> */}
 
               {/* ///// */}
               <li>
