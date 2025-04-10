@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, HttpLink, from } from "@apollo/client";
+import { ApolloClient, InMemoryCache, HttpLink, from, gql } from "@apollo/client";
 
 // export function createApolloClient() {
 //   return new ApolloClient({
@@ -27,9 +27,19 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
+const typeDefs = gql`
+  directive @dbquery(
+    type: String,
+    schema: String,
+    query: String,
+    configuration: String
+  ) on FIELD | FIELD_DEFINITION
+`;
+
 export function createApolloClient() {
   return new ApolloClient({
     link: from([authLink, httpLink]),
     cache: new InMemoryCache(),
+    typeDefs,
   });
 }

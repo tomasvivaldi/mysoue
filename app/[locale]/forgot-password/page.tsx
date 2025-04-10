@@ -7,9 +7,12 @@ import SolidButton1 from '@/components/buttons/SolidButton1';
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
+    console.log('Forgot password request initiated for email:', email);
     try {
       const res = await fetch('/api/auth/forgot-password', {
         method: 'POST',
@@ -17,9 +20,13 @@ const ForgotPassword: React.FC = () => {
         body: JSON.stringify({ email }),
       });
       const data = await res.json();
+      console.log('Forgot password response:', data);
       setMessage(data.message || data.error);
     } catch (error) {
+      console.error('Forgot password error:', error);
       setMessage('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +57,7 @@ const ForgotPassword: React.FC = () => {
               />
             </div>
           </div>
-            <SolidButton1 text={'Send Reset Link'} className='w-full' />
+            <SolidButton1 text={'Send Reset Link'} disabled={isLoading} className='w-full' type='submit' />
             <button
                 type="button"
                 onClick={() => window.history.back()}

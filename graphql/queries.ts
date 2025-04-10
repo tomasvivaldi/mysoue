@@ -15,6 +15,8 @@ export const GET_USERS_BY_EMAIL = gql`
       last_name
       gender
       birthdate
+      reset_password_token
+      reset_password_expires
     }
   }
 `;
@@ -34,6 +36,8 @@ export const GET_USERS_BY_ID = gql`
       last_name
       gender
       birthdate
+      reset_password_token
+      reset_password_expires
       wishlists {
         id
         address

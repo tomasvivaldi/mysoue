@@ -406,10 +406,56 @@ export const UPDATE_WISHLIST_ITEMS = gql`
   }
 `;
 
+export const UPDATE_USER_PASSWORD = gql`
+  mutation UpdateUserPassword($email: String!, $new_password_hash: String!) {
+    updateUserPassword(email: $email, new_password_hash: $new_password_hash)
+      @dbquery(
+        type: "postgresql",
+        schema: "public",
+        query: """
+          UPDATE users
+          SET password_hash = $2, updated_at = NOW()
+          WHERE email = $1
+          RETURNING *;
+        """,
+        configuration: "stepzen_config"
+      ) {
+        id
+        email
+        password_hash
+        updated_at
+      }
+  }
+`;
+
+export const UPDATE_RESET_TOKEN_MUTATION = gql`
+  mutation UpdateResetToken($email: String!, $reset_password_token: String!, $reset_password_expires: DateTime!) {
+    updateResetToken(email: $email, reset_password_token: $reset_password_token, reset_password_expires: $reset_password_expires)
+      @dbquery(
+        type: "postgresql",
+        schema: "public",
+        query: """
+          UPDATE users
+          SET reset_password_token = $2, reset_password_expires = $3, updated_at = NOW()
+          WHERE email = $1
+          RETURNING id, email, reset_password_token, reset_password_expires, updated_at;
+        """,
+        configuration: "stepzen_config"
+      ) {
+      id
+      email
+      reset_password_token
+      reset_password_expires
+      updated_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,
   UPDATE_USER_SUBSCRIPTION,
   ADD_RESERVED_GIFT,
-  ADD_EXTERNAL_PRODUCT
+  ADD_EXTERNAL_PRODUCT,
+  UPDATE_RESET_TOKEN_MUTATION
 };

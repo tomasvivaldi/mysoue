@@ -56,14 +56,26 @@ export default function ResetPasswordPage() {
     setIsSubmitting(true);
 
     try {
-      // Here you would integrate with your auth provider to reset the password,
-      // e.g. await supabase.auth.updateUser({ password })
-      // Simulating API call:
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          token: searchParams.get("token"),
+          email: searchParams.get("email"),
+          newPassword: password
+        }),
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        throw new Error(data.error || t("errorOccurred"));
+      }
+      
       setStatus("success");
     } catch (error) {
       setStatus("error");
-      setErrorMessage(t("errorOccurred"));
+      setErrorMessage(error instanceof Error ? error.message : t("errorOccurred"));
       console.error("Error resetting password:", error);
     } finally {
       setIsSubmitting(false);
@@ -71,7 +83,7 @@ export default function ResetPasswordPage() {
   };
 
   // If there is no token, display an invalid link message.
-  if (token) {
+  if (!token) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg w-full max-w-md">

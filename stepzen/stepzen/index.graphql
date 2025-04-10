@@ -40,6 +40,8 @@ type Users {
   gender: String
   first_name: String
   last_name: String
+  reset_password_token: String
+  reset_password_expires: DateTime
 }
 
 type UserData {
@@ -550,7 +552,43 @@ type Mutation {
       """
       configuration: "stepzen_config"
     )
+  
+  updateUserPassword(
+    email: String!,
+    new_password_hash: String!
+  ): Users
+    @dbquery(
+      type: "postgresql",
+      schema: "public",
+      query: """
+      UPDATE users
+      SET password_hash = $2, updated_at = NOW()
+      WHERE email = $1
+      RETURNING *;
+      """,
+      configuration: "stepzen_config"
+    )
     
+    updateResetToken(
+    email: String!,
+    reset_password_token: String!,
+    reset_password_expires: DateTime!
+  ): Users
+    @dbquery(
+      type: "postgresql",
+      schema: "public",
+      query: """
+      UPDATE users
+      SET 
+        reset_password_token = $2,
+        reset_password_expires = $3,
+        updated_at = NOW()
+      WHERE email = $1
+      RETURNING *;
+      """,
+      configuration: "stepzen_config"
+    )
+
   " Mutations for type 'Wishlist_items' "
   deleteWishlist_items(
   id: ID!
