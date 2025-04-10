@@ -13,18 +13,45 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log('Forgot password request initiated for email:', email);
+    setMessage('');
+    console.log('Checking email:', email);
+    
     try {
+      // First check if the email exists
+      const checkRes = await fetch('/api/auth/check-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      
+      const checkData = await checkRes.json();
+      
+      if (!checkRes.ok) {
+        throw new Error(checkData.error || 'Failed to check email');
+      }
+      
+      if (!checkData.exists) {
+        setMessage('No account found with this email address.');
+        setIsLoading(false);
+        return;
+      }
+      
+      // If email exists, proceed with sending reset link
+      console.log('Forgot password request initiated for email:', email);
       const res = await fetch('/api/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
+      
       const data = await res.json();
       console.log('Forgot password response:', data);
-      setMessage(data.message || data.error);
+      
       if (res.ok) {
+        setMessage(data.message);
         setIsSuccess(true);
+      } else {
+        setMessage(data.error || 'An error occurred. Please try again.');
       }
     } catch (error) {
       console.error('Forgot password error:', error);
