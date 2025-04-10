@@ -408,23 +408,12 @@ export const UPDATE_WISHLIST_ITEMS = gql`
 
 export const UPDATE_USER_PASSWORD = gql`
   mutation UpdateUserPassword($email: String!, $new_password_hash: String!) {
-    updateUserPassword(email: $email, new_password_hash: $new_password_hash)
-      @dbquery(
-        type: "postgresql",
-        schema: "public",
-        query: """
-          UPDATE users
-          SET password_hash = $2, updated_at = NOW()
-          WHERE email = $1
-          RETURNING *;
-        """,
-        configuration: "stepzen_config"
-      ) {
-        id
-        email
-        password_hash
-        updated_at
-      }
+    updateUserPassword(email: $email, new_password_hash: $new_password_hash) {
+      id
+      email
+      password_hash
+      updated_at
+    }
   }
 `;
 

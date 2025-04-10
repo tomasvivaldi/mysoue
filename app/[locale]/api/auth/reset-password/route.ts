@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { UPDATE_USER_PASSWORD } from "@/graphql/mutations";
 import bcrypt from "bcrypt";
 
 export async function POST(req: Request) {
@@ -19,38 +18,43 @@ export async function POST(req: Request) {
     const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
 
     // First, verify the token and get the user
-    const response = await fetch(process.env.STEPZEN_ENDPOINT!, {
+    const verifyQuery = `
+      query VerifyResetToken($email: String!) {
+        usersByEmail(email: $email) {
+          id
+          email
+          reset_password_token
+          reset_password_expires
+        }
+      }
+    `;
+
+    console.log("GraphQL request payload:", { query: verifyQuery, variables: { email } });
+
+    const verifyResponse = await fetch(process.env.STEPZEN_ENDPOINT!, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
       },
       body: JSON.stringify({
-        query: `
-          query VerifyResetToken($email: String!) {
-            usersByEmail(email: $email) {
-              id
-              email
-              reset_password_token
-              reset_password_expires
-            }
-          }
-        `,
+        query: verifyQuery,
         variables: { email },
       }),
     });
 
-    const result = await response.json();
+    const verifyResult = await verifyResponse.json();
+    console.log("GraphQL verify response:", verifyResult);
 
-    if (result.errors) {
-      console.error("GraphQL errors:", result.errors);
+    if (verifyResult.errors) {
+      console.error("GraphQL errors:", verifyResult.errors);
       return NextResponse.json(
         { error: "Failed to verify token" },
         { status: 500 }
       );
     }
 
-    const user = result.data.usersByEmail[0];
+    const user = verifyResult.data.usersByEmail[0];
 
     if (!user) {
       return NextResponse.json(
@@ -73,35 +77,64 @@ export async function POST(req: Request) {
     // Hash the new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    const variables = {
-        email,
-        new_password_hash: hashedPassword,
-      };
-    // Update the user's password
-    try {
-        const response = await fetch(process.env.STEPZEN_ENDPOINT!, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
-          },
-          body: JSON.stringify({
-            query: UPDATE_USER_PASSWORD,
-            variables,
-          }),
-        });
-        const result = await response.json();
-        console.log("GraphQL response:", result);
-        if (result.errors) {
-          console.error("GraphQL errors: ", result.errors);
-          return NextResponse.json({ error: "Database update failed" }, { status: 500 });
+    const updatePasswordQuery = `
+      mutation UpdateUserPassword($email: String!, $new_password_hash: String!) {
+        updateUserPassword(email: $email, new_password_hash: $new_password_hash) {
+          id
+          email
+          password_hash
+          updated_at
         }
-      } catch (err) {
-        console.error("GraphQL fetch error: ", err);
-        return NextResponse.json({ error: "Database update failed" }, { status: 500 });
       }
+    `;
+
+    const variables = {
+      email,
+      new_password_hash: hashedPassword,
+    };
+
+    console.log("GraphQL request payload:", { query: updatePasswordQuery, variables });
+
+    // Update the user's password
+    const updateResponse = await fetch(process.env.STEPZEN_ENDPOINT!, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
+      },
+      body: JSON.stringify({
+        query: updatePasswordQuery,
+        variables,
+      }),
+    });
+
+    const updateResult = await updateResponse.json();
+    console.log("GraphQL update response:", updateResult);
+
+    if (updateResult.errors) {
+      console.error("GraphQL errors:", updateResult.errors);
+      return NextResponse.json(
+        { error: "Failed to update password" },
+        { status: 500 }
+      );
+    }
 
     // Clear the reset token
+    const clearTokenQuery = `
+      mutation ClearResetToken($email: String!) {
+        updateResetToken(
+          email: $email,
+          reset_password_token: "",
+          reset_password_expires: "1970-01-01T00:00:00.000Z"
+        ) {
+          id
+          email
+        }
+      }
+    `;
+
+    console.log("GraphQL request payload:", { query: clearTokenQuery, variables: { email } });
+
     const clearTokenResponse = await fetch(process.env.STEPZEN_ENDPOINT!, {
       method: "POST",
       headers: {
@@ -109,23 +142,13 @@ export async function POST(req: Request) {
         "Authorization": `Apikey ${process.env.NEXT_PUBLIC_STEPZEN_API_KEY}`,
       },
       body: JSON.stringify({
-        query: `
-          mutation ClearResetToken($email: String!) {
-            updateResetToken(
-              email: $email,
-              reset_password_token: "",
-              reset_password_expires: "1970-01-01T00:00:00.000Z"
-            ) {
-              id
-              email
-            }
-          }
-        `,
+        query: clearTokenQuery,
         variables: { email },
       }),
     });
 
     const clearTokenResult = await clearTokenResponse.json();
+    console.log("GraphQL clear token response:", clearTokenResult);
 
     if (clearTokenResult.errors) {
       console.error("GraphQL errors:", clearTokenResult.errors);

@@ -8,6 +8,7 @@ const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +23,9 @@ const ForgotPassword: React.FC = () => {
       const data = await res.json();
       console.log('Forgot password response:', data);
       setMessage(data.message || data.error);
+      if (res.ok) {
+        setIsSuccess(true);
+      }
     } catch (error) {
       console.error('Forgot password error:', error);
       setMessage('An error occurred. Please try again.');
@@ -54,10 +58,16 @@ const ForgotPassword: React.FC = () => {
                   setEmail(e.target.value)
                 }
                 required
+                disabled={isSuccess}
               />
             </div>
           </div>
-            <SolidButton1 text={'Send Reset Link'} disabled={isLoading} className='w-full' type='submit' />
+            <SolidButton1 
+              text={isSuccess ? 'Reset Link Sent' : 'Send Reset Link'} 
+              disabled={isLoading || isSuccess} 
+              className='w-full' 
+              type='submit' 
+            />
             <button
                 type="button"
                 onClick={() => window.history.back()}
@@ -67,7 +77,7 @@ const ForgotPassword: React.FC = () => {
                 </button>
         </form>
         {message && (
-          <div className="mt-4 bg-yellow-100 text-yellow-800 p-2 rounded text-center">
+          <div className={`mt-4 p-2 rounded text-center ${isSuccess ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
             {message}
           </div>
         )}

@@ -1,19 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { LockIcon, CheckCircleIcon, AlertCircleIcon } from "lucide-react";
 import SolidButton1 from "@/components/buttons/SolidButton1";
+import LoadingBox from "@/components/LoadingBox";
+
+type Status = "idle" | "success" | "error" | "validating";
 
 export default function ResetPasswordPage() {
-  const t = useTranslations("ResetPassword"); // Using the "ResetPassword" namespace
+  const t = useTranslations("ResetPassword");
   const searchParams = useSearchParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [status, setStatus] = useState<Status>("validating");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isTokenValid, setIsTokenValid] = useState(false);
 
   // Password restrictions state
   const [hasUpperCase, setHasUpperCase] = useState(false);
@@ -25,8 +29,41 @@ export default function ResetPasswordPage() {
   const isValidPassword =
     hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar && hasMinLength;
 
-  // In a real implementation, you would get the token from the URL.
   const token = searchParams.get("token");
+  const email = searchParams.get("email");
+
+  useEffect(() => {
+    const validateToken = async () => {
+      if (!token || !email) {
+        setStatus("error");
+        setErrorMessage(t("invalidLink"));
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/auth/validate-reset-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token, email }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error || t("invalidLink"));
+        }
+
+        setIsTokenValid(true);
+        setStatus("idle");
+      } catch (error) {
+        setStatus("error");
+        setErrorMessage(error instanceof Error ? error.message : t("invalidLink"));
+        setIsTokenValid(false);
+      }
+    };
+
+    validateToken();
+  }, [token, email, t]);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newPassword = e.target.value;
@@ -60,8 +97,8 @@ export default function ResetPasswordPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          token: searchParams.get("token"),
-          email: searchParams.get("email"),
+          token,
+          email,
           newPassword: password
         }),
       });
@@ -82,8 +119,20 @@ export default function ResetPasswordPage() {
     }
   };
 
-  // If there is no token, display an invalid link message.
-  if (!token) {
+  if (status === "validating") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
+        <LoadingBox
+          imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+          imageAlt="Loading spinner"
+          imageClassName=""
+          containerClassName="h-[10vh]"
+        />
+      </div>
+    );
+  }
+
+  if (!isTokenValid || status === "error") {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
         <div className="bg-white shadow rounded-lg w-full max-w-md">
@@ -122,7 +171,7 @@ export default function ResetPasswordPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              {status === "error" && (
+              {errorMessage && (
                 <div className="flex items-center gap-2 border border-red-200 bg-red-50 text-red-800 rounded p-2">
                   <AlertCircleIcon className="h-4 w-4" />
                   <span>{errorMessage}</span>
