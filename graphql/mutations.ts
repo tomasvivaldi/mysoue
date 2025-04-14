@@ -406,6 +406,37 @@ export const UPDATE_WISHLIST_ITEMS = gql`
   }
 `;
 
+export const UPDATE_WISHLISTS = gql`
+  mutation UpdateWishlists(
+    $id: ID!
+    $title: String
+    $description: String
+    $due_date: DateTime
+    $require_address: Boolean
+    $address: String
+    $type: String
+  ) {
+    updateWishlists(
+      id: $id
+      title: $title
+      description: $description
+      due_date: $due_date
+      require_address: $require_address
+      address: $address
+      type: $type
+    ) {
+      id
+      title
+      description
+      due_date
+      require_address
+      address
+      type
+      updated_at
+    }
+  }
+`;
+
 export const UPDATE_USER_PASSWORD = gql`
   mutation UpdateUserPassword($email: String!, $new_password_hash: String!) {
     updateUserPassword(email: $email, new_password_hash: $new_password_hash) {
@@ -446,5 +477,6 @@ export const mutations = {
   UPDATE_USER_SUBSCRIPTION,
   ADD_RESERVED_GIFT,
   ADD_EXTERNAL_PRODUCT,
-  UPDATE_RESET_TOKEN_MUTATION
+  UPDATE_RESET_TOKEN_MUTATION,
+  UPDATE_WISHLISTS
 };

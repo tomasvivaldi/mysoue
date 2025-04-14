@@ -57,6 +57,8 @@ type UserData {
   gender: String
   first_name: String
   last_name: String
+  reset_password_token: String
+  reset_password_expires: DateTime
   wishlists: [Wishlists]
     @materializer(
       query: "wishlistsListByUserId"
@@ -199,9 +201,37 @@ type Query {
       type: "postgresql"
       schema: "public"
       query: """
-        SELECT *
-        FROM "products"
-        WHERE "pre_list" = $1
+      SELECT *
+      FROM "products"
+      WHERE "pre_list" = $1
+      ORDER BY "created_at" DESC
+      """
+      configuration: "stepzen_config"
+    )
+  " Query for unique pre_lists with their images "
+  uniquePreLists: [Products]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      WITH ranked_products AS (
+        SELECT 
+          pre_list,
+          image_url,
+          product_name,
+          product_description,
+          ROW_NUMBER() OVER (PARTITION BY pre_list ORDER BY created_at DESC) as rn
+        FROM products
+        WHERE pre_list IS NOT NULL AND pre_list != ''
+      )
+      SELECT 
+        pre_list,
+        image_url,
+        product_name,
+        product_description
+      FROM ranked_products
+      WHERE rn = 1
+      ORDER BY pre_list
       """
       configuration: "stepzen_config"
     )
@@ -671,6 +701,33 @@ type Mutation {
       schema: "public"
       table: "wishlists"
       dml: INSERT
+      configuration: "stepzen_config"
+    )
+  updateWishlists(
+    id: ID!
+    title: String
+    description: String
+    due_date: DateTime
+    require_address: Boolean
+    address: String
+    type: String
+  ): Wishlists
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE wishlists
+      SET 
+        title = COALESCE($2, title),
+        description = COALESCE($3, description),
+        due_date = COALESCE($4, due_date),
+        require_address = COALESCE($5, require_address),
+        address = COALESCE($6, address),
+        type = COALESCE($7, type),
+        updated_at = NOW()
+      WHERE id = $1
+      RETURNING *;
+      """
       configuration: "stepzen_config"
     )
   " Mutations for type 'shared_wishlists' "

@@ -491,32 +491,26 @@ export const GET_PRE_LISTS = gql`
   }
 `;
 
-export const GET_PRODUCTS_BY_PRELIST = gql`
+export const GET_PRODUCTS_BY_PRE_LIST = gql`
   query GetProductsByPreList($pre_list: String!) {
     productsByPreList(pre_list: $pre_list) {
       id
       product_name
+      product_name_thai
       product_description
+      product_description_thai
       price
-      affiliate_link
       image_url
+      store_link
+      affiliate_link
       created_at
       updated_at
       platform
       category
       subcategory
       brand
-      store_link
       highlighted
       pre_list
-      wishlist_items {
-        id
-        external_product_id
-        external_products {
-          id
-          product_name
-        }
-      }
     }
   }
 `;
@@ -592,6 +586,17 @@ export const GET_WISHLIST_ITEMS_BY_EXTERNAL_PRODUCT_ID = gql`
   }
 `;
 
+export const GET_UNIQUE_PRE_LISTS = gql`
+  query GetUniquePreLists {
+    uniquePreLists {
+      pre_list
+      image_url
+      product_name
+      product_description
+    }
+  }
+`;
+
 export const queries = {
   GET_USERS_BY_EMAIL,
   GET_USERS_BY_ID,
@@ -607,6 +612,7 @@ export const queries = {
   GET_WISHLIST_ITEMS_BY_EXTERNAL_PRODUCT_ID,
   GET_PRODUCTS_LIST,
   GET_PRE_LISTS,
-  GET_PRODUCTS_BY_PRELIST,
-  GET_ALL_PRODUCTS
+  GET_PRODUCTS_BY_PRE_LIST,
+  GET_ALL_PRODUCTS,
+  GET_UNIQUE_PRE_LISTS
 };
