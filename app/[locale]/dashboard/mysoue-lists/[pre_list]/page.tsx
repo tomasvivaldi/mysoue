@@ -135,6 +135,10 @@ const mysoueListsPreListPage = () => {
         },
       });
 
+      if (!wishlistResponse.data?.insertWishlists?.id) {
+        throw new Error("Failed to create wishlist");
+      }
+
       const wishlistId = wishlistResponse.data.insertWishlists.id;
 
       // Add all products from the prelist to the wishlist
@@ -149,19 +153,21 @@ const mysoueListsPreListPage = () => {
           added_at: new Date().toISOString()
         }));
 
-        await addWishlistItemsBatchMutation({
+        const batchResponse = await addWishlistItemsBatchMutation({
           variables: {
             items
           }
         });
+
+        if (!batchResponse.data?.insertWishlistItemsBatch) {
+          throw new Error("Failed to add items to wishlist");
+        }
       }
 
-      // Let the modal handle the success state and closing
       return true;
     } catch (error) {
       console.error("Error creating wishlist:", error);
-      // TODO: Add error toast notification
-      return false;
+      throw error; // Re-throw the error to be handled by the modal
     } finally {
       setIsLoading(false);
     }

@@ -36,9 +36,11 @@ const AddPrelistModal: React.FC<AddPrelistModalProps> = ({
   const [address, setAddress] = useState("");
   const [type, setType] = useState(preListType);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError(null);
     try {
       const result = await onSubmit({
         title,
@@ -54,10 +56,11 @@ const AddPrelistModal: React.FC<AddPrelistModalProps> = ({
           setShowSuccess(false);
           onSuccess?.();
           onClose();
-        }, 6000);
+        }, 3000);
       }
     } catch (error) {
       console.error("Error creating wishlist:", error);
+      setError(error instanceof Error ? error.message : "An error occurred while creating the wishlist");
     }
   };
 
@@ -122,6 +125,11 @@ const AddPrelistModal: React.FC<AddPrelistModalProps> = ({
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
               <h2 className="text-2xl font-semibold mb-4">{t("addNewWishlist")}</h2>
+              {error && (
+                <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                  <p className="text-red-600">{error}</p>
+                </div>
+              )}
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
