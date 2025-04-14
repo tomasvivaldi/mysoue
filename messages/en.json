@@ -87,7 +87,8 @@
   },
   "UserLists": {
     "yourLists": "YOUR LISTS",
-    "delete": "DELETE",
+    "delete": "Delete",
+    "edit": "Edit",
     "addNewWishlist": "ADD NEW WISHLIST"
   },
   "AddWishlistModal": {
@@ -739,6 +740,18 @@
     "addProduct": "Add Product",
     "shareList": "Share List",
     "list": "List"
+  },
+  "EditWishlistModal": {
+    "editWishlist": "Edit Wishlist",
+    "title": "Title",
+    "description": "Description",
+    "dueDate": "Due Date",
+    "requireAddress": "Require Address",
+    "address": "Address",
+    "type": "Type",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving..."
   }
   
 

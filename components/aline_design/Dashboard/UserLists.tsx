@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import AddWishlistModal from "../modals/AddWishlistModal";
 import DeleteWishlistModal from "../modals/DeleteWishlistModal";
+import EditWishlistModal from "../modals/EditWishlistModal";
 import { useTranslations } from "next-intl"; 
 import { useMutation } from "@apollo/client";
 import { DELETE_WISHLISTS } from "@/graphql/mutations";
@@ -11,6 +12,11 @@ import { DELETE_WISHLISTS } from "@/graphql/mutations";
 interface Wishlist {
   id: string;
   title: string;
+  description?: string;
+  due_date?: string;
+  require_address?: boolean;
+  address?: string;
+  type?: string;
 }
 
 interface UserListsProps {
@@ -28,6 +34,7 @@ const UserLists: React.FC<UserListsProps> = ({
   const [deleteWishlistMutation, { loading: deleteLoading, error: deleteError }] = useMutation(DELETE_WISHLISTS);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(null);
   const [localWishlists, setLocalWishlists] = useState<Wishlist[]>(wishlists);
 
@@ -40,9 +47,19 @@ const UserLists: React.FC<UserListsProps> = ({
     setIsDeleteModalOpen(true);
   };
 
+  const handleOpenEditModal = (wishlist: Wishlist) => {
+    setSelectedWishlist(wishlist);
+    setIsEditModalOpen(true);
+  };
+
   const handleCloseDeleteModal = () => {
     setSelectedWishlist(null);
     setIsDeleteModalOpen(false);
+  };
+
+  const handleCloseEditModal = () => {
+    setSelectedWishlist(null);
+    setIsEditModalOpen(false);
   };
 
   const handleDeleteWishlist = async () => {
@@ -60,6 +77,14 @@ const UserLists: React.FC<UserListsProps> = ({
     } catch (error) {
       console.error("Error deleting wishlist:", error);
     }
+  };
+
+  const handleEditSuccess = (updatedWishlist: Wishlist) => {
+    const updatedWishlists = localWishlists.map((wishlist) =>
+      wishlist.id === updatedWishlist.id ? updatedWishlist : wishlist
+    );
+    setLocalWishlists(updatedWishlists);
+    setSelectedWishlist(null);
   };
 
   return (
@@ -83,15 +108,26 @@ const UserLists: React.FC<UserListsProps> = ({
             >
               {wishlist.title}
             </Link>
-            <button
-              onClick={(e) => {
-                e.preventDefault(); // Prevent navigation when "delete" is clicked
-                handleOpenDeleteModal(wishlist);
-              }}
-              className="text-[#C6B8A2] hover:underline transition"
-            >
-              {t("delete")}
-            </button>
+            <div className="flex space-x-4">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleOpenEditModal(wishlist);
+                }}
+                className="text-[#C6B8A2] hover:underline transition"
+              >
+                {t("edit")}
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleOpenDeleteModal(wishlist);
+                }}
+                className="text-[#C6B8A2] hover:underline transition"
+              >
+                {t("delete")}
+              </button>
+            </div>
           </li>
         ))}
       </ul>
@@ -118,6 +154,14 @@ const UserLists: React.FC<UserListsProps> = ({
         onClose={handleCloseDeleteModal}
         onDelete={handleDeleteWishlist}
         wishlistTitle={selectedWishlist?.title}
+      />
+
+      {/* Edit Wishlist Modal */}
+      <EditWishlistModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseEditModal}
+        wishlist={selectedWishlist}
+        onSuccess={handleEditSuccess}
       />
     </div>
   );

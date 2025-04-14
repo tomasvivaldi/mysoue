@@ -289,7 +289,7 @@ const WishlistDetails: React.FC = () => {
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
             <h2 className="heading2 mb-4 font-simplemichael">
-              {wishlistDetails?.title || "Loading..."}
+              {wishlistDetails?.title || ""}
             </h2>
           </div>
 

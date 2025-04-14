@@ -85,6 +85,7 @@
   "UserLists": {
     "yourLists": "รายการของคุณ",
     "delete": "ลบ",
+    "edit": "แก้ไข",
     "addNewWishlist": "เพิ่มรายการใหม่"
   },
   "AddWishlistModal": {
@@ -737,5 +738,17 @@
     "addProduct": "เพิ่มสินค้า",
     "shareList": "แชร์รายการ",
     "list": "รายการ"
+  },
+  "EditWishlistModal": {
+    "editWishlist": "แก้ไขรายการที่ต้องการ",
+    "title": "ชื่อเรื่อง",
+    "description": "คำอธิบาย",
+    "dueDate": "วันครบกำหนด",
+    "requireAddress": "ต้องการที่อยู่",
+    "address": "ที่อยู่",
+    "type": "ประเภท",
+    "cancel": "ยกเลิก",
+    "save": "บันทึก",
+    "saving": "กำลังบันทึก..."
   }
 }
