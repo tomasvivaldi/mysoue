@@ -753,6 +753,21 @@
     "cancel": "Cancel",
     "save": "Save",
     "saving": "Saving..."
+  },
+  "AddPrelistModal": {
+    "successTitle": "Wishlist Created Successfully",
+    "successMessage": "Your wishlist has been created successfully. You can now share it with your friends and family.",
+    "addNewWishlist": "Add New Wishlist",
+    "editWishlist": "Edit Wishlist",
+    "title": "Title",
+    "description": "Description",
+    "dueDate": "Due Date",
+    "requireAddress": "Require Address",
+    "address": "Address",
+    "type": "Type",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving..."
   }
   
 

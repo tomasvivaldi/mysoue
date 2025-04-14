@@ -156,6 +156,15 @@ type ExternalProduct {
     )
 }
 
+input WishlistItemInput {
+  wishlist_id: ID!
+  product_id: ID
+  external_product_id: ID
+  quantity: Int!
+  additional_description: String
+  updated_at: DateTime!
+  added_at: DateTime
+}
 
 """
 The following queries are just a set of examples of how to access your schema.
@@ -896,6 +905,36 @@ type Mutation {
         store_link = COALESCE($8, store_link),
         updated_at = COALESCE($9, updated_at)
       WHERE id = $1
+      RETURNING *;
+      """
+      configuration: "stepzen_config"
+    )
+
+  insertWishlistItemsBatch(
+    items: [WishlistItemInput!]!
+  ): [Wishlist_items]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      INSERT INTO wishlist_items (
+        wishlist_id,
+        product_id,
+        external_product_id,
+        quantity,
+        additional_description,
+        updated_at,
+        added_at
+      )
+      SELECT
+        (item->>'wishlist_id')::int8,
+        (item->>'product_id')::int8,
+        (item->>'external_product_id')::int8,
+        (item->>'quantity')::integer,
+        item->>'additional_description',
+        (item->>'updated_at')::timestamp,
+        (item->>'added_at')::timestamp
+      FROM jsonb_array_elements($1::jsonb) AS item
       RETURNING *;
       """
       configuration: "stepzen_config"

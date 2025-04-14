@@ -1,14 +1,18 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useApolloClient } from "@apollo/client";
+import { useApolloClient, useMutation } from "@apollo/client";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import Head from "next/head";
 import ProductCard3 from "@/components/cards/ProductCard3";
-import { GET_PRODUCTS_BY_PRELIST } from "@/graphql/queries";
+import { GET_PRODUCTS_BY_PRELIST, GET_USERS_BY_EMAIL } from "@/graphql/queries";
 import LoadingBox from "@/components/LoadingBox";
 import { motion } from "framer-motion";
+import AddPrelistModal from "@/components/aline_design/modals/AddPrelistModal";
+import { ADD_WISHLIST, ADD_WISHLIST_ITEMS_BATCH } from "@/graphql/mutations";
+import { useSession } from "next-auth/react";
+import client from "@/apollo-client";
 
 interface Product {
   affiliate_link: string;
@@ -36,6 +40,11 @@ const PAGE_SIZE = 6;
 const mysoueListsPreListPage = () => {
   const { pre_list } = useParams() as { pre_list: string };
   const decodedPreList = decodeURIComponent(pre_list);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [addWishlistMutation] = useMutation(ADD_WISHLIST);
+  const [addWishlistItemsBatchMutation] = useMutation(ADD_WISHLIST_ITEMS_BATCH);
+  const { data: session } = useSession();
 
   const t = useTranslations("Dashboard-mysoueLists");
   const client = useApolloClient();
@@ -81,6 +90,83 @@ const mysoueListsPreListPage = () => {
 
   const hasMoreItems = visibleProducts.length < products.length;
 
+  const handleAddToWishlists = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleAddSuccess = () => {
+    setIsAddModalOpen(false);
+    // TODO: Add any success feedback or navigation
+  };
+
+  const handleAddWishlist = async (data: {
+    title: string;
+    type: string;
+    description: string;
+    due_date: string | null;
+    require_address: boolean;
+    address: string | null;
+  }) => {
+    try {
+      setIsLoading(true);
+
+      if (!session?.user?.email) {
+        throw new Error("User not authenticated");
+      }
+
+      // Fetch user by email
+      const emailResponse = await client.query({
+        query: GET_USERS_BY_EMAIL,
+        variables: { email: session.user.email },
+      });
+
+      const userId = emailResponse.data.usersByEmail?.[0]?.id;
+      if (!userId) {
+        throw new Error("User not found");
+      }
+
+      // Create the wishlist
+      const wishlistResponse = await addWishlistMutation({
+        variables: {
+          user_id: userId,
+          ...data,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      });
+
+      const wishlistId = wishlistResponse.data.insertWishlists.id;
+
+      // Add all products from the prelist to the wishlist
+      if (products.length > 0) {
+        const items = products.map(product => ({
+          wishlist_id: wishlistId,
+          product_id: product.id,
+          external_product_id: null,
+          quantity: 1,
+          additional_description: product.product_description,
+          updated_at: new Date().toISOString(),
+          added_at: new Date().toISOString()
+        }));
+
+        await addWishlistItemsBatchMutation({
+          variables: {
+            items
+          }
+        });
+      }
+
+      // Let the modal handle the success state and closing
+      return true;
+    } catch (error) {
+      console.error("Error creating wishlist:", error);
+      // TODO: Add error toast notification
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="h-[80vh] flex items-center justify-center">
@@ -110,9 +196,17 @@ const mysoueListsPreListPage = () => {
             <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               {t("mysoueLists") || "MySoue Wishlists"}
             </h1>
-            <p className="text-xl text-gray-600">
-              {decodedPreList}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-xl text-gray-600">
+                {decodedPreList}
+              </p>
+              <button
+                className="px-6 py-3 bg-[#A5282C] text-white rounded-full hover:bg-[#C64138] text-sm font-medium transition-colors shadow-lg"
+                onClick={handleAddToWishlists}
+              >
+                Add to My Wishlists
+              </button>
+            </div>
           </div>
 
           <motion.div 
@@ -175,12 +269,12 @@ const mysoueListsPreListPage = () => {
             >
               <button
                 onClick={handleLoadMore}
-                disabled={loading}
-                className={`px-4 py-2 rounded-full ${
-                  !loading
-                    ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
-                    : "bg-gray-200 text-gray-500 cursor-wait"
-                }`}
+               disabled={loading}
+                          className={`px-4 py-2 rounded-full ${
+                            !loading
+                              ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+                              : "bg-gray-200 text-gray-500 cursor-wait"
+                          }`}
               >
                 {t("loadMore") || "Load More"}
               </button>
@@ -188,6 +282,14 @@ const mysoueListsPreListPage = () => {
           )}
         </motion.div>
       </div>
+
+      <AddPrelistModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        preListType={decodedPreList}
+        onSubmit={handleAddWishlist}
+        isLoading={isLoading}
+      />
     </>
   );
 };

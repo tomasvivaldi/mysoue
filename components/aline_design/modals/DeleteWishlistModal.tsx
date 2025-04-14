@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface DeleteWishlistModalProps {
   isOpen: boolean;
@@ -13,6 +13,17 @@ const DeleteWishlistModal: React.FC<DeleteWishlistModalProps> = ({
   onDelete,
   wishlistTitle = "this wishlist",
 }) => {
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await onDelete();
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   if (!isOpen) return null; // Don't render if the modal is closed
 
   return (
@@ -22,6 +33,7 @@ const DeleteWishlistModal: React.FC<DeleteWishlistModalProps> = ({
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-xl"
+          disabled={isDeleting}
         >
           &times;
         </button>
@@ -36,16 +48,52 @@ const DeleteWishlistModal: React.FC<DeleteWishlistModalProps> = ({
           <div className="flex justify-center gap-4">
             {/* Confirm Delete Button */}
             <button
-              onClick={onDelete}
-              className="bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className={`flex items-center justify-center gap-2 py-2 px-8 rounded-full font-medium transition ${
+                isDeleting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#A5282C] hover:bg-[#C64138]"
+              } text-white`}
             >
-              DELETE
+              {isDeleting ? (
+                <>
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  DELETING...
+                </>
+              ) : (
+                "DELETE"
+              )}
             </button>
 
             {/* Cancel Button */}
             <button
               onClick={onClose}
-              className="bg-gray-200 text-gray-700 py-2 px-8 rounded-full font-medium hover:bg-gray-300 transition"
+              disabled={isDeleting}
+              className={`py-2 px-8 rounded-full font-medium transition ${
+                isDeleting
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+              }`}
             >
               CANCEL
             </button>

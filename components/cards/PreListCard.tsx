@@ -44,6 +44,16 @@ const PreListCard: React.FC<PreListCardProps> = ({
             <div className="opacity-0 -my-2 group-hover:my-3 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0 text-left font-extralight text-xs m-4 transition-all duration-500 ease-in-out font-nunito">
               <p>{description}</p>
             </div>
+            <button
+              className="opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out mx-4 mb-4 px-4 py-2 bg-[#A5282C] text-white rounded-full hover:bg-[#C64138] text-sm"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                // TODO: Implement add to wishlist functionality
+              }}
+            >
+              Add to My Wishlists
+            </button>
           </div>
         </div>
       </div>

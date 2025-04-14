@@ -471,6 +471,25 @@ export const UPDATE_RESET_TOKEN_MUTATION = gql`
   }
 `;
 
+export const ADD_WISHLIST_ITEMS_BATCH = gql`
+  mutation AddWishlistItemsBatch(
+    $items: [WishlistItemInput!]!
+  ) {
+    insertWishlistItemsBatch(
+      items: $items
+    ) {
+      id
+      wishlist_id
+      product_id
+      external_product_id
+      quantity
+      additional_description
+      updated_at
+      added_at
+    }
+  }
+`;
+
 export const mutations = {
   ADD_USERS,
   ADD_USER_PREFERENCES,
@@ -478,5 +497,6 @@ export const mutations = {
   ADD_RESERVED_GIFT,
   ADD_EXTERNAL_PRODUCT,
   UPDATE_RESET_TOKEN_MUTATION,
-  UPDATE_WISHLISTS
+  UPDATE_WISHLISTS,
+  ADD_WISHLIST_ITEMS_BATCH
 };
