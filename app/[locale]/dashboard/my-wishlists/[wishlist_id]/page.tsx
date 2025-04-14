@@ -283,104 +283,134 @@ const WishlistDetails: React.FC = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
+          <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <h2 className="heading2 mb-4 font-simplemichael">
+              {wishlistDetails?.title || "Loading..."}
+            </h2>
+          </div>
+
+          <div className="flex items-center justify-center w-full h-[50vh]">
+            <LoadingBox
+              imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+              imageAlt="Loading spinner"
+              imageClassName=""
+              containerClassName="h-[10vh]"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!wishlistDetails) {
+    return (
+      <div className="flex flex-col min-h-screen">
+        <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
+          <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <h2 className="heading2 mb-4 font-simplemichael">
+              {t("wishlistNotFound")}
+            </h2>
+          </div>
+
+          <div className="flex items-center justify-center w-full h-[50vh]">
+            <p className="text-xl text-gray-600">{t("wishlistNotFoundMessage")}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {loading ? (
-        <LoadingBox
-          imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-          imageAlt={t("loading")}
-          imageClassName=""
-          containerClassName="h-[80vh]"
-        />
-      ) : !wishlistDetails ? (
-        <div>{t("noWishlistFound")}</div>
-      ) : (
-        <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
-          <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
-            <div>
-              <h1 className="heading2">{wishlistDetails.title}</h1>
-              <h2 className="heading4">
-                {wishlistDetails.type.charAt(0).toUpperCase() +
-                  wishlistDetails.type.slice(1)}{" "}
-                {t("list")}
-              </h2>
-            </div>
-            <div className="flex flex-col sm:hidden mb-2">
-              <p>{wishlistDetails.description}</p>
-              <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
-            </div>
-            <div className="flex flex-col xs:flex-row gap-2 sm:gap-8">
-              {/* Add Product Button with Modal Trigger */}
-              <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
-              <SolidButtonBlack text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
-            </div>
+      <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
+        <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
+          <div>
+            <h1 className="heading2">{wishlistDetails.title}</h1>
+            <h2 className="heading4">
+              {wishlistDetails.type.charAt(0).toUpperCase() +
+                wishlistDetails.type.slice(1)}{" "}
+              {t("list")}
+            </h2>
           </div>
-          <div className="hidden sm:flex sm:flex-col">
+          <div className="flex flex-col sm:hidden mb-2">
             <p>{wishlistDetails.description}</p>
             <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-            {visibleItems.map((item) => {
-              const products = Array.isArray(item.products) ? item.products : [item.products];
-              const product = products[0];
-              const productId = product?.id
-              const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
-              const externalProduct = externalProducts[0];
-              const externalProductId = externalProduct?.id
-              const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
-              return (
-                <ProductCard3
-                  href={productLink}
-                  key={product?.id || externalProduct?.id}
-                  preList={product?.pre_list || ""}
-                  imageUrl={product?.image_url || externalProduct?.image_url || ""}
-                  name={product?.product_name || externalProduct?.product_name}
-                  price={product?.price || externalProduct?.price || 0}
-                  additionalDescription={product?.product_description || externalProduct?.product_description}
-                  brand={product?.brand || externalProduct?.brand}
-                  category={product?.category || externalProduct?.category}
-                  subcategory={product?.subcategory || ""}
-                />
-              );
-            })}
+          <div className="flex flex-col xs:flex-row gap-2 sm:gap-8">
+            {/* Add Product Button with Modal Trigger */}
+            <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
+            <SolidButtonBlack text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
           </div>
-          <button
-            onClick={handleLoadMore}
-            disabled={!hasMoreItems}
-            className={`mt-4 px-4 py-2 rounded-full ${
-              hasMoreItems
-                ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
-                : "bg-gray-200 text-gray-500 cursor-not-allowed"
-            }`}
-          >
-            {hasMoreItems ? t("loadMore") : t("noMoreItems")}
-          </button>
-
-          {/* Add Product Option Modal */}
-          <AddProductOptionModal
-            isOpen={isOptionModalOpen}
-            onClose={closeOptionModal}
-            onAddManually={openAddProductModal}
-            onBrowseProducts={() => console.log("Browse products clicked")}
-          />
-
-          {/* Add Product Modal */}
-          <AddProductModal
-            isOpen={isAddProductModalOpen}
-            onClose={closeAddProductModal}
-            onAddProduct={handleAddProduct}
-          />
-
-          {/* Share Wishlist Modal */}
-          <ShareWishlistModal
-            isOpen={isShareModalOpen}
-            onClose={() => setIsShareModalOpen(false)}
-            wishlistId={wishlistDetails.id}
-            shareToken={shareToken || wishlistDetails?.shared_wishlists?.[0]?.share_token}
-            onGenerateShareLink={handleGenerateShareLink}
-          />
         </div>
-      )}
+        <div className="hidden sm:flex sm:flex-col">
+          <p>{wishlistDetails.description}</p>
+          <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+          {visibleItems.map((item) => {
+            const products = Array.isArray(item.products) ? item.products : [item.products];
+            const product = products[0];
+            const productId = product?.id
+            const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
+            const externalProduct = externalProducts[0];
+            const externalProductId = externalProduct?.id
+            const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
+            return (
+              <ProductCard3
+                href={productLink}
+                key={product?.id || externalProduct?.id}
+                preList={product?.pre_list || ""}
+                imageUrl={product?.image_url || externalProduct?.image_url || ""}
+                name={product?.product_name || externalProduct?.product_name}
+                price={product?.price || externalProduct?.price || 0}
+                additionalDescription={product?.product_description || externalProduct?.product_description}
+                brand={product?.brand || externalProduct?.brand}
+                category={product?.category || externalProduct?.category}
+                subcategory={product?.subcategory || ""}
+              />
+            );
+          })}
+        </div>
+        <button
+          onClick={handleLoadMore}
+          disabled={!hasMoreItems}
+          className={`mt-4 px-4 py-2 rounded-full ${
+            hasMoreItems
+              ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+              : "bg-gray-200 text-gray-500 cursor-not-allowed"
+          }`}
+        >
+          {hasMoreItems ? t("loadMore") : t("noMoreItems")}
+        </button>
+
+        {/* Add Product Option Modal */}
+        <AddProductOptionModal
+          isOpen={isOptionModalOpen}
+          onClose={closeOptionModal}
+          onAddManually={openAddProductModal}
+          onBrowseProducts={() => console.log("Browse products clicked")}
+        />
+
+        {/* Add Product Modal */}
+        <AddProductModal
+          isOpen={isAddProductModalOpen}
+          onClose={closeAddProductModal}
+          onAddProduct={handleAddProduct}
+        />
+
+        {/* Share Wishlist Modal */}
+        <ShareWishlistModal
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          wishlistId={wishlistDetails.id}
+          shareToken={shareToken || wishlistDetails?.shared_wishlists?.[0]?.share_token}
+          onGenerateShareLink={handleGenerateShareLink}
+        />
+      </div>
     </>
   );
 };

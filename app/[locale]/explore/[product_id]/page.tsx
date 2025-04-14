@@ -141,16 +141,16 @@ const ProductDetails: React.FC = () => {
     
     {!loading && productDetails &&
       <div className="w-full py-20 x-paddings2">
-        <div className="mt-4  flex flex-col lg:flex-row items-center w-full gap-4">
+        <div className="mt-4  flex flex-col md:flex-row items-start w-full gap-4md : gap-8">
           <Image
             alt="Product Image"
-            className="rounded-lg w-full max-w-[400px]"
+            className="w-full h-full object-cover rounded-lg"
             src={src}
             style={{ aspectRatio: "1", objectFit: "cover" }}
             width={400}
             height={400}
           />
-          <div className="w-full px-4 lg:px-0 flex flex-col ">
+          <div className="w-full px-4 lg:px-0 flex flex-col  md:my-20">
             <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
             <p className="mt-2 text-xl font-light">
               {productDetails?.price.toFixed(2)} THB

@@ -722,5 +722,20 @@
     "addressLabel": "ที่อยู่:",
     "backButton": "กลับ",
     "submitButton": "ส่งรายการสิ่งที่ปรารถนา"
+  },
+  "Prelist-Product": {
+    "heroMain": "สำรวจจดหมายของเรา",
+    "heroItalic": "สำหรับทุกโอกาส",
+    "preMadeListDescription": "คอลเลกชันสินค้าที่คัดสรรมาอย่างดีสำหรับโอกาสพิเศษของคุณ",
+    "loading": "กำลังโหลด...",
+    "noProducts": "ไม่พบสินค้า",
+    "loadMore": "โหลดเพิ่มเติม",
+    "noMoreItems": "ไม่มีสินค้าเพิ่มเติม",
+    "wishlistNotFound": "ไม่พบรายการที่ต้องการ",
+    "wishlistNotFoundMessage": "รายการที่คุณกำลังค้นหาไม่มีอยู่หรือถูกลบไปแล้ว",
+    "dueDate": "วันครบกำหนด",
+    "addProduct": "เพิ่มสินค้า",
+    "shareList": "แชร์รายการ",
+    "list": "รายการ"
   }
 }

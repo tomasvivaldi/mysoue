@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { Button2 } from "../buttons/Button2";
 import SolidButton from "../buttons/SolidButton";
+import { useRouter } from "next/navigation";
 
 export const Card = React.memo(
   ({
@@ -17,42 +18,47 @@ export const Card = React.memo(
     hovered: number | null;
     setHovered: React.Dispatch<React.SetStateAction<number | null>>;
   }) => {
-      return (
+    const router = useRouter();
+
+    return (
+      <div
+        onMouseEnter={() => setHovered(index)}
+        onMouseLeave={() => setHovered(null)}
+        className={cn(
+          "max-h-72 rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden w-full aspect-1.3h transition-all duration-300 ease-out",
+          hovered !== null && hovered !== index && "blur-sm scale-[0.98] rounded-lg"
+        )}
+      >
+        <Image
+          src={card.src}
+          alt={card.title}
+          fill
+          className="object-cover absolute inset-0 rounded-lg" />
+
         <div
-          onMouseEnter={() => setHovered(index)}
-          onMouseLeave={() => setHovered(null)}
           className={cn(
-            " max-h-72 rounded-lg relative bg-gray-100 dark:bg-neutral-900 overflow-hidden w-full aspect-1.3h transition-all duration-300 ease-out",
-            hovered !== null && hovered !== index && "blur-sm scale-[0.98] rounded-lg"
+            "absolute inset-0 flex items-start py-8 px-4",
           )}
         >
-          <Image
-            src={card.src}
-            alt={card.title}
-            fill
-            className="object-cover absolute inset-0 rounded-lg" />
-
-          <div
-            className={cn(
-              "absolute inset-0 flex items-start py-8 px-4",
-              
-            )}
-          >
-            <div className="text-xl md:text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200">
-              {card.title}
-            </div>  
-          </div>
-          <div
-            className={cn(
-              "absolute inset-0 bg-black/10 flex items-end justify-center py-8 px-4 transition-opacity duration-300 rounded-lg",
-              hovered === index ? "opacity-100" : "opacity-0"
-            )}
-          >
-            <SolidButton text={"EXPLORE"} className="bg-white font-semibold tracking-widest" />
-            </div>
+          <div className="text-xl md:text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200">
+            {card.title}
+          </div>  
         </div>
-      );
-    }
+        <div
+          className={cn(
+            "absolute inset-0 bg-black/10 flex items-end justify-center py-8 px-4 transition-opacity duration-300 rounded-lg",
+            hovered === index ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <SolidButton 
+            text={"EXPLORE"} 
+            className="bg-white font-semibold tracking-widest" 
+            onClick={() => router.push(`/lists/${card.title}`)}
+          />
+        </div>
+      </div>
+    );
+  }
 );
 
 Card.displayName = "Card";

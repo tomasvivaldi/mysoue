@@ -724,6 +724,21 @@
     "addressLabel": "Address:",
     "backButton": "Back",
     "submitButton": "Submit Wishlist"
+  },
+  "Prelist-Product": {
+    "heroMain": "EXPLORE OUR LISTS",
+    "heroItalic": "for every occasion",
+    "preMadeListDescription": "A curated collection of products for your special occasion",
+    "loading": "Loading...",
+    "noProducts": "No products found",
+    "loadMore": "Load More",
+    "noMoreItems": "No More Items",
+    "wishlistNotFound": "Wishlist not found",
+    "wishlistNotFoundMessage": "The wishlist you're looking for doesn't exist or has been removed.",
+    "dueDate": "Due Date",
+    "addProduct": "Add Product",
+    "shareList": "Share List",
+    "list": "List"
   }
   
 
