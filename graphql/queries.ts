@@ -597,6 +597,31 @@ export const GET_UNIQUE_PRE_LISTS = gql`
   }
 `;
 
+export const GET_PRODUCTS_BY_PRELIST = gql`
+  query GetProductsByPreList($pre_list: String!) {
+    productsByPreList(pre_list: $pre_list) {
+      id
+      product_name
+      product_name_thai
+      product_description
+      product_description_thai
+      price
+      image_url
+      store_link
+      affiliate_link
+      created_at
+      updated_at
+      platform
+      category
+      subcategory
+      brand
+      highlighted
+      pre_list
+    }
+  }
+`;
+
+
 export const queries = {
   GET_USERS_BY_EMAIL,
   GET_USERS_BY_ID,
