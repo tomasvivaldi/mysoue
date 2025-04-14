@@ -134,7 +134,7 @@ export default function MyWishlists() {
         <title>{t("pageTitle")}</title>
       </Head>
       <div className="container mx-auto p-4 ">
-        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start">
+        <div className="flex flex-row flex-wrap gap-8 justify-center sm:justify-start pb-20">
           <UserLists
             wishlists={userData?.wishlists || []}
             onEdit={(id) => console.log(`Edit wishlist with id: ${id}`)}

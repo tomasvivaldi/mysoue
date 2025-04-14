@@ -98,6 +98,9 @@
     "goBack": "GO BACK"
   },
   "WishlistDetails": {
+    "editWishlist": "Edit Wishlist",
+    "wishlistNotFound": "Wishlist not found",
+    "wishlistNotFoundMessage": "The wishlist you're looking for doesn't exist or has been removed.",
     "loading": "Loading...",
     "noWishlistFound": "No wishlist found.",
     "none": "None",

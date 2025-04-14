@@ -7,6 +7,7 @@ import LoadingBox from "@/components/LoadingBox";
 import ProductCard from "@/components/ProductCard";
 import AddProductModal from "@/components/aline_design/modals/AddProductModal";
 import AddProductOptionModal from "@/components/aline_design/modals/AddProductOptionModal";
+import EditWishlistModal from "@/components/aline_design/modals/EditWishlistModal";
 import { GET_WISHLIST_BY_ID } from "@/graphql/queries";
 import { ADD_EXTERNAL_PRODUCT, INSERT_WISHLIST_ITEMS } from "@/graphql/mutations";
 import { useTranslations } from "next-intl"; // Import translation hook
@@ -17,6 +18,8 @@ import { useMutation } from "@apollo/client";
 import { INSERT_SHARED_WISHLIST } from "@/graphql/mutations";
 import ProductCard3 from "@/components/cards/ProductCard3";
 import { useSession } from "next-auth/react";
+import GhostButton1 from "@/components/buttons/GhostButton1";
+import SolidButton1 from "@/components/buttons/SolidButton1";
 
 interface Product {
   affiliate_link: string;
@@ -93,11 +96,12 @@ const WishlistDetails: React.FC = () => {
   const { data: session } = useSession();
   const params = useParams();
   const id = params.wishlist_id;
-  const wishlist_id = id
-  const t = useTranslations("WishlistDetails"); // Use translations
+  const wishlist_id = id;
+  const t = useTranslations("WishlistDetails");
 
   const [wishlistDetails, setWishlistDetails] = useState<Wishlist | null>(null);
   const [loading, setLoading] = useState(false);
+  const [loadingDone, setLoadingDone] = useState(false);
   const [isOptionModalOpen, setIsOptionModalOpen] = useState(false);
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [visibleItems, setVisibleItems] = useState<WishlistItem[]>([]);
@@ -109,11 +113,13 @@ const WishlistDetails: React.FC = () => {
   const [insertSharedWishlist] = useMutation(INSERT_SHARED_WISHLIST);
   const [insertWishlistItems, { loading: mutationLoading, error: mutationError }] = useMutation(INSERT_WISHLIST_ITEMS);
   const [externalProductId, setExternalProductId] = useState<string | null>(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true);
+        setLoadingDone(false);
 
         if (id) {
           const response = await client.query({
@@ -135,6 +141,7 @@ const WishlistDetails: React.FC = () => {
         console.error("Failed to fetch wishlist data:", error);
       } finally {
         setLoading(false);
+        setLoadingDone(true);
       }
     };
 
@@ -283,39 +290,38 @@ const WishlistDetails: React.FC = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex flex-col min-h-screen">
-        <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
-          <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
-            <h2 className="heading2 mb-4 font-simplemichael">
-              {wishlistDetails?.title || ""}
-            </h2>
-          </div>
+  const handleEditWishlist = () => {
+    setIsEditModalOpen(true);
+  };
 
-          <div className="flex items-center justify-center w-full h-[50vh]">
-            <LoadingBox
-              imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-              imageAlt="Loading spinner"
-              imageClassName=""
-              containerClassName="h-[10vh]"
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const handleEditSuccess = (updatedWishlist: {
+    id: string;
+    title: string;
+    description?: string;
+    due_date?: string;
+    require_address?: boolean;
+    address?: string;
+    type?: string;
+  }) => {
+    setWishlistDetails(prev => {
+      if (!prev) return null;
+      return {
+        ...prev,
+        ...updatedWishlist
+      };
+    });
+    setIsEditModalOpen(false);
+  };
 
-  if (!wishlistDetails) {
+  if (loadingDone && !wishlistDetails) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen x-paddings">
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
             <h2 className="heading2 mb-4 font-simplemichael">
               {t("wishlistNotFound")}
             </h2>
           </div>
-
           <div className="flex items-center justify-center w-full h-[50vh]">
             <p className="text-xl text-gray-600">{t("wishlistNotFoundMessage")}</p>
           </div>
@@ -326,66 +332,109 @@ const WishlistDetails: React.FC = () => {
 
   return (
     <>
-      <div className="my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
+      <div className=" my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
         <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
           <div>
-            <h1 className="heading2">{wishlistDetails.title}</h1>
-            <h2 className="heading4">
-              {wishlistDetails.type.charAt(0).toUpperCase() +
-                wishlistDetails.type.slice(1)}{" "}
-              {t("list")}
-            </h2>
+            {!loadingDone ? (
+              <div className="animate-pulse">
+                <div className="h-8 w-48 bg-gray-200 rounded mb-2"></div>
+                <div className="h-6 w-32 bg-gray-200 rounded"></div>
+              </div>
+            ) : (
+              <>
+                <h1 className="heading2">{wishlistDetails?.title}</h1>
+                <h2 className="heading4">
+                  {(wishlistDetails?.type && wishlistDetails.type.length > 0) 
+                    ? wishlistDetails.type.charAt(0).toUpperCase() + wishlistDetails.type.slice(1)
+                    : ""}{" "}
+                  {t("list")}
+                </h2>
+              </>
+            )}
           </div>
           <div className="flex flex-col sm:hidden mb-2">
-            <p>{wishlistDetails.description}</p>
-            <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+            {!loadingDone ? (
+              <div className="animate-pulse">
+                <div className="h-4 w-64 bg-gray-200 rounded mb-2"></div>
+                <div className="h-4 w-32 bg-gray-200 rounded"></div>
+              </div>
+            ) : (
+              <>
+                <p>{wishlistDetails?.description}</p>
+                <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+              </>
+            )}
           </div>
-          <div className="flex flex-col xs:flex-row gap-2 sm:gap-8">
-            {/* Add Product Button with Modal Trigger */}
-            <GhostButtonBlack text={t("addProduct")} onClick={openOptionModal} />
-            <SolidButtonBlack text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
+          <div className="flex flex-col xs:flex-row gap-2 sm:gap-4">
+            <GhostButton1 text={t("editWishlist")} onClick={handleEditWishlist} />
+            <GhostButton1 text={t("addProduct")} onClick={openOptionModal} />
+            <SolidButton1 text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
           </div>
         </div>
         <div className="hidden sm:flex sm:flex-col">
-          <p>{wishlistDetails.description}</p>
-          <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+          {!loadingDone ? (
+            <div className="animate-pulse">
+              <div className="h-4 w-64 bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 w-32 bg-gray-200 rounded"></div>
+            </div>
+          ) : (
+            <>
+              <p>{wishlistDetails?.description}</p>
+              <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+            </>
+          )}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-          {visibleItems.map((item) => {
-            const products = Array.isArray(item.products) ? item.products : [item.products];
-            const product = products[0];
-            const productId = product?.id
-            const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
-            const externalProduct = externalProducts[0];
-            const externalProductId = externalProduct?.id
-            const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
-            return (
-              <ProductCard3
-                href={productLink}
-                key={product?.id || externalProduct?.id}
-                preList={product?.pre_list || ""}
-                imageUrl={product?.image_url || externalProduct?.image_url || ""}
-                name={product?.product_name || externalProduct?.product_name}
-                price={product?.price || externalProduct?.price || 0}
-                additionalDescription={product?.product_description || externalProduct?.product_description}
-                brand={product?.brand || externalProduct?.brand}
-                category={product?.category || externalProduct?.category}
-                subcategory={product?.subcategory || ""}
-              />
-            );
-          })}
-        </div>
-        <button
-          onClick={handleLoadMore}
-          disabled={!hasMoreItems}
-          className={`mt-4 px-4 py-2 rounded-full ${
-            hasMoreItems
-              ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
-              : "bg-gray-200 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          {hasMoreItems ? t("loadMore") : t("noMoreItems")}
-        </button>
+
+        {!loadingDone ? (
+          <div className="flex items-center justify-center w-full h-[50vh]">
+            <LoadingBox
+              imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+              imageAlt="Loading spinner"
+              imageClassName=""
+              containerClassName="h-[10vh]"
+            />
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+            {visibleItems.map((item) => {
+              const products = Array.isArray(item.products) ? item.products : [item.products];
+              const product = products[0];
+              const productId = product?.id;
+              const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
+              const externalProduct = externalProducts[0];
+              const externalProductId = externalProduct?.id;
+              const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
+              return (
+                <ProductCard3
+                  href={productLink}
+                  key={product?.id || externalProduct?.id}
+                  preList={product?.pre_list || ""}
+                  imageUrl={product?.image_url || externalProduct?.image_url || ""}
+                  name={product?.product_name || externalProduct?.product_name}
+                  price={product?.price || externalProduct?.price || 0}
+                  additionalDescription={product?.product_description || externalProduct?.product_description}
+                  brand={product?.brand || externalProduct?.brand}
+                  category={product?.category || externalProduct?.category}
+                  subcategory={product?.subcategory || ""}
+                />
+              );
+            })}
+          </div>
+        )}
+
+        {loadingDone && hasMoreItems && (
+          <button
+            onClick={handleLoadMore}
+            disabled={!hasMoreItems}
+            className={`mt-4 px-4 py-2 rounded-full ${
+              hasMoreItems
+                ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+                : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            {hasMoreItems ? t("loadMore") : t("noMoreItems")}
+          </button>
+        )}
 
         {/* Add Product Option Modal */}
         <AddProductOptionModal
@@ -406,9 +455,25 @@ const WishlistDetails: React.FC = () => {
         <ShareWishlistModal
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
-          wishlistId={wishlistDetails.id}
+          wishlistId={wishlistDetails?.id || ""}
           shareToken={shareToken || wishlistDetails?.shared_wishlists?.[0]?.share_token}
           onGenerateShareLink={handleGenerateShareLink}
+        />
+
+        {/* Add EditWishlistModal */}
+        <EditWishlistModal
+          isOpen={isEditModalOpen}
+          onClose={() => setIsEditModalOpen(false)}
+          wishlist={wishlistDetails ? {
+            id: wishlistDetails.id,
+            title: wishlistDetails.title,
+            description: wishlistDetails.description,
+            due_date: wishlistDetails.due_date,
+            require_address: wishlistDetails.require_address,
+            address: wishlistDetails.address,
+            type: wishlistDetails.type
+          } : null}
+          onSuccess={handleEditSuccess}
         />
       </div>
     </>

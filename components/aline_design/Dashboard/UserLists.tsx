@@ -91,7 +91,7 @@ const UserLists: React.FC<UserListsProps> = ({
     <div className="w-full x-paddings rounded-lg mt-8 px-4 sm:px-0">
       {/* Heading */}
       <h2 className="text-3xl font-semibold text-black mb-2">{t("yourLists")}</h2>
-      <hr className="border-t border-[#C6B8A2] mb-6" />
+      <hr className="border-t border-[#C6B8A2] mb-4" />
 
       {/* Lists */}
       <ul className="space-y-4">
@@ -133,7 +133,7 @@ const UserLists: React.FC<UserListsProps> = ({
       </ul>
 
       {/* Add New Wishlist Button */}
-      <div className="mt-8">
+      <div className="mt-2">
         <button
           onClick={handleOpenAddModal}
           className="w-full bg-transparent border border-[#C6B8A2] rounded-full py-2 text-[#C6B8A2] font-bold hover:bg-[#C6B8A2]/10 transition block text-center"

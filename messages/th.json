@@ -95,6 +95,9 @@
     "goBack": "กลับไป"
   },
   "WishlistDetails": {
+    "editWishlist": "แก้ไขรายการที่ต้องการ",
+    "wishlistNotFound": "ไม่พบรายการที่ต้องการ",
+    "wishlistNotFoundMessage": "รายการที่คุณกำลังค้นหาไม่มีอยู่หรือถูกลบ",
     "loading": "กำลังโหลด...",
     "noWishlistFound": "ไม่พบรายการที่ต้องการ",
     "none": "ไม่มี",
