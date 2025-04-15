@@ -97,6 +97,9 @@ export const GET_USERS_BY_ID = gql`
             created_at
             updated_at
             wishlist_item_id
+            reservation_token
+            status
+            expires_at
           }
         }
         shared_wishlists {
@@ -146,6 +149,9 @@ export const GET_PRODUCT_BY_ID = gql`
           created_at
           updated_at
           wishlist_item_id
+          reservation_token
+          status
+          expires_at
         }
         external_products {
           id
@@ -213,6 +219,9 @@ export const GET_EXTERNAL_PRODUCT_BY_ID = gql`
           created_at
           updated_at
           wishlist_item_id
+          reservation_token
+          status
+          expires_at
         }
         wishlists {
           id
@@ -321,6 +330,9 @@ export const GET_WISHLIST_BY_ID = gql`
           created_at
           updated_at
           wishlist_item_id
+          reservation_token
+          status
+          expires_at
         }
       }
       shared_wishlists {
@@ -383,6 +395,9 @@ export const GET_WISHLIST_ITEM_BY_ID = gql`
         created_at
         updated_at
         wishlist_item_id
+        reservation_token
+        status
+        expires_at
       }
     }
   }
@@ -478,6 +493,9 @@ export const GET_WISHLIST_ITEMS_BY_PRODUCT_ID = gql`
         created_at
         updated_at
         wishlist_item_id
+        reservation_token
+        status
+        expires_at
       }
     }
   }
@@ -581,6 +599,9 @@ export const GET_WISHLIST_ITEMS_BY_EXTERNAL_PRODUCT_ID = gql`
         created_at
         updated_at
         wishlist_item_id
+        reservation_token
+        status
+        expires_at
       }
     }
   }
@@ -621,6 +642,22 @@ export const GET_PRODUCTS_BY_PRELIST = gql`
   }
 `;
 
+export const GET_RESERVED_GIFTS_BY_RESERVATION_TOKEN = gql`
+  query GetReservedGiftsByReservationToken($reservation_token: String!) {
+    reservedGiftsByReservationToken(reservation_token: $reservation_token) {
+      id
+      name_and_surname
+      email
+      private_message
+      created_at
+      updated_at
+      wishlist_item_id
+      reservation_token
+      status
+      expires_at
+    }
+  }
+`;
 
 export const queries = {
   GET_USERS_BY_EMAIL,
@@ -639,5 +676,6 @@ export const queries = {
   GET_PRE_LISTS,
   GET_PRODUCTS_BY_PRE_LIST,
   GET_ALL_PRODUCTS,
-  GET_UNIQUE_PRE_LISTS
+  GET_UNIQUE_PRE_LISTS,
+  GET_RESERVED_GIFTS_BY_RESERVATION_TOKEN
 };

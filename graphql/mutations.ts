@@ -293,6 +293,9 @@ export const ADD_RESERVED_GIFT = gql`
     $wishlist_item_id: ID!
     $created_at: DateTime
     $updated_at: DateTime
+    $reservation_token: String!
+    $status: String!
+    $expires_at: DateTime!
   ) {
     insertReservedGifts(
       name_and_surname: $name_and_surname
@@ -301,6 +304,9 @@ export const ADD_RESERVED_GIFT = gql`
       wishlist_item_id: $wishlist_item_id
       created_at: $created_at
       updated_at: $updated_at
+      reservation_token: $reservation_token
+      status: $status
+      expires_at: $expires_at
     ) {
       id
       name_and_surname
@@ -309,6 +315,74 @@ export const ADD_RESERVED_GIFT = gql`
       wishlist_item_id
       created_at
       updated_at
+      reservation_token
+      status
+      expires_at
+    }
+  }
+`;
+
+export const UPDATE_RESERVED_GIFT = gql`
+  mutation UpdateReservedGift(
+    $id: ID!
+    $name_and_surname: String
+    $email: String
+    $private_message: String
+    $wishlist_item_id: ID
+    $reservation_token: String
+    $status: String
+    $expires_at: DateTime
+  ) {
+    updateReservedGifts(
+      id: $id
+      name_and_surname: $name_and_surname
+      email: $email
+      private_message: $private_message
+      wishlist_item_id: $wishlist_item_id
+      reservation_token: $reservation_token
+      status: $status
+      expires_at: $expires_at
+    ) {
+      id
+      name_and_surname
+      email
+      private_message
+      wishlist_item_id
+      created_at
+      updated_at
+      reservation_token
+      status
+      expires_at
+    }
+  }
+`;
+
+export const DELETE_RESERVED_GIFT = gql`
+  mutation DeleteReservedGift(
+    $id: ID!
+    $name_and_surname: String!
+    $email: String!
+    $private_message: String!
+    $created_at: DateTime!
+    $updated_at: DateTime!
+    $wishlist_item_id: ID!
+    $reservation_token: String!
+    $status: String!
+    $expires_at: DateTime!
+  ) {
+    deleteReservedGifts(
+      id: $id
+      name_and_surname: $name_and_surname
+      email: $email
+      private_message: $private_message
+      created_at: $created_at
+      updated_at: $updated_at
+      wishlist_item_id: $wishlist_item_id
+      reservation_token: $reservation_token
+      status: $status
+      expires_at: $expires_at
+    ) {
+      id
     }
   }
 `;
@@ -498,5 +572,7 @@ export const mutations = {
   ADD_EXTERNAL_PRODUCT,
   UPDATE_RESET_TOKEN_MUTATION,
   UPDATE_WISHLISTS,
-  ADD_WISHLIST_ITEMS_BATCH
+  ADD_WISHLIST_ITEMS_BATCH,
+  UPDATE_RESERVED_GIFT,
+  DELETE_RESERVED_GIFT
 };

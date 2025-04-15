@@ -4,8 +4,8 @@ import { NextResponse } from 'next/server';
 import {
   sendWelcomeEmail, // OK
   sendPersonalInfoReminderEmail, //
-  sendLostPasswordEmail, // Make page as well
-  sendChangeInfoEmail, //
+  sendLostPasswordEmail, // OK
+  sendChangeInfoEmail, // (update user info AND password?)
   sendListCreationEmail, // Necessary?
   sendListClosingEmail, // 
   sendGiftReservedEmail, //

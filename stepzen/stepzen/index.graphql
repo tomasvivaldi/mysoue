@@ -136,6 +136,9 @@ type ReservedGifts {
   created_at: DateTime!
   updated_at: DateTime!
   wishlist_item_id: ID!
+  reservation_token: String!
+  status: String!
+  expires_at: DateTime!
 }
 
 type ExternalProduct {
@@ -443,6 +446,17 @@ type Query {
       SELECT *
       FROM "reserved_gifts"
       WHERE "wishlist_item_id" = $1
+      """
+      configuration: "stepzen_config"
+    )
+  reservedGiftsByReservationToken(reservation_token: String!): [ReservedGifts]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT *
+      FROM "reserved_gifts"
+      WHERE "reservation_token" = $1
       """
       configuration: "stepzen_config"
     )
@@ -794,6 +808,9 @@ type Mutation {
     wishlist_item_id: ID!
     created_at: DateTime
     updated_at: DateTime
+    reservation_token: String!
+    status: String!
+    expires_at: DateTime!
   ): ReservedGifts
     @dbquery(
       type: "postgresql"
@@ -810,6 +827,9 @@ type Mutation {
     created_at: DateTime!
     updated_at: DateTime!
     wishlist_item_id: ID!
+    reservation_token: String!
+    status: String!
+    expires_at: DateTime!
   ): ReservedGifts
     @dbquery(
       type: "postgresql"
@@ -824,6 +844,9 @@ type Mutation {
     email: String
     private_message: String
     wishlist_item_id: ID
+    reservation_token: String
+    status: String
+    expires_at: DateTime
   ): ReservedGifts
     @dbquery(
       type: "postgresql"
@@ -835,6 +858,9 @@ type Mutation {
         email = COALESCE($3, email),
         private_message = COALESCE($4, private_message),
         wishlist_item_id = COALESCE($5, wishlist_item_id),
+        reservation_token = COALESCE($6, reservation_token),
+        status = COALESCE($7, status),
+        expires_at = COALESCE($8, expires_at),
         updated_at = NOW()
       WHERE id = $1
       RETURNING *;
