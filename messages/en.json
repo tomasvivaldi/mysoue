@@ -303,7 +303,7 @@
   },
   "BottomBanner": {
     "choosingAGift": "CHOOSING A GIFT",
-    "doesntHaveToBeHard": "doesn’t have to be hard",
+    "doesntHaveToBeHard": "doesn't have to be hard",
     "startNow": "start now"
   },
   "Blog": {
@@ -326,7 +326,7 @@
     "heroMain": "FOR ALL",
     "heroItalic": "wishes",
     "needInspiration": "Need Some Inspiration?",
-    "introParagraph": "Not sure what to add to your wishlist? No worries! We've put together pre-made lists with the best gift ideas for every occasion—baby showers, birthdays, proms, Valentine's Day, and more! Whether you need a little inspiration or just want an easy way to pick the perfect gifts, we’ve got you covered.\n\nBrowse our curated lists and find the perfect match in seconds!",
+    "introParagraph": "Not sure what to add to your wishlist? No worries! We've put together pre-made lists with the best gift ideas for every occasion—baby showers, birthdays, proms, Valentine's Day, and more! Whether you need a little inspiration or just want an easy way to pick the perfect gifts, we've got you covered.\n\nBrowse our curated lists and find the perfect match in seconds!",
     "graduation": "GRADUATION",
     "christmas": "CHRISTMAS",
     "birthday": "BIRTHDAY",
@@ -340,7 +340,7 @@
     "processing": "Processing...",
     "logIn": "Log In",
     "forgotPassword": "FORGOT YOUR PASSWORD?",
-    "noAccountSignUp": "DON’T HAVE AN ACCOUNT? SIGN UP!",
+    "noAccountSignUp": "DON'T HAVE AN ACCOUNT? SIGN UP!",
     "or": "or",
     "signInWithGoogle": "Sign in with Google"
   },
@@ -771,7 +771,59 @@
     "cancel": "Cancel",
     "save": "Save",
     "saving": "Saving..."
+  },
+  "ReservationPage": {
+    "title": "Manage Your Reservation",
+    "subtitle": "Update your gift reservation status and view details",
+    "reservationNotFound": "Reservation Not Found",
+    "reservationNotFoundDesc": "The reservation you're looking for doesn't exist or has expired.",
+    "reservationDetails": "Reservation Details",
+    "name": "Name",
+    "email": "Email",
+    "privateMessage": "Private Message",
+    "expiresAt": "Expires At",
+    "createdAt": "Created At",
+    "updateStatus": "Update Status",
+    "currentStatus": "Current Status",
+    "reserved": "Reserved",
+    "purchased": "Purchased",
+    "cancelled": "Cancelled",
+    "reservedDesc": "Your gift is currently reserved. Mark it as purchased when you complete the purchase.",
+    "purchasedDesc": "Your gift has been marked as purchased. Thank you for using Mysoue!",
+    "cancelledDesc": "Your reservation has been cancelled.",
+    "confirmStatusChange": "Confirm Status Change",
+    "confirmMessage": "Are you sure you want to change the status to",
+    "confirm": "Confirm",
+    "updating": "Updating...",
+    "errorUpdating": "Error updating status. Please try again.",
+    "failedToLoad": "Failed to load reservation data. Please try again later.",
+    "emailError": "Failed to send email notification. The status was updated, but the email could not be sent.",
+    "reserve": "Reserve",
+    "purchase": "Purchase",
+    "cancel": "Cancel",
+    "ownerNotification": "The owner of this wishlist will be notified of the status change on the gift.",
+    "wishlistInfo": "Wishlist Information",
+    "wishlistTitle": "Title",
+    "wishlistType": "Type",
+    "wishlistDescription": "Description",
+    "wishlistDueDate": "Due Date",
+    "wishlistOwner": "Owner",
+    "viewProduct": "View Product's page",
+    "viewSharedWishlist": "View on shared wishlist",
+    "productName": "Product Name",
+    "productDescription": "Product Description",
+    "productPrice": "Product Price",
+    "productImage": "Product Image",
+    "productLink": "Product Link",
+    "productInfo": "Product Information",
+    "dueDate": "Due Date",
+    "addressRequired": "Address Required?",
+    "yes": "Yes",
+    "address": "Address",
+    "statusUpdated": {
+      "reserved": "Reserved",
+      "purchased": "Purchased",
+      "canceled": "Cancelled"
+    }
   }
-  
-
 }

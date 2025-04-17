@@ -5,7 +5,7 @@ import ReserveGiftModal from "@/components/aline_design/modals/ReserveGiftModal"
 import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -43,6 +43,38 @@ interface WishlistItem {
   id: string;
   products: Product[];
   reserved_gifts: ReservedGifts[];
+  wishlists: Wishlist[];
+}
+
+interface Users {
+  created_at: string;
+  email: string;
+  id: string;
+  oauth_provider: string;
+  password_hash: string;
+  profile_picture_url: string;
+  updated_at: string;
+  username: string;
+  birthdate: string;
+  gender: string;
+  first_name: string;
+  last_name: string;
+  reset_password_token: string;
+  reset_password_expires: string;
+}
+
+interface Wishlist {
+  address: string;
+  created_at: string;
+  description: string;
+  due_date: string;
+  require_address: boolean;
+  title: string;
+  type: string;
+  updated_at: string;
+  user_id: string;
+  id: string;
+  users: Users[];
 }
 
 interface ReservedGifts {
@@ -58,6 +90,7 @@ interface ReservedGifts {
 const ProductDetails: React.FC = () => {
   const t = useTranslations("Shared-Wishlists-ProductPage");
   const params = useParams();
+  const router = useRouter();
   // Destructure product_id and shareToken from route parameters
   const { product_id: productId, shareToken } = params;
   console.log("Route parameters:", { productId, shareToken });
@@ -80,38 +113,57 @@ const ProductDetails: React.FC = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleReserveGift = (formData: { name: string; email: string; message: string }) => {
-    console.log("Reserved Gift Details:", formData);
-    // Create a new reserved gift object
-    const newReservedGift = {
-      id: new Date().getTime().toString(),  // temporary unique id; in a real app, this would come from the server
-      wishlist_item_id: productDetails?.wishlist_items?.[0]?.id || "",
-      email: formData.email,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      name_and_surname: formData.name,
-      private_message: formData.message,
-    };
+  const handleReserveGift = async (formData: { name: string; email: string; message: string; reservationToken: string }) => {
+    try {
+      // Get expiration date 
+      let expiresAt;
+      if (productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date) {
+        expiresAt = productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date
+      } else {
+        expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 90);
+      }
 
-    // Update local state to mark the gift as reserved
-    setProductDetails((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        wishlist_items: prev.wishlist_items.map((item, idx) => {
-          if (idx === 0) { // update the first wishlist item
-            return {
-              ...item,
-              reserved_gifts: item.reserved_gifts ? [...item.reserved_gifts, newReservedGift] : [newReservedGift],
-            };
-          }
-          return item;
-        }),
-      };
-    });
+      // Update local state
+      setProductDetails((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          wishlist_items: prev.wishlist_items.map((item, idx) => {
+            if (idx === 0) {
+              return {
+                ...item,
+                reserved_gifts: [
+                  ...(item.reserved_gifts || []),
+                  {
+                    id: formData.reservationToken, // Using token as temporary ID
+                    wishlist_item_id: item.id,
+                    email: formData.email,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                    name_and_surname: formData.name,
+                    private_message: formData.message,
+                    reservation_token: formData.reservationToken,
+                    status: "reserved",
+                    expires_at: expiresAt,
+                  },
+                ],
+              };
+            }
+            return item;
+          }),
+        };
+      });
 
-    // Close the reserve modal
-    setIsModalOpen(false);
+      // Close the modal
+      setIsModalOpen(false);
+
+      // Redirect to reservation management page
+      router.push(`/${params.locale}/reservation/${formData.reservationToken}`);
+    } catch (error) {
+      console.error('Error handling reservation:', error);
+      // Handle error appropriately
+    }
   };
 
   useEffect(() => {
@@ -209,6 +261,14 @@ const ProductDetails: React.FC = () => {
           onReserve={handleReserveGift}
           productImage={productDetails?.image_url || "/create1.png"}
           wishlistItemId={productDetails?.wishlist_items?.[0]?.id}
+          productName={productDetails?.product_name}
+          wishlistOwnerName={productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.users?.[0]?.username || 
+                            productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.users?.[0]?.first_name + ' ' + 
+                            productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.users?.[0]?.last_name || 
+                            'the wishlist owner'}
+          wishlistOwnerEmail={productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.users?.[0]?.email}
+          wishlistLink={`${window.location.origin}/${params.locale}/shared/${params.shareToken}`}
+          wishlistName={productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.title}
         />
       )}
     </div>

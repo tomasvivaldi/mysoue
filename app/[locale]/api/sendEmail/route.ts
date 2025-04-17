@@ -5,17 +5,18 @@ import {
   sendWelcomeEmail, // OK
   sendPersonalInfoReminderEmail, //
   sendLostPasswordEmail, // OK
-  sendChangeInfoEmail, // (update user info AND password?)
+  sendChangeInfoEmail, // (send email to when update user info AND password?)
   sendListCreationEmail, // Necessary?
   sendListClosingEmail, // 
-  sendGiftReservedEmail, //
-  sendGiftPurchasedEmail, //
+  sendGiftReservedEmail, // OK
+  sendGiftReservationConfirmationEmail, // OK
+  sendGiftPurchasedEmail, // OK
   sendInactivityEmail, // Necessary?
   sendChristmasEmail, // Schedule Marketing Campaing
   sendValentinesEmail, // Schedule Marketing Campaing
   sendBirthdayReminderEmail, // Schedule Marketing Campaing??
-  sendWishlistShareEmail, // 
-  sendGiftReservationConfirmationEmail, //
+  sendWishlistShareEmail, //   
+  sendGiftCancelationEmail,
 } from '@/lib/sendgrid/emailService';
 
 interface RequestBody {
@@ -36,7 +37,8 @@ interface RequestBody {
     | 'wishlistShare'
     | 'giftReservationConfirmation'
     | 'giftReservationReminder'
-    | 'productDeletion';
+    | 'productDeletion'
+    | 'giftCancelation';
   to: string;
   // Additional properties for dynamic content (all optional)
   
@@ -52,13 +54,16 @@ interface RequestBody {
   summaryLink?: string;
   giftName?: string;
   purchaser?: string;
-  thankYouLink?: string;
   listCreateLink?: string;
   wishlistLink?: string;
   wishlistOwnerName?: string;
   productLink?: string;
   cancelLink?: string;
   customerName?: string;
+  deadline?: string;
+  reservationLink?: string;
+  reserverName?: string;
+  wishlistName?: string;
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -120,23 +125,23 @@ export async function POST(request: Request): Promise<Response> {
         await sendListClosingEmail(body as (typeof body) & { listName: string; date: string; listLink: string; summaryLink: string });
         break;
       case 'giftReserved':
-        if (!body.listName || !body.giftName || !body.listLink) {
+        if (!body.listName || !body.giftName || !body.listLink || !body.reserverName || !body.wishlistName) {
           return NextResponse.json(
-            { error: 'Missing required fields for giftReserved email. Required: listName, giftName, listLink.' },
+            { error: 'Missing required fields for giftReserved email. Required: listName, giftName, listLink, reserverName, wishlistName.' },
             { status: 400 }
           );
         }
-        await sendGiftReservedEmail(body as (typeof body) & { listName: string; giftName: string; listLink: string });
+        await sendGiftReservedEmail(body as (typeof body) & { listName: string; giftName: string; listLink: string; reserverName: string; wishlistName: string });
         break;
       case 'giftPurchased':
-        if (!body.listName || !body.giftName || !body.purchaser || !body.listLink || !body.thankYouLink) {
+        if (!body.listName || !body.giftName || !body.purchaser || !body.listLink ) {
           return NextResponse.json(
-            { error: 'Missing required fields for giftPurchased email. Required: listName, giftName, purchaser, listLink, thankYouLink.' },
+            { error: 'Missing required fields for giftPurchased email. Required: listName, giftName, purchaser, listLink.' },
             { status: 400 }
           );
         }
         await sendGiftPurchasedEmail(
-          body as (typeof body) & { listName: string; giftName: string; purchaser: string; listLink: string; thankYouLink: string }
+          body as (typeof body) & { listName: string; giftName: string; purchaser: string; listLink: string; }
         );
         break;
       case 'inactivity':
@@ -179,14 +184,13 @@ export async function POST(request: Request): Promise<Response> {
       case 'giftReservationConfirmation':
         if (
           !body.giftName ||
-        //   !body.deadline ||
-        //   !body.purchaseLink ||
-          !body.cancelLink ||
+          !body.deadline ||
+          !body.reservationLink ||
           !body.wishlistLink ||
-          !body.wishlistOwnerName
+          !body.name
         ) {
           return NextResponse.json(
-            { error: 'Missing required fields for giftReservationConfirmation email. Required: giftName, deadline, purchaseLink, cancelLink, wishlistLink, wishlistOwnerName.' },
+            { error: 'Missing required fields for giftReservationConfirmation email. Required: giftName, deadline, reservationLink, wishlistLink, name.' },
             { status: 400 }
           );
         }
@@ -194,44 +198,23 @@ export async function POST(request: Request): Promise<Response> {
           body as (typeof body) & {
             giftName: string;
             deadline: string;
-            purchaseLink: string;
-            cancelLink: string;
+            reservationLink: string;
             wishlistLink: string;
-            wishlistOwnerName: string;
+            name: string;
           }
         );
         break;
-    //   case 'giftReservationReminder':
-    //     if (
-    //       !body.giftName ||
-    //       !body.wishlistOwnerName ||
-    //     //   !body.deadline ||
-    //       !body.productLink ||
-    //       !body.cancelLink ||
-    //       !body.wishlistLink
-    //     ) {
-    //       return NextResponse.json(
-    //         { error: 'Missing required fields for giftReservationReminder email. Required: giftName, wishlistOwnerName, deadline, productLink, cancelLink, wishlistLink.' },
-    //         { status: 400 }
-    //       );
-    //     }
-    //     await sendGiftReservationReminderEmail(
-    //       body as (typeof body) & {
-    //         giftName: string;
-    //         wishlistOwnerName: string;
-    //         deadline: string;
-    //         productLink: string;
-    //         cancelLink: string;
-    //         wishlistLink: string;
-    //       }
-    //     );
-    //     break;
-    //   case 'productDeletion':
-    //     if (!body.customerName) {
-    //       return NextResponse.json({ error: 'Missing required field: customerName for productDeletion email.' }, { status: 400 });
-    //     }
-    //     await sendProductDeletionEmail(body as (typeof body) & { customerName: string });
-    //     break;
+      case 'giftCancelation':
+        if (!body.listName || !body.giftName || !body.listLink || !body.reserverName || !body.name) {
+          return NextResponse.json(
+            { error: 'Missing required fields for giftCancelation email. Required: listName, giftName, listLink, reserverName.' },
+            { status: 400 }
+          );
+        }
+        await sendGiftCancelationEmail(
+          body as (typeof body) & { listName: string; giftName: string; listLink: string; reserverName: string; name: string }
+        );
+        break;
 
       default:
         return NextResponse.json({ error: 'Invalid email type.' }, { status: 400 });

@@ -183,6 +183,13 @@ export const GET_PRODUCT_BY_ID = gql`
             created_at
             expires_at
           }
+          users {
+            id
+            username
+            first_name
+            last_name
+            email
+          }
         }
       }
     }
@@ -240,6 +247,13 @@ export const GET_EXTERNAL_PRODUCT_BY_ID = gql`
             share_token
             created_at
             expires_at
+          }
+          users {
+            id
+            username
+            first_name
+            last_name
+            email
           }
         }
       }
@@ -655,6 +669,42 @@ export const GET_RESERVED_GIFTS_BY_RESERVATION_TOKEN = gql`
       reservation_token
       status
       expires_at
+      wishlists_items {
+        products {
+          id
+          product_name
+          product_description
+          price
+          image_url
+          affiliate_link
+        }
+        external_products {
+          id
+          product_name
+          product_description
+          price
+          image_url
+          store_link
+        }
+        wishlists {
+          id
+          title
+          type
+          description
+          due_date
+          require_address
+          address
+          users {
+            username
+            first_name
+            last_name
+            email
+          }
+          shared_wishlists {
+            share_token
+          }
+        }
+      }
     }
   }
 `;

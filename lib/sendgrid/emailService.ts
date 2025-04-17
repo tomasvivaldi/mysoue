@@ -166,52 +166,109 @@ export async function sendPersonalInfoReminderEmail(
     });
   }
   
-  // 7. Gift reserved
+  // 7. Gift reserved 
   export async function sendGiftReservedEmail(
-    data: EmailData & { listName: string; giftName: string; listLink: string }
+    data: EmailData & { listName: string; giftName: string; listLink: string; reserverName: string }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,
       from: 'info@mysoue.com',
-      subject: `Surprise! A gift from your ${data.listName} has been reserved on Mysoue! 🎁`,
-      text: `Hey ${data.name || 'there'}!\n\nExciting news! Someone special has reserved a gift from your "${data.listName}" on Mysoue – yay!\n\nGift details:\nItem: ${data.giftName}\nStatus: Reserved\n\nWanna know who reserved it? You’ll find out on our platform directly: ${data.listLink}\n\nCan’t wait to celebrate with you! If you have any questions, we’re here at info@mysoue.com\n\nSending you love & excitement!\n\nXOXO,\nMysoue Team ✨`,
+      subject: `Surprise! A gift from your wishlist: ${data.listName} has been reserved on Mysoue! 🎁`,
+      text: `Hey ${data.name || 'there'}!\n\nExciting news! ${data.reserverName} has reserved a gift from your wishlist: "${data.listName}" on Mysoue – yay!\n\nGift details:\nItem: ${data.giftName}\nStatus: Reserved\n\nYou can check all the details on our platform: ${data.listLink}\n\nCan't wait to celebrate with you! If you have any questions, we're here at info@mysoue.com\n\nSending you love & excitement!\n\nXOXO,\nMysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                <h1>Hey ${data.name || 'there'}!</h1>
-               <p>Exciting news! Someone special has reserved a gift from your "<strong>${data.listName}</strong>" on Mysoue – yay!</p>
+               <p>Exciting news! <strong>${data.reserverName}</strong> has reserved a gift from your wishlist: "<strong>${data.listName}</strong>" on Mysoue – yay!</p>
                <p><strong>Gift details:</strong></p>
                <ul>
                  <li><strong>Item:</strong> ${data.giftName}</li>
                  <li><strong>Status:</strong> Reserved</li>
                </ul>
-               <p>Wanna know who reserved it? You’ll find out on our platform directly: <a href="${data.listLink}">${data.listLink}</a></p>
-               <p>Can’t wait to celebrate with you! If you have any questions, we’re here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
+               <p>You can check all the details on our platform: <a href="${data.listLink}">${data.listLink}</a></p>
+               <p>We can't wait to celebrate with you! If you have any questions, we're here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
                <p>Sending you love & excitement!</p>
                <p>XOXO,<br/>Mysoue Team ✨</p>
              </div>`
     });
   }
   
+  // 7b. Gift reservation confirmation (sent to the person who reserved the gift)
+  export async function sendGiftReservationConfirmationEmail(
+    data: EmailData & { 
+      giftName: string; 
+      deadline: string; 
+      reservationLink: string; 
+      wishlistLink: string; 
+      name: string; 
+    }
+  ): Promise<void> {
+    await sendgrid.send({
+      to: data.to,
+      from: 'info@mysoue.com',
+      subject: `You've reserved a gift for ${data.name}! Don't forget to complete your purchase! 🎁✨`,
+      text: `Hey there!
+
+Great news! You've reserved "${data.giftName}" from ${data.name}'s wishlist on Mysoue—they're going to LOVE it!
+
+Here's what you need to do next:
+- Complete your purchase before the deadline (${data.deadline})
+- Make sure ${data.name} receives their special surprise!
+
+Manage your reservation here: ${data.reservationLink}
+
+Hurry! The wishlist closes soon! Don't miss your chance to be part of this special moment!
+
+Check out the wishlist here: ${data.wishlistLink}
+
+If you have any questions, we're here to help at info@mysoue.com.
+
+PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you'll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!
+
+Start your wishlist now & let your loved ones surprise you with the perfect gifts: 
+
+https://www.mysoue.com/en/login
+
+XOXO,
+Mysoue Team ✨`,
+      html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+    <p>Hey there!</p>
+    <p>Great news! You've reserved "<strong>${data.giftName}</strong>" from <strong>${data.name}</strong>'s wishlist on Mysoue—they're going to LOVE it!</p>
+    <p><strong>Here's what you need to do next:</strong></p>
+    <ul>
+      <li>Complete your purchase before the deadline (<strong>${data.deadline}</strong>)</li>
+      <li>Make sure <strong>${data.name}</strong> receives their special surprise!</li>
+    </ul>
+    <p><strong>Manage your reservation here:</strong> <a href="${data.reservationLink}">${data.reservationLink}</a></p>
+    <p><strong>Hurry!</strong> The wishlist closes soon! Don't miss your chance to be part of this special moment!</p>
+    <p><strong>Check out the wishlist here:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
+    <p>If you have any questions, we're here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a>.</p>
+    <p><em>PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you'll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!</em></p>
+    <p><strong>Start your wishlist now & let your loved ones surprise you with the perfect gifts:</strong> 
+    <a href="https://www.mysoue.com/en/login">https://www.mysoue.com/en/login</a>
+    <p>XOXO,<br/>Mysoue Team ✨</p>
+  </div>`
+    });
+  }
+  
   // 8. Gift purchased
   export async function sendGiftPurchasedEmail(
-    data: EmailData & { listName: string; giftName: string; purchaser: string; listLink: string; thankYouLink: string; message?: string }
+    data: EmailData & { listName: string; giftName: string; purchaser: string; listLink: string; message?: string }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,
       from: 'info@mysoue.com',
       subject: `Yay! A gift from your wishlist has been purchased – time to say thank you! 🎁✨`,
-      text: `Hey ${data.name || 'there'}!\n\nExciting news! Someone special has just purchased a gift from your "${data.listName}" on Mysoue – how exciting!\n\nGift details:\nItem: ${data.giftName}\nWho: ${data.purchaser}\nStatus: Purchased\nCheck your list here: ${data.listLink}\nMessage: ${data.message || 'No message provided'}\n\nThe surprise is on its way! And now you can send a thank you note: ${data.thankYouLink}\n\nIf you have any questions, we’re here at info@mysoue.com\n\nCan’t wait for you to unwrap all the love!\n\nXOXO,\nMysoue Team ✨`,
+      text: `Hey ${data.name || 'there'}!\n\nExciting news! Someone special has just purchased a gift from your wishlist: "${data.listName}" on Mysoue – how exciting!\n\nGift details:\nItem: ${data.giftName}\nWho got it: ${data.purchaser}\nStatus: Purchased\n\nThe surprise is on its way!\n\nCheck the gift here: ${data.listLink}\n\nIf you have any questions, we're here at info@mysoue.com\n\nCan't wait for you to unwrap all the love!\n\nXOXO,\nMysoue Team ✨`,
       html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
                <h1>Hey ${data.name || 'there'}!</h1>
-               <p>Exciting news! Someone special has just purchased a gift from your "<strong>${data.listName}</strong>" on Mysoue – how exciting!</p>
+               <p>Exciting news! Someone special has just purchased a gift from your wishlist: "<strong>${data.listName}</strong>" on Mysoue – how exciting!</p>
                <p><strong>Gift details:</strong></p>
                <ul>
                  <li><strong>Item:</strong> ${data.giftName}</li>
-                 <li><strong>Who:</strong> ${data.purchaser}</li>
+                 <li><strong>Who got it:</strong> ${data.purchaser}</li>
                  <li><strong>Status:</strong> Purchased</li>
                </ul>
-               <p>Check your list here: <a href="${data.listLink}">${data.listLink}</a></p>
-               <p><strong>Message:</strong> ${data.message || 'No message provided'}</p>
-               <p>The surprise is on its way! And now you can send a thank you note: <a href="${data.thankYouLink}">${data.thankYouLink}</a></p>
+               <p>The surprise is on its way!
+               <p>Check the gift here: <a href="${data.listLink}">${data.listLink}</a></p>
                <p>If you have any questions, we’re here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
                <p>Can’t wait for you to unwrap all the love!</p>
                <p>XOXO,<br/>Mysoue Team ✨</p>
@@ -384,59 +441,34 @@ export async function sendWishlistShareEmail(
     });
   }
 
-// Gift is reserved
-export async function sendGiftReservationConfirmationEmail(
-    data: EmailData & { 
-      giftName: string; 
-      deadline: string; 
-      purchaseLink: string; 
-      cancelLink: string; 
-      wishlistLink: string; 
-      name: string; 
-    }
-  ): Promise<void> {
-    await sendgrid.send({
-      to: data.to,
-      from: 'info@mysoue.com',
-      subject: `You’ve reserved a gift for ${data.name}! Don’t forget to complete your purchase! 🎁✨`,
-      text: `Hey there!
-  
-  Great news! You’ve reserved "${data.giftName}" from ${data.name}’s wishlist on Mysoue—they’re going to LOVE it!
-  
-  Here’s what you need to do next:
-  - Complete your purchase before the deadline (${data.deadline})
-  - Make sure ${data.name} receives their special surprise!
-  
-  Ready to finalize your gift? ${data.purchaseLink}
-  
-  Hurry! The wishlist closes soon! Don’t miss your chance to be part of this special moment!
-  
-  Changed your mind? No problem! You can cancel your reservation in just one click, and the gift will be available again for someone else to reserve: ${data.cancelLink}
-  
-  If you have any questions, we’re here to help at info@mysoue.com.
-  
-  PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you’ll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!
-  
-  Start your wishlist now & let your loved ones surprise you with the perfect gifts: ${data.wishlistLink}
-  
-  XOXO,
-  Mysoue Team ✨`,
-      html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <p>Hey there!</p>
-    <p>Great news! You’ve reserved "<strong>${data.giftName}</strong>" from <strong>${data.name}</strong>’s wishlist on Mysoue—they’re going to LOVE it!</p>
-    <p><strong>Here’s what you need to do next:</strong></p>
-    <ul>
-      <li>Complete your purchase before the deadline (<strong>${data.deadline}</strong>)</li>
-      <li>Make sure <strong>${data.name}</strong> receives their special surprise!</li>
-    </ul>
-    <p><strong>Ready to finalize your gift?</strong> <a href="${data.purchaseLink}">${data.purchaseLink}</a></p>
-    <p><strong>Hurry!</strong> The wishlist closes soon! Don’t miss your chance to be part of this special moment!</p>
-    <p><strong>Changed your mind?</strong> You can cancel your reservation in just one click: <a href="${data.cancelLink}">${data.cancelLink}</a></p>
-    <p>If you have any questions, we’re here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a>.</p>
-    <p><em>PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you’ll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!</em></p>
-    <p><strong>Start your wishlist now & let your loved ones surprise you with the perfect gifts:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
-    <p>XOXO,<br/>Mysoue Team ✨</p>
-  </div>`
-    });
+// Gift is canceled
+export async function sendGiftCancelationEmail(
+  data: EmailData & { 
+    listName: string; 
+    giftName: string; 
+    listLink: string; 
+    reserverName: string;
+    message?: string;
+    name: string;
   }
+): Promise<void> {
+  await sendgrid.send({
+    to: data.to,
+    from: 'info@mysoue.com',
+    subject: `A gift reservation has been canceled on your wishlist: ${data.listName}`,
+    text: `Hey ${data.name || 'there'}!\n\n${data.reserverName} has canceled their reservation for "${data.giftName}" from your wishlist: "${data.listName}" on Mysoue.\n\nGift details:\nItem: ${data.giftName}\nStatus: Canceled\n\nYou can check all the details on our platform: ${data.listLink}\n\nIf you have any questions, we're here at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
+    html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+             <h1>Hey ${data.name || 'there'}!</h1>
+             <p><strong>${data.reserverName}</strong> has canceled their reservation for "<strong>${data.giftName}</strong>" from your wishlist: "<strong>${data.listName}</strong>" on Mysoue.</p>
+             <p><strong>Gift details:</strong></p>
+             <ul>
+               <li><strong>Item:</strong> ${data.giftName}</li>
+               <li><strong>Status:</strong> Canceled</li>
+             </ul>
+             <p>You can check all the details on our platform: <a href="${data.listLink}">${data.listLink}</a></p>
+             <p>If you have any questions, we're here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
+             <p>XOXO,<br/>Mysoue Team ✨</p>
+           </div>`
+  });
+}
 

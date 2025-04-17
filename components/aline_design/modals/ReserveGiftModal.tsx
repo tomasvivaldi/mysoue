@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation } from "@apollo/client";
 import { ADD_RESERVED_GIFT } from "@/graphql/mutations";
+import { v4 as uuidv4 } from 'uuid';
 
 interface ReserveGiftModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onReserve: (formData: { name: string; email: string; message: string }) => void;
+  onReserve: (formData: { name: string; email: string; message: string; reservationToken: string }) => void;
   productImage: string; // URL of the product image
   wishlistItemId: string; // ID of the wishlist item associated with this reservation
+  productName?: string; // Name of the product being reserved
+  wishlistOwnerName?: string; // Name of the wishlist owner
+  wishlistOwnerEmail?: string; // Email of the wishlist owner
+  wishlistLink?: string; // Link to the wishlist
+  wishlistName?: string; // Name of the wishlist
 }
 
 const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
@@ -17,6 +23,11 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
   onReserve,
   productImage,
   wishlistItemId,
+  productName = "the gift",
+  wishlistOwnerName = "the wishlist owner",
+  wishlistOwnerEmail = "",
+  wishlistLink = "https://mysoue.com",
+  wishlistName = "shared wishlist",
 }) => {
   const t = useTranslations("ReserveGiftModal");
   const [formData, setFormData] = useState({
@@ -24,6 +35,10 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
     email: "",
     message: "",
   });
+  const [emailErrors, setEmailErrors] = useState<{
+    confirmationEmail?: string;
+    ownerNotification?: string;
+  }>({});
 
   const [addReservedGift, { loading, error }] = useMutation(ADD_RESERVED_GIFT);
 
@@ -36,7 +51,17 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
 
   const handleReserve = async () => {
     try {
-      await addReservedGift({
+      // Reset email errors
+      setEmailErrors({});
+      
+      // Generate a unique reservation token
+      const reservationToken = uuidv4();
+      
+      // Calculate expiration date (7 days from now)
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7);
+
+      const { data } = await addReservedGift({
         variables: {
           name_and_surname: formData.name,
           email: formData.email,
@@ -44,11 +69,126 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
           wishlist_item_id: wishlistItemId,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
-        }, 
+          reservation_token: reservationToken,
+          status: "reserved",
+          expires_at: expiresAt.toISOString(),
+        },
       });
-      console.log("addReservedGift - formData:",formData)
-      onReserve(formData);
-      onClose();
+
+      if (data?.insertReservedGifts) {
+        // Send confirmation email to person who reserved the gift
+        try {
+          const reservationLink = `${window.location.origin}/reservation/${reservationToken}`;
+          
+          console.log("Sending confirmation email with data:", {
+            emailType: 'giftReservationConfirmation',
+            to: formData.email,
+            name: wishlistOwnerName,
+            giftName: productName,
+            deadline: expiresAt.toLocaleDateString(),
+            reservationLink: reservationLink,
+            wishlistLink: wishlistLink,
+          });
+          
+          const response = await fetch('/api/sendEmail', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              emailType: 'giftReservationConfirmation',
+              to: formData.email,
+              name: wishlistOwnerName,
+              giftName: productName,
+              deadline: expiresAt.toLocaleDateString(),
+              reservationLink: reservationLink,
+              wishlistLink: wishlistLink,
+            }),
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Email API error response:", errorData);
+            setEmailErrors(prev => ({
+              ...prev,
+              confirmationEmail: `Failed to send confirmation email: ${errorData.error || response.statusText}`
+            }));
+            throw new Error(`Email API error: ${response.status} ${response.statusText}`);
+          }
+          
+          console.log("Confirmation email sent successfully");
+        } catch (emailError) {
+          console.error("Error sending confirmation email:", emailError);
+          setEmailErrors(prev => ({
+            ...prev,
+            confirmationEmail: "Failed to send confirmation email. Please try again later."
+          }));
+          // Continue with the reservation process even if email fails
+        }
+
+        // Send notification email to wishlist owner
+        try {
+          // Get the wishlist name from the URL or use a default
+          
+          console.log("Sending gift reserved notification to wishlist owner:", {
+            emailType: 'giftReserved',
+            to: wishlistOwnerEmail,
+            name: wishlistOwnerName,
+            listName: wishlistName,
+            giftName: productName,
+            listLink: wishlistLink,
+            wishlistName: wishlistName,
+            reserverName: formData.name,
+          });
+          
+          // Only send the email if we have the wishlist owner's email
+          if (wishlistOwnerEmail) {
+            const ownerResponse = await fetch('/api/sendEmail', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                emailType: 'giftReserved',
+                to: wishlistOwnerEmail,
+                name: wishlistOwnerName,
+                listName: wishlistName,
+                giftName: productName,
+                listLink: wishlistLink,
+                wishlistName: wishlistName,
+                reserverName: formData.name,
+              }),
+            });
+            
+            if (!ownerResponse.ok) {
+              const errorData = await ownerResponse.json();
+              console.error("Wishlist owner email API error response:", errorData);
+              setEmailErrors(prev => ({
+                ...prev,
+                ownerNotification: `Failed to notify wishlist owner: ${errorData.error || ownerResponse.statusText}`
+              }));
+              throw new Error(`Wishlist owner email API error: ${ownerResponse.status} ${ownerResponse.statusText}`);
+            }
+            
+            console.log("Wishlist owner notification sent successfully");
+          } else {
+            console.log("Wishlist owner email not available, skipping notification");
+          }
+        } catch (ownerEmailError) {
+          console.error("Error sending wishlist owner notification:", ownerEmailError);
+          setEmailErrors(prev => ({
+            ...prev,
+            ownerNotification: "Failed to notify wishlist owner. Please try again later."
+          }));
+          // Continue with the reservation process even if email fails
+        }
+
+        onReserve({
+          ...formData,
+          reservationToken: data.insertReservedGifts.reservation_token,
+        });
+        onClose();
+      }
     } catch (err) {
       console.error("Error reserving gift:", err);
     }
@@ -137,6 +277,12 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
             </button>
             {error && (
               <p className="text-red-500 mt-2">Error reserving gift. Please try again.</p>
+            )}
+            {emailErrors.confirmationEmail && (
+              <p className="text-red-500 mt-2 text-sm">{emailErrors.confirmationEmail}</p>
+            )}
+            {emailErrors.ownerNotification && (
+              <p className="text-red-500 mt-2 text-sm">{emailErrors.ownerNotification}</p>
             )}
           </div>
         </div>

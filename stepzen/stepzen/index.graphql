@@ -118,6 +118,11 @@ type Wishlists {
       query: "sharedWishlistsByWishlistId"
       arguments: [{ name: "wishlist_id", field: "id" }]
     )
+  users: [Users]
+    @materializer(
+      query: "usersById"
+      arguments: [{ name: "id", field: "user_id" }]
+    )
 }
 
 type Shared_wishlists {
@@ -139,6 +144,11 @@ type ReservedGifts {
   reservation_token: String!
   status: String!
   expires_at: DateTime!
+  wishlists_items: [Wishlist_items]
+    @materializer(
+      query: "wishlistItemsById"
+      arguments: [{ name: "id", field: "wishlist_item_id" }]
+    )
 }
 
 type ExternalProduct {
