@@ -116,6 +116,7 @@ type OrganizedWishlist = {
   id: string;
   title: string;
   reserved: WishlistItem[];
+  purchased: WishlistItem[];
   unreserved: WishlistItem[];
   shared_wishlists: SharedWishlists[];
 };
@@ -130,10 +131,11 @@ const MyGifts: React.FC = () => {
   const [allWishlists, setAllWishlists] = useState<Wishlist[] | null>(null); // State used by useMemo
   const [loading, setLoading] = useState(true); // Initialize loading to true
   const [visibleReserved, setVisibleReserved] = useState<Record<string, number>>({});
+  const [visiblePurchased, setVisiblePurchased] = useState<Record<string, number>>({});
   const [visibleUnreserved, setVisibleUnreserved] = useState<Record<string, number>>({});
-  const [currentPages, setCurrentPages] = useState<Record<string, { reserved: number; unreserved: number }>>({});
+  const [currentPages, setCurrentPages] = useState<Record<string, { reserved: number; purchased: number; unreserved: number }>>({});
   const [expandedWishlists, setExpandedWishlists] = useState<Record<string, boolean>>({});
-  const [expandedSubSections, setExpandedSubSections] = useState<Record<string, { reserved: boolean; unreserved: boolean }>>({});
+  const [expandedSubSections, setExpandedSubSections] = useState<Record<string, { reserved: boolean; purchased: boolean; unreserved: boolean }>>({});
 
   const t = useTranslations("Dashboard-MyGifts");
   const user = session?.user as UserWithProvider;
@@ -201,12 +203,23 @@ const MyGifts: React.FC = () => {
 
     allWishlists.forEach((wishlist) => {
       const reservedProducts: WishlistItem[] = [];
+      const purchasedProducts: WishlistItem[] = [];
       const unreservedProducts: WishlistItem[] = [];
 
       (wishlist?.wishlist_items || []).forEach((wishlistItem) => {
-        const isProductReserved = Boolean(wishlistItem?.reserved_gifts?.length);
-        if (isProductReserved) {
-          reservedProducts.push(wishlistItem);
+        const hasReservedGifts = Boolean(wishlistItem?.reserved_gifts?.length);
+        
+        if (hasReservedGifts) {
+          // Check if any of the reserved gifts have a status of "purchased"
+          const hasPurchasedGifts = wishlistItem.reserved_gifts.some(
+            gift => gift.status === "purchased"
+          );
+          
+          if (hasPurchasedGifts) {
+            purchasedProducts.push(wishlistItem);
+          } else {
+            reservedProducts.push(wishlistItem);
+          }
         } else {
           unreservedProducts.push(wishlistItem);
         }
@@ -216,6 +229,7 @@ const MyGifts: React.FC = () => {
         id: wishlist.id,
         title: wishlist.title,
         reserved: reservedProducts,
+        purchased: purchasedProducts,
         unreserved: unreservedProducts,
         shared_wishlists: wishlist.shared_wishlists || [],
       };
@@ -241,7 +255,7 @@ const MyGifts: React.FC = () => {
       wishlistsToInitialize.forEach(wishlist => {
         if (!currentPages[wishlist.id]) {
             console.log(`Initializing pagination for wishlist ID: ${wishlist.id}`); // Debug log
-            initPagination(wishlist.id, wishlist.reserved.length, wishlist.unreserved.length);
+            initPagination(wishlist.id, wishlist.reserved.length, wishlist.purchased.length, wishlist.unreserved.length);
         } else {
             // console.log(`Pagination already initialized for wishlist ID: ${wishlist.id}`); // Optional debug
         }
@@ -259,10 +273,14 @@ const MyGifts: React.FC = () => {
     }));
   };
 
-  const initPagination = (wishlistId: string, reservedCount: number, unreservedCount: number) => {
+  const initPagination = (wishlistId: string, reservedCount: number, purchasedCount: number, unreservedCount: number) => {
     setVisibleReserved(prev => ({
         ...prev,
         [wishlistId]: Math.min(PAGE_SIZE, reservedCount)
+    }));
+    setVisiblePurchased(prev => ({
+        ...prev,
+        [wishlistId]: Math.min(PAGE_SIZE, purchasedCount)
     }));
     setVisibleUnreserved(prev => ({
         ...prev,
@@ -271,13 +289,13 @@ const MyGifts: React.FC = () => {
     // Prevent overwriting if already exists (though the useEffect check should handle this)
     setCurrentPages(prev => ({
         ...prev,
-        [wishlistId]: prev[wishlistId] || { reserved: 1, unreserved: 1 }
+        [wishlistId]: prev[wishlistId] || { reserved: 1, purchased: 1, unreserved: 1 }
     }));
   };
 
    // Handle loading more reserved items (ensure these functions are defined)
    const handleLoadMoreReserved = (wishlistId: string, totalCount: number) => {
-     const currentPageData = currentPages[wishlistId] || { reserved: 0, unreserved: 0 };
+     const currentPageData = currentPages[wishlistId] || { reserved: 0, purchased: 0, unreserved: 0 };
      const nextPage = currentPageData.reserved + 1;
      const newVisible = Math.min(nextPage * PAGE_SIZE, totalCount);
 
@@ -294,9 +312,28 @@ const MyGifts: React.FC = () => {
      }));
    };
 
+   // Handle loading more purchased items
+   const handleLoadMorePurchased = (wishlistId: string, totalCount: number) => {
+     const currentPageData = currentPages[wishlistId] || { reserved: 0, purchased: 0, unreserved: 0 };
+     const nextPage = currentPageData.purchased + 1;
+     const newVisible = Math.min(nextPage * PAGE_SIZE, totalCount);
+
+     setVisiblePurchased(prev => ({
+       ...prev,
+       [wishlistId]: newVisible
+     }));
+     setCurrentPages(prev => ({
+       ...prev,
+       [wishlistId]: {
+         ...currentPageData,
+         purchased: nextPage
+       }
+     }));
+   };
+
    // Handle loading more unreserved items (ensure these functions are defined)
    const handleLoadMoreUnreserved = (wishlistId: string, totalCount: number) => {
-     const currentPageData = currentPages[wishlistId] || { reserved: 0, unreserved: 0 };
+     const currentPageData = currentPages[wishlistId] || { reserved: 0, purchased: 0, unreserved: 0 };
      const nextPage = currentPageData.unreserved + 1;
      const newVisible = Math.min(nextPage * PAGE_SIZE, totalCount);
 
@@ -313,9 +350,9 @@ const MyGifts: React.FC = () => {
      }));
    };
 
-   const toggleSubSection = (wishlistId: string, type: 'reserved' | 'unreserved') => {
+   const toggleSubSection = (wishlistId: string, type: 'reserved' | 'purchased' | 'unreserved') => {
     setExpandedSubSections(prev => {
-        const currentWishlistState = prev[wishlistId] || { reserved: true, unreserved: true }; // Default to expanded
+        const currentWishlistState = prev[wishlistId] || { reserved: true, purchased: true, unreserved: true }; // Default to expanded
         return {
             ...prev,
             [wishlistId]: {
@@ -349,14 +386,17 @@ const MyGifts: React.FC = () => {
     visibleCount: number,
     handleLoadMore: () => void,
     totalCount: number,
-    isReservedSection: boolean,
+    sectionType: 'reserved' | 'purchased' | 'unreserved',
     wishlist: OrganizedWishlist // Keep for context if needed (e.g., shareToken)
   ) => {
-    const shareToken = wishlist.shared_wishlists?.[0]?.share_token || "";
 
     // Show message if no items even if section is expanded
     if (items.length === 0) {
-        return <p className="text-gray-500 px-4 pb-4">{t(isReservedSection ? 'noReservedGifts' : 'noUnreservedGifts')}</p>;
+        return <p className="text-gray-500 px-4 pb-4">
+          {sectionType === 'reserved' ? t('noReservedGifts') : 
+           sectionType === 'purchased' ? t('noPurchasedGifts') : 
+           t('noUnreservedGifts')}
+        </p>;
     }
     return (
       <div className="p-4 bg-white"> {/* Added padding here */}
@@ -385,7 +425,7 @@ const MyGifts: React.FC = () => {
                 name={internalProduct?.product_name || primaryExternalProduct?.product_name || t('productNameMissing')}
                 price={internalProduct?.price ?? primaryExternalProduct?.price ?? 0}
                 additionalDescription={internalProduct?.product_description || primaryExternalProduct?.product_description || ""}
-                isGiftReserved={isReservedSection}
+                status={sectionType}
               />
             );
           })}
@@ -422,6 +462,7 @@ const MyGifts: React.FC = () => {
           <div className="flex flex-col gap-6 px-2 sm:px-8 mb-16">
             {sharedWishlists.map((wishlist) => {
               // Determine if subsections are expanded (default to true if not set)
+              const isPurchasedExpanded = expandedSubSections[wishlist.id]?.purchased ?? true;
               const isReservedExpanded = expandedSubSections[wishlist.id]?.reserved ?? true;
               const isUnreservedExpanded = expandedSubSections[wishlist.id]?.unreserved ?? true;
 
@@ -435,7 +476,7 @@ const MyGifts: React.FC = () => {
                      {/* ... Wishlist Title and Counts ... */}
                      <div className="flex items-center gap-4">
                          <h2 className="text-xl font-bold">{wishlist.title}</h2>
-                         <span className="text-sm opacity-80">({wishlist.reserved.length} {t('reserved')}, {wishlist.unreserved.length} {t('unreserved')})</span>
+                         <span className="text-sm opacity-80">({wishlist.purchased.length} {t('purchased')}, {wishlist.reserved.length} {t('reserved')}, {wishlist.unreserved.length} {t('unreserved')})</span>
                      </div>
                      {/* Main Chevron */}
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-5 h-5 transition-transform duration-300 ${expandedWishlists[wishlist.id] ? "rotate-180" : ""}`}><path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
@@ -444,6 +485,29 @@ const MyGifts: React.FC = () => {
                 {/* Collapsible Content for the WHOLE Wishlist */}
                 {expandedWishlists[wishlist.id] && (
                   <div className="bg-gray-50 divide-y divide-gray-200"> {/* Background for inner content area, divider */}
+
+                      {/* --- Purchased Gifts Subsection --- */}
+                      <div>
+                           {/* Clickable Header for Purchased */}
+                            <div
+                                className="flex justify-between items-center p-3 cursor-pointer hover:bg-gray-100"
+                                onClick={() => toggleSubSection(wishlist.id, 'purchased')}
+                            >
+                                <h3 className="text-lg font-semibold">{t("purchasedGifts")} ({wishlist.purchased.length})</h3>
+                                {/* Subsection Chevron */}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-4 h-4 transition-transform duration-300 ${isPurchasedExpanded ? "rotate-180" : ""}`}><path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                           </div>
+                           {/* Conditionally Rendered Purchased Content */}
+                           {isPurchasedExpanded && renderSubSectionContent(
+                               wishlist.purchased,
+                               visiblePurchased[wishlist.id] || 0,
+                               () => handleLoadMorePurchased(wishlist.id, wishlist.purchased.length),
+                               wishlist.purchased.length,
+                               'purchased',
+                               wishlist
+                           )}
+                       </div>
+                      {/* --- End Purchased Gifts Subsection --- */}
 
                       {/* --- Reserved Gifts Subsection --- */}
                       <div>
@@ -462,12 +526,11 @@ const MyGifts: React.FC = () => {
                               visibleReserved[wishlist.id] || 0,
                               () => handleLoadMoreReserved(wishlist.id, wishlist.reserved.length),
                               wishlist.reserved.length,
-                              true, // isReservedSection = true
+                              'reserved',
                               wishlist
                           )}
                       </div>
                       {/* --- End Reserved Gifts Subsection --- */}
-
 
                       {/* --- Unreserved Gifts Subsection --- */}
                        <div>
@@ -486,7 +549,7 @@ const MyGifts: React.FC = () => {
                                visibleUnreserved[wishlist.id] || 0,
                                () => handleLoadMoreUnreserved(wishlist.id, wishlist.unreserved.length),
                                wishlist.unreserved.length,
-                               false, // isReservedSection = false
+                               'unreserved',
                                wishlist
                            )}
                        </div>

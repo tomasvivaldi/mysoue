@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { useMutation } from "@apollo/client";
 import { UPDATE_WISHLISTS } from "@/graphql/mutations";
@@ -35,13 +35,27 @@ const EditWishlistModal: React.FC<EditWishlistModalProps> = ({
   const t = useTranslations("EditWishlistModal");
   const [updateWishlist, { loading }] = useMutation(UPDATE_WISHLISTS);
   const [formData, setFormData] = useState({
-    title: wishlist?.title || "",
-    description: wishlist?.description || "",
-    due_date: wishlist?.due_date || "",
-    require_address: wishlist?.require_address || false,
-    address: wishlist?.address || "",
-    type: wishlist?.type || "",
+    title: "",
+    description: "",
+    due_date: "",
+    require_address: false,
+    address: "",
+    type: "",
   });
+
+  // Update form data when wishlist changes
+  useEffect(() => {
+    if (wishlist) {
+      setFormData({
+        title: wishlist.title || "",
+        description: wishlist.description || "",
+        due_date: wishlist.due_date || "",
+        require_address: wishlist.require_address || false,
+        address: wishlist.address || "",
+        type: wishlist.type || "",
+      });
+    }
+  }, [wishlist]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
