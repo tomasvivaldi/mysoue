@@ -347,8 +347,8 @@ export default function ReservationPage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">{t("currentStatus")}</label>
-                <div className="mb-4 px-3 rounded-lg bg-gray-100">
-                  <span className="font-semibold">
+                <div className="mb-4 px-3 rounded-lg bg-gray-100 ">
+                  <span className="font-semibold text-gray-700">
                     {status === 'reserved' && t("reserved")}
                     {status === 'purchased' && t("purchased")} 
                     {status === 'canceled' && t("cancelled")}
