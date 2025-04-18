@@ -116,9 +116,9 @@ const ProductDetails: React.FC = () => {
   const handleReserveGift = async (formData: { name: string; email: string; message: string; reservationToken: string }) => {
     try {
       // Get expiration date 
-      let expiresAt;
+      let expiresAt: Date;
       if (productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date) {
-        expiresAt = productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date
+        expiresAt = new Date(productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date);
       } else {
         expiresAt = new Date();
         expiresAt.setDate(expiresAt.getDate() + 90);
