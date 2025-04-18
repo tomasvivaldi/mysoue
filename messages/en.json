@@ -631,11 +631,16 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "updating": "Updating...",
-    "reservedGift": "Reserved Gift",
+    "reservedGift": "Someone is getting you a Gift!",
     "reservedBy": "Reserved by",
     "reserverEmail": "Email",
     "privateMessage": "Private Message",
-    "dateReserved": "Date Reserved"
+    "dateReserved": "Date Reserved",
+    "expiresAt": "Expires At",
+    "reservedGiftStatus": {
+      "reserved": "Gift Reserved!",
+      "purchased": "Gift Purchased!"
+    }
   },
   "Dashboard-MyGifts": {
     "myGifts": "My Gifts",
@@ -821,9 +826,9 @@
     "yes": "Yes",
     "address": "Address",
     "statusUpdated": {
-      "reserved": "Reserved",
-      "purchased": "Purchased",
-      "canceled": "Cancelled"
+      "reserved": "Gift reserved successfully",
+      "purchased": "Gift purchased successfully",
+      "canceled": "Gift canceled successfully"
     }
   }
 }

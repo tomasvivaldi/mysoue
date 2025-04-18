@@ -168,7 +168,7 @@ export async function sendPersonalInfoReminderEmail(
   
   // 7. Gift reserved 
   export async function sendGiftReservedEmail(
-    data: EmailData & { listName: string; giftName: string; listLink: string; reserverName: string }
+    data: EmailData & { listName: string; giftName: string; listLink: string; reserverName: string; name: string }
   ): Promise<void> {
     await sendgrid.send({
       to: data.to,

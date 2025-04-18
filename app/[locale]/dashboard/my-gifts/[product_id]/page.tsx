@@ -48,6 +48,9 @@ interface ReservedGifts {
   updated_at: string;
   name_and_surname: string;
   private_message: string;
+  status: string;
+  expires_at: string;
+  reservation_token: string;
 }
 
 const ProductDetails: React.FC = () => {
@@ -109,7 +112,7 @@ const ProductDetails: React.FC = () => {
             style={{ aspectRatio: "400 / 400", objectFit: "cover" }}
           />
         </div>
-        <div className="w-1/2 flex flex-col mb-auto mt-12">
+        <div className="w-full md:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
           <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
           <p className="mt-2 text-xl font-light">
             {productDetails?.price.toFixed(2)} THB

@@ -28,7 +28,6 @@ interface RequestBody {
     | 'changeInfo'
     | 'listCreation'
     | 'listClosing'
-    | 'giftReserved'
     | 'giftPurchased'
     | 'inactivity'
     | 'christmas'
@@ -38,7 +37,8 @@ interface RequestBody {
     | 'giftReservationConfirmation'
     | 'giftReservationReminder'
     | 'productDeletion'
-    | 'giftCancelation';
+    | 'giftCancelation'
+    | 'sendGiftReservedEmail';
   to: string;
   // Additional properties for dynamic content (all optional)
   
@@ -124,14 +124,14 @@ export async function POST(request: Request): Promise<Response> {
         }
         await sendListClosingEmail(body as (typeof body) & { listName: string; date: string; listLink: string; summaryLink: string });
         break;
-      case 'giftReserved':
-        if (!body.listName || !body.giftName || !body.listLink || !body.reserverName || !body.wishlistName) {
+      case 'sendGiftReservedEmail':
+        if (!body.listName || !body.giftName || !body.listLink || !body.reserverName || !body.name) {
           return NextResponse.json(
-            { error: 'Missing required fields for giftReserved email. Required: listName, giftName, listLink, reserverName, wishlistName.' },
+            { error: 'Missing required fields for sendGiftReservedEmail. Required: listName, giftName, listLink, reserverName, name.' },
             { status: 400 }
           );
         }
-        await sendGiftReservedEmail(body as (typeof body) & { listName: string; giftName: string; listLink: string; reserverName: string; wishlistName: string });
+        await sendGiftReservedEmail(body as (typeof body) & { listName: string; giftName: string; listLink: string; reserverName: string; name: string });
         break;
       case 'giftPurchased':
         if (!body.listName || !body.giftName || !body.purchaser || !body.listLink ) {

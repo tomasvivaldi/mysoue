@@ -99,6 +99,9 @@ interface ReservedGifts {
   updated_at: string;
   name_and_surname: string;
   private_message: string;
+  status: string;
+  expires_at: string;
+  reservation_token: string;
 }
 
 const BackButtonWithNoSSR = dynamic(
@@ -264,7 +267,7 @@ const ProductDetails: React.FC = () => {
               width={400}
               height={400}
             />
-            <div className="w-1/2 flex flex-col mb-auto mt-12">
+            <div className="w-full md:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
               <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
               <p className="mt-2 text-xl font-light">
                 {productDetails?.price.toFixed(2)} THB
@@ -276,18 +279,25 @@ const ProductDetails: React.FC = () => {
                 <SolidButton1 text={t("addDetailsButton")} onClick={handleUpdateDetails} />
                 <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails?.affiliate_link} target="_blank" />
                 {updateError && <p className="text-red-500 mt-2">Error updating details.</p>}
-                {isProductReserved && (
-                  <span className="text-xl px-4 font-semibold mx-auto text-primary">
-                    - This product is already reserved -
-                  </span>
-                )}
+                {/* {isProductReserved && (
+                    <span className="text-lg px-4 font-semibold mx-auto text-primary flex flex-row flex-nowrap items-center justify-between gap-2">
+                      Check out your reserved gift details below
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-6 w-6 animate-bounce duration-3000 stroke-primary">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
+                    </svg>
+                    </span>
+                )} */}
                 {isWishlistShared && !isProductReserved && (
                   <span className="text-lg px-4 font-semibold mx-auto text-gray-700">
                     - This product is on a shared wishlist and available for reservation -
                   </span>
                 )}
               </div>
-              {/* Reservation Details Section */}
+              
+            </div>
+          </div>
+          <div className="my-8 flex flex-col w-full px-10 gap-2">
+            {/* Reservation Details Section */}
           {productDetails?.wishlist_items &&
           productDetails?.wishlist_items[0] &&
           productDetails?.wishlist_items[0].reserved_gifts &&
@@ -296,9 +306,6 @@ const ProductDetails: React.FC = () => {
               reservedGift={productDetails?.wishlist_items[0].reserved_gifts[0]}
             />
           )}
-            </div>
-          </div>
-          <div className="my-8 flex flex-col w-full px-10 gap-2">
             <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
             {productDetails?.wishlist_items?.[0]?.additional_description ? (
               <p className="text-base text-gray-700 ml-2">

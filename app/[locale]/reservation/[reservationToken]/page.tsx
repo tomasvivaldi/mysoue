@@ -48,8 +48,8 @@ interface ReservedGifts {
   updated_at: string;
   name_and_surname: string;
   private_message: string;
-  expires_at: string;
   status: string;
+  expires_at: string;
   reservation_token: string;
   wishlists_items: WishlistItem[];
 }
@@ -145,13 +145,23 @@ export default function ReservationPage() {
       console.log("*****wishlistOwner: ", wishlistOwner);
       const wishlistOwnerName = wishlistOwner?.username ? wishlistOwner?.username : `${wishlistOwner.first_name} ${wishlistOwner.last_name}`;
       console.log("*****wishlistOwnerName: ", wishlistOwnerName);
+      const wishlistOwnerEmail = wishlistOwner?.email;
+      console.log("*****wishlistOwnerEmail: ", wishlistOwnerEmail);
       // Get product information
-      const product = reservationData[0].wishlists_items?.[0]?.products;
+      const product = reservationData[0]?.wishlists_items?.[0]?.products;
       console.log("*****product: ", product);
-      const externalProduct = reservationData[0].wishlists_items?.[0]?.external_products;
+      const externalProduct = reservationData[0]?.wishlists_items?.[0]?.external_products;
       console.log("*****externalProduct: ", externalProduct);
       const productName = product?.product_name || externalProduct?.product_name || 'your reserved gift';
       console.log("*****productName: ", productName);
+      const listName = reservationData[0]?.wishlists_items[0]?.wishlists[0]?.title;
+      console.log("*****listName: ", listName);
+      const listLink = `${window.location.origin}/${params.locale}/dashboard/my-wishlists/${wishlist?.id}/${externalProduct ? 'external-product/' + externalProduct.id : 'product/' + product?.id}`;
+      console.log("*****listLink: ", listLink);
+      const giftName = reservationData[0]?.wishlists_items[0]?.products?.product_name || reservationData[0]?.wishlists_items[0]?.external_products?.product_name || 'Gift';
+      console.log("*****giftName: ", giftName);
+      const reserverName = reservationData[0]?.name_and_surname;
+      console.log("*****reserverName: ", reserverName);
       // Construct link based on product type
       const productDashboardLink = `${window.location.origin}/${params.locale}/dashboard/my-wishlists/${wishlist?.id}/${externalProduct ? 'external-product/' + externalProduct.id : 'product/' + product?.id}`;
       console.log("*****productDashboardLink: ", productDashboardLink);
@@ -165,11 +175,11 @@ export default function ReservationPage() {
           },
           body: JSON.stringify({
             emailType: 'giftCancelation',
-            to: reservationData[0].wishlists_items[0].wishlists[0].users[0].email,
-            listName: reservationData[0].wishlists_items[0].wishlists[0].title,
-            giftName: reservationData[0].wishlists_items[0].products?.product_name || reservationData[0].wishlists_items[0].external_products?.product_name || 'Gift',
+            to: wishlistOwnerEmail,
+            listName: listName,
+            giftName: giftName,
             listLink: productDashboardLink,
-            reserverName: reservationData[0].name_and_surname,
+            reserverName: reserverName,
             name: wishlistOwnerName,
           }),
         });
@@ -182,11 +192,11 @@ export default function ReservationPage() {
           },
           body: JSON.stringify({
             emailType: 'sendGiftReservedEmail',
-            to: reservationData[0].wishlists_items[0].wishlists[0].users[0].email,
-            listName: reservationData[0].wishlists_items[0].wishlists[0].title,
-            giftName: reservationData[0].wishlists_items[0].products?.product_name || reservationData[0].wishlists_items[0].external_products?.product_name || 'Gift',
+            to: wishlistOwnerEmail,
+            listName: listName,
+            giftName: giftName,
             listLink: productDashboardLink,
-            reserverName: reservationData[0].name_and_surname,
+            reserverName: reserverName,
             name: wishlistOwnerName,
           }),
         });
@@ -199,11 +209,11 @@ export default function ReservationPage() {
           },
           body: JSON.stringify({
             emailType: 'giftPurchased',
-            to: reservationData[0].wishlists_items[0].wishlists[0].users[0].email,
-            listName: reservationData[0].wishlists_items[0].wishlists[0].title,
-            giftName: reservationData[0].wishlists_items[0].products?.product_name || reservationData[0].wishlists_items[0].external_products?.product_name || 'Gift',
+            to: wishlistOwnerEmail,
+            listName: listName,
+            giftName: giftName,
             listLink: productDashboardLink,
-            purchaser: reservationData[0].name_and_surname,
+            purchaser: reserverName,
             name: wishlistOwnerName,
           }),
         });

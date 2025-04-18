@@ -62,6 +62,9 @@ interface ReservedGifts {
   updated_at: string;
   name_and_surname: string;
   private_message: string;
+  status: string;
+  expires_at: string;
+  reservation_token: string;
 }
 
 interface SharedWishlists {
