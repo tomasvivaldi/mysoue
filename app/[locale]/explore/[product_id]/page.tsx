@@ -15,6 +15,11 @@ import Head from "next/head";
 import SolidButton from "@/components/buttons/SolidButton";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import HeroBanner3 from "@/components/aline_design/HeroBanner3";
+import ProductBanner from '@/components/aline_design/ProductBanner';
+import ProductRecommendations from '@/components/aline_design/ProductRecommendations';
+import RelatedCategories from '@/components/aline_design/RelatedCategories';
+import { AnimatedLists } from "@/components/ui/AnimatedLists";
+
 
 interface Product {
   affiliate_link: string;
@@ -86,12 +91,49 @@ interface ReservedGifts {
   reservation_token: string;
 }
 
+interface MockWishlistItem {
+  title: string;
+  description: string;
+  link: string;
+  src: string;
+}
+
+
+
 const ProductDetails: React.FC = () => {
   const t = useTranslations("Explore-ProductPage");
   const params = useParams();
-  const id = params.product_id;
+  const id = Array.isArray(params.product_id) ? params.product_id[0] : params.product_id;
   const [productDetails, setProductDetails] = useState<Product | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const mockWishlists: MockWishlistItem[] = [
+    {
+      title: t("wishlist.baby.title"),
+      description: t("wishlist.baby.description"),
+      link: "/lists/baby-shower",
+      src: "/baby.jpg",
+    },
+    {
+      title: t("wishlist.herBirthday.title"),
+      description: t("wishlist.herBirthday.description"),
+      link: "/lists/her-birthday",
+      src: "/bday.jpg",
+    },
+    {
+      title: t("wishlist.christmas.title"),
+      description: t("wishlist.christmas.description"),
+      link: "/lists/christmas",
+      src: "/xmas.jpg",
+    },
+    {
+      title: t("wishlist.hisBirthday.title"),
+      description: t("wishlist.hisBirthday.description"),
+      link: "/lists/his-birthday",
+      src: "/bg1.jpg",
+    },
+  ];
+
 
   useEffect(() => {
     const loadData = async () => {
@@ -117,11 +159,13 @@ const ProductDetails: React.FC = () => {
   const src = productDetails?.image_url || "/create1.png"
 
   return (
-    <>
-    <Head>
-      <title>Explore Products | Mysoue</title>
-    </Head>
-      <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+    <div className="min-h-screen bg-white">
+      <Head>
+        <title>Explore Products | Mysoue</title>
+      </Head>
+      <div className="w-full flex flex-col items-center px-2 sm:px-10">
+        <SolidButton text="Start Now" href="/login" className="text-xl px-12 py-4 mx-10 w-full my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" />
+      </div>
       <FloatingButton/>
       <HeroBanner3
         backgroundImage={"/Product/bg.jpg"}
@@ -168,7 +212,21 @@ const ProductDetails: React.FC = () => {
         </div>
       </div>
     }
-  </>
+
+    {/* Product Banner */}
+    <ProductBanner />
+
+    {/* Related Categories */}
+    {/* <RelatedCategories currentCategory={productDetails?.category?.toString()} /> */}
+    <AnimatedLists wishlists={mockWishlists} />
+
+    {/* Product Recommendations */}
+    <ProductRecommendations 
+      currentProductId={id}
+      category={productDetails?.category}
+      subcategory={productDetails?.subcategory}
+    />
+    </div>
   );
 };
 

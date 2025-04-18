@@ -47,25 +47,25 @@ export default function Explore() {
     {
       title: t("wishlist.baby.title"),
       description: t("wishlist.baby.description"),
-      link: "/dashboard/mysoue-lists/Baby%20shower",
+      link: "/lists/baby-shower",
       src: "/baby.jpg",
     },
     {
       title: t("wishlist.herBirthday.title"),
       description: t("wishlist.herBirthday.description"),
-      link: "/dashboard/mysoue-lists/her-birthday",
+      link: "/lists/her-birthday",
       src: "/bday.jpg",
     },
     {
       title: t("wishlist.christmas.title"),
       description: t("wishlist.christmas.description"),
-      link: "/dashboard/mysoue-lists/christmas",
+      link: "/lists/christmas",
       src: "/xmas.jpg",
     },
     {
       title: t("wishlist.hisBirthday.title"),
       description: t("wishlist.hisBirthday.description"),
-      link: "/dashboard/mysoue-lists/his-birthday",
+      link: "/lists/his-birthday",
       src: "/bg1.jpg",
     },
   ];

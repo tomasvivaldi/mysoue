@@ -32,9 +32,9 @@ export default function BottomBanner() {
           </p>
         </div>
         {/* 3) Translate the button text */}
-        <button className="whitespace-nowrap mt-4 px-6 py-2 bg-[#FFF9E8] text-neutral-800 rounded-full shadow-md hover:shadow-lg transition-all">
+        <a href="/login" className="whitespace-nowrap mt-4 px-6 py-2 bg-[#FFF9E8] text-neutral-800 rounded-full shadow-md hover:shadow-lg transition-all">
           {t("startNow")}
-        </button>
+        </a>
       </div>
     </div>
   );

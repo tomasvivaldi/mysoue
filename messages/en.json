@@ -670,7 +670,32 @@
   },
   "Explore-ProductPage": {
     "productNotFound": "Product not found.",
-    "startMysoue": "Start your Mysoue journey"
+    "startMysoue": "Start your Mysoue journey",
+    "recommendedProducts": "You might also like",
+    "recommendedProductsDescription": "Discover more products that match your interests",
+    "createWishlistBannerTitle": "Create Your Wishlist Today",
+    "createWishlistBannerDescription": "Create your own wishlist and fill it up with products. Share with friends and family to make gift-giving easier for everyone!",
+    "createWishlistButton": "Create Wishlist",
+    "exploreCategories": "Explore Categories",
+    "exploreCategoriesDescription": "Browse products by category to find exactly what you're looking for",
+    "wishlist": {
+      "baby": {
+        "title": "Baby Shower Wishlist",
+        "description": "The perfect compilation of presents to receive when hosting your first baby shower"
+      },
+      "herBirthday": {
+        "title": "Her Birthday Wishlist",
+        "description": "A curated selection of gifts perfect for celebrating her special day with style."
+      },
+      "christmas": {
+        "title": "Christmas Wishlist",
+        "description": "Discover festive and joyful gifts that bring holiday cheer to everyone."
+      },
+      "hisBirthday": {
+        "title": "His Birthday Wishlist",
+        "description": "Handpicked gifts to make his birthday unforgettable with quality and style."
+      }
+    }
   },
   "Dashboard-mysoueLists": {
     "pageTitle": "Dashboard",

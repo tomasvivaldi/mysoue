@@ -665,9 +665,34 @@
     "additionalDetails": "รายละเอียดเพิ่มเติม",
     "deleteFromListButton": "ลบออกจากรายการ"
   },
-  "Explore-ProductPage": {
+"Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",
-    "startMysoue": "เริ่มต้นกับ Mysoue ของคุณ"
+    "startMysoue": "เริ่มต้นการเดินทางกับ Mysoue",
+    "recommendedProducts": "คุณอาจจะชอบ",
+    "recommendedProductsDescription": "ค้นพบสินค้าเพิ่มเติมที่ตรงกับความสนใจของคุณ",
+    "createWishlistBannerTitle": "สร้างรายการสิ่งที่ปรารถนาของคุณวันนี้",
+    "createWishlistBannerDescription": "สร้างรายการสิ่งที่ปรารถนาของคุณเองและเพิ่มสินค้าที่ต้องการ แชร์กับเพื่อนและครอบครัวเพื่อให้การให้ของขวัญง่ายขึ้นสำหรับทุกคน!",
+    "createWishlistButton": "สร้างรายการสิ่งที่ปรารถนา",
+    "exploreCategories": "สำรวจหมวดหมู่",
+    "exploreCategoriesDescription": "เรียกดูสินค้าตามหมวดหมู่เพื่อค้นหาสิ่งที่คุณต้องการ",
+    "wishlist": {
+      "baby": {
+        "title": "รายการของขวัญสำหรับ Baby Shower",
+        "description": "รวบรวมของขวัญที่สมบูรณ์แบบสำหรับการจัด Baby Shower ครั้งแรกของคุณ"
+      },
+      "herBirthday": {
+        "title": "รายการของขวัญวันเกิดสำหรับเธอ",
+        "description": "คัดสรรของขวัญที่สมบูรณ์แบบสำหรับฉลองวันพิเศษของเธออย่างมีสไตล์"
+      },
+      "christmas": {
+        "title": "รายการของขวัญคริสต์มาส",
+        "description": "ค้นพบของขวัญที่จะเพิ่มความสุขและความรื่นเริงในเทศกาลให้กับทุกคน"
+      },
+      "hisBirthday": {
+        "title": "รายการของขวัญวันเกิดสำหรับเขา",
+        "description": "ของขวัญที่คัดสรรมาเพื่อทำให้วันเกิดของเขาเป็นวันที่น่าจดจำด้วยคุณภาพและสไตล์"
+      }
+    }
   },
   "Dashboard-mysoueLists": {
     "pageTitle": "แดชบอร์ด",

@@ -62,9 +62,9 @@ interface FilterContentProps {
     };
   
     const formatPrice = (price: number) => {
-      return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
+      return new Intl.NumberFormat("th-TH", {
+        style: "currency", 
+        currency: "THB"
       }).format(price);
     };
   
