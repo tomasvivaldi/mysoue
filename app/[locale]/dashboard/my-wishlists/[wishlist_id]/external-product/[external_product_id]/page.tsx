@@ -18,6 +18,7 @@ import UpdateWishlistDetailsModal from "@/components/aline_design/modals/UpdateW
 import { DELETE_WISHLIST_ITEMS, UPDATE_WISHLIST_ITEMS } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
+
 interface ExternalProduct {
   id: string;
   product_name: string;
@@ -55,6 +56,13 @@ interface SharedWishlists {
   id: number;
 }
 
+interface WishlistUser {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 interface Wishlist {
   address: string;
   created_at: string;
@@ -68,6 +76,7 @@ interface Wishlist {
   id: string;
   wishlist_items: WishlistItem[];
   shared_wishlists: SharedWishlists[];
+  users: WishlistUser[];
 }
 
 interface ReservedGifts {
@@ -155,6 +164,9 @@ const ExternalProductDetails: React.FC = () => {
       return;
     }
     const wishlistItem = productDetails?.wishlist_items[0];
+    const reservedGift = wishlistItem?.reserved_gifts?.[0];
+    const wishlist = wishlistItem?.wishlists?.[0];
+
     try {
       setDeletionLoading(true);
       const { data } = await client.mutate({
@@ -163,6 +175,51 @@ const ExternalProductDetails: React.FC = () => {
           id: wishlistItem.id,
         },
       });
+
+      // Send email notification if the gift was reserved
+      if (reservedGift && wishlist) {
+        const shareToken = wishlist.shared_wishlists?.[0]?.share_token;
+        console.log('Attempting to send deletion email:', {
+          to: reservedGift.email,
+          name: reservedGift.name_and_surname,
+          listName: wishlist.title,
+          giftName: productDetails.product_name,
+          listLink: shareToken ? `${window.location.origin}/shared/${shareToken}` : undefined,
+          wishlistOwnerName: `${wishlist?.users?.[0]?.first_name} ${wishlist?.users?.[0]?.last_name}` || wishlist?.users?.[0]?.username
+        });
+
+        try {
+          const response = await fetch('/api/sendEmail', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              to: reservedGift.email,
+              emailType: 'sendGiftDeletedEmail',
+              name: reservedGift.name_and_surname,
+              listName: wishlist.title,
+              giftName: productDetails.product_name,
+              listLink: shareToken ? `${window.location.origin}/shared/${shareToken}` : undefined,
+              wishlistOwnerName: `${wishlist?.users?.[0]?.first_name} ${wishlist?.users?.[0]?.last_name}` || wishlist?.users?.[0]?.username
+            }),
+          });
+
+          const result = await response.json();
+          console.log('Email sending result:', result);
+
+          if (!response.ok) {
+            console.error('Failed to send email:', {
+              status: response.status,
+              statusText: response.statusText,
+              result
+            });
+          }
+        } catch (emailError) {
+          console.error('Error sending email:', emailError);
+        }
+      }
+
       setProductDetails((prev) => {
         if (!prev) return prev;
         return {
@@ -219,6 +276,7 @@ const ExternalProductDetails: React.FC = () => {
     const firstWishlistItem = productDetails?.wishlist_items?.[0];
     const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
     const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
+    const reservedGiftStatus = firstWishlistItem?.reserved_gifts?.[0]?.status || "reserved/purchased";
   
     const src = productDetails?.image_url || "/create1.png"
     return (
@@ -254,7 +312,7 @@ const ExternalProductDetails: React.FC = () => {
                 width={400}
                 height={400}
               />
-              <div className="w-full md:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
+              <div className="w-full lg:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
                 <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
                 <p className="mt-2 text-xl font-light">
                   {productDetails?.price?.toFixed(2)} THB
@@ -314,6 +372,8 @@ const ExternalProductDetails: React.FC = () => {
           onDelete={handleDelete}
           productName={productDetails?.product_name}
           deletionLoading={deletionLoading}
+          status={reservedGiftStatus}
+          reserverName={firstWishlistItem?.reserved_gifts?.[0]?.name_and_surname}
         />
         {/* Update Wishlist Details Modal */}
         <UpdateWishlistDetailsModal

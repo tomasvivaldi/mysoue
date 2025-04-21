@@ -638,9 +638,12 @@
     "dateReserved": "Date Reserved",
     "expiresAt": "Expires At",
     "reservedGiftStatus": {
-      "reserved": "Gift Reserved!",
-      "purchased": "Gift Purchased!"
-    }
+      "reserved": "Gift reserved!",
+      "purchased": "Gift purchased!"
+    },
+    "finalDeleteConfirmationTitle": "Final Confirmation",
+    "reservedProductDeleteWarning": "The product {productName} is currently being {status}. Are you sure you want to delete it? {reserverName} will be notified that the product is being deleted.",
+    "confirmDeleteButton": "Yes, Delete"
   },
   "Dashboard-MyGifts": {
     "myGifts": "My Gifts",

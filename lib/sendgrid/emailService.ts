@@ -472,3 +472,29 @@ export async function sendGiftCancelationEmail(
   });
 }
 
+// Email sent to someone who reserved a gift when the wishlist owner deletes the gift
+export async function sendGiftDeletedEmail(
+  data: EmailData & { 
+    listName: string; 
+    giftName: string; 
+    listLink: string; 
+    wishlistOwnerName: string;
+    name: string;
+  }
+): Promise<void> {
+  await sendgrid.send({
+    to: data.to,
+    from: 'info@mysoue.com',
+    subject: `The gift you reserved has been removed from the wishlist: ${data.listName}`,
+    text: `Hey ${data.name || 'there'}!\n\nWe wanted to let you know that "${data.giftName}" which you reserved from the wishlist "${data.listName}" has been removed by the wishlist owner ${data.wishlistOwnerName}.\n\nWe understand this might be disappointing. Don't worry though - there are still many other wonderful gifts available on this wishlist that you can reserve instead!\n\nYou can browse the remaining gifts here: ${data.listLink}\n\nIf you have any questions, we're here to help at info@mysoue.com\n\nXOXO,\nMysoue Team ✨`,
+    html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+             <h1>Hey ${data.name || 'there'}!</h1>
+             <p>We wanted to let you know that "<strong>${data.giftName}</strong>" which you reserved from the wishlist "<strong>${data.listName}</strong>" has been removed by the wishlist owner <strong>${data.wishlistOwnerName}</strong>.</p>
+             <p>We understand this might be disappointing. Don't worry though - there are still many other wonderful gifts available on this wishlist that you can reserve instead!</p>
+             <p><strong>You can browse the remaining gifts here:</strong> <a href="${data.listLink}">${data.listLink}</a></p>
+             <p>If you have any questions, we're here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
+             <p>XOXO,<br/>Mysoue Team ✨</p>
+           </div>`
+  });
+}
+

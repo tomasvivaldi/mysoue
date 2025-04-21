@@ -637,7 +637,10 @@
     "reservedGiftStatus": {
       "reserved": "จองของขวัญแล้ว!",
       "purchased": "ซื้อของขวัญแล้ว!"
-    }
+    },
+    "finalDeleteConfirmationTitle": "การยืนยันขั้นสุดท้าย",
+    "reservedProductDeleteWarning": "สินค้า {productName} กำลังอยู่ในสถานะ {status} คุณแน่ใจหรือไม่ที่จะลบ? {reserverName} จะได้รับการแจ้งเตือนว่าสินค้ากำลังถูกลบ",
+    "confirmDeleteButton": "ใช่ ลบเลย"
   },
   "Dashboard-MyGifts": {
     "myGifts": "ของขวัญของฉัน",

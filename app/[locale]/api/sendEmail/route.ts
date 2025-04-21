@@ -15,8 +15,9 @@ import {
   sendChristmasEmail, // Schedule Marketing Campaing
   sendValentinesEmail, // Schedule Marketing Campaing
   sendBirthdayReminderEmail, // Schedule Marketing Campaing??
-  sendWishlistShareEmail, //   
-  sendGiftCancelationEmail,
+  sendWishlistShareEmail, //  Necessary?
+  sendGiftCancelationEmail, // OK
+  sendGiftDeletedEmail, // New case
 } from '@/lib/sendgrid/emailService';
 
 interface RequestBody {
@@ -38,7 +39,8 @@ interface RequestBody {
     | 'giftReservationReminder'
     | 'productDeletion'
     | 'giftCancelation'
-    | 'sendGiftReservedEmail';
+    | 'sendGiftReservedEmail'
+    | 'sendGiftDeletedEmail';
   to: string;
   // Additional properties for dynamic content (all optional)
   
@@ -215,7 +217,20 @@ export async function POST(request: Request): Promise<Response> {
           body as (typeof body) & { listName: string; giftName: string; listLink: string; reserverName: string; name: string }
         );
         break;
-
+      case 'sendGiftDeletedEmail':
+        if (!body.listName || !body.giftName || !body.listLink || !body.wishlistOwnerName || !body.name) {
+          return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+        }
+        await sendGiftDeletedEmail(
+          body as (typeof body) & {
+            listName: string;
+            giftName: string;
+            listLink: string;
+            wishlistOwnerName: string;
+            name: string;
+          }
+        );
+        break;
       default:
         return NextResponse.json({ error: 'Invalid email type.' }, { status: 400 });
     }

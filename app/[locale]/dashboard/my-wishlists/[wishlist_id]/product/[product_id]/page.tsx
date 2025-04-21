@@ -11,7 +11,7 @@ import { GET_PRODUCT_BY_ID } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import GhostButton1 from "@/components/buttons/GhostButton1";
 import SolidButton1 from "@/components/buttons/SolidButton1";
@@ -19,6 +19,7 @@ import SolidButton2 from "@/components/buttons/SolidButton2";
 import UpdateWishlistDetailsModal from "@/components/aline_design/modals/UpdateWishlistDetailsModal";
 import Image from "next/image";
 import ReservedGiftCard from "@/components/cards/ReservedGiftCard";
+
 
 interface Product {
   affiliate_link: string;
@@ -76,6 +77,13 @@ interface SharedWishlists {
   id: number;
 }
 
+interface WishlistUser {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+}
+
 interface Wishlist {
   address: string;
   created_at: string;
@@ -89,6 +97,7 @@ interface Wishlist {
   id: string;
   wishlist_items: WishlistItem[];
   shared_wishlists: SharedWishlists[];
+  users: WishlistUser[];
 }
 
 interface ReservedGifts {
@@ -123,6 +132,13 @@ const ProductDetails: React.FC = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   
+  // Check if product is reserved or purchased
+  const isProductReservedOrPurchased = useMemo(() => {
+    if (!productDetails?.wishlist_items?.[0]?.reserved_gifts?.[0]) return false;
+    const status = productDetails.wishlist_items[0].reserved_gifts[0].status;
+    return status === 'reserved' || status === 'purchased';
+  }, [productDetails]);
+
   // Open update modal
   const handleUpdateDetails = () => {
     setIsUpdateModalOpen(true);
@@ -173,6 +189,19 @@ const ProductDetails: React.FC = () => {
       return;
     }
     const wishlistItem = productDetails?.wishlist_items[0];
+    const reservedGift = wishlistItem?.reserved_gifts?.[0];
+    const wishlist = wishlistItem?.wishlists?.[0];
+
+    console.log('Starting deletion process:', {
+      wishlistItemId: wishlistItem.id,
+      hasReservedGift: Boolean(reservedGift),
+      wishlistInfo: wishlist ? {
+        id: wishlist.id,
+        title: wishlist.title,
+        ownerName: wishlist.title
+      } : null
+    });
+
     try {
       setDeletionLoading(true);
       const { data } = await client.mutate({
@@ -182,6 +211,51 @@ const ProductDetails: React.FC = () => {
         },
       });
       console.log("Wishlist item deleted:", data?.deleteWishlist_items);
+
+      // Send email notification if the gift was reserved
+      if (reservedGift && wishlist) {
+        const shareToken = wishlist.shared_wishlists?.[0]?.share_token;
+        console.log('Attempting to send deletion email:', {
+          to: reservedGift.email,
+          name: reservedGift.name_and_surname,
+          listName: wishlist.title,
+          giftName: productDetails.product_name,
+          listLink: shareToken ? `${window.location.origin}/wishlist/${shareToken}` : undefined,
+          wishlistOwnerName: `${wishlist?.users?.[0]?.first_name} ${wishlist?.users?.[0]?.last_name}` || wishlist?.users?.[0]?.username
+        });
+
+        try {
+          const response = await fetch('/api/sendEmail', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              to: reservedGift.email,
+              emailType: 'sendGiftDeletedEmail',
+              name: reservedGift.name_and_surname,
+              listName: wishlist.title,
+              giftName: productDetails.product_name,
+              listLink: shareToken ? `${window.location.origin}/shared/${shareToken}` : undefined,
+              wishlistOwnerName: `${wishlist?.users?.[0]?.first_name} ${wishlist?.users?.[0]?.last_name}` || wishlist?.users?.[0]?.username
+            }),
+          });
+
+          const result = await response.json();
+          console.log('Email sending result:', result);
+
+          if (!response.ok) {
+            console.error('Failed to send email:', {
+              status: response.status,
+              statusText: response.statusText,
+              result
+            });
+          }
+        } catch (emailError) {
+          console.error('Error sending email:', emailError);
+        }
+      }
+
       setProductDetails((prev) => {
         if (!prev) return prev;
         return {
@@ -232,6 +306,7 @@ const ProductDetails: React.FC = () => {
   const firstWishlistItem = productDetails?.wishlist_items?.[0];
   const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
   const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
+  const reservedGiftStatus = firstWishlistItem?.reserved_gifts?.[0]?.status || "reserved/purchased";
 
   const src = productDetails?.image_url || "/create1.png"
   return (
@@ -267,7 +342,7 @@ const ProductDetails: React.FC = () => {
               width={400}
               height={400}
             />
-            <div className="w-full md:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
+            <div className="w-full lg:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
               <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
               <p className="mt-2 text-xl font-light">
                 {productDetails?.price.toFixed(2)} THB
@@ -326,11 +401,13 @@ const ProductDetails: React.FC = () => {
       <DeleteProductModal
         isOpen={isModalOpen}
         isWishlistShared={isWishlistShared}
-        isProductReserved={isProductReserved}
+        isProductReserved={isProductReservedOrPurchased}
         onClose={closeModal}
         onDelete={handleDelete}
         productName={productDetails?.product_name}
         deletionLoading={deletionLoading}
+        status={reservedGiftStatus}
+        reserverName={firstWishlistItem?.reserved_gifts?.[0]?.name_and_surname}
       />
       {/* Update Wishlist Details Modal */}
       <UpdateWishlistDetailsModal
