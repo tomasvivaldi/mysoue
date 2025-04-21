@@ -22,12 +22,12 @@ const ConfirmationStep: React.FC = () => {
         <p className="text-gray-600 mb-8">
           This list was added successfully to MySoue Wishlists
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a href="/dashboard/my-wishlists">
-            <SolidButtonBlack text="Back to your lists" />
-          </a>
+        <div className="flex flex-col lg:flex-row gap-4 justify-center items-center">
           <a href="/dashboard/mysoue-lists">
             <GhostButtonBlack text="Check MySoue Wishlists" />
+          </a>
+          <a href="/dashboard/my-wishlists">
+            <SolidButtonBlack text="Back to your lists" />
           </a>
         </div>
       </div>

@@ -17,7 +17,7 @@ import {
   sendBirthdayReminderEmail, // Schedule Marketing Campaing??
   sendWishlistShareEmail, //  Necessary?
   sendGiftCancelationEmail, // OK
-  sendGiftDeletedEmail, // New case
+  sendGiftDeletedEmail, // OK
 } from '@/lib/sendgrid/emailService';
 
 interface RequestBody {
