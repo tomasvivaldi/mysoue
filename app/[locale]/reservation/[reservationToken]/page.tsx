@@ -258,7 +258,7 @@ export default function ReservationPage() {
 
   if (!reservationData.length) {
     return (
-      <div className="max-w-2xl mx-auto p-6 text-center">
+      <div className="max-w-2xl mx-auto p-6 text-center h-[78vh]">
         <h1 className="text-2xl font-bold mb-6">{t("reservationNotFound")}</h1>
         <p className="text-gray-600">{t("reservationNotFoundDesc")}</p>
       </div>
