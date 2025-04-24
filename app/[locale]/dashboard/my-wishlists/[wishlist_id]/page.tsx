@@ -413,31 +413,36 @@ const WishlistDetails: React.FC = () => {
                 <EmptyWishlistCard onAddProductClick={openOptionModal} />
               </div>
             ) : (
-              visibleItems.map((item) => {
-              const products = Array.isArray(item.products) ? item.products : [item.products];
-              const product = products[0];
-              const productId = product?.id;
-              const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
-              const externalProduct = externalProducts[0];
-              const externalProductId = externalProduct?.id;
-              const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
-              return (
+              <>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-                  <ProductCard3
-                    href={productLink}
-                    key={product?.id || externalProduct?.id}
-                    preList={product?.pre_list || ""}
-                    imageUrl={product?.image_url || externalProduct?.image_url || ""}
-                    name={product?.product_name || externalProduct?.product_name}
-                    price={product?.price || externalProduct?.price || 0}
-                    additionalDescription={product?.product_description || externalProduct?.product_description}
-                    brand={product?.brand || externalProduct?.brand}
-                    category={product?.category || externalProduct?.category}
-                    subcategory={product?.subcategory || ""}
-                  />
+                {
+                visibleItems.map((item) => {
+                const products = Array.isArray(item.products) ? item.products : [item.products];
+                const product = products[0];
+                const productId = product?.id;
+                const externalProducts = Array.isArray(item.external_products) ? item.external_products : [item.external_products];
+                const externalProduct = externalProducts[0];
+                const externalProductId = externalProduct?.id;
+                const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
+                return (
+                  
+                    <ProductCard3
+                      href={productLink}
+                      key={product?.id || externalProduct?.id}
+                      preList={product?.pre_list || ""}
+                      imageUrl={product?.image_url || externalProduct?.image_url || ""}
+                      name={product?.product_name || externalProduct?.product_name}
+                      price={product?.price || externalProduct?.price || 0}
+                      additionalDescription={product?.product_description || externalProduct?.product_description}
+                      brand={product?.brand || externalProduct?.brand}
+                      category={product?.category || externalProduct?.category}
+                      subcategory={product?.subcategory || ""}
+                    />
+                  );
+                })}
                 </div>
-              );
-            }))}
+              </>
+            )}
           </>
         )}
 
