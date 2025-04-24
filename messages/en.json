@@ -89,7 +89,9 @@
     "yourLists": "YOUR LISTS",
     "delete": "Delete",
     "edit": "Edit",
-    "addNewWishlist": "ADD NEW WISHLIST"
+    "addNewWishlist": "ADD NEW WISHLIST",
+    "loadMore": "Load more",
+    "noMoreItems": "No more items"
   },
   "AddWishlistModal": {
     "newWishlist": "NEW WISHLIST",

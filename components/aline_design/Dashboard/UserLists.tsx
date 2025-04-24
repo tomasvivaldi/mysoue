@@ -40,11 +40,15 @@ const UserLists: React.FC<UserListsProps> = ({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(null);
   const [localWishlists, setLocalWishlists] = useState<Wishlist[]>(wishlists);
+  const PAGE_SIZE = 8;
+  const [visibleWishlists, setVisibleWishlists] = useState<Wishlist[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Update localWishlists when wishlists prop changes
   useEffect(() => {
-    console.log("UserLists received wishlists:", wishlists);
     setLocalWishlists(wishlists);
+    setCurrentPage(1);
+    setVisibleWishlists(wishlists.slice(0, PAGE_SIZE));
   }, [wishlists]);
 
   // Log when localWishlists changes
@@ -75,6 +79,16 @@ const UserLists: React.FC<UserListsProps> = ({
     setSelectedWishlist(null);
     setIsEditModalOpen(false);
   };
+
+  const handleLoadMore = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = currentPage * PAGE_SIZE;
+    const newItems = localWishlists.slice(startIndex, startIndex + PAGE_SIZE);
+    setVisibleWishlists(prev => [...prev, ...newItems]);
+    setCurrentPage(nextPage);
+  };
+  
+  const hasMoreItems = visibleWishlists.length < localWishlists.length;
 
   const handleDeleteWishlist = async () => {
     if (!selectedWishlist) return;
@@ -119,7 +133,7 @@ const UserLists: React.FC<UserListsProps> = ({
         </div>
       ) : (
         <ul className="space-y-4">
-          {localWishlists.map((wishlist) => (
+          {visibleWishlists.map((wishlist) => (
             <li
               key={wishlist.id}
               className="group flex items-center justify-between text-black text-sm px-4 py-2
@@ -155,6 +169,23 @@ const UserLists: React.FC<UserListsProps> = ({
             </li>
           ))}
         </ul>
+        
+      )}
+
+      {hasMoreItems && !isLoading && (
+        <div className="flex justify-center mb-4">
+          <button
+            onClick={handleLoadMore}
+            disabled={!hasMoreItems}
+            className={`my-2 px-4 py-2 rounded-full ${
+              hasMoreItems
+                ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
+                : "bg-gray-200 text-gray-500 cursor-not-allowed"
+            }`}
+          >
+            {hasMoreItems ? t("loadMore") : t("noMoreItems")}
+          </button>
+        </div>
       )}
 
       {/* Add New Wishlist Button */}

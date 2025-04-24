@@ -86,7 +86,9 @@
     "yourLists": "รายการของคุณ",
     "delete": "ลบ",
     "edit": "แก้ไข",
-    "addNewWishlist": "เพิ่มรายการใหม่"
+    "addNewWishlist": "เพิ่มรายการใหม่",
+    "loadMore": "โหลดเพิ่มเติม",
+    "noMoreItems": "ไม่มีรายการเพิ่มเติม"
   },
   "AddWishlistModal": {
     "newWishlist": "รายการของขวัญใหม่",
