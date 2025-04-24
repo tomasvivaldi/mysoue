@@ -454,11 +454,10 @@ const MyGifts: React.FC = () => {
         <h1 className="heading2 ">{t("myGifts")}</h1>
         <p className="max-w-4xl ">Here you can effortlessly manage and track the gifts you've added to various wishlists in one convenient location. It provides a clear, organized view of your gift selections, allowing you to easily see which items have already been reserved or purchased by others, and which are still available for selection. Whether you're organizing gifts for an event or coordinating with friends and family, this tool helps ensure that no duplicate gifts are purchased and everyone can see exactly what's been claimed. It's a hassle-free way to stay on top of your wishlists and avoid any confusion.</p>
       </div>
-
-      {/* Shared Wishlists Section */}
-      {sharedWishlists?.length !== 0 ? (
-        <div className="mb-12">
-          <h2 className="text-xl font-semibold mb-4 px-8">{t("sharedWishlists")}</h2>
+      <div className="mb-12">
+        <h2 className="text-xl font-semibold mb-4 px-8">{t("sharedWishlists")}</h2>
+        {/* Shared Wishlists Section */}
+        {sharedWishlists?.length !== 0 ? (
           <div className="flex flex-col gap-6 px-2 sm:px-8 mb-16">
             {sharedWishlists.map((wishlist) => {
               // Determine if subsections are expanded (default to true if not set)
@@ -560,7 +559,6 @@ const MyGifts: React.FC = () => {
               </div> // End wishlist card
             )})}
           </div>
-        </div>
       ):(<LoadingBox
         imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
         imageAlt="Loading spinner"
@@ -568,6 +566,7 @@ const MyGifts: React.FC = () => {
         containerClassName="h-[30vh]"
       />)
       }
+    </div>
 
       {/* Empty State Messages (remain the same) */}
        {!loading && sharedWishlists.length === 0 && nonSharedWishlists.length > 0 && ( <p className="text-center text-gray-600 px-8">{t("noSharedWishlistsButPrivate")}</p> )}

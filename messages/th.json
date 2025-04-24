@@ -860,5 +860,10 @@
       "purchased": "ของขวัญถูกซื้อแล้ว",
       "canceled": "ของขวัญถูกยกเลิกแล้ว"
     }
+  },
+  "EmptyWishlist": {
+    "yourWishlistIsEmpty": "วิชลิสต์ของคุณยังว่างอยู่",
+    "addSomeProductsToGetStarted": "เพิ่มสินค้าเพื่อเริ่มต้นรายการของคุณ",
+    "addProductButton": "เพิ่มสินค้า"
   }
 }

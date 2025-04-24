@@ -862,5 +862,10 @@
       "purchased": "Gift purchased successfully",
       "canceled": "Gift canceled successfully"
     }
+  },
+  "EmptyWishlist": {
+    "yourWishlistIsEmpty": "Your wishlist is empty",
+    "addSomeProductsToGetStarted": "Add some products to get started.",
+    "addProductButton": "Add Product"
   }
 }

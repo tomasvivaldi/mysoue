@@ -281,6 +281,10 @@ const ExternalProductDetails: React.FC = () => {
     const src = productDetails?.image_url || "/create1.png"
     return (
       <div className="w-full pb-20">
+      {/* Back Button */}
+        <div className="mt-2 ml-4">
+          <BackButtonWithNoSSR />
+        </div>
         {productDetails?.wishlist_items && productDetails?.wishlist_items.length === 0 ? (
           <div className="w-full text-center mt-4 relative px-4 py-6 sm:py-12 flex flex-col gap-2">
             <div className="absolute left-0 top-0">

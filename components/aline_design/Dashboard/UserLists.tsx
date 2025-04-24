@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AddWishlistModal from "../modals/AddWishlistModal";
 import DeleteWishlistModal from "../modals/DeleteWishlistModal";
 import EditWishlistModal from "../modals/EditWishlistModal";
 import { useTranslations } from "next-intl"; 
 import { useMutation } from "@apollo/client";
 import { DELETE_WISHLISTS } from "@/graphql/mutations";
+import LoadingBox from "@/components/LoadingBox";
 
 interface Wishlist {
   id: string;
@@ -23,12 +24,14 @@ interface UserListsProps {
   wishlists: Wishlist[];
   onEdit: (listId: string) => void;
   onAddNewList: () => void;
+  isLoading?: boolean;
 }
 
 const UserLists: React.FC<UserListsProps> = ({
   wishlists,
   onEdit,
   onAddNewList,
+  isLoading = false,
 }) => {
   const t = useTranslations("UserLists");
   const [deleteWishlistMutation, { loading: deleteLoading, error: deleteError }] = useMutation(DELETE_WISHLISTS);
@@ -37,6 +40,17 @@ const UserLists: React.FC<UserListsProps> = ({
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedWishlist, setSelectedWishlist] = useState<Wishlist | null>(null);
   const [localWishlists, setLocalWishlists] = useState<Wishlist[]>(wishlists);
+
+  // Update localWishlists when wishlists prop changes
+  useEffect(() => {
+    console.log("UserLists received wishlists:", wishlists);
+    setLocalWishlists(wishlists);
+  }, [wishlists]);
+
+  // Log when localWishlists changes
+  useEffect(() => {
+    console.log("localWishlists updated:", localWishlists);
+  }, [localWishlists]);
 
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
@@ -94,43 +108,54 @@ const UserLists: React.FC<UserListsProps> = ({
       <hr className="border-t border-[#C6B8A2] mb-4" />
 
       {/* Lists */}
-      <ul className="space-y-4">
-        {localWishlists.map((wishlist) => (
-          <li
-            key={wishlist.id}
-            className="group flex items-center justify-between text-black text-sm px-4 py-2
-                      transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
-          >
-            <Link
-              href={`/dashboard/my-wishlists/${wishlist.id}`}
-              passHref
-              className="flex-grow font-semibold text-xl hover:underline"
+      {isLoading ? (
+        <div className="py-8">
+          <LoadingBox
+            imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+            imageAlt="Loading spinner"
+            imageClassName=""
+            containerClassName="h-[40vh]"
+          />
+        </div>
+      ) : (
+        <ul className="space-y-4">
+          {localWishlists.map((wishlist) => (
+            <li
+              key={wishlist.id}
+              className="group flex items-center justify-between text-black text-sm px-4 py-2
+                        transition-all duration-300 ease-in-out hover:shadow-lg rounded-xl"
             >
-              {wishlist.title}
-            </Link>
-            <div className="flex space-x-4">
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleOpenEditModal(wishlist);
-                }}
-                className="text-[#C6B8A2] hover:underline transition"
+              <Link
+                href={`/dashboard/my-wishlists/${wishlist.id}`}
+                passHref
+                className="flex-grow font-semibold text-xl hover:underline"
               >
-                {t("edit")}
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleOpenDeleteModal(wishlist);
-                }}
-                className="text-[#C6B8A2] hover:underline transition"
-              >
-                {t("delete")}
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+                {wishlist.title}
+              </Link>
+              <div className="flex space-x-4">
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleOpenEditModal(wishlist);
+                  }}
+                  className="text-[#C6B8A2] hover:underline transition"
+                >
+                  {t("edit")}
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleOpenDeleteModal(wishlist);
+                  }}
+                  className="text-[#C6B8A2] hover:underline transition"
+                >
+                  {t("delete")}
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
 
       {/* Add New Wishlist Button */}
       <div className="mt-2">

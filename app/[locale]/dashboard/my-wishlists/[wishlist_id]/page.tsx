@@ -20,6 +20,8 @@ import ProductCard3 from "@/components/cards/ProductCard3";
 import { useSession } from "next-auth/react";
 import GhostButton1 from "@/components/buttons/GhostButton1";
 import SolidButton1 from "@/components/buttons/SolidButton1";
+import dynamic from "next/dynamic";
+import EmptyWishlistCard from "@/components/cards/EmptyWishlistCard";
 
 interface Product {
   affiliate_link: string;
@@ -89,6 +91,11 @@ interface Wishlist {
   wishlist_items: WishlistItem[];
   shared_wishlists: SharedWishlists[];
 }
+
+const BackButtonWithNoSSR = dynamic(
+  () => import("@/components/buttons/BackButton"),
+  { ssr: false }
+);
 
 const PAGE_SIZE = 6; // Number of items to load per page
 
@@ -331,44 +338,49 @@ const WishlistDetails: React.FC = () => {
   }
 
   return (
-    <>
-      <div className=" my-8 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
-        <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between">
-          <div>
-            {!loadingDone ? (
-              <div className="animate-pulse">
-                <div className="h-8 w-48 bg-gray-200 rounded mb-2"></div>
-                <div className="h-6 w-32 bg-gray-200 rounded"></div>
-              </div>
-            ) : (
-              <>
-                <h1 className="heading2">{wishlistDetails?.title}</h1>
-                <h2 className="heading4">
-                  {(wishlistDetails?.type && wishlistDetails.type.length > 0) 
-                    ? wishlistDetails.type.charAt(0).toUpperCase() + wishlistDetails.type.slice(1)
-                    : ""}{" "}
-                  {t("list")}
-                </h2>
-              </>
-            )}
+    <>              
+      <div className=" mb-8 mt-4 pl-8 sm:pl-0 flex flex-col gap-4 w-full pb-24 sm:mb-0 h-fit">
+        <div className="flex flex-row md:flex-col justify-between md:justify-start gap-2">
+          <div className="mt-4 md:mt-0 ml-2 order-2 md:order-1 whitespace-nowrap ">
+            <BackButtonWithNoSSR />
           </div>
-          <div className="flex flex-col sm:hidden mb-2">
-            {!loadingDone ? (
-              <div className="animate-pulse">
-                <div className="h-4 w-64 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 w-32 bg-gray-200 rounded"></div>
-              </div>
-            ) : (
-              <>
-                <p>{wishlistDetails?.description}</p>
-                <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
-              </>
-            )}
-          </div>
-          <div className="flex flex-col xs:flex-row gap-2 sm:gap-4">
-            <GhostButton1 text={t("editWishlist")} onClick={handleEditWishlist} />
-            <GhostButton1 text={t("addProduct")} onClick={openOptionModal} />
-            <SolidButton1 text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
+          <div className="flex flex-col gap-1 sm:gap-4 lg:justify-between lg:flex-row justify-between md:order-2">
+            <div>
+              {!loadingDone ? (
+                <div className="animate-pulse">
+                  <div className="h-8 w-48 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-6 w-32 bg-gray-200 rounded"></div>
+                </div>
+              ) : (
+                <>
+                  <h1 className="heading2">{wishlistDetails?.title}</h1>
+                  <h2 className="heading4">
+                    {(wishlistDetails?.type && wishlistDetails.type.length > 0) 
+                      ? wishlistDetails.type.charAt(0).toUpperCase() + wishlistDetails.type.slice(1)
+                      : ""}{" "}
+                    {t("list")}
+                  </h2>
+                </>
+              )}
+            </div>
+            <div className="flex flex-col sm:hidden mb-2">
+              {!loadingDone ? (
+                <div className="animate-pulse">
+                  <div className="h-4 w-64 bg-gray-200 rounded mb-2"></div>
+                  <div className="h-4 w-32 bg-gray-200 rounded"></div>
+                </div>
+              ) : (
+                <>
+                  <p>{wishlistDetails?.description}</p>
+                  <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+                </>
+              )}
+            </div>
+            <div className="flex flex-col xs:flex-row gap-2 sm:gap-4">
+              <GhostButton1 text={t("editWishlist")} onClick={handleEditWishlist} />
+              <GhostButton1 text={t("addProduct")} onClick={openOptionModal} />
+              <SolidButton1 text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
+            </div>
           </div>
         </div>
         <div className="hidden sm:flex sm:flex-col">
@@ -395,8 +407,13 @@ const WishlistDetails: React.FC = () => {
             />
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-            {visibleItems.map((item) => {
+          <>
+            {visibleItems.length === 0 ? (
+              <div className="w-full px-20 flex justify-center py-12">
+                <EmptyWishlistCard onAddProductClick={openOptionModal} />
+              </div>
+            ) : (
+              visibleItems.map((item) => {
               const products = Array.isArray(item.products) ? item.products : [item.products];
               const product = products[0];
               const productId = product?.id;
@@ -405,21 +422,23 @@ const WishlistDetails: React.FC = () => {
               const externalProductId = externalProduct?.id;
               const productLink = product?.id ? `/dashboard/my-wishlists/${wishlist_id}/product/${productId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
               return (
-                <ProductCard3
-                  href={productLink}
-                  key={product?.id || externalProduct?.id}
-                  preList={product?.pre_list || ""}
-                  imageUrl={product?.image_url || externalProduct?.image_url || ""}
-                  name={product?.product_name || externalProduct?.product_name}
-                  price={product?.price || externalProduct?.price || 0}
-                  additionalDescription={product?.product_description || externalProduct?.product_description}
-                  brand={product?.brand || externalProduct?.brand}
-                  category={product?.category || externalProduct?.category}
-                  subcategory={product?.subcategory || ""}
-                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+                  <ProductCard3
+                    href={productLink}
+                    key={product?.id || externalProduct?.id}
+                    preList={product?.pre_list || ""}
+                    imageUrl={product?.image_url || externalProduct?.image_url || ""}
+                    name={product?.product_name || externalProduct?.product_name}
+                    price={product?.price || externalProduct?.price || 0}
+                    additionalDescription={product?.product_description || externalProduct?.product_description}
+                    brand={product?.brand || externalProduct?.brand}
+                    category={product?.category || externalProduct?.category}
+                    subcategory={product?.subcategory || ""}
+                  />
+                </div>
               );
-            })}
-          </div>
+            }))}
+          </>
         )}
 
         {loadingDone && hasMoreItems && (

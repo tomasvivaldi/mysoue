@@ -12,7 +12,7 @@ import { motion } from "framer-motion";
 import AddPrelistModal from "@/components/aline_design/modals/AddPrelistModal";
 import { ADD_WISHLIST, ADD_WISHLIST_ITEMS_BATCH } from "@/graphql/mutations";
 import { useSession } from "next-auth/react";
-import client from "@/apollo-client";
+import dynamic from "next/dynamic";
 
 interface Product {
   affiliate_link: string;
@@ -52,6 +52,11 @@ const mysoueListsPreListPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
+
+  const BackButtonWithNoSSR = dynamic(
+    () => import("@/components/buttons/BackButton"),
+    { ssr: false }
+  );
 
   useEffect(() => {
     const loadData = async () => {
@@ -173,33 +178,21 @@ const mysoueListsPreListPage = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="h-[80vh] flex items-center justify-center">
-        <LoadingBox
-          imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-          imageAlt="Loading spinner"
-          imageClassName=""
-          containerClassName="h-[80vh]"
-        />
-      </div>
-    );
-  }
-
   return (
     <>
       <Head>
         <title>{t("pageTitle") || "MySoue Wishlists"}</title>
       </Head>
-      <div className="container mx-auto px-4 mt-8 pb-24">
+      <div className="container mx-auto px-4 mt-4 pb-24">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="max-w-7xl mx-auto"
         >
-          <div className="mb-12">
-            <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+          <BackButtonWithNoSSR />
+          <div className="mb-12 mt-2">
+            <h1 className="text-4xl font-bold mb-2 py-2 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
               {t("mysoueLists") || "MySoue Wishlists"}
             </h1>
             <div className="flex items-center justify-between">
@@ -221,28 +214,38 @@ const mysoueListsPreListPage = () => {
             transition={{ delay: 0.2 }}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {visibleProducts.map((product, index) => {
-              const productId = product.id;
-              return (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                >
-                  <ProductCard3
-                    href={`/dashboard/explore/${productId}`}
-                    preList={pre_list}
-                    imageUrl={product?.image_url}
-                    name={product?.product_name}
-                    price={product?.price}
-                    additionalDescription={product?.product_description}
-                    brand={product?.brand}
-                  />
-                </motion.div>
-              );
-            })}
-            {visibleProducts.length === 0 && (
+            {loading ? (
+              <div className="col-span-full flex justify-center items-center py-24">
+                <LoadingBox
+                  imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+                  imageAlt="Loading spinner"
+                  imageClassName=""
+                  containerClassName=""
+                />
+              </div>
+            ) : visibleProducts.length > 0 ? (
+              visibleProducts.map((product, index) => {
+                const productId = product.id;
+                return (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <ProductCard3
+                      href={`/dashboard/explore/${productId}`}
+                      preList={pre_list}
+                      imageUrl={product?.image_url}
+                      name={product?.product_name}
+                      price={product?.price}
+                      additionalDescription={product?.product_description}
+                      brand={product?.brand}
+                    />
+                  </motion.div>
+                );
+              })
+            ) : (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}

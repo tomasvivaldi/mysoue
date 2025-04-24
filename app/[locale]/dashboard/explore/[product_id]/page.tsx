@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import SolidButton1 from "@/components/buttons/SolidButton1";
 import GhostButton1 from "@/components/buttons/GhostButton1";
+import dynamic from "next/dynamic";
 
 interface Product {
   affiliate_link: string;
@@ -94,6 +95,11 @@ const ProductDetails: React.FC = () => {
   const openWishlistSelectionModal = () => setIsWishlistSelectionModalOpen(true);
   const closeWishlistSelectionModal = () => setIsWishlistSelectionModalOpen(false);
 
+  const BackButtonWithNoSSR = dynamic(
+    () => import("@/components/buttons/BackButton"),
+    { ssr: false }
+  );
+
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -130,6 +136,9 @@ const ProductDetails: React.FC = () => {
 
   return (
     <div className="w-full pb-20">
+      <div className="mt-4">
+        <BackButtonWithNoSSR />
+      </div>
       <div className="mt-4  flex flex-col lg:flex-row items-center w-full gap-4">
         <Image
           alt="Product Image"

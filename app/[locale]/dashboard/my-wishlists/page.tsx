@@ -33,7 +33,7 @@ interface Wishlist {
   updated_at: string;
   user_id: string;
   id: string;
-  Wishlist_items: WishlistItem[];
+  wishlist_items: WishlistItem[];
 }
 
 interface UserById {
@@ -96,9 +96,13 @@ export default function MyWishlists() {
             });
             // Adjust this part to match the actual response structure
             const userDataById = idResponse.data.userDataById;
+            console.log("API Response:", idResponse.data);
+            console.log("userDataById:", userDataById);
+            
             if (userDataById) {
               setUserData(userDataById);
               console.log("userData set to: ", userDataById);
+              console.log("wishlists:", userDataById.wishlists);
 
               ////// Dispatch to redux /////////
 
@@ -119,15 +123,6 @@ export default function MyWishlists() {
     loadData();
   }, [user?.email]);
 
-  if (loading)    { 
-    return     <LoadingBox
-        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-        imageAlt="Loading spinner"
-        imageClassName=""
-        containerClassName="h-[80vh]"
-      />;
-    }
-
   return (
     <>
       <Head>
@@ -139,9 +134,9 @@ export default function MyWishlists() {
             wishlists={userData?.wishlists || []}
             onEdit={(id) => console.log(`Edit wishlist with id: ${id}`)}
             onAddNewList={() => console.log("Add a new wishlist")}
+            isLoading={loading}
           />
         </div>
-
       </div>
     </>
   );
