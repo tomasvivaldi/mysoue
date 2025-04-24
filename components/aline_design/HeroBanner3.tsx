@@ -46,7 +46,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
           </Link>
         </div>
 
-        <Link href="/" className="text-2xl font-serif text-white">
+        <Link href="/" className="text-2xl   text-white">
           {t("mysoue")}
         </Link>
 
@@ -63,7 +63,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
 
       {/* Hero Content */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <h1 className={`text-4xl font-serif tracking-wide text-center ${textColor}`}>
+        <h1 className={`text-4xl   tracking-wide text-center ${textColor}`}>
           {headingText} <span className="italic">{italicText}</span>
         </h1>
       </div>

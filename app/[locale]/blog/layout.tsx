@@ -53,7 +53,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* Center brand */}
-        <Link href="/" className="text-2xl font-serif text-white">
+        <Link href="/" className="text-2xl   text-white">
           {t("brand")}
         </Link>
 

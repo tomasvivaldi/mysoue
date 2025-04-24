@@ -66,7 +66,7 @@ const VideoBanner: React.FC<VideoBannerProps> = ({ locale }) => {
           href={`/${currentLocale || "en"}`}
           className="absolute left-1/2 -translate-x-1/2"
         >
-          <h1 className="text-2xl font-serif">{tNavbar("title")}</h1>
+          <h1 className="text-2xl  ">{tNavbar("title")}</h1>
         </Link>
 
         <div className="sm:flex gap-3 md:gap-8 hidden items-center">
@@ -88,13 +88,13 @@ const VideoBanner: React.FC<VideoBannerProps> = ({ locale }) => {
           <h2 className="text-5xl font-light tracking-wide">
             {tHero("gifting")}
           </h2>
-          <p className="text-5xl font-serif italic">
+          <p className="text-5xl   italic">
             {tHero("madeAuthentic")}
           </p>
         </div>
         <Link
           href={`/${currentLocale}/wishlist`}
-          className="block text-xl font-serif italic hover:opacity-80 w-fit px-8 py-1 rounded-full hover:bg-white hover:text-black"
+          className="block text-xl   italic hover:opacity-80 w-fit px-8 py-1 rounded-full hover:bg-white hover:text-black"
         >
           {tHero("wishlistCTA") || "create my wishlist"}
         </Link>

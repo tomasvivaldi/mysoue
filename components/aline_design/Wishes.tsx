@@ -10,7 +10,7 @@ export default function Wishes() {
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-12 my-12 flex flex-col gap-8 sm:gap-16">
-      <h1 className="text-center text-3xl sm:text-4xl md:text-5xl font-serif italic ">
+      <h1 className="text-center text-3xl sm:text-4xl md:text-5xl   italic  ">
         {t("pageTitle")}
       </h1>
 

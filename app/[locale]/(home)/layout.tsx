@@ -53,7 +53,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
 
         {/* Center brand */}
-        <Link href="/" className="text-2xl font-serif text-white">
+        <Link href="/" className="text-2xl   text-white">
           {t("brand")}
         </Link>
 

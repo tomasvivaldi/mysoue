@@ -89,7 +89,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </Link>
             </div>
 
-            <Link href="/" className="text-2xl font-serif text-white">
+            <Link href="/" className="text-2xl   text-white">
               Mysoue
             </Link>
 

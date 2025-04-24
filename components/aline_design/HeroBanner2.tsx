@@ -40,7 +40,7 @@ export default function HeroBanner2() {
           </Link>
         </div>
 
-        <Link href="/" className="text-2xl font-serif text-white">
+        <Link href="/" className="text-2xl   text-white">
           {t("mysoue")}
         </Link>
 
@@ -60,7 +60,7 @@ export default function HeroBanner2() {
       <div className="absolute bottom-[10%] left-10 z-10">
         {/* Use interpolation for the hero heading:
             heroHeading: "WISHLISTS ACCESSIBLE \n TO {emphasis}" */}
-        <h1 className="text-4xl font-serif tracking-wide whitespace-pre-line text-shadow">
+        <h1 className="text-4xl   tracking-wide whitespace-pre-line text-shadow">
           {t.rich("heroHeading", {
             emphasis: () => <span className="italic"></span>
           })}
@@ -69,7 +69,7 @@ export default function HeroBanner2() {
 
         <Link
           href="/start"
-          className="inline-block mt-6 px-8 py-3 text-lg font-serif italic bg-white text-[#800000] rounded-full shadow-md hover:shadow-lg transition-all"
+          className="inline-block mt-6 px-8 py-3 text-lg   italic bg-white text-[#800000] rounded-full shadow-md hover:shadow-lg transition-all"
         >
           {t("startNow")}
         </Link>

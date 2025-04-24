@@ -1,11 +1,181 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;500;600;700;800;900&display=swap");
+
+@font-face {
+  font-family: "Simple Michael";
+  src: url("/fonts/SimpleMichael.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bluewind";
+  src: url("/fonts/Bluewind.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Bluewind Font */
+@font-face {
+  font-family: "Bluewind";
+  src: url("/fonts/Bluewind/Bluewind.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Nunito Font Faces */
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-ExtraLight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-ExtraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-LightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nunito";
+  src: url("/fonts/Nunito/static/Nunito-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+/* Add more @font-face rules for other Nunito weights/styles as needed */
+
+/* Simple Michael Font */
+@font-face {
+  font-family: "Simple Michael";
+  src: url("/fonts/Simple Michael/Simple Michael.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Simple Michael";
+  src: url("/fonts/Simple Michael/Simple Michael Italic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+:root {
+  --font-heading: "Simple Michael", sans-serif;
+  --font-body: "Nunito", sans-serif;
+  --font-highlight: "Bluewind", sans-serif;
+}
+
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6, .heading1, .heading2, .heading3, .heading4 {
+  font-family: var(--font-heading);
+}
+
+.highlight-text {
+  font-family: var(--font-highlight);
+}
+
+.font-simple-michael {
+  font-family: var(--font-heading);
 }
 
 @layer utilities {
@@ -258,60 +428,6 @@
   background-image: url("/list-bg.png");
   background-size: cover;
   background-position: center;
-}
-
-/* Bluewind Font */
-@font-face {
-  font-family: "Bluewind";
-  src: url("/fonts/Bluewind/Bluewind.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* Nunito Font Faces */
-@font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito/static/Nunito-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito/static/Nunito-Italic.ttf") format("truetype");
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito/static/Nunito-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Nunito";
-  src: url("/fonts/Nunito/static/Nunito-BoldItalic.ttf") format("truetype");
-  font-weight: 700;
-  font-style: italic;
-}
-
-/* Add more @font-face rules for other Nunito weights/styles as needed */
-
-/* Simple Michael Font */
-@font-face {
-  font-family: "Simple Michael";
-  src: url("/fonts/Simple Michael/Simple Michael.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Simple Michael";
-  src: url("/fonts/Simple Michael/Simple Michael Italic.ttf") format("truetype");
-  font-weight: normal;
-  font-style: italic;
 }
 
 @keyframes scroll-left {

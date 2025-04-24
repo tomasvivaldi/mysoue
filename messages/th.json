@@ -614,6 +614,7 @@
     "browseAdditional": "คุณสามารถกลับไปดูรายการที่ต้องการของคุณหรือสำรวจสินค้าทั้งหมดได้โดยคลิกด้านล่าง",
     "addDetailsButton": "เพิ่มรายละเอียด",
     "viewOnWebsiteButton": "ดูบนเว็บไซต์",
+    "viewOnSharedWishlistButton": "ดูบนรายการที่แชร์",
     "additionalDetails": "รายละเอียดเพิ่มเติม",
     "deleteFromListButton": "ลบออกจากรายการ",
     "deleteProductTitle": "ลบสินค้า",

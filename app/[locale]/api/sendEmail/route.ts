@@ -5,7 +5,7 @@ import {
   sendWelcomeEmail, // OK
   sendPersonalInfoReminderEmail, //
   sendLostPasswordEmail, // OK
-  sendChangeInfoEmail, // (send email to when update user info AND password?)
+  sendChangeInfoEmail, // (send email to when update user info?) Necessary?
   sendListCreationEmail, // Necessary?
   sendListClosingEmail, // 
   sendGiftReservedEmail, // OK

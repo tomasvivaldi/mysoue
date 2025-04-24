@@ -24,7 +24,7 @@ export default function Founders() {
   return (
     <div className="bg-white py-8 md:py-12">
       {/* 3) Translate the "meet our founders" heading */}
-      <h2 className="text-center text-xl md:text-2xl font-serif text-neutral-800 mb-6 md:mb-8">
+      <h2 className="text-center text-xl md:text-2xl   text-neutral-800 mb-6 md:mb-8">
         {t("meetOurFounders")}
       </h2>
 

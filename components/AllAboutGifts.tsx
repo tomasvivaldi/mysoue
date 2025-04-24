@@ -24,7 +24,7 @@ const AllAboutGifts = () => {
         bgColor=""
         direction="left"
         speed="slow"
-        className="border border-b-[#B72228] border-t-[#B72228] mt-36 my-12 py-4 text-4xl tracking-[0.2em] font-inter"
+        className="border border-b-[#B72228] border-t-[#B72228] mt-36 my-12 py-4 text-4xl tracking-[0.2em]   "
       /> */}
       <div className=" my-8  w-full pb-12 flex justify-center">
         <SolidButton text="Register Now" href="/login" className="text-xl px-12 py-4" />
