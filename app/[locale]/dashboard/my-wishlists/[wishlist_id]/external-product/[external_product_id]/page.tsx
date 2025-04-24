@@ -323,6 +323,7 @@ const ExternalProductDetails: React.FC = () => {
                 <div className="mt-8 flex flex-col gap-4 w-full">
                   <SolidButton1 text={t("addDetailsButton")} onClick={handleUpdateDetails} />
                   <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails?.store_link} target="_blank" />
+                  <GhostButton1 text={t("viewOnSharedWishlistButton")} href={`${window.location.origin}/shared/${productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token}/external-product/${productDetails?.id}`} target="_blank" />
                   {updateError && <p className="text-red-500 mt-2">Error updating details.</p>}
                   {isProductReserved && (
                     <span className="text-xl px-4 font-semibold mx-auto text-primary">
