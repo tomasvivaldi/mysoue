@@ -647,7 +647,7 @@
   },
   "Dashboard-MyGifts": {
     "myGifts": "ของขวัญของฉัน",
-    "noWishlistsFound": "ไม่พบวิชลิสต์",
+    "noWishlistsFound": "ไม่พบรายการของขวัญ",
     "sharedWishlists": "วิชลิสต์ที่แชร์",
     "reserved": "ถูกจองแล้ว",
     "purchased": "ซื้อแล้ว",
@@ -662,7 +662,9 @@
     "loadMore": "โหลดเพิ่มเติม",
     "noSharedWishlistsButPrivate": "คุณมีวิชลิสต์ส่วนตัว แต่ยังไม่มีรายการใดที่แชร์",
     "noSharedWishlists": "ไม่มีวิชลิสต์ที่แชร์แสดง",
-    "myPrivateWishlists": "วิชลิสต์ส่วนตัวของฉัน"
+    "myPrivateWishlists": "วิชลิสต์ส่วนตัวของฉัน",
+    "createWishlistToStart": "สร้างรายการของขวัญเพื่อเริ่มติดตามของขวัญของคุณ",
+    "createWishlist": "สร้างรายการของขวัญ"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",

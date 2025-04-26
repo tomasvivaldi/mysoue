@@ -12,6 +12,7 @@ import ProductCard2 from "@/components/cards/ProductCard2";
 import SolidButton1 from "@/components/buttons/SolidButton1";
 import SolidButton2 from "@/components/buttons/SolidButton2";
 import GhostButton1 from "@/components/buttons/GhostButton1";
+import EmptyGiftsCard from "@/components/cards/EmptyGiftsCard";
 
 // --- Interfaces (keep as they are) ---
 // Product, WishlistItem, ExternalProduct, ReservedGifts, Wishlist, SharedWishlists, UserById
@@ -144,8 +145,8 @@ const MyGifts: React.FC = () => {
   // --- Data Fetching useEffect ---
   useEffect(() => {
     const loadUserWishlists = async () => {
-      // Keep setLoading(true) if re-fetching is possible, otherwise remove if only runs once
-      // setLoading(true); // Set loading true when fetch starts
+      setLoading(true); // Set loading true when fetch starts
+      console.log("Loading is true"); // Debug log
       const userEmail = user?.email;
 
       if (userEmail) {
@@ -168,7 +169,6 @@ const MyGifts: React.FC = () => {
             const userData = idResponse.data.userDataById as UserById;
             const wishlistsData = userData?.wishlists || [];
             console.log("Fetched wishlists data:", wishlistsData); // Debug log
-            // SET THE CORRECT STATE VARIABLE FOR useMemo
             setAllWishlists(wishlistsData);
           } else {
             console.error("User ID not found for email:", userEmail);
@@ -177,14 +177,13 @@ const MyGifts: React.FC = () => {
         } catch (error) {
           console.error("Failed to fetch user data:", error);
           setAllWishlists([]); // Set empty on error
-        } finally {
-          setLoading(false); // Set loading false when fetch ends
         }
       } else {
         console.log("No user email found, skipping data fetch.");
         setAllWishlists([]); // Set empty if no user
-        setLoading(false); // Also set loading false here
       }
+      setLoading(false);
+      console.log("Loading is false"); // Set loading false when fetch ends
     };
 
     loadUserWishlists();
@@ -457,7 +456,14 @@ const MyGifts: React.FC = () => {
       <div className="mb-12">
         <h2 className="text-xl font-semibold mb-4 px-8">{t("sharedWishlists")}</h2>
         {/* Shared Wishlists Section */}
-        {sharedWishlists?.length !== 0 ? (
+        {loading ? (
+          <LoadingBox
+            imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
+            imageAlt="Loading spinner"
+            imageClassName=""
+            containerClassName="h-[30vh]"
+          />
+        ) : !loading && sharedWishlists.length > 0 ? (
           <div className="flex flex-col gap-6 px-2 sm:px-8 mb-16">
             {sharedWishlists.map((wishlist) => {
               // Determine if subsections are expanded (default to true if not set)
@@ -559,14 +565,12 @@ const MyGifts: React.FC = () => {
               </div> // End wishlist card
             )})}
           </div>
-      ):(<LoadingBox
-        imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
-        imageAlt="Loading spinner"
-        imageClassName=""
-        containerClassName="h-[30vh]"
-      />)
-      }
-    </div>
+      ):(
+        <div className="px-8">
+          <EmptyGiftsCard />
+        </div>
+      )}
+      </div>
 
       {/* Empty State Messages (remain the same) */}
        {!loading && sharedWishlists.length === 0 && nonSharedWishlists.length > 0 && ( <p className="text-center text-gray-600 px-8">{t("noSharedWishlistsButPrivate")}</p> )}

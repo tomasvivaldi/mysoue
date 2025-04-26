@@ -650,7 +650,9 @@
   },
   "Dashboard-MyGifts": {
     "myGifts": "My Gifts",
-    "noWishlistsFound": "No wishlists found.",
+    "noWishlistsFound": "No Wishlists Found",
+    "createWishlistToStart": "Create a wishlist to start tracking your gifts",
+    "createWishlist": "Create Wishlist",
     "sharedWishlists": "Shared Wishlists",
     "reserved": "reserved",
     "purchased": "purchased",
