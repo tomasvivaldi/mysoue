@@ -1,24 +1,41 @@
-import createMiddleware from "next-intl/middleware";
+import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
+import createIntlMiddleware from "next-intl/middleware";
+import type { NextRequest } from "next/server";
 
-export default createMiddleware({
-  // All locales that you support
-  locales: ["en", "th"],
+const locales = ["en", "th"];
+const defaultLocale = "en";
 
-  // The default locale if there's no locale in the path
-  defaultLocale: "en"
+const intlMiddleware = createIntlMiddleware({
+  locales,
+  defaultLocale,
 });
 
+export async function middleware(request: NextRequest) {
+  const isDashboard = request.nextUrl.pathname.includes("/dashboard");
+  
+  if (isDashboard) {
+    const token = await getToken({ req: request });
+    
+    if (!token) {
+      // Extract locale from the current URL
+      const locale = request.nextUrl.pathname.split('/')[1];
+      const isLocaleValid = locales.includes(locale);
+      const redirectLocale = isLocaleValid ? locale : defaultLocale;
+      
+      return NextResponse.redirect(new URL(`/${redirectLocale}/login`, request.url));
+    }
+  }
+  
+  return intlMiddleware(request);
+}
+
 export const config = {
-  // You can tailor these matchers to your routes.
   matcher: [
-    // 1) Match the homepage and redirect it (or rewrite) to /en or /th
     "/",
-
-    // 2) Match sub-paths that already include /en or /th
     "/(en|th)/:path*",
-
-    // 3) Enable redirects that add missing locales 
-    //    (e.g. /about -> /en/about if "en" is default)
-    "/((?!_next|_vercel|.*\\..*).*)"
-  ]
+    "/((?!_next|_vercel|.*\\..*).*)",
+    "/dashboard/:path*",
+    "/:locale/dashboard/:path*",
+  ],
 };

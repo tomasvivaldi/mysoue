@@ -2,8 +2,11 @@ import ".././globals.css";
 import type { Metadata } from "next";
 import { ApolloWrapper } from "../../lib/apolloWrapper";
 import AuthProvider from "../../context/AuthProvider";
-import { NextIntlClientProvider, useTranslations } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "My Soue",
@@ -24,17 +27,17 @@ const RootLayout: React.FC<RootLayoutProps> = async ({
   const messages = await getMessages({ locale });
 
   return (
-    <ApolloWrapper>
-      <AuthProvider session={session}>
-        <html lang={locale}>
-          <body className="min-h-screen bg-[#fbf9f4]  ">
-            <NextIntlClientProvider messages={messages}>
+    <html lang={locale}>
+      <body className={`${inter.className} min-h-screen bg-[#fbf9f4]`}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <AuthProvider session={session}>
+            <ApolloWrapper>
               {children}
-            </NextIntlClientProvider>
-          </body>
-        </html>
-      </AuthProvider>
-    </ApolloWrapper>
+            </ApolloWrapper>
+          </AuthProvider>
+        </NextIntlClientProvider>
+      </body>
+    </html>
   );
 };
 
