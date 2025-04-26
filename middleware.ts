@@ -67,8 +67,8 @@ const securityHeaders = {
 // Rate limiting configuration
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
-const MAX_REQUESTS = 100;
-const API_MAX_REQUESTS = 50; // Lower limit for API routes
+const MAX_REQUESTS = 1000;
+const API_MAX_REQUESTS = 500; // Lower limit for API routes
 
 function checkRateLimit(ip: string, isApiRoute: boolean): boolean {
   const now = Date.now();

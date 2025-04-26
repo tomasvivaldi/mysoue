@@ -151,6 +151,16 @@ const SharedWishlistPage = () => {
     return <p className="text-center text-gray-500">{t("wishlistNotFound")}</p>;
   }
 
+  const wishlistDueDate = wishlist.due_date;
+  const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+  const readableDueDate = wishlistDueDate
+    ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : t("none");
+
   return (
     <div className="w-full max-w-4xl mx-auto my-8 px-6">
       {/* Wishlist Details */}
@@ -166,16 +176,23 @@ const SharedWishlistPage = () => {
         <p className="text-gray-600 mb-4">{wishlist.description}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {wishlist.due_date && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2">{t("dueDate")}:</h2>
-              <p className="text-gray-600">
-                {new Date(wishlist.due_date).toLocaleDateString()}
-              </p>
+            <div className="flex flex-col items-start gap-1">
+              <h2 className="text-lg font-semibold">{t("dueDate")}:</h2>
+              <div className="flex flex-col md:flex-row items-center">
+                <p className="text-gray-600">
+                  {new Date(wishlist.due_date).toLocaleDateString()}
+                </p>
+                {isDueDatePassed && (
+                  <span className="ml-2 text-red-500 font-medium">
+                    ({t("pastDue")})
+                  </span>
+                )}
+              </div>
             </div>
           )}
           {wishlist.require_address && wishlist.address && (
-            <div>
-              <h2 className="text-lg font-semibold mb-2">
+            <div className="flex flex-col items-start gap-1">
+              <h2 className="text-lg font-semibold">
                 {t("shippingAddress")}:
               </h2>
               <p className="text-gray-600">{wishlist.address}</p>

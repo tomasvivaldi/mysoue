@@ -189,6 +189,16 @@ const ProductDetails: React.FC = () => {
     loadData();
   }, [productId]);
 
+  const wishlistDueDate = productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.due_date;
+  const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+  const readableDueDate = wishlistDueDate
+    ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : t("none");
+
   if (loading)
     return (
       <LoadingBox
@@ -227,6 +237,16 @@ const ProductDetails: React.FC = () => {
             {productDetails?.product_description}
           </p>
           <div className="my-2 flex flex-col w-full gap-2">
+            <div className=" flex flex-col gap-4 w-full">
+              <p className={`text-sm ${isDueDatePassed ? 'text-red-500' : 'text-gray-600'}`}>
+                {t("dueDate")}: {readableDueDate}
+                {isDueDatePassed && (
+                  <span className="ml-2 text-red-500 font-medium">
+                    ({t("pastDue")})
+                  </span>
+                )}
+              </p>
+            </div>
             <h2 className="text-2xl font-bold">{t("additionalDetails")}</h2>
             <p className="text-base text-gray-700">
               {productDetails?.wishlist_items?.[0]?.additional_description || <span className=" text-gray-500 ml-4 text-sm font-light"> -No additional details added for this product</span>}

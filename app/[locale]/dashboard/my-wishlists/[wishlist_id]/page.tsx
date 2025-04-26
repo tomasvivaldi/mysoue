@@ -192,6 +192,10 @@ const WishlistDetails: React.FC = () => {
       })
     : t("none");
 
+  const isDueDatePassed = wishlistDetails?.due_date
+    ? new Date(wishlistDetails.due_date) < new Date()
+    : false;
+
   const handleGenerateShareLink = async (id: string) => {
     if (!wishlistDetails) return;    
     // Generate a new share token only if no existing one is found
@@ -372,14 +376,33 @@ const WishlistDetails: React.FC = () => {
               ) : (
                 <>
                   <p>{wishlistDetails?.description}</p>
-                  <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+                  <p className={`text-sm ${isDueDatePassed ? 'text-red-500' : 'text-gray-600'}`}>
+                    {t("dueDate")}: {readableDueDate}
+                    {isDueDatePassed && (
+                      <span className="ml-2 text-red-500 font-medium">
+                        ({t("pastDue")})
+                      </span>
+                    )}
+                  </p>
                 </>
               )}
             </div>
             <div className="flex flex-col xs:flex-row gap-2 sm:gap-4">
-              <GhostButton1 text={t("editWishlist")} onClick={handleEditWishlist} />
-              <GhostButton1 text={t("addProduct")} onClick={openOptionModal} />
-              <SolidButton1 text={t("shareList")} onClick={() => setIsShareModalOpen(true)} />
+              <GhostButton1 
+                text={t("editWishlist")} 
+                onClick={handleEditWishlist} 
+                disabled={loading || !loadingDone}
+              />
+              <GhostButton1 
+                text={t("addProduct")} 
+                onClick={openOptionModal} 
+                disabled={loading || !loadingDone}
+              />
+              <SolidButton1 
+                text={t("shareList")} 
+                onClick={() => setIsShareModalOpen(true)} 
+                disabled={loading || !loadingDone}
+              />
             </div>
           </div>
         </div>
@@ -392,7 +415,14 @@ const WishlistDetails: React.FC = () => {
           ) : (
             <>
               <p>{wishlistDetails?.description}</p>
-              <p className="text-sm">{t("dueDate")}: {readableDueDate}</p>
+              <p className={`text-sm ${isDueDatePassed ? 'text-red-500' : 'text-gray-600'}`}>
+                {t("dueDate")}: {readableDueDate}
+                {isDueDatePassed && (
+                  <span className="ml-2 text-red-500 font-medium">
+                    ({t("pastDue")})
+                  </span>
+                )}
+              </p>
             </>
           )}
         </div>
@@ -449,14 +479,14 @@ const WishlistDetails: React.FC = () => {
         {loadingDone && hasMoreItems && (
           <button
             onClick={handleLoadMore}
-            disabled={!hasMoreItems}
+            disabled={!hasMoreItems || loading}
             className={`mt-4 px-4 py-2 rounded-full ${
-              hasMoreItems
+              hasMoreItems && !loading
                 ? "bg-[#A5282C] text-white hover:bg-[#C64138] transition"
                 : "bg-gray-200 text-gray-500 cursor-not-allowed"
             }`}
           >
-            {hasMoreItems ? t("loadMore") : t("noMoreItems")}
+            {loading ? t("loading") : hasMoreItems ? t("loadMore") : t("noMoreItems")}
           </button>
         )}
 

@@ -113,7 +113,8 @@
     "unnamedProduct": "Unnamed Product",
     "noDescription": "No description",
     "loadMore": "Load More",
-    "noMoreItems": "No More Items"
+    "noMoreItems": "No More Items",
+    "pastDue": "Past due date"
   },
   "EditAccountInfo": {
     "editYourInfo": "EDIT YOUR INFO",
@@ -171,7 +172,9 @@
   },
   "Shared-Wishlists-ProductPage": {
     "productNotFound": "Product not found",
-    "additionalDetails": "Additional Details"
+    "additionalDetails": "Additional Details",
+    "dueDate": "Due Date",
+    "pastDue": "Past due date"
   },
   "ReserveGiftModal": {
     "modalTitle": "RESERVE GIFT",
@@ -626,6 +629,7 @@
     "deleteConfirmation": "Are you sure you want to delete {productName}? This action cannot be undone.",
     "wishlistSharedMessage": "- This wishlist is currently being shared -",
     "productReservedMessage": "- This product is already reserved -",
+    "productAvailableForReservation": "- This product is on a shared wishlist and available for reservation -",
     "deleteButton": "DELETE",
     "deletingButton": "Deleting...",
     "cancelButton": "CANCEL",
@@ -646,7 +650,9 @@
     },
     "finalDeleteConfirmationTitle": "Final Confirmation",
     "reservedProductDeleteWarning": "The product {productName} is currently being {status}. Are you sure you want to delete it? {reserverName} will be notified that the product is being deleted.",
-    "confirmDeleteButton": "Yes, Delete"
+    "confirmDeleteButton": "Yes, Delete",
+    "pastDue": "Past due date",
+    "dueDate": "Due Date"
   },
   "Dashboard-MyGifts": {
     "myGifts": "My Gifts",
@@ -667,7 +673,9 @@
     "loadMore": "Load More",
     "noSharedWishlistsButPrivate": "You have private wishlists, but none are currently shared.",
     "noSharedWishlists": "No shared wishlists to display.",
-    "myPrivateWishlists": "My Private Wishlists"
+    "myPrivateWishlists": "My Private Wishlists",
+    "pastDue": "Past due date",
+    "dueDate": "Due Date"
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "Product not found",
@@ -791,6 +799,8 @@
     "title": "Title",
     "description": "Description",
     "dueDate": "Due Date",
+    "currentDueDate": "Current Due Date",
+    "dueDatePassed": "This due date has already passed",
     "requireAddress": "Require Address",
     "address": "Address",
     "type": "Type",

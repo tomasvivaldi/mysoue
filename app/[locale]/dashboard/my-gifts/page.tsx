@@ -120,6 +120,7 @@ type OrganizedWishlist = {
   purchased: WishlistItem[];
   unreserved: WishlistItem[];
   shared_wishlists: SharedWishlists[];
+  due_date: string;
 };
 
 interface UserWithProvider extends User {
@@ -227,6 +228,7 @@ const MyGifts: React.FC = () => {
       const wishlistData: OrganizedWishlist = {
         id: wishlist.id,
         title: wishlist.title,
+        due_date: wishlist.due_date,
         reserved: reservedProducts,
         purchased: purchasedProducts,
         unreserved: unreservedProducts,
@@ -386,9 +388,8 @@ const MyGifts: React.FC = () => {
     handleLoadMore: () => void,
     totalCount: number,
     sectionType: 'reserved' | 'purchased' | 'unreserved',
-    wishlist: OrganizedWishlist // Keep for context if needed (e.g., shareToken)
+    wishlist: OrganizedWishlist
   ) => {
-
     // Show message if no items even if section is expanded
     if (items.length === 0) {
         return <p className="text-gray-500 px-4 pb-4">
@@ -397,35 +398,54 @@ const MyGifts: React.FC = () => {
            t('noUnreservedGifts')}
         </p>;
     }
+
+    const wishlistDueDate = items[0]?.wishlists?.[0]?.due_date;
+    const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+    const readableDueDate = wishlistDueDate
+      ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : t("none");
+
     return (
       <div className="p-4 bg-white"> {/* Added padding here */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4 gap-4">
           {items.slice(0, visibleCount).map((wishlistItem) => {
-             // Data fallback logic (assuming external_products is an array)
-             const wishlist_id = wishlistItem?.wishlist_id
-             const internalProduct = wishlistItem.products;
-             const externalProducts = wishlistItem?.external_products;
-             const primaryExternalProduct = externalProducts;
+            const wishlistDueDate = wishlistItem?.wishlists?.[0]?.due_date;
+            const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+            const readableDueDate = wishlistDueDate
+              ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })
+              : t("none");
 
-             const internalProductId = internalProduct?.id;
-             const externalProductId = primaryExternalProduct?.id; // Corrected ID access
-             const linkId = internalProductId || externalProductId;
+            // Data fallback logic (assuming external_products is an array)
+            const wishlist_id = wishlistItem?.wishlist_id
+            const internalProduct = wishlistItem.products;
+            const externalProducts = wishlistItem?.external_products;
+            const primaryExternalProduct = externalProducts;
 
-             if (!linkId) return null; // Skip if no ID
+            const internalProductId = internalProduct?.id;
+            const externalProductId = primaryExternalProduct?.id;
+            const linkId = internalProductId || externalProductId;
 
-             // Construct href (using different paths example)
-             const productLink = internalProductId ? `/dashboard/my-wishlists/${wishlist_id}/product/${internalProductId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
+            if (!linkId) return null;
+
+            const productLink = internalProductId ? `/dashboard/my-wishlists/${wishlist_id}/product/${internalProductId}`: `/dashboard/my-wishlists/${wishlist_id}/external-product/${externalProductId}`;
 
             return (
-              <ProductCard2
-                key={wishlistItem.id}
-                href={productLink}
-                imageUrl={internalProduct?.image_url || primaryExternalProduct?.image_url || "/create1.png"}
-                name={internalProduct?.product_name || primaryExternalProduct?.product_name || t('productNameMissing')}
-                price={internalProduct?.price ?? primaryExternalProduct?.price ?? 0}
-                additionalDescription={internalProduct?.product_description || primaryExternalProduct?.product_description || ""}
-                status={sectionType}
-              />
+                <ProductCard2
+                  href={productLink}
+                  imageUrl={internalProduct?.image_url || primaryExternalProduct?.image_url || "/create1.png"}
+                  name={internalProduct?.product_name || primaryExternalProduct?.product_name || t('productNameMissing')}
+                  price={internalProduct?.price ?? primaryExternalProduct?.price ?? 0}
+                  additionalDescription={internalProduct?.product_description || primaryExternalProduct?.product_description || ""}
+                  status={sectionType}
+                />
             );
           })}
         </div>
@@ -464,24 +484,49 @@ const MyGifts: React.FC = () => {
             containerClassName="h-[30vh]"
           />
         ) : !loading && sharedWishlists.length > 0 ? (
-          <div className="flex flex-col gap-6 px-2 sm:px-8 mb-16">
+          <div className="flex flex-col gap-6 sm:px-8 mb-16">
             {sharedWishlists.map((wishlist) => {
               // Determine if subsections are expanded (default to true if not set)
               const isPurchasedExpanded = expandedSubSections[wishlist.id]?.purchased ?? true;
               const isReservedExpanded = expandedSubSections[wishlist.id]?.reserved ?? true;
               const isUnreservedExpanded = expandedSubSections[wishlist.id]?.unreserved ?? true;
 
+              const wishlistDueDate = wishlist.due_date;
+              const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+              const readableDueDate = wishlistDueDate
+                ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                : t("none");
+
               return (
               <div key={wishlist.id} className=" rounded-lg overflow-hidden shadow-lg border border-gray-200">
                 {/* Collapsible Header for the WHOLE Wishlist */}
                  <div
-                     className={`flex justify-between items-center p-4 cursor-pointer hover:bg-primary/90 hover:text-white duration-300 transition-colors ${expandedWishlists[wishlist.id] ? "bg-primary text-white" : "bg-gray-100" }`}
+                     className={`group flex justify-between items-center p-4 cursor-pointer hover:bg-primary/90 hover:text-white duration-300 transition-colors ${expandedWishlists[wishlist.id] ? "bg-primary text-white" : "bg-gray-100" }`}
                      onClick={() => toggleWishlist(wishlist.id)}
                  >
                      {/* ... Wishlist Title and Counts ... */}
-                     <div className="flex items-center gap-4">
-                         <h2 className="text-xl font-bold">{wishlist.title}</h2>
-                         <span className="text-sm opacity-80">({wishlist.purchased.length} {t('purchased')}, {wishlist.reserved.length} {t('reserved')}, {wishlist.unreserved.length} {t('unreserved')})</span>
+                     <div className="flex flex-col gap-1">
+                         <div className="flex flex-col md:flex-row items-start md:items-center gap-1 md:gap-4">
+                             <h2 className="text-xl font-bold">{wishlist.title}</h2>
+                             {wishlistDueDate && (
+                              <div className={`flex flex-row gap-1 md:flex-col items-start text-sm ${isDueDatePassed ? 'text-red-500 group-hover:text-red-200' : 'text-gray-600 group-hover:text-gray-600'} ${expandedWishlists[wishlist.id] ? "text-red-200" : "" }`}>
+                               {isDueDatePassed && (
+                                  <p >
+                                    {t("pastDue")}
+                                  </p>
+                                )}
+                               <p >
+                                 ({readableDueDate})
+                               </p>
+                               
+                              </div>
+                             )}
+                             <span className="text-sm opacity-80">({wishlist.purchased.length} {t('purchased')}, {wishlist.reserved.length} {t('reserved')}, {wishlist.unreserved.length} {t('unreserved')})</span>
+                         </div>
                      </div>
                      {/* Main Chevron */}
                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-5 h-5 transition-transform duration-300 ${expandedWishlists[wishlist.id] ? "rotate-180" : ""}`}><path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>

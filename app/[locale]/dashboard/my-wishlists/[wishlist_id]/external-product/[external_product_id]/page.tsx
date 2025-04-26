@@ -277,6 +277,15 @@ const ExternalProductDetails: React.FC = () => {
     const isWishlistShared = Boolean(firstWishlistItem?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token);
     const isProductReserved = Boolean(firstWishlistItem?.reserved_gifts?.length);
     const reservedGiftStatus = firstWishlistItem?.reserved_gifts?.[0]?.status || "reserved/purchased";
+    const wishlistDueDate = firstWishlistItem?.wishlists?.[0]?.due_date;
+    const isDueDatePassed = wishlistDueDate ? new Date(wishlistDueDate) < new Date() : false;
+    const readableDueDate = wishlistDueDate
+      ? new Date(wishlistDueDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })
+      : t("none");
   
     const src = productDetails?.image_url || "/create1.png"
     return (
@@ -317,7 +326,10 @@ const ExternalProductDetails: React.FC = () => {
                 height={400}
               />
               <div className="w-full lg:w-1/2 px-4 md:px-0 flex flex-col mb-auto mt-12">
-                <h1 className="text-3xl font-bold">{productDetails?.product_name}</h1>
+                <div className="flex flex-col gap-2">
+                  <h1 className="heading2">{productDetails?.product_name}</h1>
+                  <p className="text-gray-600">{productDetails?.product_description}</p>
+                </div>
                 <p className="mt-2 text-xl font-light">
                   {productDetails?.price?.toFixed(2)} THB
                 </p>
@@ -325,19 +337,51 @@ const ExternalProductDetails: React.FC = () => {
                   {productDetails?.product_description}
                 </p>
                 <div className="mt-8 flex flex-col gap-4 w-full">
-                  <SolidButton1 text={t("addDetailsButton")} onClick={handleUpdateDetails} />
-                  <GhostButton1 text={t("viewOnWebsiteButton")} href={productDetails?.store_link} target="_blank" />
-                  <GhostButton1 text={t("viewOnSharedWishlistButton")} href={`${window.location.origin}/shared/${productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token}/external-product/${productDetails?.id}`} target="_blank" />
+                  <SolidButton1 
+                    text={t("addDetailsButton")} 
+                    onClick={handleUpdateDetails} 
+                    disabled={loading || updateLoading}
+                  />
+                  <GhostButton1 
+                    text={t("viewOnWebsiteButton")} 
+                    href={productDetails?.store_link} 
+                    target="_blank"
+                    disabled={loading}
+                  />
+                  <GhostButton1 
+                    text={t("viewOnSharedWishlistButton")} 
+                    href={`${window.location.origin}/shared/${productDetails?.wishlist_items?.[0]?.wishlists?.[0]?.shared_wishlists?.[0]?.share_token}/external-product/${productDetails?.id}`} 
+                    target="_blank"
+                    disabled={loading}
+                  />
                   {updateError && <p className="text-red-500 mt-2">Error updating details.</p>}
-                  {isProductReserved && (
+                  {isProductReserved && (<>
+                    <p className={`text-sm ${isDueDatePassed ? 'text-red-500' : 'text-gray-600'}`}>
+                      {t("dueDate")}: {readableDueDate}
+                      {isDueDatePassed && (
+                        <span className="ml-2 text-red-500 font-medium">
+                          ({t("pastDue")})
+                        </span>
+                      )}
+                    </p>
                     <span className="text-xl px-4 font-semibold mx-auto text-primary">
-                      - This product is already reserved -
+                      {t("productReservedMessage")}
                     </span>
+                  </>
                   )}
-                  {isWishlistShared && !isProductReserved && (
+                  {isWishlistShared && !isProductReserved && (<>
+                      <p className={`text-sm ${isDueDatePassed ? 'text-red-500' : 'text-gray-600'}`}>
+                      {t("dueDate")}: {readableDueDate}
+                      {isDueDatePassed && (
+                        <span className="ml-2 text-red-500 font-medium">
+                          ({t("pastDue")})
+                        </span>
+                      )}
+                    </p>
                     <span className="text-lg px-4 font-semibold mx-auto text-gray-700">
-                      - This product is on a shared wishlist and available for reservation -
+                      {t("productAvailableForReservation")}
                     </span>
+                    </>
                   )}
                 </div>
                 {/* Reservation Details Section */}
@@ -363,7 +407,11 @@ const ExternalProductDetails: React.FC = () => {
                 </p>
               )}
               <div className="lg:px-4 py-2 self-start lg:self-end">
-                <SolidButton2 text={t("deleteFromListButton")} onClick={openModal} />
+                <SolidButton2 
+                  text={t("deleteFromListButton")} 
+                  onClick={openModal} 
+                  disabled={loading || deletionLoading}
+                />
               </div>
             </div>
           </>

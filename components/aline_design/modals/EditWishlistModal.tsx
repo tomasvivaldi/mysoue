@@ -43,13 +43,23 @@ const EditWishlistModal: React.FC<EditWishlistModalProps> = ({
     type: "",
   });
 
+  // Check if due date has passed
+  const isDueDatePassed = formData.due_date ? new Date(formData.due_date) < new Date() : false;
+
+  // Format date for input field
+  const formatDateForInput = (dateString: string) => {
+    if (!dateString) return "";
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0];
+  };
+
   // Update form data when wishlist changes
   useEffect(() => {
     if (wishlist) {
       setFormData({
         title: wishlist.title || "",
         description: wishlist.description || "",
-        due_date: wishlist.due_date || "",
+        due_date: formatDateForInput(wishlist.due_date || ""),
         require_address: wishlist.require_address || false,
         address: wishlist.address || "",
         type: wishlist.type || "",
@@ -121,14 +131,25 @@ const EditWishlistModal: React.FC<EditWishlistModalProps> = ({
             <label className="block text-sm font-medium text-gray-700">
               {t("dueDate")}
             </label>
-            <input
-              type="date"
-              value={formData.due_date}
-              onChange={(e) =>
-                setFormData({ ...formData, due_date: e.target.value })
-              }
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#C6B8A2] focus:ring-[#C6B8A2]"
-            />
+            <div className="mt-1">
+              <input
+                type="date"
+                value={formData.due_date}
+                onChange={(e) =>
+                  setFormData({ ...formData, due_date: e.target.value })
+                }
+                className="block w-full rounded-md border-gray-300 shadow-sm focus:border-[#C6B8A2] focus:ring-[#C6B8A2]"
+              />
+              {formData.due_date && (
+                <div className="mt-2">
+                  {isDueDatePassed && (
+                    <p className="text-sm text-red-600 mt-1">
+                      {t("dueDatePassed")}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex items-center">

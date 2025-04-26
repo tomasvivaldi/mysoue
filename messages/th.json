@@ -110,7 +110,8 @@
     "unnamedProduct": "ไม่มีชื่อสินค้า",
     "noDescription": "ไม่มีคำอธิบาย",
     "loadMore": "โหลดเพิ่มเติม",
-    "noMoreItems": "ไม่มีสินค้าเพิ่มเติม"
+    "noMoreItems": "ไม่มีสินค้าเพิ่มเติม",
+    "pastDue": "วันครบกำหนดผ่าน"
   },
   "EditAccountInfo": {
     "editYourInfo": "แก้ไขข้อมูลของคุณ",
@@ -206,7 +207,9 @@
   },
   "Shared-Wishlists-ProductPage": {
     "productNotFound": "ไม่พบผลิตภัณฑ์",
-    "additionalDetails": "รายละเอียดเพิ่มเติม"
+    "additionalDetails": "รายละเอียดเพิ่มเติม",
+    "dueDate": "วันครบกำหนด",
+    "pastDue": "วันครบกำหนดผ่าน"
   },
   "ReserveGiftModal": {
     "modalTitle": "จองของขวัญ",
@@ -623,6 +626,7 @@
     "deleteConfirmation": "คุณแน่ใจหรือไม่ที่จะลบ {productName}? การกระทำนี้ไม่สามารถยกเลิกได้",
     "wishlistSharedMessage": "- รายการที่ต้องการนี้กำลังถูกแชร์อยู่ -",
     "productReservedMessage": "- สินค้านี้ถูกจองแล้ว -",
+    "productAvailableForReservation": "- สินค้านี้อยู่ในรายการที่แชร์และพร้อมสำหรับการจอง -",
     "deleteButton": "ลบ",
     "deletingButton": "กำลังลบ...",
     "cancelButton": "ยกเลิก",
@@ -643,7 +647,9 @@
     },
     "finalDeleteConfirmationTitle": "การยืนยันขั้นสุดท้าย",
     "reservedProductDeleteWarning": "สินค้า {productName} กำลังอยู่ในสถานะ {status} คุณแน่ใจหรือไม่ที่จะลบ? {reserverName} จะได้รับการแจ้งเตือนว่าสินค้ากำลังถูกลบ",
-    "confirmDeleteButton": "ใช่ ลบเลย"
+    "confirmDeleteButton": "ใช่ ลบเลย",
+    "pastDue": "วันครบกำหนดผ่าน",
+    "dueDate": "วันครบกำหนด"
   },
   "Dashboard-MyGifts": {
     "myGifts": "ของขวัญของฉัน",
@@ -664,7 +670,10 @@
     "noSharedWishlists": "ไม่มีวิชลิสต์ที่แชร์แสดง",
     "myPrivateWishlists": "วิชลิสต์ส่วนตัวของฉัน",
     "createWishlistToStart": "สร้างรายการของขวัญเพื่อเริ่มติดตามของขวัญของคุณ",
-    "createWishlist": "สร้างรายการของขวัญ"
+    "createWishlist": "สร้างรายการของขวัญ",
+    "pastDue": "เกินกำหนดเวลา",
+    "dueDate": "วันครบกำหนด"
+
   },
   "Dashboard-Explore-ProductPage": {
     "productNotFound": "ไม่พบสินค้า",
@@ -788,7 +797,9 @@
     "title": "ชื่อเรื่อง",
     "description": "คำอธิบาย",
     "dueDate": "วันครบกำหนด",
-    "requireAddress": "ต้องการที่อยู่",
+    "currentDueDate": "วันครบกำหนดปัจจุบัน",
+    "dueDatePassed": "วันครบกำหนดนี้ได้ผ่านไปแล้ว",
+    "requireAddress": "ต้องการที่อยู่จัดส่ง",
     "address": "ที่อยู่",
     "type": "ประเภท",
     "cancel": "ยกเลิก",
