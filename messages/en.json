@@ -6,7 +6,8 @@
     "lists": "Lists",
     "login": "Login",
     "explore": "Explore",
-    "blog": "Blog"
+    "blog": "Blog",
+    "faqs": "FAQS"
   },
 
   "Hero": {
@@ -23,11 +24,12 @@
     "ourStory": "Our story",
     "createList": "Create a list",
     "login": "Login",
-    "logoAlt": "Symbol"
+    "logoAlt": "Symbol",
+    "faq": "FAQ"
   },
 
   "Wishes": {
-      "pageTitle": "for all your wishes",
+      "pageTitle": "For all your wishes",
       "create": "CREATE",
       "getInspired": "GET INSPIRED BY OUR LISTS",
       "sort": "SORT",
@@ -39,12 +41,15 @@
   "SmallTextBanner": {
     "theGiftingWorld": "the gifting world",
     "creativity": "Creativity",
-    "welcomeTo": "WELCOME TO"
+    "welcomeTo": "WELCOME TO",
+    "faq": "FAQ",
+    "questions": "Questions",
+    "frequentlyAsked": "FREQUENTLY ASKED"
   },
   "MidBanner": {
-    "youWantIt": "you want it?",
-    "weGotIt": "we got it.",
-    "tagline": "for every occasion, we transform\nyour wishes into curated lists.",
+    "youWantIt": "You want it?",
+    "weGotIt": "We got it.",
+    "tagline": "For every occasion, we transform\nyour wishes into curated lists.",
     "meetMysoue": "MEET MYSOUE"
   },
   "VisionBoard": {
@@ -65,6 +70,7 @@
     "account": "ACCOUNT"
   },
   "HeroBanner2": {
+    "faqs": "FAQS",
     "about": "ABOUT",
     "lists": "LISTS",
     "explore": "EXPLORE",
@@ -74,7 +80,7 @@
     "account": "ACCOUNT",
     "heroHeading": "WISHLISTS ACCESSIBLE \n TO {emphasis}",
     "heroHeadingSpan": "everyone",
-    "startNow": "start now"
+    "startNow": "Start now"
   },
 "AccountOverview": {
     "greeting": "HI, {name}",
@@ -280,8 +286,8 @@
 
   "about": {
     "pageTitle": "Our Little Story",
-    "startNow": "start now",
-    "bitAboutOurselves": "a bit about ourselves",
+    "startNow": "Start now",
+    "bitAboutOurselves": "A bit about ourselves",
     "introParagraph": "At MYSOUE, we reimagine the gift-giving experience for everyone. You are celebrating some special occasions and want to share with your loved ones the items you would like to receive, please let us help you to achieve your dream.\n\nFor each moment, we transform your wishes into curated lists, nothing more easy to Select, combine, and create the perfect list. Our goal is to bring a space where all your wishes will be gathered."
   },
   "OurAbout": {
@@ -292,10 +298,10 @@
     "soueContent": "In French, “souhait” means wish. And that is all we are about; We're all about making your wishes come true, eliminating worries, and creating space for meaningful moments and cherished memories with your loved ones. That's our mission – turning desires into delightful memories!",
     
     "valuesTitle": "OUR VALUES",
-    "valuesContent": "we believe in fostering genuine connections, embracing cultural diversity, and creating meaningful experiences that resonate across borders.",
+    "valuesContent": "We believe in fostering genuine connections, embracing cultural diversity, and creating meaningful experiences that resonate across borders.",
     
     "visionTitle": "OUR VISION",
-    "visionContent": "to become a global platform that celebrates and connects diverse cultures, creating lasting impact through authentic experiences and meaningful relationships."
+    "visionContent": "To become a global platform that celebrates and connects diverse cultures, creating lasting impact through authentic experiences and meaningful relationships."
   },
   "Founders": {
     "meetOurFounders": "meet our founders",
@@ -323,7 +329,8 @@
     "blog": "BLOG",
     "account": "ACCOUNT",
     "search": "Search",
-    "brand": "Mysoue"
+    "brand": "Mysoue",
+    "faqs": "FAQS"
   },
   "ListsPage": {
     "pageTitle": "Lists | Mysoue",
@@ -331,7 +338,7 @@
     "heroMain": "FOR ALL",
     "heroItalic": "wishes",
     "needInspiration": "Need Some Inspiration?",
-    "introParagraph": "Not sure what to add to your wishlist? No worries! We've put together pre-made lists with the best gift ideas for every occasion—baby showers, birthdays, proms, Valentine's Day, and more! Whether you need a little inspiration or just want an easy way to pick the perfect gifts, we've got you covered.\n\nBrowse our curated lists and find the perfect match in seconds!",
+    "introParagraph": "Not sure what to add to your wishlist? No worries! We've put together pre-made lists with the best gift ideas For every occasion—baby showers, birthdays, proms, Valentine's Day, and more! Whether you need a little inspiration or just want an easy way to pick the perfect gifts, we've got you covered.\n\nBrowse our curated lists and find the perfect match in seconds!",
     "graduation": "GRADUATION",
     "christmas": "CHRISTMAS",
     "birthday": "BIRTHDAY",
@@ -376,7 +383,7 @@
   "AllAboutGifts": {
     "bannerText": "WE GOT IT",
     "extraWord": "Creativity",
-    "genericText": "you want it",
+    "genericText": "You want it",
     "imageAlt": "Gift with ribbon",
     "headline": "We are all about gifts - You want it? We got it.",
     "description1": "At MYSOUE, we reimagine the gift-giving experience. Celebrate special occasions and share with your loved ones the items you dream of.",
@@ -430,7 +437,7 @@
     "bannerButton": "Create Your List"
   },
   "faq": {
-    "title": "Any questions?",
+    "title": "Frequently Asked Questions",
     "q1": {
       "id": "q1",
       "question": "Is it 100% free to settle a wishlist?",
@@ -740,7 +747,10 @@
   "Dashboard-SharedWishlists": {
     "pageTitle": "Dashboard",
     "sharedWishlists": "Shared Wishlists",
-    "viewAllLists": "View All Lists"
+    "viewAllLists": "View All Lists",
+    "viewList": "View List",
+    "pastDue": "Past due date",
+    "dueDate": "Due Date"
   },
   "Dashboard-CreateNewWishlist": {
     "pageTitle": "Create New Wishlist",
@@ -781,7 +791,7 @@
   },
   "Prelist-Product": {
     "heroMain": "EXPLORE OUR LISTS",
-    "heroItalic": "for every occasion",
+    "heroItalic": "For every occasion",
     "preMadeListDescription": "A curated collection of products for your special occasion",
     "loading": "Loading...",
     "noProducts": "No products found",

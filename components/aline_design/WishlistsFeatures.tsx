@@ -15,10 +15,10 @@ const WishlistsFeatures: React.FC = () => {
   return (
     <section className="w-full max-w-6xl px-4 mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        {/* 1. Wishlists for every occasion */}
+        {/* 1. Wishlists For every occasion */}
         <div className="flex flex-col items-center">
           <GiftIcon className="w-12 h-12 text-red-500 mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Wishlists for every occasion</h3>
+          <h3 className="text-lg font-semibold mb-2">Wishlists For every occasion</h3>
           <p className="text-sm text-gray-600">
             You can create multiple wishlists: Birthday, Christmas, Wedding, etc. 
             You can even have more than one wishlist for the same occasion—one for friends, another for family.
@@ -48,20 +48,18 @@ const WishlistsFeatures: React.FC = () => {
         {/* 4. Sorting by level of interest */}
         <div className="flex flex-col items-center">
           <SparklesIcon className="w-12 h-12 text-red-500 mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Sorting by level of interest</h3>
+          <h3 className="text-lg font-semibold mb-2">Free service from anywhere</h3>
           <p className="text-sm text-gray-600">
-            You decide which products appear first in your wishlists. 
-            This helps people know which items you want the most.
+          With mysoue, you can made your wishlist, share it with your friends and family and it’s completely free, no commission or payment will be requesting on our website. 
           </p>
         </div>
 
         {/* 5. Detailed information for each product */}
         <div className="flex flex-col items-center">
           <InformationCircleIcon className="w-12 h-12 text-red-500 mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Detailed information for each product</h3>
+          <h3 className="text-lg font-semibold mb-2">Products from any shop</h3>
           <p className="text-sm text-gray-600">
-            You can view images, descriptions, and even add notes 
-            to each product in your wishlist.
+          You can decide to use our pre made list, product but as well add a product from another website, your wish are endless! 
           </p>
         </div>
 

@@ -56,6 +56,14 @@ const Footer2 = () => {
                     {t("login")}
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/faq"
+                    className="text-xs sm:text-sm text-gray-600 hover:text-gray-900"
+                  >
+                    {t("faq")}
+                  </Link>
+                </li>
               </ul>
             </div>
             <div className="flex flex-col gap-4">

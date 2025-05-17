@@ -12,6 +12,26 @@ import Head from "next/head";
 import HeroBanner3 from "@/components/aline_design/HeroBanner3";
 import { FloatingButton } from "@/components/ui/FloatingButton";
 import SolidButton from "@/components/buttons/SolidButton";
+import BackButton from "@/components/buttons/BackButton";
+
+// Dictionary mapping prelists to their corresponding images
+const preListImages: { [key: string]: string } = {
+  "baby-shower": "/Lists/card2.jpg",
+  "Baby shower": "/Lists/card1.jpg",
+  "CHRISTMAS": "/Lists/christmas.jpg",
+  "GRADUATION": "/Lists/graduation.jpg",
+  "WEDDING": "/Lists/wedding.jpg",
+  "HOUSE WARMING": "/Lists/house-warming.jpg",
+  "ANNIVERSARY": "/Lists/anniversary.jpg",
+  "HOLIDAY": "/Lists/holiday.jpg",
+  "VALENTINE'S DAY": "/Lists/valentines.jpg",
+  "MOTHER'S DAY": "/Lists/mothers-day.jpg",
+  "FATHER'S DAY": "/Lists/fathers-day.jpg",
+  "THANKSGIVING": "/Lists/thanksgiving.jpg",
+  "HALLOWEEN": "/Lists/halloween.jpg",
+  "EASTER": "/Lists/easter.jpg",
+  "NEW YEAR": "/Lists/new-year.jpg"
+};
 
 interface Product {
   id: string;
@@ -46,6 +66,9 @@ const ListDetails: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState<string | null>(null);
   const [listTitle, setListTitle] = useState<string>("");
+
+  // Get the background image for the current list
+  const backgroundImage = preListImages[listId] || "/Lists/bg.jpg";
 
   // Animation settings
   const fadeIn = {
@@ -124,14 +147,17 @@ const ListDetails: React.FC = () => {
         <FloatingButton/>
 
         <HeroBanner3
-          backgroundImage="/Lists/bg.jpg"
-          headingText={t("heroMain")}
-          italicText={t("heroItalic")}
+          backgroundImage={backgroundImage}
+          headingText={listTitle}
+          italicText="prelist"
           textColor="text-[#fff] text-shadow"
         />
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <div className="flex self-start mx-10 my-4">
+              <BackButton />
+            </div>
             <motion.h2
               variants={fadeIn}
               className="heading2 mb-4 font-simplemichael"
@@ -171,14 +197,17 @@ const ListDetails: React.FC = () => {
         <FloatingButton/>
 
         <HeroBanner3
-          backgroundImage="/Lists/bg.jpg"
-          headingText={t("heroMain")}
-          italicText={t("heroItalic")}
+          backgroundImage={backgroundImage}
+          headingText={listTitle}
+          italicText="prelist"
           textColor="text-[#fff] text-shadow"
         />
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <div className="flex self-start mx-10 my-4">
+              <BackButton />
+            </div>
             <motion.h2
               variants={fadeIn}
               className="heading2 mb-4 font-simplemichael"
@@ -213,14 +242,17 @@ const ListDetails: React.FC = () => {
         <FloatingButton/>
 
         <HeroBanner3
-          backgroundImage="/Lists/bg.jpg"
-          headingText={t("heroMain")}
-          italicText={t("heroItalic")}
+          backgroundImage={backgroundImage}
+          headingText={listTitle}
+          italicText="prelist"
           textColor="text-[#fff] text-shadow"
         />
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <div className="flex self-start mx-10 my-4">
+              <BackButton />
+            </div>
             <motion.h2
               variants={fadeIn}
               className="heading2 mb-4 font-simplemichael"
@@ -250,18 +282,21 @@ const ListDetails: React.FC = () => {
         text="Start Now" 
         href="/login" 
         className="text-xl px-12 py-4 mx-10 my-4 bg-[#FFF9E8] text-black hover:text-white hover:bg-[#A5282C]" 
-        />
-        <FloatingButton/>
+      />
+      <FloatingButton/>
 
-        <HeroBanner3
-          backgroundImage="/Lists/bg.jpg"
-          headingText={t("heroMain")}
-          italicText={t("heroItalic")}
+      <HeroBanner3
+          backgroundImage={backgroundImage}
+          headingText={listTitle}
+          italicText="prelist"
           textColor="text-[#fff] text-shadow"
         />
 
       <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
         <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+          <div className="flex self-start mx-10 my-4">
+            <BackButton />
+          </div>
           <motion.h2
             variants={fadeIn}
             className="heading2 mb-4 font-simplemichael"

@@ -60,6 +60,9 @@ const VideoBanner: React.FC<VideoBannerProps> = ({ locale }) => {
           <Link href={`/${currentLocale}/blog`} className="text-sm hover:opacity-80">
             {tNavbar("blog") || "Blog"}
           </Link>
+          <Link href={`/${currentLocale}/faq`} className="text-sm hover:opacity-80">
+            {tNavbar("faqs") || "FAQS"}
+          </Link>
         </div>
 
         <Link

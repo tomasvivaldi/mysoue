@@ -50,6 +50,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           <Link href="/blog" className="text-sm hover:opacity-80">
             {t("blog")}
           </Link>
+          <Link href="/faq" className="text-sm hover:opacity-80">
+            {t("faqs")}
+          </Link>
         </div>
 
         {/* Center brand */}
@@ -87,6 +90,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Link>
           <Link href="/login" className="text-sm hover:opacity-80 block">
             {t("account")}
+          </Link>
+          <Link href="/faq" className="text-sm hover:opacity-80 block">
+            {t("faqs")}
           </Link>
           <LocaleSwitcher />
         </div>

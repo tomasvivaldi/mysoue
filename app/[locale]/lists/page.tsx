@@ -19,6 +19,25 @@ interface PreList {
   image_url: string;
 }
 
+// Dictionary mapping prelists to their corresponding images
+const preListImages: { [key: string]: string } = {
+  "baby-shower": "/Lists/card2.jpg",
+  "Baby shower": "/Lists/card1.jpg",
+  "CHRISTMAS": "/Lists/christmas.jpg",
+  "GRADUATION": "/Lists/graduation.jpg",
+  "WEDDING": "/Lists/wedding.jpg",
+  "HOUSE WARMING": "/Lists/house-warming.jpg",
+  "ANNIVERSARY": "/Lists/anniversary.jpg",
+  "HOLIDAY": "/Lists/holiday.jpg",
+  "VALENTINE'S DAY": "/Lists/valentines.jpg",
+  "MOTHER'S DAY": "/Lists/mothers-day.jpg",
+  "FATHER'S DAY": "/Lists/fathers-day.jpg",
+  "THANKSGIVING": "/Lists/thanksgiving.jpg",
+  "HALLOWEEN": "/Lists/halloween.jpg",
+  "EASTER": "/Lists/easter.jpg",
+  "NEW YEAR": "/Lists/new-year.jpg"
+};
+
 const Lists = () => {
   const t = useTranslations("ListsPage");
   const router = useRouter();
@@ -41,7 +60,12 @@ const Lists = () => {
         });
         
         const data = response?.data?.uniquePreLists || [];
-        setPreLists(data);
+        // Map the data to include the corresponding image from our dictionary
+        const mappedData = data.map((list: PreList) => ({
+          ...list,
+          image_url: preListImages[list.pre_list] || "/Lists/default-card.jpg" // Fallback image if not found
+        }));
+        setPreLists(mappedData);
       } catch (error) {
         console.error("Failed to fetch pre-made lists:", error);
         setError("Failed to load pre-made lists");
@@ -114,12 +138,12 @@ const Lists = () => {
         ) : (
           <>
             {/* Pre-made lists */}
-            <div className="order-2 sm:order-1 z-20 my-14 flex flex-col md:flex-row gap-[15px] sm:gap-6 flex-nowrap">
+            <div className="order-2 sm:order-1 z-20 my-14 flex flex-col md:flex-row gap-[15px] sm:gap-6 flex-nowrap overflow-x-auto">
               {preLists.map((list) => (
                 <button
                   key={list.pre_list}
                   onClick={() => router.push(`/lists/${list.pre_list}`)}
-                  className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent"
+                  className="px-6 py-2 border border-black hover:bg-[#FFF9E8] rounded-full mx-3 uppercase text-xs tracking-widest text-black bg-transparent whitespace-nowrap"
                 >
                   {list.pre_list}
                 </button>
@@ -131,7 +155,8 @@ const Lists = () => {
               <FocusCards 
                 cards={preLists.map(list => ({
                   title: list.pre_list,
-                  src: list.image_url || "/Lists/card1.jpg"
+                  src: list.image_url,
+                  description: t(`wishlist.${list.pre_list.toLowerCase().replace(/'/g, '').replace(/\s+/g, '')}.description`) || ""
                 }))} 
               />
             </div>

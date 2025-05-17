@@ -297,7 +297,7 @@ Mysoue Team ✨`,
                  <li>A wedding</li>
                  <li>Or any special moment!</li>
                </ul>
-               <p>We’ve got the trendiest gifts waiting for you! Plus, we’re always updating our selection so you can create the perfect wishlist tailored to your style and needs for every occasion.</p>
+               <p>We’ve got the trendiest gifts waiting for you! Plus, we’re always updating our selection so you can create the perfect wishlist tailored to your style and needs For every occasion.</p>
                <p><strong>Come check it out now:</strong> <a href="https://www.mysoue.com/en/dashboard/my-wishlists">https://www.mysoue.com/en/dashboard/my-wishlists</a></p>
                <p>Your dream wishlist is just a few clicks away! Need help? We’re here at <a href="mailto:info@mysoue.com">info@mysoue.com</a></p>
                <p>Can’t wait to see you back!</p>

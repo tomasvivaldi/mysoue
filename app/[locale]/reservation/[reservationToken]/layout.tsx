@@ -85,6 +85,9 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           <Link href="/login" className="text-sm hover:opacity-80 block">
             {t("account")}
           </Link>
+          <Link href="/faq" className="text-sm hover:opacity-80 block">
+            {t("faqs")}
+          </Link>
           <LocaleSwitcher />
         </div>
       </div>

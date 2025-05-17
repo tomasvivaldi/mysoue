@@ -38,6 +38,9 @@ export default function HeroBanner2() {
           <Link href="/blog" className="text-sm hover:opacity-80">
             {t("blog")}
           </Link>
+          <Link href="/faq" className="text-sm hover:opacity-80">
+            {t("faqs")}
+          </Link>
         </div>
 
         <Link href="/" className="text-2xl   text-white">
@@ -69,7 +72,7 @@ export default function HeroBanner2() {
 
         <Link
           href="/start"
-          className="inline-block mt-6 px-8 py-3 text-lg   italic bg-white text-[#800000] rounded-full shadow-md hover:shadow-lg transition-all"
+          className="inline-block mt-6 px-8 py-3 text-lg   italic bg-white text-[#800000] rounded-full shadow-md hover:shadow-lg hover:text-primary active:bg-transparent active:text-white active:border-2 active:bg-primary transition-all"
         >
           {t("startNow")}
         </Link>
