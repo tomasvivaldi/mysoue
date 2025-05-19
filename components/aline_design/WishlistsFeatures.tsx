@@ -6,8 +6,8 @@ import {
   GiftIcon,
   LinkIcon,
   LockClosedIcon,
-  SparklesIcon,
-  InformationCircleIcon,
+  CurrencyDollarIcon,
+  ShoppingBagIcon,
   ShieldCheckIcon,
 } from "@heroicons/react/24/outline";
 
@@ -47,7 +47,7 @@ const WishlistsFeatures: React.FC = () => {
 
         {/* 4. Sorting by level of interest */}
         <div className="flex flex-col items-center">
-          <SparklesIcon className="w-12 h-12 text-red-500 mb-4" />
+          <CurrencyDollarIcon className="w-12 h-12 text-red-500 mb-4" />
           <h3 className="text-lg font-semibold mb-2">Free service from anywhere</h3>
           <p className="text-sm text-gray-600">
           With mysoue, you can made your wishlist, share it with your friends and family and it’s completely free, no commission or payment will be requesting on our website. 
@@ -56,7 +56,7 @@ const WishlistsFeatures: React.FC = () => {
 
         {/* 5. Detailed information for each product */}
         <div className="flex flex-col items-center">
-          <InformationCircleIcon className="w-12 h-12 text-red-500 mb-4" />
+          <ShoppingBagIcon className="w-12 h-12 text-red-500 mb-4" />
           <h3 className="text-lg font-semibold mb-2">Products from any shop</h3>
           <p className="text-sm text-gray-600">
           You can decide to use our pre made list, product but as well add a product from another website, your wish are endless! 

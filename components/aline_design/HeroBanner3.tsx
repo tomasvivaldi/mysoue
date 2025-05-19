@@ -44,6 +44,9 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
           <Link href="/blog" className="text-sm hover:opacity-80">
             {t("blog")}
           </Link>
+          <Link href="/faq" className="text-sm hover:opacity-80">
+            {t("faqs")}
+          </Link>
         </div>
 
         <Link href="/" className="text-2xl   text-white">
