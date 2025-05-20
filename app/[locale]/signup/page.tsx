@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import { useMutation, useQuery } from "@apollo/client";
 import { ADD_USERS } from "@/graphql/mutations";
 import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
+import Image from "next/image";
 
 const SignUp = () => {
   // Form states
@@ -138,7 +139,15 @@ const SignUp = () => {
       </Head>
       <div className="flex flex-col md:flex-row min-h-screen">
         {/* Left Section: Only visible on medium screens and up */}
-        <div className="hidden md:block md:w-1/2 bg-[#D6CBBE]"></div>
+                <div className="hidden md:block md:w-1/2 relative">
+          <Image 
+            src="/Login/bg1.jpg" 
+            alt="Login Image" 
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
         {/* Right Section: SignUp form */}
         <div className="w-full md:w-1/2 flex items-center justify-center p-4">

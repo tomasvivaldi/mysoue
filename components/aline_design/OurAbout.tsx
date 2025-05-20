@@ -38,10 +38,15 @@ export default function OurAbout() {
     },
   ];
 
-  const [activeSection, setActiveSection] = useState<string | null>(null);
+  // Initialize activeSection with the first section's title
+  const [activeSection, setActiveSection] = useState<string>(sections[0].title);
   const activeImage = sections.find(
     (section) => section.title === activeSection
   )?.image;
+
+  const handleSectionClick = (sectionTitle: string) => {
+    setActiveSection(sectionTitle);
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 my-4">
@@ -60,19 +65,18 @@ export default function OurAbout() {
             <div
               key={section.title}
               className="relative"
-              onMouseEnter={() => setActiveSection(section.title)}
-              onMouseLeave={() => setActiveSection(null)}
             >
-              <h2 className="text-2xl font-bold mb-2 cursor-pointer">
+              <h2 
+                className={`text-2xl font-bold mb-2 cursor-pointer transition-colors duration-200 ${
+                  activeSection === section.title ? 'text-primary' : 'hover:text-primary'
+                }`}
+                onClick={() => handleSectionClick(section.title)}
+              >
                 {section.title}
               </h2>
               {activeSection === section.title && (
                 <p
-                  className={`text-neutral-700 transform transition-all duration-300 ease-out ${
-                    activeSection === section.title
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 -translate-y-2"
-                  }`}
+                  className="text-neutral-700 transform transition-all duration-300 ease-out opacity-100 translate-y-0"
                 >
                   {section.content}
                 </p>

@@ -40,13 +40,13 @@ export const Card = React.memo(
             "absolute inset-0 flex items-start py-8 px-4",
           )}
         >
-          <div className="text-xl md:text-2xl font-medium bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-200">
+          <div className="text-xl md:text-2xl font-medium bg-clip-text text-white text-shadow bg-gradient-to-b from-neutral-50 to-neutral-200">
             {card.title}
           </div>  
         </div>
         <div
           className={cn(
-            "absolute inset-0 bg-black/10 flex items-end justify-center py-8 px-4 transition-opacity duration-300 rounded-lg",
+            "absolute inset-0 flex items-end justify-center py-8 px-4 transition-opacity duration-300 rounded-lg",
             hovered === index ? "opacity-100" : "opacity-0"
           )}
         >

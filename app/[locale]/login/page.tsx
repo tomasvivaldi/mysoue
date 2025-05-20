@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { ADD_USERS } from "@/graphql/mutations";
 import { useRouter } from "next/navigation";
 import LoadingBox from "@/components/LoadingBox";
+import Image from "next/image";
 
 interface UserWithProvider extends User {
   provider?: string;
@@ -159,7 +160,15 @@ const Login = () => {
       </Head>
       <div className="flex flex-col md:flex-row h-screen">
         {/* Left Section: Only visible on medium screens and up */}
-        <div className="hidden md:block md:w-1/2 bg-[#D6CBBE]"></div>
+        <div className="hidden md:block md:w-1/2 relative">
+          <Image 
+            src="/Login/bg1.jpg" 
+            alt="Login Image" 
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
 
         {/* Right Section: Login form */}
         <div className="my-auto sm:my-0 w-full md:w-1/2 flex items-center justify-center p-4">
