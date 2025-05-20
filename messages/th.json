@@ -881,6 +881,12 @@
       "canceled": "ของขวัญถูกยกเลิกแล้ว"
     }
   },
+  "ConfirmationStep": {
+    "title": "รายการถูกเพิ่มสำเร็จ",
+    "description": "รายการถูกเพิ่มสำเร็จไปยังรายการของขวัญของคุณ",
+    "checkWishlists": "ดูรายการของขวัญของคุณ",
+    "backToLists": "กลับไปที่รายการของคุณ"
+  },
   "EmptyWishlist": {
     "yourWishlistIsEmpty": "วิชลิสต์ของคุณยังว่างอยู่",
     "addSomeProductsToGetStarted": "เพิ่มสินค้าเพื่อเริ่มต้นรายการของคุณ",

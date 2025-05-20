@@ -888,6 +888,12 @@
       "canceled": "Gift canceled successfully"
     }
   },
+  "ConfirmationStep": {
+    "title": "List Added Successfully",
+    "description": "This list was added successfully to MySoue Wishlists",
+    "checkWishlists": "Check MySoue Wishlists",
+    "backToLists": "Back to your lists"
+  },
   "EmptyWishlist": {
     "yourWishlistIsEmpty": "Your wishlist is empty",
     "addSomeProductsToGetStarted": "Add some products to get started.",
