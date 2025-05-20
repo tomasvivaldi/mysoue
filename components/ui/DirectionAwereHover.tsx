@@ -19,18 +19,30 @@ export const DirectionAwareHover = ({
   className?: string;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-
+  const [isHovered, setIsHovered] = useState(false);
   const [direction, setDirection] = useState<
     "top" | "bottom" | "left" | "right" | string
   >("left");
 
-  const handleMouseEnter = (
-    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  const handleInteraction = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>
   ) => {
     if (!ref.current) return;
 
-    const direction = getDirection(event, ref.current);
-    console.log("direction", direction);
+    let clientX: number;
+    let clientY: number;
+
+    if ('touches' in event) {
+      // Touch event
+      clientX = event.touches[0].clientX;
+      clientY = event.touches[0].clientY;
+    } else {
+      // Mouse event
+      clientX = event.clientX;
+      clientY = event.clientY;
+    }
+
+    const direction = getDirection(clientX, clientY, ref.current);
     switch (direction) {
       case 0:
         setDirection("top");
@@ -48,22 +60,27 @@ export const DirectionAwareHover = ({
         setDirection("left");
         break;
     }
+    setIsHovered(true);
   };
 
   const getDirection = (
-    ev: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    clientX: number,
+    clientY: number,
     obj: HTMLElement
   ) => {
     const { width: w, height: h, left, top } = obj.getBoundingClientRect();
-    const x = ev.clientX - left - (w / 2) * (w > h ? h / w : 1);
-    const y = ev.clientY - top - (h / 2) * (h > w ? w / h : 1);
+    const x = clientX - left - (w / 2) * (w > h ? h / w : 1);
+    const y = clientY - top - (h / 2) * (h > w ? w / h : 1);
     const d = Math.round(Math.atan2(y, x) / 1.57079633 + 5) % 4;
     return d;
   };
 
   return (
     <motion.div
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={handleInteraction}
+      onTouchStart={handleInteraction}
+      onTouchEnd={() => setIsHovered(false)}
+      onMouseLeave={() => setIsHovered(false)}
       ref={ref}
       className={cn(
         "md:h-96 lg:min-w-[500px] md:min-w-[350px] min-w-[250px] h-60 md:w-96 bg-transparent rounded-lg overflow-hidden group/card relative",
@@ -74,10 +91,10 @@ export const DirectionAwareHover = ({
         <motion.div
           className="relative h-full w-full"
           initial="initial"
-          whileHover={direction}
+          animate={isHovered ? direction : "initial"}
           exit="exit"
         >
-          <motion.div className="group-hover/card:block hidden absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500" />
+          <motion.div className={`${isHovered ? 'block' : 'hidden'} absolute inset-0 w-full h-full bg-black/40 z-10 transition duration-500`} />
           <motion.div
             variants={variants}
             className="h-full w-full relative bg-gray-50 dark:bg-black"
