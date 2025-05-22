@@ -35,6 +35,7 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
     email: "",
     message: "",
   });
+  const [isReserving, setIsReserving] = useState(false);
   const [emailErrors, setEmailErrors] = useState<{
     confirmationEmail?: string;
     ownerNotification?: string;
@@ -51,6 +52,7 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
 
   const handleReserve = async () => {
     try {
+      setIsReserving(true);
       // Reset email errors
       setEmailErrors({});
       
@@ -191,6 +193,8 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
       }
     } catch (err) {
       console.error("Error reserving gift:", err);
+    } finally {
+      setIsReserving(false);
     }
   };
 
@@ -267,16 +271,24 @@ const ReserveGiftModal: React.FC<ReserveGiftModalProps> = ({
           <div className="flex flex-col items-center gap-3 mt-6">
             <button
               onClick={handleReserve}
-              className="bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium hover:bg-[#C64138] transition"
-              disabled={loading}
+              disabled={isReserving || loading}
+              className={`bg-[#A5282C] text-white py-2 px-8 rounded-full font-medium transition ${
+                isReserving || loading 
+                  ? 'opacity-50 cursor-not-allowed' 
+                  : 'hover:bg-[#C64138]'
+              }`}
             >
-              {loading ? "Reserving..." : t("reserveButton")}
+              {isReserving || loading ? t("reserving") : t("reserveButton")}
             </button>
-            <button onClick={onClose} className="text-[#6D6A65] text-sm hover:underline">
+            <button 
+              onClick={onClose} 
+              className="text-[#6D6A65] text-sm hover:underline"
+              disabled={isReserving || loading}
+            >
               {t("cancelButton")}
             </button>
             {error && (
-              <p className="text-red-500 mt-2">Error reserving gift. Please try again.</p>
+              <p className="text-red-500 mt-2">{t("errorMessage")}</p>
             )}
             {emailErrors.confirmationEmail && (
               <p className="text-red-500 mt-2 text-sm">{emailErrors.confirmationEmail}</p>

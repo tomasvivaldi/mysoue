@@ -296,9 +296,6 @@ const ExternalProductDetails: React.FC = () => {
         </div>
         {productDetails?.wishlist_items && productDetails?.wishlist_items.length === 0 ? (
           <div className="w-full text-center mt-4 relative px-4 py-6 sm:py-12 flex flex-col gap-2">
-            <div className="absolute left-0 top-0">
-              <BackButtonWithNoSSR />
-            </div>
             <h1 className="text-2xl font-bold mb-2">
               {t("productNotInWishlist") || "Product Not In This Wishlist"}
             </h1>
@@ -364,9 +361,11 @@ const ExternalProductDetails: React.FC = () => {
                         </span>
                       )}
                     </p>
+                    {productDetails?.wishlist_items[0].reserved_gifts[0].status !== "canceled" && (
                     <span className="text-xl px-4 font-semibold mx-auto text-primary">
                       {t("productReservedMessage")}
                     </span>
+                    )}
                   </>
                   )}
                   {isWishlistShared && !isProductReserved && (<>
@@ -388,7 +387,8 @@ const ExternalProductDetails: React.FC = () => {
             {productDetails?.wishlist_items &&
             productDetails?.wishlist_items[0] &&
             productDetails?.wishlist_items[0].reserved_gifts &&
-            productDetails?.wishlist_items[0].reserved_gifts.length > 0 && (
+            productDetails?.wishlist_items[0].reserved_gifts.length > 0 &&
+            productDetails?.wishlist_items[0].reserved_gifts[0].status !== "canceled" && (
               <ReservedGiftCard
                 reservedGift={productDetails?.wishlist_items[0].reserved_gifts[0]}
               />

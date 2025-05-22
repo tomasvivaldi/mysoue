@@ -85,6 +85,7 @@ interface ReservedGifts {
   updated_at: string;
   name_and_surname: string;
   private_message: string;
+  status: string;
 }
 
 const ProductDetails: React.FC = () => {
@@ -253,7 +254,7 @@ const ProductDetails: React.FC = () => {
             </p>
           </div>
           {/* Conditional Rendering Based on Reservation Status */}
-          {isGiftReserved ? (
+          {isGiftReserved && productDetails?.wishlist_items?.[0]?.reserved_gifts?.[0]?.status !== "canceled" ? (
             <div className="p-4 bg-gray-100 rounded-lg">
               <p className="text-xl font-semibold text-[#A5282C]">
                 - This gift is already reserved -
@@ -274,7 +275,7 @@ const ProductDetails: React.FC = () => {
       </div>
 
       {/* Reserve Gift Modal */}
-      {!isGiftReserved && (
+      {(!isGiftReserved || productDetails?.wishlist_items?.[0]?.reserved_gifts?.[0]?.status === "canceled") && (
         <ReserveGiftModal
           isOpen={isModalOpen}
           onClose={handleCloseModal}

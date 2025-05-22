@@ -412,7 +412,7 @@ export default function ReservationPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700">{t("productPrice")}</label>
                   <p className="mt-1 text-gray-900 font-medium">
-                    {displayProduct.price ? `$${displayProduct.price.toFixed(2)}` : 'Price not available'}
+                    {displayProduct.price ? `฿ ${displayProduct.price.toFixed(2)}` : 'Price not available'}
                   </p>
                 </div>
                 {(displayProduct.affiliate_link || displayProduct.store_link) && (

@@ -229,23 +229,63 @@ https://www.mysoue.com/en/login
 
 XOXO,
 Mysoue Team ✨`,
-      html: `<div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-    <p>Hey there!</p>
-    <p>Great news! You've reserved "<strong>${data.giftName}</strong>" from <strong>${data.name}</strong>'s wishlist on Mysoue—they're going to LOVE it!</p>
-    <p><strong>Here's what you need to do next:</strong></p>
-    <ul>
-      <li>Complete your purchase before the deadline (<strong>${data.deadline}</strong>)</li>
-      <li>Make sure <strong>${data.name}</strong> receives their special surprise!</li>
-    </ul>
-    <p><strong>Manage your reservation here:</strong> <a href="${data.reservationLink}">${data.reservationLink}</a></p>
-    <p><strong>Hurry!</strong> The wishlist closes soon! Don't miss your chance to be part of this special moment!</p>
-    <p><strong>Check out the wishlist here:</strong> <a href="${data.wishlistLink}">${data.wishlistLink}</a></p>
-    <p>If you have any questions, we're here to help at <a href="mailto:info@mysoue.com">info@mysoue.com</a>.</p>
-    <p><em>PS: Love the idea of thoughtful gifting? Why not treat yourself too? With your very own wishlist, you'll get exactly what you love for any occasion—birthdays, holidays, housewarmings, or just because! No more unwanted gifts—just pure joy, handpicked by you!</em></p>
-    <p><strong>Start your wishlist now & let your loved ones surprise you with the perfect gifts:</strong> 
-    <a href="https://www.mysoue.com/en/login">https://www.mysoue.com/en/login</a>
-    <p>XOXO,<br/>Mysoue Team ✨</p>
-  </div>`
+      html: `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+          <style>
+            @font-face {
+              font-family: 'Simple Michael';
+              src: url('https://www.mysoue.com/fonts/SimpleMichael.woff2') format('woff2');
+            }
+          </style>
+        </head>
+        <body>
+          <div style="max-width: 600px; margin: 0 auto; font-family: 'Nunito', Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="text-align: center; padding: 20px 0;">
+              <img src="https://www.mysoue.com/Symbol/Logo-Mysoue-Symbol_2.png" alt="Mysoue Logo" style="width: 150px;">
+            </div>
+            
+            <div style="background-color: #FFF5F5; border-radius: 15px; padding: 30px; margin: 20px 0;">
+              <h1 style="font-family: 'Simple Michael', cursive; color: #A5282C; text-align: center; font-size: 32px;">Hey there! 🎉</h1>
+              
+              <p style="font-size: 18px; text-align: center;">Great news! You've reserved <br><strong style="color: #A5282C;">"${data.giftName}"</strong><br> from <strong>${data.name}</strong>'s wishlist!</p>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <img src="https://www.mysoue.com/images/gift-reserved.png" alt="Gift Reserved" style="width: 200px;">
+              </div>
+
+              <div style="background-color: white; border-radius: 10px; padding: 20px; margin: 20px 0;">
+                <h2 style="color: #A5282C; font-size: 20px;">Next Steps:</h2>
+                <ul style="list-style: none; padding: 0;">
+                  <li style="margin: 10px 0;">⏰ Complete purchase by: <strong>${data.deadline}</strong></li>
+                  <li style="margin: 10px 0;">🎁 Ensure delivery to <strong>${data.name}</strong></li>
+                </ul>
+              </div>
+
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${data.reservationLink}" style="background-color: #A5282C; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold;">Manage Reservation</a>
+              </div>
+
+              <p style="color: #A5282C; font-weight: bold; text-align: center;">Hurry! The wishlist closes soon! 🕒</p>
+              
+              <div style="border-top: 2px dashed #A5282C; margin: 30px 0; padding-top: 20px;">
+                <p style="font-style: italic; color: #666;">PS: Love thoughtful gifting? Create your own wishlist and let your loved ones surprise you with perfect gifts!</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                  <a href="https://www.mysoue.com/en/login" style="background-color: #F5D0D2; color: #A5282C; padding: 12px 25px; text-decoration: none; border-radius: 25px; font-weight: bold;">Create Your Wishlist</a>
+                </div>
+              </div>
+
+              <div style="text-align: center; margin-top: 30px;">
+                <p style="color: #666;">Questions? Contact us at <a href="mailto:info@mysoue.com" style="color: #A5282C;">info@mysoue.com</a></p>
+                <p style="font-family: 'Simple Michael', cursive; color: #A5282C; font-size: 24px;">XOXO,<br>Mysoue Team ✨</p>
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>`
     });
   }
   

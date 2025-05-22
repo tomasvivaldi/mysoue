@@ -326,9 +326,6 @@ const ProductDetails: React.FC = () => {
       </div>
       {productDetails?.wishlist_items && productDetails?.wishlist_items.length === 0 ? (
         <div className="w-full text-center mt-4 relative px-4 py-6 sm:py-12 flex flex-col gap-2">
-          <div className="absolute left-0 top-0">
-            <BackButtonWithNoSSR />
-          </div>
           <h1 className="text-2xl font-bold mb-2">
             {t("productNotInWishlist") || "Product Not In This Wishlist"}
           </h1>
@@ -394,12 +391,11 @@ const ProductDetails: React.FC = () => {
                         </span>
                       )}
                     </p>
-                    <span className="text-lg px-4 font-semibold mx-auto text-primary flex flex-row flex-nowrap items-center justify-between gap-2">
-                      Check out your reserved gift details below
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="h-6 w-6 animate-bounce duration-3000 stroke-primary">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
-                    </svg>
+                    {productDetails?.wishlist_items[0].reserved_gifts[0].status !== "canceled" && (
+                    <span className="text-xl px-4 font-semibold mx-auto text-primary">
+                      {t("productReservedMessage")}
                     </span>
+                    )}
                     
                   </>
                 )}
@@ -426,7 +422,8 @@ const ProductDetails: React.FC = () => {
           {productDetails?.wishlist_items &&
           productDetails?.wishlist_items[0] &&
           productDetails?.wishlist_items[0].reserved_gifts &&
-          productDetails?.wishlist_items[0].reserved_gifts.length > 0 && (
+          productDetails?.wishlist_items[0].reserved_gifts.length > 0 &&
+          productDetails?.wishlist_items[0].reserved_gifts[0].status !== "canceled" && (
             <ReservedGiftCard
               reservedGift={productDetails?.wishlist_items[0].reserved_gifts[0]}
             />
