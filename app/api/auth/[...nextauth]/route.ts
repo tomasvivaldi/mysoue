@@ -5,8 +5,6 @@ import { mutations } from "@/graphql/mutations";
 import bcrypt from "bcrypt";
 import NextAuth, { DefaultSession, NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import FacebookProvider from "next-auth/providers/facebook";
-import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { JWT } from "next-auth/jwt";
 
@@ -22,6 +20,24 @@ declare module "next-auth" {
     error?: string;
   }
 }
+
+// Helper function for logging
+const log = (message: string, data?: any) => {
+  const logData = {
+    timestamp: new Date().toISOString(),
+    message,
+    ...data,
+  };
+  
+  // Log to console for local development
+  console.log(JSON.stringify(logData, null, 2));
+  
+  // In production, this will be captured by Vercel's logging system
+  if (process.env.NODE_ENV === 'production') {
+    // @ts-ignore - Vercel's logging
+    console.log(JSON.stringify(logData));
+  }
+};
 
 const client = new ApolloClient({
   uri: "https://kinkondongo.us-east-a.ibm.stepzen.net/api/getting-started/graphql",
@@ -68,7 +84,10 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
+        log("Attempting credentials authorization", { email: credentials?.email });
+        
         if (!credentials?.email || !credentials?.password) {
+          log("Missing credentials");
           throw new Error('Please enter both email and password');
         }
 
@@ -79,6 +98,7 @@ const authOptions: NextAuthOptions = {
           });
 
           if (!data?.usersByEmail?.length) {
+            log("User not found", { email: credentials.email });
             throw new Error('No user found with this email');
           }
 
@@ -86,8 +106,14 @@ const authOptions: NextAuthOptions = {
           const isValid = await bcrypt.compare(credentials.password, user.password_hash);
 
           if (!isValid) {
+            log("Invalid password", { email: credentials.email });
             throw new Error('Invalid password');
           }
+
+          log("User authenticated successfully", { 
+            userId: user.id,
+            email: user.email 
+          });
 
           return {
             id: user.id.toString(),
@@ -95,7 +121,10 @@ const authOptions: NextAuthOptions = {
             name: user.username,
           };
         } catch (error: unknown) {
-          console.error('Authentication error:', error);
+          log("Authentication error", { 
+            error: error instanceof Error ? error.message : 'Unknown error',
+            email: credentials.email 
+          });
           if (error instanceof Error) {
             throw new Error(error.message || 'Authentication failed');
           }
@@ -113,10 +142,10 @@ const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, user, account }: { token: JWT; user: any; account: any }) {
-      console.log("[NextAuth] JWT Callback:", {
-        token: token ? "exists" : "null",
-        user: user ? "exists" : "null",
-        account: account ? "exists" : "null",
+      log("JWT Callback", {
+        hasToken: !!token,
+        hasUser: !!user,
+        hasAccount: !!account,
         provider: account?.provider,
       });
 
@@ -136,9 +165,9 @@ const authOptions: NextAuthOptions = {
     },
 
     async session({ session, token }: { session: any; token: JWT }) {
-      console.log("[NextAuth] Session Callback:", {
-        sessionExists: !!session,
-        tokenExists: !!token,
+      log("Session Callback", {
+        hasSession: !!session,
+        hasToken: !!token,
         userEmail: session?.user?.email,
       });
 
@@ -151,7 +180,7 @@ const authOptions: NextAuthOptions = {
     },
 
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      console.log("[NextAuth] Redirect Callback:", {
+      log("Redirect Callback", {
         url,
         baseUrl,
         isRelative: url.startsWith("/"),
@@ -175,10 +204,10 @@ const authOptions: NextAuthOptions = {
       account: any; 
       profile?: any;
     }) {
-      console.log("[NextAuth] SignIn Callback:", {
+      log("SignIn Callback", {
         userEmail: user?.email,
         provider: account?.provider,
-        profileExists: !!profile,
+        hasProfile: !!profile,
       });
 
       if (account?.provider === "google") {
@@ -189,7 +218,7 @@ const authOptions: NextAuthOptions = {
             variables: { email: user.email },
           });
 
-          console.log("[NextAuth] Database Check:", {
+          log("Database Check", {
             userExists: !!data?.usersByEmail?.length,
             email: user.email,
           });
@@ -207,14 +236,17 @@ const authOptions: NextAuthOptions = {
                 created_at: new Date().toISOString(),
               },
             });
-            console.log("[NextAuth] New User Created:", {
+            log("New User Created", {
               success: !!result,
               email: user.email,
             });
           }
           return true;
         } catch (error) {
-          console.error("[NextAuth] Error during Google sign in:", error);
+          log("Google Sign In Error", { 
+            error: error instanceof Error ? error.message : 'Unknown error',
+            email: user.email 
+          });
           return false;
         }
       }
