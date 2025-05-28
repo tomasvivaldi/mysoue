@@ -37,34 +37,59 @@ const Login = () => {
   const user = session?.user as UserWithProvider;
   const extendedSession = session as ExtendedSession;
   const [addUsers] = useMutation(ADD_USERS);
-  console.log("session", session);
-  console.log("session?.user?.email", user?.email);
+
+  console.log("[Login] Session Status:", {
+    status,
+    hasSession: !!session,
+    userEmail: user?.email,
+    error: extendedSession?.error,
+  });
 
   const { data: userData, loading: userDataLoading } = useQuery(GET_USERS_BY_EMAIL, {
     variables: { email: user?.email },
     skip: !user?.email,
   });
 
+  console.log("[Login] User Data Query:", {
+    loading: userDataLoading,
+    hasData: !!userData,
+    userExists: !!userData?.usersByEmail?.length,
+  });
+
   useEffect(() => {
+    console.log("[Login] Effect Triggered:", {
+      status,
+      hasSession: !!session,
+      userDataLoading,
+      userEmail: user?.email,
+    });
+
     // Handle session status
     if (status === "authenticated" && extendedSession?.error) {
+      console.log("[Login] Session Error:", extendedSession.error);
       setError(extendedSession.error);
       return;
     }
 
     const handleUserFlow = async () => {
-      if (!session || userDataLoading) return;
+      if (!session || userDataLoading) {
+        console.log("[Login] Skipping user flow:", {
+          hasSession: !!session,
+          userDataLoading,
+        });
+        return;
+      }
 
       try {
         // If userData exists, redirect to the homepage
         if (userData?.usersByEmail && userData.usersByEmail.length > 0) {
-          console.log("User data found, redirecting...", userData.usersByEmail);
-          router.push("/dashboard/my-wishlists");
+          console.log("[Login] User exists, redirecting to dashboard...");
+          router.replace("/dashboard/my-wishlists");
           return;
         }
 
         // No user data found, create user
-        console.log("No user data found, creating user...");
+        console.log("[Login] Creating new user...");
         const { data } = await addUsers({
           variables: {
             created_at: new Date().toISOString(),
@@ -75,7 +100,7 @@ const Login = () => {
             profile_picture_url: user?.image,
           },
         });
-        console.log("User added:", data);
+        console.log("[Login] User created:", data);
 
         // Send welcome email
         await fetch('/api/sendEmail', {
@@ -88,31 +113,47 @@ const Login = () => {
           }),
         });
 
-        router.push("/dashboard/my-wishlists");
+        console.log("[Login] Redirecting to dashboard...");
+        router.replace("/dashboard/my-wishlists");
       } catch (error) {
-        console.error("Error in user flow:", error);
+        console.error("[Login] Error in user flow:", error);
         setError("Failed to create user account. Please try again.");
         setLoading(false);
       }
     };
 
-    handleUserFlow();
+    if (status === "authenticated") {
+      console.log("[Login] Starting user flow...");
+      handleUserFlow();
+    }
   }, [session, status, user, addUsers, userData, userDataLoading, router]);
 
   const handleLogin = async (provider: string) => {
+    console.log(`[Login] Starting ${provider} login...`);
     setLoading(true);
     setError(null);
     try {
       const result = await signIn(provider, {
         redirect: false,
+        callbackUrl: "/dashboard/my-wishlists"
+      });
+      
+      console.log("[Login] Sign in result:", {
+        error: result?.error,
+        url: result?.url,
+        status: result?.status,
       });
       
       if (result?.error) {
+        console.error("[Login] Login error:", result.error);
         setError(result.error);
         setLoading(false);
+      } else if (result?.url) {
+        console.log("[Login] Redirecting to:", result.url);
+        router.replace(result.url);
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("[Login] Login error:", error);
       setError("An error occurred during login. Please try again.");
       setLoading(false);
     }

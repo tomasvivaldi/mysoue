@@ -20,7 +20,7 @@ const client = new ApolloClient({
 
 export const authOptions = {
   // Enable debug messages in the console
-  debug: process.env.NODE_ENV === 'development',
+  debug: true, // Enable debug in both development and production
 
   // Session options
   session: {
@@ -120,11 +120,19 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/login",
-    error: "/login", // Redirect to login page on error
+    error: "/login",
+    newUser: "/dashboard/my-wishlists",
   },
 
   callbacks: {
     async jwt({ token, user, account }) {
+      console.log("[NextAuth] JWT Callback:", {
+        token: token ? "exists" : "null",
+        user: user ? "exists" : "null",
+        account: account ? "exists" : "null",
+        provider: account?.provider,
+      });
+
       if (account && user) {
         return {
           ...token,
@@ -141,13 +149,42 @@ export const authOptions = {
     },
 
     async session({ session, token }) {
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-      session.error = token.error;
+      console.log("[NextAuth] Session Callback:", {
+        sessionExists: !!session,
+        tokenExists: !!token,
+        userEmail: session?.user?.email,
+      });
+
+      if (token) {
+        session.user = token.user;
+        session.accessToken = token.accessToken;
+        session.error = token.error;
+      }
       return session;
     },
 
+    async redirect({ url, baseUrl }) {
+      console.log("[NextAuth] Redirect Callback:", {
+        url,
+        baseUrl,
+        isRelative: url.startsWith("/"),
+        isSameOrigin: new URL(url).origin === baseUrl,
+      });
+
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}${url}`;
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return url;
+      return baseUrl;
+    },
+
     async signIn({ user, account, profile }) {
+      console.log("[NextAuth] SignIn Callback:", {
+        userEmail: user?.email,
+        provider: account?.provider,
+        profileExists: !!profile,
+      });
+
       if (account?.provider === "google") {
         try {
           // Check if user exists in database
@@ -156,9 +193,14 @@ export const authOptions = {
             variables: { email: user.email },
           });
 
+          console.log("[NextAuth] Database Check:", {
+            userExists: !!data?.usersByEmail,
+            email: user.email,
+          });
+
           if (!data?.usersByEmail) {
             // User doesn't exist, create new user
-            await client.mutate({
+            const result = await client.mutate({
               mutation: queries.ADD_USER,
               variables: {
                 email: user.email,
@@ -169,10 +211,14 @@ export const authOptions = {
                 created_at: new Date().toISOString(),
               },
             });
+            console.log("[NextAuth] New User Created:", {
+              success: !!result,
+              email: user.email,
+            });
           }
           return true;
         } catch (error) {
-          console.error("Error during Google sign in:", error);
+          console.error("[NextAuth] Error during Google sign in:", error);
           return false;
         }
       }
