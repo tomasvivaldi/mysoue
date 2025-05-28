@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
 import { LoginForm } from "@/components/aline_design/auth/LoginForm";
 import Head from "next/head";
-import { User } from "next-auth";
+import { User, Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { ADD_USERS } from "@/graphql/mutations";
 import { useRouter } from "next/navigation";
@@ -13,6 +13,10 @@ import Image from "next/image";
 
 interface UserWithProvider extends User {
   provider?: string;
+}
+
+interface ExtendedSession extends Session {
+  error?: string;
 }
 
 type UserData = {
@@ -27,9 +31,11 @@ type UserData = {
 const Login = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user = session?.user as UserWithProvider;
+  const extendedSession = session as ExtendedSession;
   const [addUsers] = useMutation(ADD_USERS);
   console.log("session", session);
   console.log("session?.user?.email", user?.email);
@@ -40,12 +46,12 @@ const Login = () => {
   });
 
   useEffect(() => {
-    console.log("Effect triggered", {
-      session,
-      userDataLoading,
-      "User Email": user?.email,
-    });
-    
+    // Handle session status
+    if (status === "authenticated" && extendedSession?.error) {
+      setError(extendedSession.error);
+      return;
+    }
+
     const handleUserFlow = async () => {
       if (!session || userDataLoading) return;
 
@@ -85,51 +91,55 @@ const Login = () => {
         router.push("/dashboard/my-wishlists");
       } catch (error) {
         console.error("Error in user flow:", error);
+        setError("Failed to create user account. Please try again.");
         setLoading(false);
       }
     };
 
     handleUserFlow();
-  }, [session, user, addUsers, userData, userDataLoading, router]);
+  }, [session, status, user, addUsers, userData, userDataLoading, router]);
 
   const handleLogin = async (provider: string) => {
     setLoading(true);
+    setError(null);
     try {
-      await signIn(provider, {});
+      const result = await signIn(provider, {
+        redirect: false,
+      });
+      
+      if (result?.error) {
+        setError(result.error);
+        setLoading(false);
+      }
     } catch (error) {
       console.error("Login error:", error);
+      setError("An error occurred during login. Please try again.");
       setLoading(false);
     }
   };
 
-  const [loginFailed, setLoginFailed] = useState(false);
-
   const handleEmailLogin = async (email: string, password: string): Promise<void> => {
-    setLoginFailed(false);
-    const response = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-    if (response?.error) {
-      setLoginFailed(true);
-    }
-  };
-
-  const modifiedHandleEmailLogin = async (email: string, password: string) => {
+    setError(null);
     setLoading(true);
     try {
-      await handleEmailLogin(email, password);
+      const response = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      
+      if (response?.error) {
+        setError(response.error);
+      }
     } catch (error) {
       console.error("Login error:", error);
+      setError("An error occurred during login. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  console.log("login failed?", loginFailed);
-
-  if (loading || userDataLoading) {
+  if (loading || userDataLoading || status === "loading") {
     return (
       <LoadingBox
         imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
@@ -181,10 +191,15 @@ const Login = () => {
         {/* Right Section: Login form */}
         <div className="my-auto sm:my-0 w-full md:w-1/2 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
+            {error && (
+              <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                {error}
+              </div>
+            )}
             <LoginForm
               handleLogin={handleLogin}
-              handleEmailLogin={modifiedHandleEmailLogin}
-              loginFailed={loginFailed}
+              handleEmailLogin={handleEmailLogin}
+              loginFailed={!!error}
               loading={loading}
               setLoading={setLoading}
             />

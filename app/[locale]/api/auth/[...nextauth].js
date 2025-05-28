@@ -20,16 +20,12 @@ const client = new ApolloClient({
 
 export const authOptions = {
   // Enable debug messages in the console
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
 
   // Session options
   session: {
-    // Max age of the session. Controls how often the session updates in the database / in memory if a database is not being used.
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
-
-    // The time until the session cookie expires (in seconds). If not explicitly set, it defaults to the maxAge of the session.
-    // The cookie expiration is reset every time the user signs in or accesses the site (if the session is still active).
-    // If you want to use "rolling sessions", you can set this to a value lower than maxAge.
     updateAge: 24 * 60 * 60, // 24 hours
   },
 
@@ -40,9 +36,8 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       authorization: {
         params: {
-          prompt: "consent",
-          access_type: "offline",
-          // scope: 'https://www.googleapis.com/auth/calendar',
+          prompt: "select_account",
+          access_type: "online",
           response_type: "code",
         },
       },
@@ -72,14 +67,8 @@ export const authOptions = {
     }),
 
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Sign In",
-      // `credentials` is used to generate a form on the sign in page.
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
         email: {
           label: "Email",
           type: "email",
@@ -91,42 +80,38 @@ export const authOptions = {
           placeholder: "password",
         },
       },
-      authorize: async (credentials) => {
-        console.log("Credentials:\n", credentials);
-        const { data } = await client
-          .query({
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          throw new Error('Please enter both email and password');
+        }
+
+        try {
+          const { data } = await client.query({
             query: queries.GET_USER_BY_EMAIL,
-            variables: { email: credentials?.email },
-          })
-          .catch((error) => {
-            console.log("Error during query execution:", error);
-            throw error;
+            variables: { email: credentials.email },
           });
 
-        if (data && data.usersByEmail) {
-          console.log("User found in the database:", data.usersByEmail);
+          if (!data?.usersByEmail) {
+            throw new Error('No user found with this email');
+          }
 
-          // Verify password
           const isValid = await bcrypt.compare(
             credentials.password,
             data.usersByEmail.password
           );
-          console.log("Password comparison result:", isValid);
 
-          if (isValid) {
-            console.log("Password is valid. User:", {
-              id: data.usersByEmail.id,
-            });
-            return { id: data.usersByEmail.id, email: data.usersByEmail.email };
-          } else {
-            // If the password is invalid, return null to reject the credentials
-            console.log("Invalid password.");
-            return Promise.resolve(null);
+          if (!isValid) {
+            throw new Error('Invalid password');
           }
-        } else {
-          // If the user was not found, return null to reject the credentials
-          console.log("User not found in the database.");
-          return Promise.resolve(null);
+
+          return {
+            id: data.usersByEmail.id,
+            email: data.usersByEmail.email,
+            name: data.usersByEmail.username,
+          };
+        } catch (error) {
+          console.error('Authentication error:', error);
+          throw new Error(error.message || 'Authentication failed');
         }
       },
     }),
@@ -134,32 +119,66 @@ export const authOptions = {
     // ...add more providers here
   ],
   pages: {
-    signIn: "/login", // Your custom login page
-    signOut: false, // Use the default signOut page provided by NextAuth
-    error: false, // Use the default error page provided by NextAuth
-    verifyRequest: false, // Use the default verifyRequest page provided by NextAuth
-    newUser: null, // Disable the newUser page (this will redirect new users to the callback URL)
+    signIn: "/login",
+    error: "/login", // Redirect to login page on error
   },
 
-  // callbacks: {
-  //   // This callback is called whenever a JWT is created or updated
-  //   async jwt({ token, account }) {
-  //     // If the account object exists and has an accessToken, save it in the token
-  //     if (account?.accessToken) {
-  //       token.accessToken = account.accessToken;
-  //       token.refreshToken = account.refreshToken; // Save refreshToken if available
-  //     }
-  //     return token;
-  //   },
+  callbacks: {
+    async jwt({ token, user, account }) {
+      if (account && user) {
+        return {
+          ...token,
+          accessToken: account.access_token,
+          refreshToken: account.refresh_token,
+          user: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+          },
+        };
+      }
+      return token;
+    },
 
-  //   // This callback is called whenever a session is checked
-  //   async session({ session, token }) {
-  //     // Assign the accessToken from the token to the session object
-  //     session.accessToken = token.accessToken;
-  //     session.refreshToken = token.refreshToken; // Assign refreshToken if available
-  //     return session;
-  //   },
-  // }
+    async session({ session, token }) {
+      session.user = token.user;
+      session.accessToken = token.accessToken;
+      session.error = token.error;
+      return session;
+    },
+
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google") {
+        try {
+          // Check if user exists in database
+          const { data } = await client.query({
+            query: queries.GET_USER_BY_EMAIL,
+            variables: { email: user.email },
+          });
+
+          if (!data?.usersByEmail) {
+            // User doesn't exist, create new user
+            await client.mutate({
+              mutation: queries.ADD_USER,
+              variables: {
+                email: user.email,
+                username: user.name,
+                oauth_provider: "google",
+                password_hash: "",
+                profile_picture_url: user.image,
+                created_at: new Date().toISOString(),
+              },
+            });
+          }
+          return true;
+        } catch (error) {
+          console.error("Error during Google sign in:", error);
+          return false;
+        }
+      }
+      return true;
+    },
+  },
 };
 
 export default NextAuth(authOptions);
