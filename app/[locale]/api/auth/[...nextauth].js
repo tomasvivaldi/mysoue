@@ -20,7 +20,7 @@ const client = new ApolloClient({
 
 export const authOptions = {
   // Enable debug messages in the console
-  debug: true, // Enable debug in both development and production
+  debug: true,
 
   // Session options
   session: {
@@ -171,10 +171,15 @@ export const authOptions = {
         isSameOrigin: new URL(url).origin === baseUrl,
       });
 
-      // Allows relative callback URLs
-      if (url.startsWith("/")) return `${baseUrl}${url}`;
-      // Allows callback URLs on the same origin
-      else if (new URL(url).origin === baseUrl) return url;
+      // Always allow relative URLs
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+      // Allow URLs from the same origin
+      else if (new URL(url).origin === baseUrl) {
+        return url;
+      }
+      // Default to baseUrl
       return baseUrl;
     },
 

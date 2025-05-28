@@ -123,9 +123,31 @@ export async function middleware(request: NextRequest) {
   const isDashboard = request.nextUrl.pathname.includes("/dashboard");
   
   if (isDashboard) {
-    const token = await getToken({ req: request });
-    
-    if (!token) {
+    try {
+      const token = await getToken({ 
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET
+      });
+      
+      console.log("[Middleware] Dashboard access check:", {
+        path: request.nextUrl.pathname,
+        hasToken: !!token,
+        tokenEmail: token?.email
+      });
+      
+      if (!token) {
+        // Extract locale from the current URL
+        const locale = request.nextUrl.pathname.split('/')[1];
+        const isLocaleValid = locales.includes(locale);
+        const redirectLocale = isLocaleValid ? locale : defaultLocale;
+        
+        const redirectUrl = new URL(`/${redirectLocale}/login`, request.url);
+        console.log("[Middleware] Redirecting to login:", redirectUrl.toString());
+        
+        return NextResponse.redirect(redirectUrl);
+      }
+    } catch (error) {
+      console.error("[Middleware] Error checking token:", error);
       // Extract locale from the current URL
       const locale = request.nextUrl.pathname.split('/')[1];
       const isLocaleValid = locales.includes(locale);
@@ -144,6 +166,7 @@ export const config = {
     "/(en|th)/:path*",
     "/((?!_next|_vercel|.*\\..*).*)",
     "/dashboard/:path*",
-    "/:locale/dashboard/:path*"
+    "/:locale/dashboard/:path*",
+    "/api/auth/:path*"
   ],
 };
