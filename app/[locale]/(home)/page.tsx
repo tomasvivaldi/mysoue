@@ -1,18 +1,9 @@
-import AllAboutGifts from "@/components/AllAboutGifts";
 import Banner from "@/components/Banner";
-import FolderNotch from "@/components/FolderNotch";
-import Hero2 from "@/components/Hero2";
-import HeroSection from "@/components/HeroSection";
-import HowItWorks from "@/components/HowItWorks";
-import OurLists from "@/components/OurLists";
-import TestimonialCarousel from "@/components/TestimonialCarousel";
 import Carrousel from "@/components/aline_design/Carrousel";
 import MidBanner from "@/components/aline_design/MidBanner";
 import VideoBanner from "@/components/aline_design/VideoBanner";
 import VisionBoard from "@/components/aline_design/VisionBoard";
 import Wishes from "@/components/aline_design/Wishes";
-import WishlistsFeatures from "@/components/aline_design/WishlistsFeatures";
-import { RedLogosBanner } from "@/components/banners/RedLogosBanner";
 import { SmallTextBanner } from "@/components/banners/SmallTextBanner";
 import SolidButton from "@/components/buttons/SolidButton";
 import { FloatingButton } from "@/components/ui/FloatingButton";
