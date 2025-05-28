@@ -45,54 +45,61 @@ const Login = () => {
       userDataLoading,
       "User Email": user?.email,
     });
-    if (session && !userDataLoading) {
-      console.log("if session && !userDataLoading triggered");
-      // If userData exists, redirect to the homepage
-      if (userData?.usersByEmail && userData.usersByEmail.length > 0) {
-        console.log("User data found, redirecting...", userData.usersByEmail);
-        window.location.href = "/dashboard/my-wishlists";
-        return;
-      } else {
+    
+    const handleUserFlow = async () => {
+      if (!session || userDataLoading) return;
+
+      try {
+        // If userData exists, redirect to the homepage
+        if (userData?.usersByEmail && userData.usersByEmail.length > 0) {
+          console.log("User data found, redirecting...", userData.usersByEmail);
+          router.push("/dashboard/my-wishlists");
+          return;
+        }
+
+        // No user data found, create user
         console.log("No user data found, creating user...");
-        const createUser = async () => {
-          console.log("createUser triggered:");
-          try {
-            console.log("try triggered:");
-            const { data } = await addUsers({
-              variables: {
-                created_at: new Date().toISOString(),
-                email: user?.email,
-                oauth_provider: user?.provider || "google",
-                password_hash: "",
-                username: user?.name,
-                profile_picture_url: user?.image,
-              },
-            });
-            console.log("User added:", data);
+        const { data } = await addUsers({
+          variables: {
+            created_at: new Date().toISOString(),
+            email: user?.email,
+            oauth_provider: user?.provider || "google",
+            password_hash: "",
+            username: user?.name,
+            profile_picture_url: user?.image,
+          },
+        });
+        console.log("User added:", data);
 
-            // Send welcome email
-            await fetch('/api/sendEmail', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                emailType: 'welcome',
-                to: user?.email,
-                name: user?.name,
-              }),
-            });
+        // Send welcome email
+        await fetch('/api/sendEmail', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            emailType: 'welcome',
+            to: user?.email,
+            name: user?.name,
+          }),
+        });
 
-            router.push("/dashboard/my-wishlists");
-          } catch (error) {
-            console.error("Error adding user:", error);
-          }
-        };
-        createUser();
+        router.push("/dashboard/my-wishlists");
+      } catch (error) {
+        console.error("Error in user flow:", error);
+        setLoading(false);
       }
-    }
+    };
+
+    handleUserFlow();
   }, [session, user, addUsers, userData, userDataLoading, router]);
 
   const handleLogin = async (provider: string) => {
-    await signIn(provider, {});
+    setLoading(true);
+    try {
+      await signIn(provider, {});
+    } catch (error) {
+      console.error("Login error:", error);
+      setLoading(false);
+    }
   };
 
   const [loginFailed, setLoginFailed] = useState(false);
@@ -122,7 +129,7 @@ const Login = () => {
 
   console.log("login failed?", loginFailed);
 
-  if (userDataLoading)
+  if (loading || userDataLoading) {
     return (
       <LoadingBox
         imageSrc="/Symbol/Logo-Mysoue-Symbol_2.png"
@@ -131,6 +138,7 @@ const Login = () => {
         containerClassName="h-screen"
       />
     );
+  }
 
   // In case you need to call createUser separately later:
   const createUser = async () => {
