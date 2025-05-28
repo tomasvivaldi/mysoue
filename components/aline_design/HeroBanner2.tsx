@@ -71,7 +71,7 @@ export default function HeroBanner2() {
         </h1>
 
         <Link
-          href="/start"
+          href="/login"
           className="inline-block mt-6 px-8 py-3 text-lg   italic bg-white text-[#800000] rounded-full shadow-md hover:shadow-lg hover:text-primary active:bg-transparent active:text-white active:border-2 active:bg-primary transition-all"
         >
           {t("startNow")}
