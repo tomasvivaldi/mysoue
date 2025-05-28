@@ -84,7 +84,14 @@ const Login = () => {
         // If userData exists, redirect to the homepage
         if (userData?.usersByEmail && userData.usersByEmail.length > 0) {
           console.log("[Login] User exists, redirecting to dashboard...");
-          router.replace("/dashboard/my-wishlists");
+          try {
+            // Try router.replace first
+            await router.replace("/dashboard/my-wishlists");
+          } catch (routerError) {
+            console.error("[Login] Router replace failed:", routerError);
+            // Fallback to window.location
+            window.location.href = "/dashboard/my-wishlists";
+          }
           return;
         }
 
@@ -114,7 +121,14 @@ const Login = () => {
         });
 
         console.log("[Login] Redirecting to dashboard...");
-        router.replace("/dashboard/my-wishlists");
+        try {
+          // Try router.replace first
+          await router.replace("/dashboard/my-wishlists");
+        } catch (routerError) {
+          console.error("[Login] Router replace failed:", routerError);
+          // Fallback to window.location
+          window.location.href = "/dashboard/my-wishlists";
+        }
       } catch (error) {
         console.error("[Login] Error in user flow:", error);
         setError("Failed to create user account. Please try again.");
@@ -150,7 +164,14 @@ const Login = () => {
         setLoading(false);
       } else if (result?.url) {
         console.log("[Login] Redirecting to:", result.url);
-        router.replace(result.url);
+        try {
+          // Try router.replace first
+          await router.replace(result.url);
+        } catch (routerError) {
+          console.error("[Login] Router replace failed:", routerError);
+          // Fallback to window.location
+          window.location.href = result.url;
+        }
       }
     } catch (error) {
       console.error("[Login] Login error:", error);
