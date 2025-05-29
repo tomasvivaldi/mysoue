@@ -15,7 +15,6 @@ const client = new ApolloClient({
   },
   cache: new InMemoryCache(),
 });
-
 const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   debug: true,
