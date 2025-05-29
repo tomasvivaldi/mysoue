@@ -76,16 +76,18 @@ export const SmallTextBanner = ({
     >
       <ul
         ref={scrollerRef}
-        className={`flex min-w-full shrink-0 py-2 w-max flex-nowrap ${
+        className={`flex min-w-full shrink-0 py-1 sm:py-2 w-max flex-nowrap items-center ${
           start && "animate-scroll"
         }`}
       >
-        <span className="mx-2 my-auto">•</span>
+        <li className="w-auto max-w-full relative flex-shrink-0 h-[22px] sm:h-fit flex items-center">
+          <span className="mx-1 sm:mx-2 text-sm sm:text-lg md:text-3xl mb-1 sm:mb-2 md:mb-3">•</span>
+        </li>
         {items.map((item, idx) => (
-          <li className="w-auto max-w-full relative flex-shrink-0 " key={idx}>
-            <span className=" font-simplemichael">{genericText} </span>
-            <span className=" font-simplemichael font-semibold ">{item}</span>
-            {idx < items.length - 1 && <span className="mx-2">•</span>}
+          <li className="w-auto max-w-full relative flex-shrink-0 h-[22px] sm:h-fit flex items-center" key={idx}>
+            <span className="font-simplemichael text-sm sm:text-lg md:text-3xl pr-2">{genericText} </span>
+            <span className="font-simplemichael font-semibold text-sm sm:text-lg md:text-3xl">{item}</span>
+            {idx < items.length - 1 && <span className="mx-1 sm:mx-2 text-sm sm:text-lg md:text-3xl mb-1 sm:mb-2 md:mb-3">•</span>}
           </li>
         ))}
       </ul>
