@@ -242,7 +242,7 @@ export default function Explore() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {visibleProducts.map((product) => (
                       <ProductCard3
-                        href={`/explore/${product.id}`}
+                        href={""}
                         key={product.id}
                         preList={product.pre_list}
                         imageUrl={product.image_url}
@@ -252,6 +252,7 @@ export default function Explore() {
                         brand={product.brand}
                         category={product.category}
                         subcategory={product.subcategory}
+                        modal={true}
                       />
                     ))}
                     </div>

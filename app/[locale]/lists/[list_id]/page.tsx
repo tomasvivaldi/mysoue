@@ -312,15 +312,16 @@ const ListDetails: React.FC = () => {
           {visibleItems.map((product) => (
             <ProductCard3
               key={product.id}
-              href={`/explore/${product.id}`}
+              href={""}
               preList={product.pre_list}
               imageUrl={product.image_url}
               name={product.product_name}
               price={product.price}
-              additionalDescription={product.product_description}
-              brand={product.brand}
-              category={product.category}
-              subcategory={product.subcategory}
+              additionalDescription={""}
+              brand={""}
+              category={""}
+              subcategory={""}
+              modal={true}
             />
           ))}
         </div>
