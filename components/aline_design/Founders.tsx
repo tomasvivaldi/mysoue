@@ -12,7 +12,7 @@ export default function Founders() {
     {
       name: t("luizaName"),
       description: t("luizaDescription"),
-      image: "/path/to/luiza.jpg",
+      image: "/About/luiza.jpg",
     },
     {
       name: t("charlotteName"),
