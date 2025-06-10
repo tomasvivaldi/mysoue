@@ -113,7 +113,7 @@ const OurLittleStory = () => {
             </motion.div>
             <motion.div
               variants={fadeIn}
-              className="mb-6 max-w-3xl self-center flex flex-col sm:flex-row justify-center md:gap-8"
+              className="mb-6 max-w-3xl self-center flex flex-col sm:flex-row justify-center md:gap-4"
               initial="initial"
               whileInView="whileInView"
               viewport={{ once: true }}

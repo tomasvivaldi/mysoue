@@ -9,7 +9,7 @@ const Banner = () => {
     <div className="sticky flex flex-col inner-width paddings py-8 mb-8 text-white gap-8 x-paddings2">
       <div
         className="z-10 relative bg-[#B72228] rounded-xl w-full px-4 md:px-8 py-8
-        flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-8"
+        flex flex-col sm:flex-row justify-center items-center gap-4 md:gap-4"
       >
         <div className="w-full flex flex-col lg:flex-row justify-between p-6 xl:p-12 gap-8 lg:gap-0 items-center">
           <h2 className="text-2xl md:text-3xl max-w-lg font-nunito text-center md:text-left">

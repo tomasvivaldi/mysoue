@@ -47,7 +47,7 @@ const VideoBanner: React.FC<VideoBannerProps> = ({ locale }) => {
 
       {/* Navigation Bar */}
       <nav className="relative z-10 flex items-center justify-between px-4 md:px-8 py-6">
-        <div className="sm:flex gap-3 md:gap-8 hidden">
+        <div className="sm:flex gap-3 md:gap-4 hidden">
           <Link href={`/${currentLocale}/about`} className="text-sm hover:opacity-80">
             {tNavbar("about")}
           </Link>
@@ -72,7 +72,7 @@ const VideoBanner: React.FC<VideoBannerProps> = ({ locale }) => {
           <h1 className="text-2xl  ">{tNavbar("title")}</h1>
         </Link>
 
-        <div className="sm:flex gap-3 md:gap-8 hidden items-center">
+        <div className="sm:flex gap-3 md:gap-4 hidden items-center">
           <button className="hover:opacity-80">
             <Search className="w-5 h-5" />
           </button>

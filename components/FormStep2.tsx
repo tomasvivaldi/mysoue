@@ -53,7 +53,7 @@ const FormStepTwo: React.FC<FormStepTwoProps> = ({
       <h2 className="text-2xl font-semibold text-left">{t("title")}</h2>
       <p className="text-left ">{t("description")}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
         <div>
           <label className="block mb-2 text-left">{t("typeOfListLabel")}</label>
           <select

@@ -31,7 +31,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
 
       {/* Navigation Bar */}
       <nav className="hidden sm:flex absolute top-0 left-0 w-full z-50 items-center justify-between px-4 md:px-8 py-6 bg-[#A5282C]">
-        <div className="flex gap-3 md:gap-8">
+        <div className="flex gap-3 md:gap-4">
           <Link href="/about" className="text-sm hover:opacity-80">
             {t("about")}
           </Link>
@@ -53,7 +53,7 @@ const HeroBanner3: React.FC<HeroBanner3Props> = ({
           {t("mysoue")}
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-8">
+        <div className="flex items-center gap-3 md:gap-4">
           <button className="hover:opacity-80" aria-label={t("search")}>
             🔍
           </button>

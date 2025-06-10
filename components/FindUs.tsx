@@ -15,7 +15,7 @@ const FindUs = () => {
     },
   };
   return (
-    <div className=" flex flex-row w-full lg:gap-32 md:gap-8">
+    <div className=" flex flex-row w-full lg:gap-32 md:gap-4">
       <motion.div
         className=" max-w-6xl"
         variants={fadeInDelayed}

@@ -28,7 +28,7 @@ export default function Founders() {
         {t("meetOurFounders")}
       </h2>
 
-      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-6xl mx-auto px-4 sm:px-8 lg:px-24 pb-8 sm:pb-10">
+      <div className="relative grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4 max-w-6xl mx-auto px-4 sm:px-8 lg:px-24 pb-8 sm:pb-10">
         {/* Background shape element */}
         <div className="absolute bg-[#FEFAF4] bottom-0 h-full md:h-1/2 w-full rounded-3xl" />
 

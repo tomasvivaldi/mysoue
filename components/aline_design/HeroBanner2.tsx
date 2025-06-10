@@ -25,7 +25,7 @@ export default function HeroBanner2() {
 
       {/* Navigation Bar */}
       <nav className="hidden sm:flex absolute top-0 left-0 w-full z-10 items-center justify-between px-4 md:px-8 py-6 bg-[#A5282C]">
-        <div className="flex gap-3 md:gap-8">
+        <div className="flex gap-3 md:gap-4">
           <Link href="/about" className="text-sm hover:opacity-80">
             {t("about")}
           </Link>
@@ -47,7 +47,7 @@ export default function HeroBanner2() {
           {t("mysoue")}
         </Link>
 
-        <div className="flex items-center gap-3 md:gap-8">
+        <div className="flex items-center gap-3 md:gap-4">
           <button className="hover:opacity-80">
             <span className="sr-only">{t("search")}</span>
             🔍
