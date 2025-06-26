@@ -30,7 +30,7 @@
     "framer-motion": "^10.18.0",
     "helmet": "^8.1.0",
     "lucide-react": "^0.276.0",
-    "motion": "^12.4.10",
+    "motion": "^12.18.1",
     "next": "13.5.4",
     "next-auth": "^4.24.5",
     "next-intl": "^3.13.0",

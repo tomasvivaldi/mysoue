@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { IconX } from "@tabler/icons-react";
 import { FilterContent } from "@/components/aline_design/FilterContent";
+import { Carousel, Card } from "@/components/aline_design/apple-cards-carousel";
 
 
 interface Product {
@@ -39,8 +40,166 @@ type WishlistItem = {
   src: string;
 };
 
+const DummyContent = () => {
+  const seasonalWishlists = [
+    {
+      title: "Winter Holidays Wishlist",
+      description: "Cozy up with gifts for the winter season: warm blankets, festive mugs, holiday decor, and thoughtful presents for loved ones.",
+      img: "/xmas.jpg",
+      alt: "Winter holidays gifts"
+    },
+    {
+      title: "Spring Refresh Wishlist",
+      description: "Welcome spring with fresh finds: gardening tools, floral decor, outdoor games, and items to refresh your home and wardrobe.",
+      img: "/Lists/card1.jpg",
+      alt: "Spring wishlist gifts"
+    },
+    {
+      title: "Summer Adventures Wishlist",
+      description: "Gear up for summer fun: beach accessories, travel gadgets, picnic sets, and everything you need for sunny adventures.",
+      img: "/Lists/card2.jpg",
+      alt: "Summer wishlist gifts"
+    },
+  ];
+  return (
+    <>
+      {seasonalWishlists.map((item, index) => (
+        <div
+          key={"seasonal-wishlist-" + index}
+          className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4"
+        >
+          <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
+            <span className="font-bold text-neutral-700 dark:text-neutral-200">
+              {item.title}
+            </span>{" "}
+            {item.description}
+          </p>
+          <img
+            src={item.img}
+            alt={item.alt}
+            height="300"
+            width="500"
+            className="md:w-1/2 md:h-1/2 h-full w-full mx-auto object-contain rounded-2xl"
+          />
+        </div>
+      ))}
+    </>
+  );
+};
+
+
+const data = [
+  {
+    category: "Winter",
+    title: "Winter Holidays Wishlist",
+    src: "/xmas.jpg",
+    content: (
+      <div>
+        <p>
+          Cozy up with gifts for the winter season: warm blankets, festive mugs, holiday decor, and thoughtful presents for loved ones.
+        </p>
+        <img
+          src="/xmas.jpg"
+          alt="Winter holidays gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+  {
+    category: "Spring",
+    title: "Spring Refresh Wishlist",
+    src: "/Lists/card1.jpg",
+    content: (
+      <div>
+        <p>
+          Welcome spring with fresh finds: gardening tools, floral decor, outdoor games, and items to refresh your home and wardrobe.
+        </p>
+        <img
+          src="/Lists/card1.jpg"
+          alt="Spring wishlist gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+  {
+    category: "Summer",
+    title: "Summer Adventures Wishlist",
+    src: "/Lists/card2.jpg",
+    content: (
+      <div>
+        <p>
+          Gear up for summer fun: beach accessories, travel gadgets, picnic sets, and everything you need for sunny adventures.
+        </p>
+        <img
+          src="/Lists/card2.jpg"
+          alt="Summer wishlist gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+  {
+    category: "Autumn",
+    title: "Autumn Cozy Wishlist",
+    src: "/Lists/card3.jpg",
+    content: (
+      <div>
+        <p>
+          Embrace the fall with cozy sweaters, pumpkin spice treats, home scents, and everything you need for a warm autumn.
+        </p>
+        <img
+          src="/Lists/card3.jpg"
+          alt="Autumn wishlist gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+  {
+    category: "Back to School",
+    title: "Back to School Wishlist",
+    src: "/Lists/card4.jpg",
+    content: (
+      <div>
+        <p>
+          Get ready for the new school year: backpacks, stationery, tech gadgets, and essentials for students of all ages.
+        </p>
+        <img
+          src="/Lists/card4.jpg"
+          alt="Back to school wishlist gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+  {
+    category: "Valentine's Day",
+    title: "Valentine's Day Wishlist",
+    src: "/Lists/card5.jpg",
+    content: (
+      <div>
+        <p>
+          Celebrate love with romantic gifts: chocolates, flowers, jewelry, and personalized surprises for your special someone.
+        </p>
+        <img
+          src="/Lists/card5.jpg"
+          alt="Valentine's Day wishlist gifts"
+          className="w-full h-auto rounded-2xl mt-4"
+        />
+      </div>
+    ),
+  },
+];
+
+
 
 export default function Explore() {
+  const cards = data.map((card, index) => (
+    <Card key={card.src} card={card} index={index} />
+  ));
+
   const t = useTranslations("ProductExplorer");
 
   const mockWishlists: WishlistItem[] = [
@@ -207,12 +366,16 @@ export default function Explore() {
         />
 
         {/* Products Grid */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-12">
+        <div className="relative  mx-2 sm:mx-10 rounded-3xl overflow-hidden">
           <div className="flex flex-col">
               <div className="container mx-auto px-4 py-8 relative">
                 <h1 className="text-4xl font-bold mb-8 text-center">{t("exploreProductsTitle")}</h1>
                 <h2 className="text-3xl font-semibold text-center">{t("featuredWishlistsTitle")}</h2>
                 <AnimatedLists wishlists={mockWishlists} />
+                <div className="flex flex-col my-4 max-w-7xl mx-auto">
+                  <h3 className="text-3xl font-semibold text-center">{t("seasonalWishlistsTitle")}</h3>
+                  <Carousel items={cards} />
+                </div>
                   <div className="flex flex-col">
                     <h2 className="text-2xl font-semibold mb-4">{t("browseProductsTitle")}</h2>
                     <div className="mb-4 pl-4 md:pl-0">

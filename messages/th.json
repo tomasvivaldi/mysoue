@@ -227,6 +227,7 @@
     "cancelButton": "คิดอีกนิด"
   },
   "ProductExplorer": {
+    "seasonalWishlistsTitle": "รายการของขวัญชุดฤดูกาล",
     "exploreProductsTitle": "สำรวจผลิตภัณฑ์ที่ Mysoue",
     "featuredWishlistsTitle": "รายการที่ต้องการที่โดดเด่น",
     "browseProductsTitle": "เลือกดูผลิตภัณฑ์",
@@ -593,10 +594,10 @@
     "previous": "ก่อนหน้า",
     "next": "ถัดไป",
     
-    "postPreview1": "ลอเร็ม อิปซัม ดอลลาร์ ซิท อาเมท, consectetur adipiscing elit. Nam vel tortor ac elit placerat laoreet.\n\nMorbi at dolor ex. Duis lacinia risus nec odio fermentum pretium. Fusce imperdiet tortor sit amet nunc ultrices...",
-    "postPreview2": "ตัวอย่างข้อความที่สองสำหรับตัวอย่างโพสต์ สามารถปรับเปลี่ยนได้ตามต้องการ",
-    "postPreview3": "ตัวอย่างข้อความที่สาม ลอเร็ม อิปซัม ดอลลาร์ ซิท อาเมท...",
-    "postPreview4": "ตัวอย่างข้อความที่สี่ สามารถแก้ไขหรือแปลเป็นภาษาอื่นได้ตามต้องการ"
+    "postPreview1": "I can't imagine planning birthdays without it anymore—absolute game-changer!\nนึกไม่ออกเลยว่าจะจัดวันเกิดโดยไม่มีเว็บนี้ได้ยังไง—เปลี่ยนเกมไปเลยจริงๆ!\n\n— Nui from Krabi",
+    "postPreview2": "I've tried so many wish-list platforms, and this one is by far the easiest and most enjoyable!\n\n— น้องเมย์ from Kanchanaburi",
+    "postPreview3": "Absolutely the best wish-list creator I've come across since in Asia. I got pregnant 2 years ago year and didn't have any platform to share with my friends to show them what I needed for my baby shower, so we ended up gettiing nothing. Now I am waiting my second child and I will finally be able to make a nice list and send to my friends here in Bkk and also back in the UK.\n\n— Emma, from UK living in Bangkok 🎉",
+    "postPreview4": "So simple to use and it combined different lists I needed at the same time!\n\n— Joy, Bangkok."
   },
 
 
