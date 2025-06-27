@@ -5,10 +5,12 @@ import GhostButtonBlack from "@/components/GhostButtonBlack";
 import React, { useState } from "react";
 import ReviewStep from "@/components/ReviewStep";
 import ConfirmationStep from "@/components/ConfirmationStep";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { ADD_WISHLIST } from "@/graphql/mutations";
+import { GET_USERS_BY_EMAIL } from "@/graphql/queries";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import { useSession } from "next-auth/react";
 
 // Define the type for each step's data
 type StepData = {
@@ -51,6 +53,14 @@ const CreateNewWishlist = () => {
   const [errors, setErrors] = useState<{ [key: string]: boolean }>({});
   const [isNextDisabled, setIsNextDisabled] = useState(false);
   const [triggerShake, setTriggerShake] = useState(false);
+
+  const { data: session } = useSession();
+  const userEmail = session?.user?.email;
+  const { data: userData, loading: userLoading } = useQuery(GET_USERS_BY_EMAIL, {
+    variables: { email: userEmail },
+    skip: !userEmail,
+  });
+  const userId = userData?.usersByEmail?.[0]?.id;
 
   const goNextStep = () => {
     if (isNextDisabled) return;
@@ -103,7 +113,11 @@ const CreateNewWishlist = () => {
       return;
     }
 
-    const userId = "28"; // Ideally, fetch this dynamically
+    if (!userId) {
+      console.error("User ID not found. Please make sure you are logged in.");
+      return;
+    }
+
     const now = new Date().toISOString();
 
     addWishlist({

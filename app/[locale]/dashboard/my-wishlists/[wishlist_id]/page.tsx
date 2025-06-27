@@ -218,25 +218,25 @@ const WishlistDetails: React.FC = () => {
   
       console.log("New shared wishlist created:", data);
       
-      // Send wishlist share email
-      const userEmail = session?.user?.email; 
-      const name = session?.user?.name;
-      const shareLink = generatedToken
-      ? `${window.location.origin}/shared/${generatedToken}`
-      : "-----error-----";
+      // // Send wishlist share email
+      // const userEmail = session?.user?.email; 
+      // const name = session?.user?.name;
+      // const shareLink = generatedToken
+      // ? `${window.location.origin}/shared/${generatedToken}`
+      // : "-----error-----";
   
 
-      await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          emailType: 'wishlistShare',
-          to: userEmail,
-          name: `${name}`,
-          wishlistLink:`${shareLink}`,
-        }),
-      });
-      console.log("email sent to: ",userEmail);
+      // await fetch('/api/sendEmail', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     emailType: '', ////// add email type here
+      //     to: userEmail,
+      //     name: `${name}`,
+      //     wishlistLink:`${shareLink}`,
+      //   }),
+      // });
+      // console.log("email sent to: ",userEmail);
 
       setShareToken(generatedToken);
     } catch (error) {
