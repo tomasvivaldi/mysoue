@@ -110,15 +110,21 @@ const Login = () => {
         console.log("[Login] User created:", data);
 
         // Send welcome email
-        await fetch('/api/sendEmail', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            emailType: 'welcome',
-            to: user?.email,
-            name: user?.name,
-          }),
-        });
+        try {
+          await fetch('/api/sendEmail', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              emailType: 'welcome',
+              to: user?.email,
+              name: user?.name,
+            }),
+          });
+          console.log("[Login] Welcome email sent successfully");
+        } catch (emailError) {
+          console.error("[Login] Failed to send welcome email:", emailError);
+          // Don't fail the entire flow if email fails
+        }
 
         console.log("[Login] Redirecting to dashboard...");
         try {
@@ -129,9 +135,21 @@ const Login = () => {
           // Fallback to window.location
           window.location.href = "/dashboard/my-wishlists";
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("[Login] Error in user flow:", error);
-        setError("Failed to create user account. Please try again.");
+        
+        // More specific error messages based on the error type
+        if (error?.message?.includes('duplicate') || error?.message?.includes('already exists')) {
+          setError("An account with this email already exists. Please try signing in instead.");
+        } else if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+          setError("Network error. Please check your internet connection and try again.");
+        } else if (error?.message?.includes('timeout')) {
+          setError("Request timed out. Please try again.");
+        } else if (error?.message?.includes('unauthorized') || error?.message?.includes('401')) {
+          setError("Authentication failed. Please try signing in again.");
+        } else {
+          setError("We couldn't create your account right now. Please try again in a moment.");
+        }
         setLoading(false);
       }
     };
@@ -160,7 +178,21 @@ const Login = () => {
       
       if (result?.error) {
         console.error("[Login] Login error:", result.error);
-        setError(result.error);
+        
+        // More specific error messages for OAuth errors
+        if (result.error === "OAuthAccountNotLinked") {
+          setError("This email is already associated with a different login method. Please use the original sign-in method.");
+        } else if (result.error === "AccessDenied") {
+          setError("Access denied. Please try signing in again.");
+        } else if (result.error === "Configuration") {
+          setError("Login service is temporarily unavailable. Please try again later.");
+        } else if (result.error === "Verification") {
+          setError("Email verification failed. Please check your email and try again.");
+        } else if (result.error.includes("network") || result.error.includes("fetch")) {
+          setError("Network error. Please check your internet connection and try again.");
+        } else {
+          setError("Sign-in failed. Please try again.");
+        }
         setLoading(false);
       } else if (result?.url) {
         console.log("[Login] Redirecting to:", result.url);
@@ -173,9 +205,16 @@ const Login = () => {
           window.location.href = result.url;
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("[Login] Login error:", error);
-      setError("An error occurred during login. Please try again.");
+      
+      if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+        setError("Network error. Please check your internet connection and try again.");
+      } else if (error?.message?.includes('timeout')) {
+        setError("Request timed out. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
       setLoading(false);
     }
   };
@@ -191,11 +230,29 @@ const Login = () => {
       });
       
       if (response?.error) {
-        setError(response.error);
+        // More specific error messages for credential login
+        if (response.error === "CredentialsSignin") {
+          setError("Invalid email or password. Please check your credentials and try again.");
+        } else if (response.error === "EmailNotVerified") {
+          setError("Please verify your email address before signing in.");
+        } else if (response.error === "AccountDisabled") {
+          setError("Your account has been disabled. Please contact support.");
+        } else if (response.error.includes("network") || response.error.includes("fetch")) {
+          setError("Network error. Please check your internet connection and try again.");
+        } else {
+          setError("Sign-in failed. Please check your credentials and try again.");
+        }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Login error:", error);
-      setError("An error occurred during login. Please try again.");
+      
+      if (error?.message?.includes('network') || error?.message?.includes('fetch')) {
+        setError("Network error. Please check your internet connection and try again.");
+      } else if (error?.message?.includes('timeout')) {
+        setError("Request timed out. Please try again.");
+      } else {
+        setError("An unexpected error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
