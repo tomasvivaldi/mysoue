@@ -328,12 +328,15 @@ const WishlistDetails: React.FC = () => {
     return (
       <div className="flex flex-col min-h-screen x-paddings">
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
-          <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
+          <div className=" text-center w-[95%] mx-auto mt-10 rounded-3xl">
+            <div className="absolute top-4 right-4">
+              <BackButtonWithNoSSR />
+            </div>
             <h2 className="heading2 mb-4 font-simplemichael">
               {t("wishlistNotFound")}
             </h2>
           </div>
-          <div className="flex items-center justify-center w-full h-[50vh]">
+          <div className="flex items-center justify-center w-full h-fit sm:h-[50vh]">
             <p className="text-xl text-gray-600">{t("wishlistNotFoundMessage")}</p>
           </div>
         </div>
@@ -439,7 +442,7 @@ const WishlistDetails: React.FC = () => {
         ) : (
           <>
             {visibleItems.length === 0 ? (
-              <div className="w-full px-20 flex justify-center py-12">
+              <div className="w-full px-4 md:px-20 flex justify-center py-12">
                 <EmptyWishlistCard onAddProductClick={openOptionModal} />
               </div>
             ) : (
@@ -464,7 +467,7 @@ const WishlistDetails: React.FC = () => {
                       name={product?.product_name || externalProduct?.product_name}
                       price={product?.price || externalProduct?.price || 0}
                       additionalDescription={product?.product_description || externalProduct?.product_description}
-                      brand={product?.brand || externalProduct?.brand}
+
                       category={product?.category || externalProduct?.category}
                       subcategory={product?.subcategory || ""}
                     />

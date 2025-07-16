@@ -26,7 +26,7 @@ const EmptyWishlistCard: React.FC<Props> = ({ onAddProductClick }) => {
       </p>
       <button
         onClick={onAddProductClick}
-        className="bg-[#A5282C] hover:bg-[#C64138] text-white font-medium py-2 px-6 rounded-full transition"
+        className="bg-[#A5282C] hover:bg-[#C64138] text-white font-medium py-1 md:py-2 px-4 md:px-6 rounded-full transition"
       >
         {t("addProductButton")}
       </button>

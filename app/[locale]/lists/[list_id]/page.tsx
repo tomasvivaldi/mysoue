@@ -155,7 +155,7 @@ const ListDetails: React.FC = () => {
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
-            <div className="flex self-start mx-10 my-4">
+            <div className="flex self-start mx-2 sm:mx-10 my-4">
               <BackButton />
             </div>
             <motion.h2
@@ -205,7 +205,7 @@ const ListDetails: React.FC = () => {
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
-            <div className="flex self-start mx-10 my-4">
+            <div className="flex self-start mx-2 sm:mx-10 my-4">
               <BackButton />
             </div>
             <motion.h2
@@ -250,7 +250,7 @@ const ListDetails: React.FC = () => {
 
         <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
           <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
-            <div className="flex self-start mx-10 my-4">
+            <div className="flex self-start mx-2 sm:mx-10 my-4">
               <BackButton />
             </div>
             <motion.h2
@@ -294,7 +294,7 @@ const ListDetails: React.FC = () => {
 
       <div className="flex flex-col p-4 x-paddings items-center sm:mb-20">
         <div className="text-center w-[95%] mx-auto mt-10 rounded-3xl">
-          <div className="flex self-start mx-10 my-4">
+          <div className="flex self-start mx-2 sm:mx-10 my-4">
             <BackButton />
           </div>
           <motion.h2

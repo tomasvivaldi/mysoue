@@ -181,7 +181,8 @@
     "productNotFound": "Product not found",
     "additionalDetails": "Additional Details",
     "dueDate": "Due Date",
-    "pastDue": "Past due date"
+    "pastDue": "Past due date",
+    "none": "None"
   },
   "ReserveGiftModal": {
     "modalTitle": "RESERVE GIFT",
@@ -192,7 +193,8 @@
     "labelMessage": "Private message:",
     "placeholderMessage": "Your message",
     "reserveButton": "RESERVE",
-    "cancelButton": "THINK MORE ABOUT IT"
+    "cancelButton": "THINK MORE ABOUT IT",
+    "reserving": "Reserving"
   },
   "ProductExplorer": {
     "seasonalWishlistsTitle": "Seasonal Wishlists",
@@ -776,7 +778,8 @@
     "addressPlaceholder": "Enter your address",
     "listDescriptionLabel": "Description",
     "listDescriptionPlaceholder": "Enter list description",
-    "nextStepButton": "Next Step"
+    "nextStepButton": "Next Step",
+    "addressLabel": "Address"
   },
   "Dashboard-CreateNewWishlist-ReviewStep": {
     "title": "Review Your Wishlist",

@@ -17,7 +17,7 @@ const GhostButtonWhite: React.FC<GhostButtonWhiteProps> = ({
   className,
 }) => {
   const baseClasses =
-    "font-nunito inline-flex items-center justify-center text-sm ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100/10 active:bg-gray-100/20 h-10 bg-transparent text-white border-white border-2 rounded-full px-6 py-2 font-medium";
+    "font-nunito text-shadow inline-flex items-center justify-center text-sm ring-offset-background transition-colors disabled:pointer-events-none disabled:opacity-50 hover:bg-gray-100/10 active:bg-gray-100/20 h-8 sm:h-10 bg-transparent text-white border-white border-2 rounded-full px-6 py-2 font-medium";
   
   if (href) {
     return (

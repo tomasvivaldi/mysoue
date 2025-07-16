@@ -99,7 +99,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
       </div>
     </nav>
 
-      <div className="sm:hidden w-full h-[40px] sm:h-[80px]"/>
+      <div className=""/>
       {children}
       <div className="z-10"><Footer2 /></div>
     </div>

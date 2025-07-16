@@ -65,7 +65,7 @@ const ProductCard3: React.FC<ProductCard3Props> = ({
             {/* {category && <p className="text-sm text-gray-600">Category: {category}</p>}
             {subcategory && <p className="text-sm text-gray-600">Subcategory: {subcategory}</p>} */}
             {additionalDescription && (
-              <p className="text-sm text-gray-600 ">
+              <p className="text-sm text-gray-600 overflow-y-auto ">
                 {additionalDescription}
               </p>
             )}

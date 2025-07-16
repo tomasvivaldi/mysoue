@@ -213,7 +213,8 @@
     "productNotFound": "ไม่พบผลิตภัณฑ์",
     "additionalDetails": "รายละเอียดเพิ่มเติม",
     "dueDate": "วันครบกำหนด",
-    "pastDue": "วันครบกำหนดผ่าน"
+    "pastDue": "วันครบกำหนดผ่าน",
+    "none": "ไม่มี"
   },
   "ReserveGiftModal": {
     "modalTitle": "จองของขวัญ",
@@ -224,7 +225,8 @@
     "labelMessage": "ข้อความส่วนตัว:",
     "placeholderMessage": "ข้อความของคุณ",
     "reserveButton": "จอง",
-    "cancelButton": "คิดอีกนิด"
+    "cancelButton": "คิดอีกนิด",
+    "reserving": "การจอง"
   },
   "ProductExplorer": {
     "seasonalWishlistsTitle": "รายการของขวัญชุดฤดูกาล",
@@ -768,7 +770,8 @@
     "addressPlaceholder": "ป้อนที่อยู่ของคุณ",
     "listDescriptionLabel": "คำอธิบาย",
     "listDescriptionPlaceholder": "ป้อนคำอธิบายของรายการ",
-    "nextStepButton": "ขั้นตอนถัดไป"
+    "nextStepButton": "ขั้นตอนถัดไป",
+    "addressLabel": "ที่อยู่"
   },
   "Dashboard-CreateNewWishlist-ReviewStep": {
     "title": "ตรวจสอบรายการสิ่งที่ปรารถนาของคุณ",

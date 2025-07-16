@@ -146,8 +146,8 @@ const WishlistSelectionModal: React.FC<WishlistSelectionModalProps> = ({ isOpen,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 max-h-screen p-10">
-      <div className="relative w-[90%] sm:w-[70%] lg:w-[40%] bg-white rounded-lg shadow-lg p-8 max-h-full overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 max-h-screen px-2 py-8 sm:px-10 sm:py-10">
+      <div className="relative w-[90%] sm:w-[70%] lg:w-[40%] bg-white rounded-lg shadow-lg p-6 md:p-8 max-h-full overflow-y-auto">
         <h2 className="text-2xl font-bold mb-4">{t("select_a_wishlist")}</h2>
         {wishlists.length === 0 ? (
           <p>{t("no_wishlists_found")}</p>

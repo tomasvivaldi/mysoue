@@ -135,13 +135,13 @@ const EditAccountInfo: React.FC<EditAccountInfoProps> = ({
           <button
             type="button"
             onClick={onCancel}
-            className="border border-gray-400 text-gray-600 font-bold rounded-full px-6 py-2 hover:bg-gray-200 transition"
+            className="border border-gray-400 text-gray-600 font-bold rounded-full px-4 md:px-6 py-1 md:py-2 hover:bg-gray-200 transition"
           >
             {t("cancel")}
           </button>
           <button
             type="submit"
-            className="bg-[#A5282C] text-white font-bold py-2 px-6 rounded-full hover:bg-[#8B1E26] transition"
+            className="bg-[#A5282C] text-white font-bold py-1 md:py-2 px-4 md:px-6 rounded-full hover:bg-[#8B1E26] transition"
             disabled={loading}
           >
             {loading ? t("saving") : t("saveChanges")}
