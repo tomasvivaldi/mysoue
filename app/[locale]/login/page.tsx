@@ -310,6 +310,7 @@ const Login = () => {
         {/* Right Section: Login form */}
         <div className="my-auto sm:my-0 w-full md:w-1/2 flex items-center justify-center p-4">
           <div className="w-full max-w-md">
+            <div className=" invisible">My Soue Login</div>
             {error && (
               <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
                 {error}

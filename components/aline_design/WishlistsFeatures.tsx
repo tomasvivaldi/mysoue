@@ -18,7 +18,7 @@ const WishlistsFeatures: React.FC = () => {
         {/* 1. Wishlists For every occasion */}
         <div className="flex flex-col items-center">
           <GiftIcon className="w-12 h-12 text-red-500 mb-4" />
-          <h3 className="text-lg font-semibold mb-2">Wishlists For every occasion</h3>
+          <h3 className="text-lg font-semibold mb-2">Wishlists for every occasion</h3>
           <p className="text-sm text-gray-600">
             You can create multiple wishlists: Birthday, Christmas, Wedding, etc. 
             You can even have more than one wishlist for the same occasion—one for friends, another for family.

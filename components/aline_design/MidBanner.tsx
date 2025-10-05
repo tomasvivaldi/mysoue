@@ -40,6 +40,7 @@ export default function MidBanner() {
           <GhostButtonWhite
             text={t("meetMysoue")}
             className="text-shadow"
+            href="/about"
           />
         </div>
       </div>

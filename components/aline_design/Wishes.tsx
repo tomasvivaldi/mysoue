@@ -36,9 +36,9 @@ export default function Wishes() {
             />
           </div>
 
-          <button className="w-full py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
+          <a href="/lists" className="w-full flex justify-center py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
             {t("getInspired")}
-          </button>
+          </a>
         </div>
 
         {/* SORT Card */}
@@ -58,9 +58,9 @@ export default function Wishes() {
             />
           </div>
 
-          <button className="w-full py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
+          <a href="/explore" className="w-full flex justify-center py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
             {t("browseItems")}
-          </button>
+          </a>
         </div>
 
         {/* SHARE Card */}
@@ -80,9 +80,9 @@ export default function Wishes() {
             />
           </div>
 
-          <button className="w-full py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
+          <a href="/login" className="w-full flex justify-center py-2 px-4 rounded-full bg-transparent hover:bg-[#A5282C] text-[#C6B8A2] hover:text-white border border-[#C6B8A2] text-sm transition-colors">
             {t("signInToShare")}
-          </button>
+          </a>
         </div>
       </div>
     </div>

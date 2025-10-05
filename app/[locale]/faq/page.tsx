@@ -30,7 +30,6 @@ const FAQPage = () => {
         className="border border-b-[#C64138] border-t-[#C64138] my-4 py-4 text-4xl tracking-[0.2em]"
       /> */}
       <MidBanner />
-      <RedLogosBanner speed="fast" />
       <div className="w-full mb-[100px]" />
     </>
   );
