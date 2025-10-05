@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import GhostButton from "./GhostButtonWhite";
 import { useTranslations } from "next-intl";
 
